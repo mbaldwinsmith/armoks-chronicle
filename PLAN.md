@@ -6,6 +6,8 @@ Status: atlas and isometric relief preview implemented; broader features in prog
 
 ## Current iteration
 
+Relationship networks: figure pages lazily open a native SVG graph with explicit directed figure/organisation/site links, category filters, eight-link expansion pages, a 40-node/100-edge display budget, zoom/scroll controls and a matching keyboard-accessible evidence list. Incoming-only links, reciprocal/cyclic links, separate conflicting labels, merged/Plus evidence and missing records are retained. Worker neighbourhood reads and caching are bounded and disclose incomplete scans. Shared events and vague association fields never create personal edges. A genealogical layout and two-record path search remain future work. 60 Node tests pass; expanded synthetic fixtures and live browser qualification cover graph integration.
+
 Timeline reading: All Events, Major Events, Warfare and Personal History presets; optional occupation/movement/affiliation exclusions; shared worker filtering/counts for event directories and record timelines; chronological year groups and URL-persisted filters across linked navigation/reload. 52 Node tests pass. Browser integration covers shared counts, reset, restored controls, year-heading DOM and a 55-event pagination fixture. Live Chrome checks pass for Warfare and Major presets, independent movement exclusion, hidden counts, linked navigation, reload restoration, reset and chronological directory grouping.
 
 Language polish: display-only Title Case for record names, human-readable event headings, and direct prose for settlement, movement, occupations, affiliations, clashes and deaths. Canonical filter keys, source fields, notes and tags retain their original values. 47 automated tests and live browser integration checks pass, including the linked settlement sentence, Title Case display names and preservation of raw source values. Raw event-type searches retain compatibility with the new headings.
@@ -82,11 +84,11 @@ A feature-complete v1 includes every required phase below, including specialist 
 - [ ] Evaluate a streaming SAX-style XML parser against fixtures, browser-worker execution, memory use, licence, and maintenance status.
 - [x] Select and pin a parser release; do not assume a Node/CommonJS package works directly in browser modules.
 - [x] Select a browser-ready storage implementation: the initial schema uses an application-specific native IndexedDB adapter, avoiding a wrapper dependency; see docs/architecture.md.
-- [ ] Validate Cytoscape.js for graph views and select a compatible browser distribution and any necessary layout extension.
+- [ ] Evaluate Cytoscape.js for broader graph layouts when needed; the initial bounded relationship network uses native SVG and a deterministic layout with no added dependency.
 - [x] Commit ready-to-run distributions, licences, source/version references, and checksums under `vendor/`.
 - [ ] Write dependency adapters so application code does not directly depend on library-specific records everywhere.
 - [x] Document how maintainers replace vendor files without introducing a production build pipeline.
-- [ ] Load graph code only when a graph view is opened.
+- [x] Load graph code only when a graph view is opened.
 - [ ] Verify the application makes no runtime CDN, remote font, or package-registry requests.
 - [ ] Record why each dependency is needed; avoid a framework, general mapping engine, or chart suite without a demonstrated requirement.
 
@@ -331,12 +333,14 @@ This setting is part of v1 implementation but opt-in for users; the flat atlas r
 
 ## 15 — Relationships and Threads of Fate
 
-- [ ] Build a relationship graph adapter with typed nodes/edges and source links.
+Implemented slice: directed source-record networks with family/social/rivalry/affiliation/worship/other filters. Snapshot relationships are separate from dated event reconstruction. The current layout is a network, not a generational family tree; conflict-event and artifact networks remain open.
+
+- [x] Build a relationship graph adapter with typed nodes/edges and source links.
 - [ ] Add person-centred networks with filters for family, affiliation, conflict, worship, and artifacts.
-- [ ] Limit initial graph depth and node count; expand neighbours on demand.
+- [x] Limit initial graph depth and node count; expand neighbours on demand.
 - [ ] Provide family-tree layouts that handle remarriage, multiple parents, unknown relatives, and cycles.
-- [ ] Preserve distinct edge meanings; shared battle participation must not imply a personal meeting.
-- [ ] Add keyboard-accessible equivalent relationship lists.
+- [x] Preserve distinct edge meanings; shared battle participation must not imply a personal meeting.
+- [x] Add keyboard-accessible equivalent relationship lists.
 - [ ] Implement two-record connection search using bounded graph traversal in a worker.
 - [ ] Let users include/exclude broad membership edges that create unhelpful shortcuts.
 - [ ] Display the shortest found path with every intermediate record, relationship type, and supporting source.

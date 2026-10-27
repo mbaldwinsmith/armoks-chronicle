@@ -48,7 +48,7 @@ Native IndexedDB was chosen for this limited schema to keep browser-ready distri
 
 ## Asset updates
 
-Runtime module, worker, and stylesheet URLs carry an explicit release query (`?v=0.11.1`) to prevent mixed releases during GitHub Pages cache revalidation. Bump these references together for code releases. This is plain source maintenance, not a build step.
+Runtime module, worker, and stylesheet URLs carry an explicit release query (`?v=0.12.0`) to prevent mixed releases during GitHub Pages cache revalidation. Bump these references together for code releases. This is plain source maintenance, not a build step.
 
 ## Exploration (0.3.0)
 
@@ -89,3 +89,9 @@ Research (0.9.0): IndexedDB v2 adds `annotations` keyed by world/kind/id with a 
 Research saves compare expected revision inside a read/write transaction, rejecting stale tabs without overwriting saved data. The editor uses explicit Save, route-leave confirmation and a beforeunload guard. Draft text is retained after save errors. Backup v1 is a whitelisted annotation/world JSON format, capped at 5 MB, 10,000 entries and bounded note/tag fields. Restore previews missing references and requires an explicit target for different local world IDs. A single transaction checks the target world and adds only missing keys; concurrent existing entries are retained. This is annotation backup/transfer, not full world export or automatic world-identity matching.
 
 Display language (0.10.0): presentation helpers apply Title Case to proper record names, retaining minor title words and recognised acronyms/internal capitals. Friendly event headings are separate from canonical type keys, so date/type filters and reference identities keep the same values. Display labels are computed when reading existing archives and do not rewrite exported fields or user notes. Common settlement/visitor/wanderer states, occupations, memberships, enmities, captivity and deaths have direct prose templates. Unknown states/types retain a labelled fallback. Ended spouse links do not imply divorce, prisoner-link removal does not imply escape/release, and claims do not establish ownership. Raw fields remain literal in source inspectors.
+
+## Relationship networks
+
+`views/relationships.js` is dynamically loaded from the figure-page launch button. It renders safe native SVG and a semantic list; `data/relationships.js` owns typed edge extraction, category policy, bounded merge and deterministic layout. The exploration worker loads this adapter only for relationship requests, reads the selected figure and candidate incoming figure records using the existing reverse-reference index, and filters actual explicit relationship fields. It caches at most 16 neighbourhoods per world.
+
+Each neighbourhood reads at most 500 candidate source records, at most 5,000 link children per record, and keeps at most 4,000 incident edges. Expansion returns eight edges at a time; the view bounds the network to 40 nodes and 100 edges. Reaching any read limit marks the result incomplete. Evidence carries merged/Plus origin, source fields, available source strength/date values and an explicit source-record link. No event co-occurrence or inferred reciprocal edges are introduced. No database migration is required.

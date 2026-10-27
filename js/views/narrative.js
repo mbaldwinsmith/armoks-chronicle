@@ -1,6 +1,6 @@
-import {narrateEvent,lifeSummary,figureRelationships,words} from '../data/narrative.js?v=0.11.1';
-import {recordURL,recordKey} from '../data/exploration.js?v=0.11.1';
-import {explore} from '../data/explorer-client.js?v=0.11.1';
+import {narrateEvent,lifeSummary,figureRelationships,words} from '../data/narrative.js?v=0.12.0';
+import {recordURL,recordKey} from '../data/exploration.js?v=0.12.0';
+import {explore} from '../data/explorer-client.js?v=0.12.0';
 export const el=(tag,text,cls)=>{const node=document.createElement(tag);if(text!==undefined)node.textContent=text;if(cls)node.className=cls;return node;};
 export async function narratives(records,worldId,query){
  const summaries=records.map(record=>narrateEvent(record.data));
