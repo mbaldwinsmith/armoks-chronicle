@@ -24,7 +24,7 @@ All tasks below are initially unchecked: this document plans work rather than cl
 
 ### Completion criteria
 
-A feature-complete v1 includes every required phase below, including specialist views, discovery tools, personal chronicles, offline support, documentation, and release validation. Later ideas at the end are explicitly outside v1.
+A feature-complete v1 includes every required phase below, including specialist views, the Book of Records, supernatural filters, political and war maps, warfare networks, the world bookshelf, event-noise controls, personal chronicles, offline support, documentation, and release validation. Later ideas at the end are explicitly outside v1.
 
 ## 01 — Repository and static hosting foundation
 
@@ -59,6 +59,9 @@ A feature-complete v1 includes every required phase below, including specialist 
 - [ ] Record baseline sample totals: 7,700 figures, 577 sites, 31,903 standard events, 276 artifacts, and 1,246 written works.
 - [ ] Record the sample map baseline of 129 × 129 tiles and event years 1–73.
 - [ ] Define expected optional-data capabilities separately from required standard-XML capabilities.
+- [ ] Add fixtures for supernatural evidence, absent/ambiguous status, vague relationships, dedicated structures, and competing sources for ownership.
+- [ ] Add ranking fixtures for tied values, incomplete reign dates, copied works versus physical copies, contested sites, and nested casualty totals.
+- [ ] Add political/war-map fixtures for unknown owners, multiple sites on one tile, battles without coordinates, and events outside a selected date range.
 
 **Exit check:** fixtures and a documented format contract exist before parser assumptions become application behaviour.
 
@@ -131,6 +134,9 @@ A feature-complete v1 includes every required phase below, including specialist 
 - [ ] Add schema migrations that preserve annotations and support safe failure recovery.
 - [ ] Separate replaceable source indexes from irreplaceable user notes.
 - [ ] Support multiple stored worlds, world switching, storage usage, and explicit world deletion.
+- [ ] Store cached map thumbnails, dimensions, export date, import date, and last-opened time for the world bookshelf.
+- [ ] Support explicitly validated world-family grouping and a snapshot selector; keep every snapshot’s records, annotations, indexes, and cache keys independent.
+- [ ] Store supernatural classifications with evidence and derivation version, retaining unknown/ambiguous states rather than defaulting to false.
 - [ ] Keep exploration history, caches, bookmarks, and notes isolated by world.
 - [ ] Coordinate multiple tabs and database upgrades; handle blocked connections and conflicting edits.
 - [ ] Provide an in-memory session mode when durable storage is unavailable, with a clear persistence notice.
@@ -142,6 +148,7 @@ A feature-complete v1 includes every required phase below, including specialist 
 - [ ] Use locally bundled fonts with licences, or system fallbacks; keep decorative typography out of dense body text.
 - [ ] Build a responsive shell with world selector, primary navigation, global search, and accessible page headings.
 - [ ] Implement hash routes for directories, record pages, map, timeline, discoveries, and personal chronicles.
+- [ ] Add routes for the world bookshelf, Book of Records categories, political map selections, selected-war maps, and faction warfare networks.
 - [ ] Preserve filters, selected tabs, and pagination in route state where useful.
 - [ ] Support browser back/forward, copied links, reloads, invalid routes, and missing-world links.
 - [ ] Explain that a shared record link requires the same locally imported world; do not imply records are hosted publicly.
@@ -152,6 +159,9 @@ A feature-complete v1 includes every required phase below, including specialist 
 - [ ] Respect reduced-motion preferences; use subtle CSS transitions without delaying navigation.
 - [ ] Add light/dark or parchment/dark reading options, adjustable text size, and persisted preferences.
 - [ ] Make long names, unnamed records, and unknown races display gracefully.
+- [ ] Build a visual world bookshelf with local map thumbnails, dimensions, export date, last-opened time, and clear open/import/delete actions.
+- [ ] Group validated related snapshots under one world card with an explicit date selector; offer manual grouping/ungrouping when identity is uncertain.
+- [ ] Provide a labelled thumbnail fallback when terrain is unavailable and avoid presenting import time as the in-game export date.
 
 ## 08 — Search and directories
 
@@ -159,6 +169,8 @@ A feature-complete v1 includes every required phase below, including specialist 
 - [ ] Normalise case and accents for matching while preserving original display names.
 - [ ] Support ID lookup, exact matches, partial matches, and deterministic result ordering.
 - [ ] Add record-type filters and per-directory filters for relevant race, date, status, affiliation, and site type.
+- [ ] Add composable vampire, werebeast, necromancer, and deity filters; support overlapping classifications rather than a mutually exclusive creature type.
+- [ ] Provide explicit present/absent/unknown classification filters, with evidence links and the option to include uncertain matches.
 - [ ] Provide sorting, result counts, pagination, and clear-all controls.
 - [ ] Debounce input, cancel stale queries, and avoid main-thread full-world scans per keystroke.
 - [ ] Highlight matched text safely and expose result summaries to assistive technology.
@@ -172,6 +184,10 @@ A feature-complete v1 includes every required phase below, including specialist 
 - [ ] Show skills and goals with verified labels; preserve raw labels when a mapping is unknown.
 - [ ] List current/former affiliations and offices, keeping source snapshot state distinct from dated events.
 - [ ] Link relatives, spouses, companions, rivals, pets, worship, and other recorded relationships.
+- [ ] Separate close/explicit relationships from vaguely recorded associations, preserving the original relationship label and supporting record.
+- [ ] Add dedicated linked panels for notable kills, abducted figures, and structures dedicated to the figure; show counts and source evidence.
+- [ ] Keep abductor, victim, killer, and dedication roles distinct; do not label a structure as owned or built by its dedicatee.
+- [ ] Show supernatural badges with explanations and supporting secrets, transformations, interactions, or other verified evidence; show uncertainty when classification is inconclusive.
 - [ ] Add a chronological life timeline with category and date filters.
 - [ ] Summarise major recorded events using deterministic templates.
 - [ ] Show death cause, killer when identified, and location; retain unnamed killer race/caste details.
@@ -206,6 +222,10 @@ A feature-complete v1 includes every required phase below, including specialist 
 - [ ] Preserve source roles: attacker, defender, victim, killer, witness, author, claimant, and owner must not be conflated.
 - [ ] Order events deterministically and avoid claiming precise order when timestamps are missing.
 - [ ] Provide year/range controls, era markers, category filters, and record-specific filters.
+- [ ] Add event exclusion controls and named reading presets, including a major-events preset that hides routine job and affiliation changes.
+- [ ] Keep deaths, discoveries, thefts, and conflicts available in the major-events preset; let users inspect and customise the exact included/excluded types.
+- [ ] Use one filter state for event lists, counts, and associated charts; show a persistent hidden-events count and a one-click reset.
+- [ ] Preserve event-noise controls in navigation and saved searches while retaining a clear distinction between raw and filtered totals.
 - [ ] Support bookmarking and direct links to individual events.
 - [ ] Add expandable event details showing the underlying fields and provenance.
 - [ ] Paginate or virtualise event rows without breaking keyboard reading and focus.
@@ -221,12 +241,21 @@ A feature-complete v1 includes every required phase below, including specialist 
 - [ ] Add layers for biome, elevation, evilness, savagery, and volcanism, each with a legend.
 - [ ] Display unknown biome/flag codes explicitly instead of assigning guessed terrain.
 - [ ] Add site-type filters, name search, marker clustering or scale-dependent labels, and selected-site emphasis.
+- [ ] Add a political settlement layer with stable faction colours, owner legend, individual faction toggles, and show-all/hide-all controls.
+- [ ] Keep unknown ownership and unaffiliated sites visible as explicit categories; combine colour with labels/shapes for accessibility.
+- [ ] Add entity-page actions to fit/highlight all associated settlements, distinguishing founding civilisation from current ownership.
+- [ ] Synchronise faction selection with map routes and dates; do not turn settlement markers into unsupported territorial borders.
 - [ ] Open site/region history from a map selection and centre the map from record pages.
 - [ ] Provide a coordinate/site-list map fallback when CSV is absent; do not fabricate terrain.
 - [ ] Draw recorded figure journeys, labelling inferred straight-line connections rather than actual travelled paths.
 - [ ] Add a year slider for dated events, founding/destruction, and supported ownership transitions.
 - [ ] Mark export-time terrain/population and incomplete historical reconstruction in the legend.
 - [ ] Add heatmaps of recorded events with explicit counting rules.
+- [ ] Add battle markers and selected-war overlays with dates, participants, outcomes, and separate named/squad casualty details where available.
+- [ ] Link map markers/popups to battle and war pages, and add reciprocal “view on map” actions from those pages.
+- [ ] Filter warfare overlays by date, faction, and selected conflict using the shared map/timeline state.
+- [ ] Show location-unknown conflicts in a linked list rather than inventing coordinates; provide a chooser for multiple records on the same tile.
+- [ ] Label connecting lines/arrows as associations between conflict locations, never as verified army routes or territorial fronts.
 - [ ] Supply an accessible linked location list for Canvas-only information.
 - [ ] Test mobile gestures, reduced detail, redraw scheduling, and large marker counts.
 
@@ -254,6 +283,8 @@ A feature-complete v1 includes every required phase below, including specialist 
 - [ ] Build a bestiary using creature definitions and linked historical figures.
 - [ ] Show known attacks, victims, transformations, secrets, and deaths without treating species traits as individual deeds.
 - [ ] Build intrigue views for plots, participants, relationships, assumed identities, and recorded outcomes.
+- [ ] Implement supernatural-status derivation from verified export fields and mappings, documenting evidence rules and their compatibility limits.
+- [ ] Keep species, deity status, learned secrets, transformations, and supernatural abilities distinct; absence of a known marker does not prove a figure is ordinary.
 - [ ] Explain source limits and avoid inferring hidden motives or guilt from membership alone.
 - [ ] Add “last recorded whereabouts” panels for figures, beasts, and artifacts, with source date/event.
 - [ ] Handle conflicting or undated location evidence as uncertainty rather than a definitive current position.
@@ -272,6 +303,10 @@ A feature-complete v1 includes every required phase below, including specialist 
 - [ ] Report no path, truncated search, and missing data distinctly.
 - [ ] Support cancellation, maximum path depth, and deterministic results.
 - [ ] Add graph zoom/reset controls and dispose of graph instances when leaving the view.
+- [ ] Add a faction-centred warfare network showing opponents, dated conflicts, and links to the underlying wars/battles.
+- [ ] Let users filter warfare networks by years and conflict type and expand neighbours within bounded node/edge limits.
+- [ ] Define edge counts/weights explicitly, deduplicate nested collections, and distinguish aggression from undirected opposition when source roles are known.
+- [ ] Link selected graph factions/conflicts to their political/war map views and provide an equivalent accessible conflict table.
 
 ## 16 — Discovery and story exploration
 
@@ -287,6 +322,14 @@ A feature-complete v1 includes every required phase below, including specialist 
 - [ ] Add comparative statistics by year, race, faction, site, and event category with transparent counting definitions.
 - [ ] Provide accessible tables alongside charts; avoid suggesting historical figures represent the whole world population.
 - [ ] Cache expensive discovery calculations and invalidate them when source data changes.
+- [ ] Build a dedicated Book of Records with category tabs, ranked tables, highlight cards, source links, and preserved route/filter state.
+- [ ] Include deadliest creatures/figures by recorded notable kills, bloodiest battles by available casualty totals, and separate summaries for named victims and squad casualties.
+- [ ] Include longest and shortest reigns, defining treatment of incomplete dates, concurrent offices, ongoing terms, and tied durations.
+- [ ] Include most contested settlements using a documented metric such as recorded ownership changes; distinguish this from attack count.
+- [ ] Include most copied written works, most prolific authors, and greatest scholars by recorded knowledge discoveries, with separate work/artifact/copy counts.
+- [ ] Include longevity, travel, relic history, and geographical records where supported, reusing existing discovery metrics rather than duplicating calculation logic.
+- [ ] Expose metric definitions, eligibility, missing-data exclusions, ties, and source snapshot on each ranking; qualify every superlative as applying to recorded data.
+- [ ] Offer supernatural inclusion/exclusion controls on relevant rankings and recalculate results consistently with the selected filters.
 
 ## 17 — Personal chronicles, backups, and export
 
@@ -341,6 +384,12 @@ Tests may run locally using optional developer tooling. They must not compile pr
 - [ ] Add database tests for staged imports, cancellation, quota failures, migrations, backups, and annotation preservation.
 - [ ] Add map tests for dimensions, coordinate alignment, unknown codes, and absent optional data.
 - [ ] Add graph tests for cycles, relationship direction, path bounds, and misleading shared-event shortcuts.
+- [ ] Test supernatural classifications with overlapping traits, missing evidence, unknown versions, and false-positive cases; verify badges and filters agree.
+- [ ] Test close/vague relationship separation and biography role panels against supporting records.
+- [ ] Test Book of Records metrics for ties, partial reign dates, ongoing reigns, copied-work deduplication, knowledge counts, and nested casualty overlap.
+- [ ] Test faction toggles, unknown owners, same-tile marker selection, date-filtered war overlays, missing coordinates, and graph/map reciprocal links.
+- [ ] Test event-noise presets and custom exclusions keep lists, charts, counts, saved searches, and navigation state synchronised.
+- [ ] Test bookshelf thumbnails, sorting, snapshot grouping/ungrouping, reload, and snapshot deletion preserve other worlds and annotations.
 - [ ] Add end-to-end checks for import → search → biography → linked event → map → bookmark → reload.
 - [ ] Add end-to-end checks for optional enrichment, second-world import, switching, cancellation, deletion, and restore.
 - [ ] Test the attached sample as a local integration dataset and reconcile counts against the baseline.
@@ -364,6 +413,8 @@ Tests may run locally using optional developer tooling. They must not compile pr
 - [ ] Document direct-from-main hosting, project-relative paths, local serving, and vendor-update procedures.
 - [ ] Add troubleshooting for CP437 imports, invalid XML, mismatched worlds, storage limits, blank maps, and stale offline assets.
 - [ ] Document source uncertainty, incomplete histories, population snapshots, and the difference between derived stories and source facts.
+- [ ] Document Book of Records metrics, supernatural evidence rules, political/war-map semantics, event-noise presets, and snapshot grouping.
+- [ ] Record LegendsViewer-Next as feature research inspiration with upstream links; retain applicable notices for any code or assets actually reused.
 - [ ] Add contributing guidance, fixture provenance rules, compatibility reporting, and meaningful test commands.
 - [ ] Add appropriate Dwarf Fortress/DFHack attribution and clarify that the app is an unofficial fan project.
 - [ ] Add changelog, application version, dependency notices, and known-limitations page.
@@ -379,6 +430,11 @@ Tests may run locally using optional developer tooling. They must not compile pr
 - [ ] The visitor uses timeline and map controls to inspect dated history without confusing snapshot data with reconstructed data.
 - [ ] Family, intrigue, conflict, religion, culture, and creature views expose supporting records.
 - [ ] Discovery cards, relationship paths, and grudges provide interesting, accurately labelled connections.
+- [ ] The visitor browses the Book of Records and follows a ranked entry to evidence explaining its metric and limitations.
+- [ ] The visitor filters supernatural figures, inspects classification evidence, and distinguishes vague associations from explicit personal relationships.
+- [ ] The visitor selects a faction on the political map, explores a war overlay and warfare network, and returns through working record links.
+- [ ] The visitor hides routine events and sees the same filtered totals in lists and charts, with an obvious way to restore all events.
+- [ ] The visitor chooses a dated snapshot from a world bookshelf card without merging its history or notes into another snapshot.
 - [ ] The visitor saves and exports a chronicle, restores notes from backup, and resumes after reload.
 - [ ] The imported world works offline after setup; app updates preserve user data.
 - [ ] A second world can be imported and removed without contaminating the first world.
