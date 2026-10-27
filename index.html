@@ -7,8 +7,8 @@
   <meta name="description" content="Armok’s Chronicle: a local-first explorer for the histories of Dwarf Fortress worlds.">
   <title>Armok’s Chronicle</title>
   <link rel="icon" href="./assets/mark.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="./css/app.css?v=0.5.0">
-  <script type="module" src="./js/app.js?v=0.5.0"></script>
+  <link rel="stylesheet" href="./css/app.css?v=0.5.1">
+  <script type="module" src="./js/app.js?v=0.5.1"></script>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -78,9 +78,9 @@
       <p id="atlas-status" role="status"></p>
       <div id="atlas-controls" hidden>
         <div class="atlas-toolbar"><div><label for="atlas-mode">View</label><select id="atlas-mode"><option value="flat">Flat atlas</option><option value="relief">Raised Relief</option></select></div><div><label for="atlas-layer">Colour layer</label><select id="atlas-layer"><option value="elevation">Elevation</option><option value="evilness">Evilness</option><option value="savagery">Savagery</option></select></div><label><input id="atlas-sites" type="checkbox" checked> Site markers</label><button id="atlas-in" class="quiet" aria-label="Zoom in">+</button><button id="atlas-out" class="quiet" aria-label="Zoom out">−</button><button id="atlas-fit" class="quiet">Fit world</button></div>
-        <p id="relief-note" class="muted"></p><p class="muted">Drag to pan; use the wheel or +/− to zoom. Focus the map and use arrow keys to pan. Click a tile to inspect it. North is up on the flat atlas; X increases east, Y south.</p>
+        <details class="atlas-help"><summary>Map controls and legend</summary><p id="relief-note" class="muted"></p><p class="muted">Drag to pan; use the wheel or +/− to zoom. Focus the map and use arrow keys to pan. Click a tile to inspect it. North is up on the flat atlas; X increases east, Y south.</p>
         <p class="muted">Elevation palette: low blue → green → tan → high pale. Lakes use blue. Evilness and savagery: low green → high red. Site markers are copper dots. Elevation is shown in export units.</p>
-        <label for="atlas-site-select">Find a site</label><select id="atlas-site-select"></select>
+        </details><label for="atlas-site-select">Find a site</label><select id="atlas-site-select"></select>
         <form id="atlas-go" class="atlas-coordinates"><label>X <input id="atlas-x" type="number" min="0" step="1" required></label><label>Y <input id="atlas-y" type="number" min="0" step="1" required></label><button class="quiet">Inspect tile</button></form>
       </div>
       <canvas id="atlas-canvas" tabindex="0" aria-label="Interactive world atlas. Use the site selector or coordinate fields for an alternative to clicking." hidden></canvas>

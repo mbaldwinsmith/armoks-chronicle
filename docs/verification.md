@@ -4,7 +4,8 @@
 
 - 23 Node tests pass, including complete/duplicate/missing cells, bounds, unknown CSV versions, elevation range, site coordinate alignment, rectangle noninterpretation, and isometric orientation.
 - Supplied map validates as 129 × 129, 16,641 cells, elevation 1–250.
-- Atlas worker integration and live UI checks are pending publication.
+- Live Chrome integration suite passes, including the actual atlas worker loading a saved synthetic CSV and matching a site at tile 4,7.
+- Existing Cadenilina archive loads without reimport: 16,641 cells, 577 mapped sites, zero out-of-bounds site coordinates. Event → Hammerbit → atlas selects tile 28,104 (elevation 168). Flat and Raised Relief views visually reviewed; relief tile picking updates the selected coordinates.
 - Free camera rotation, pinch zoom, verified biome names, river/road drawing, political and historical overlays, and mobile/browser qualification remain planned. The optional Raised Relief view is an isometric preview.
 
 # Recorded lives iteration verification

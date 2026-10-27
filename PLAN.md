@@ -6,7 +6,7 @@ Status: atlas and isometric relief preview implemented; broader features in prog
 
 ## Current iteration
 
-Atlas slice: strict version-3 CSV validation, worker loading of saved terrain, elevation/alignment/savagery colours, selectable world-tile sites, reciprocal site-page links, pan/zoom/fit controls, keyboard and coordinate alternatives, and an opt-in Canvas isometric relief preview. Full 3D camera controls, political overlays, river geometry and biome names remain open. Live browser qualification is pending.
+Atlas slice: strict version-3 CSV validation, worker loading of saved terrain, elevation/alignment/savagery colours, selectable world-tile sites, reciprocal site-page links, pan/zoom/fit controls, keyboard and coordinate alternatives, and an opt-in Canvas isometric relief preview. Full 3D camera controls, political overlays, river geometry and biome names remain open. Live desktop Chrome integration and real-world atlas loading pass; 577 sites align with the 129 × 129 grid. Broader browser/mobile qualification remains pending.
 
 Local archives are implemented: streaming standard/Plus XML import, CP437/UTF-8 decoding, staged IndexedDB writes, progress/cancellation controls, saved-world bookshelf, raw record pagination, provenance inspection, and exact-world deletion. Map/text files are retained but their contents are not yet interpreted.
 
