@@ -1,7 +1,7 @@
-import { startRouter } from './router.js';
-import { state, readTheme, setTheme } from './state.js';
-import { setupImportPreview } from './views/import-preview.js';
-import { renderBookshelf, renderWorld, renderRecovery } from './views/worlds.js';
+import { startRouter } from './router.js?v=0.2.1';
+import { state, readTheme, setTheme } from './state.js?v=0.2.1';
+import { setupImportPreview } from './views/import-preview.js?v=0.2.1';
+import { renderBookshelf, renderWorld, renderRecovery } from './views/worlds.js?v=0.2.1';
 const toggle = document.querySelector('#theme-toggle');
 function applyTheme(theme) {
   setTheme(theme);

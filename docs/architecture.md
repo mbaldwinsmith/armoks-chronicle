@@ -45,3 +45,7 @@ Worlds are exposed only after all writes complete and status becomes ready. A fa
 `js/views/worlds.js` renders saved worlds, record pages, import diagnostics, exact-world deletion, and staging recovery. Navigation uses `#/world/<local-id>`; such links require the same browser storage. No sharing or offline reload guarantee is implied.
 
 Native IndexedDB was chosen for this limited schema to keep browser-ready distribution simple. Broader migrations, annotation conflict handling, quota estimation, advanced search indexes, and in-memory fallback remain planned; quota errors already produce explicit import failures.
+
+## Asset updates
+
+Runtime module, worker, and stylesheet URLs carry an explicit release query (`?v=0.2.1`) to prevent mixed releases during GitHub Pages cache revalidation. Bump these references together for code releases. This is plain source maintenance, not a build step.

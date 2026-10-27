@@ -1,4 +1,4 @@
-import {openDatabase,listWorlds,getWorld,readPage,deleteWorld} from '../data/database.js';
+import {openDatabase,listWorlds,getWorld,readPage,deleteWorld} from '../data/database.js?v=0.2.1';
 const names={historical_figures:'Historical figures',historical_events:'Historical events',sites:'Sites',entities:'Organisations',artifacts:'Artifacts',written_contents:'Written works'};
 let generation=0;
 export async function renderBookshelf() {
