@@ -1,13 +1,13 @@
-import {titleCase,eventLabel} from '../data/language.js?v=0.10.0';
-import {researchEditor} from './research.js?v=0.10.0';
-import {culturePanel,associations} from './culture.js?v=0.10.0';
-import {cultureReferences,culturalKinds,cultureLabel} from '../data/culture.js?v=0.10.0';
-import {conflictRecord} from '../data/conflicts.js?v=0.10.0';
-import {sitePosition} from '../data/terrain.js?v=0.10.0';
-import {narratives,biography} from './narrative.js?v=0.10.0';
-import {openDatabase,getWorld,getRecord} from '../data/database.js?v=0.10.0';
-import {explore} from '../data/explorer-client.js?v=0.10.0';
-import {kindNames,recordURL,collectReferences,eventDate} from '../data/exploration.js?v=0.10.0';
+import {titleCase,eventLabel,readableValue,referenceLabel} from '../data/language.js?v=0.10.1';
+import {researchEditor} from './research.js?v=0.10.1';
+import {culturePanel,associations} from './culture.js?v=0.10.1';
+import {cultureReferences,culturalKinds,cultureLabel} from '../data/culture.js?v=0.10.1';
+import {conflictRecord} from '../data/conflicts.js?v=0.10.1';
+import {sitePosition} from '../data/terrain.js?v=0.10.1';
+import {narratives,biography} from './narrative.js?v=0.10.1';
+import {openDatabase,getWorld,getRecord} from '../data/database.js?v=0.10.1';
+import {explore} from '../data/explorer-client.js?v=0.10.1';
+import {kindNames,recordURL,collectReferences,eventDate} from '../data/exploration.js?v=0.10.1';
 let generation=0,timer;
 export function cancelExploration(){generation++;clearTimeout(timer);}
 const element=(tag,text,className)=>{const el=document.createElement(tag);if(text!==undefined)el.textContent=text;if(className)el.className=className;return el;};
@@ -67,16 +67,17 @@ export async function renderRecord(worldId,kind,id,params) {
   if(kind==='sites'&&/^\d+,\d+$/.test(data.coords||'')){const [x,y]=data.coords.split(',');const mapLink=element('a','Show this site in the atlas','button quiet');mapLink.href=`#/world/${encodeURIComponent(worldId)}/atlas?x=${x}&y=${y}`;body.append(mapLink);}
   const fields=element('dl',undefined,'record-facts');
   for(const [key,value] of Object.entries(data))if(typeof value==='string'&&!['id','name'].includes(key)){
-   fields.append(element('dt',key.replaceAll('_',' ')),element('dd',value==='-1'?'Unknown / not recorded (−1)':value));
+   fields.append(element('dt',key.replaceAll('_',' ')),element('dd',value==='-1'?'Unknown / not recorded (−1)':key==='type'&&kind==='historical_events'?eventLabel(value):['type','race','caste','associated_type'].includes(key)?readableValue(value):value));
   }
   const fieldDetails=element('details',undefined,'guide-card');fieldDetails.append(element('summary','Recorded fields'),fields);
   if(kind==='historical_figures'||kind==='historical_events'||culturalKinds.has(kind))body.append(fieldDetails);else body.append(fields);
   if(kind==='historical_events'){const [story]=await narratives([record],worldId,suffix);if(ticket!==generation)return;const date=eventDate(data);story.prepend(element('p',date.year===null?'Year not recorded':`Year ${date.year}`,'small-label'));body.insertBefore(story,fieldDetails);}
   const extraRefs=cultureReferences(record);const refs=[...collectReferences({merged:data,plus:record.supplement}),...extraRefs];
-  const section=element('details',undefined,'guide-card'),heading=element('summary',`Linked references (${refs.length})`),links=element('ul',undefined,'reference-list');section.open=refs.length<=10;section.append(heading,element('p','Field paths retain the source roles. A reference alone does not establish friendship, ownership, or current membership.','muted'),links);body.append(section);
+  const section=element('details',undefined,'guide-card'),heading=element('summary',`Linked references (${refs.length})`),links=element('ul',undefined,'reference-list');section.open=refs.length<=10;section.append(heading,element('p','Roles follow the export. The source inspector retains the original fields and IDs.','muted'),links);body.append(section);
   const raw=element('details',undefined,'guide-card'),pre=element('pre',JSON.stringify({fields:data,sources:record.sources,supplementaryFields:record.supplement},null,2));raw.append(element('summary','Source fields and provenance'),pre);body.append(raw);
   const resolved=await explore(worldId,{type:'resolve',refs});if(ticket!==generation)return;
-  for(const ref of resolved){const li=element('li');li.append(element('span',ref.path.replaceAll('_',' ')+' → ','muted'));if(ref.label){const a=element('a',`${ref.label} · #${ref.id}`);a.href=recordURL(worldId,ref.kind,ref.id,suffix);li.append(a);}else li.append(element('span',`Unresolved ${kindNames[ref.kind]||ref.kind} #${ref.id}`));links.append(li);}
+  const shown=new Set();for(const ref of resolved){const label=referenceLabel(ref.role,kind==='historical_events'&&/died$/.test(String(data.type).replaceAll('_',' '))),key=JSON.stringify([ref.kind,ref.id,label]);if(shown.has(key))continue;shown.add(key);const li=element('li');li.title=ref.path;li.append(element('span',label+': ','muted'));if(ref.label){const a=element('a',`${ref.label} · #${ref.id}`);a.href=recordURL(worldId,ref.kind,ref.id,suffix);li.append(a);}else li.append(element('span',`Unresolved ${kindNames[ref.kind]||ref.kind} #${ref.id}`));links.append(li);}
+  heading.textContent=`Linked references (${shown.size})`;section.open=shown.size<=10;
   if(!resolved.length&&culturalKinds.has(kind))section.hidden=true;
   if(!resolved.length)links.append(element('li','No supported explicit references in this record. Other fields remain available in the source inspector.'));
   if(kind==='historical_figures')body.insertBefore(biography(data,resolved,worldId,suffix),fieldDetails);

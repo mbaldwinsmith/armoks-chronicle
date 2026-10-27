@@ -6,7 +6,7 @@ Status: atlas and isometric relief preview implemented; broader features in prog
 
 ## Current iteration
 
-Language polish: display-only Title Case for record names, human-readable event headings, and direct prose for settlement, movement, occupations, affiliations, clashes and deaths. Canonical filter keys, source fields, notes and tags retain their original values. 45 automated tests pass; live verification pending.
+Language polish: display-only Title Case for record names, human-readable event headings, and direct prose for settlement, movement, occupations, affiliations, clashes and deaths. Canonical filter keys, source fields, notes and tags retain their original values. 46 automated tests pass; live verification pending.
 
 Personal research is implemented: record/event bookmarks, plain-text notes and tags, a cross-world research directory, explicit Save with unsaved-change protection and stale-tab rejection, versioned annotation backups, and additive restore/transfer preview. IndexedDB v2 adds a separate annotations store while preserving existing source stores. Deleting a source archive retains annotations.
 
