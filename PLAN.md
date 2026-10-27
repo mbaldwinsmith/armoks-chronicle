@@ -6,7 +6,7 @@ Status: atlas and isometric relief preview implemented; broader features in prog
 
 ## Current iteration
 
-Political geography slice: owner/civilisation marker colours, faction legend and visibility, unknown/sentinel categories, name/type filters, paginated linked settlements, and organisation atlas actions. 27 automated tests pass; live checks pending.
+Political geography slice: owner/civilisation marker colours, faction legend and visibility, unknown/sentinel categories, name/type filters, paginated linked settlements, and organisation atlas actions. 27 automated tests and the live browser integration suite pass. Live name/type filtering, basis switching, reload persistence, faction visibility, and organisation-to-atlas focus were verified.
 
 Atlas slice: strict version-3 CSV validation, worker loading of saved terrain, elevation/alignment/savagery colours, selectable world-tile sites, reciprocal site-page links, pan/zoom/fit controls, keyboard and coordinate alternatives, and an opt-in Canvas isometric relief preview. Full 3D camera controls, political overlays, river geometry and biome names remain open. Live desktop Chrome integration and real-world atlas loading pass; 577 sites align with the 129 × 129 grid. Broader browser/mobile qualification remains pending.
 

@@ -1,3 +1,15 @@
+# Political geography verification
+
+27 October 2026
+
+- 27 Node tests pass. New cases cover independent owner/civilisation IDs, valid zero IDs, missing and −1 categories, composed name/type/faction filters, deterministic colours, unresolved names and group totals.
+- Live Chrome integration suite passes, including the atlas worker retaining different owner and civilisation values and resolving entity labels from IndexedDB.
+- Independently parsed Cadenilina sites: 577 sites, 351 current-owner groups and 170 recorded-civilisation groups. Hammerbit (#76) has current owner #275 and recorded civilisation #274.
+- Live search “hammerbit” + type “fortress” matches one site. Switching to civilisation labels it “the brilliant axe”; filter state survives reload.
+- Hide all factions gives zero matching sites; show all restores them. Toggling the Brilliant Axe alone hides/restores the matching site.
+- Legend → Brilliant Axe organisation → civilisation-settlement atlas action focuses 21 matching sites. Switching to Raised Relief retains the faction filter.
+- Political marker rendering is settlement association only. Founding dates, reconstructed ownership transitions, territory boundaries, wars and historical overlays remain planned. Mobile and non-Chrome qualification remain pending.
+
 # Atlas iteration verification
 
 27 October 2026
