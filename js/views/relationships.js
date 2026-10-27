@@ -1,6 +1,6 @@
-import {explore} from '../data/explorer-client.js?v=0.12.1';
-import {recordKey,recordURL} from '../data/exploration.js?v=0.12.1';
-import {relationshipCategories,relationshipLimits,addGraphPage,layoutRelationships,relationshipWording} from '../data/relationships.js?v=0.12.1';
+import {explore} from '../data/explorer-client.js?v=0.12.2';
+import {recordKey,recordURL} from '../data/exploration.js?v=0.12.2';
+import {relationshipCategories,relationshipLimits,addGraphPage,layoutRelationships,relationshipWording,relationshipCurve} from '../data/relationships.js?v=0.12.2';
 const el=(tag,text,cls)=>{const node=document.createElement(tag);if(text!==undefined)node.textContent=text;if(cls)node.className=cls;return node;};
 const svgEl=(tag,attrs={},text)=>{const node=document.createElementNS('http://www.w3.org/2000/svg',tag);for(const [key,value] of Object.entries(attrs))node.setAttribute(key,value);if(text!==undefined)node.textContent=text;return node;};
 const colours={family:'#a96692',social:'#497fa3',rivalry:'#bd6845',affiliation:'#658957',worship:'#9472bd',other:'#8a8b87'};
@@ -45,9 +45,9 @@ export function relationshipPanel(record,worldId,query,isCurrent=()=>true){
   const defs=svgEl('defs');for(const [key,colour] of Object.entries(colours)){const marker=svgEl('marker',{id:`relationship-arrow-${key}`,viewBox:'0 0 10 10',refX:'9',refY:'5',markerWidth:'7',markerHeight:'7',orient:'auto-start-reverse'});marker.append(svgEl('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:colour}));defs.append(marker);}svg.append(defs);
   const pairCounts=new Map();for(const edge of state.edges){const a=byKey.get(edge.source),b=byKey.get(edge.target);if(!a||!b)continue;const dx=b.x-a.x,dy=b.y-a.y,d=Math.hypot(dx,dy)||1;
    const endPoint=(node,sign)=>{const factor=Math.min(104/(Math.abs(dx)||1),29/(Math.abs(dy)||1));return {x:node.x+dx*factor*sign,y:node.y+dy*factor*sign};};
-   const start=endPoint(a,1),end=endPoint(b,-1),pair=[edge.source,edge.target].sort().join('|'),n=pairCounts.get(pair)||0;pairCounts.set(pair,n+1);const curve=(n+1)*24*(edge.source<edge.target?1:-1),mx=(a.x+b.x)/2-dy/d*curve,my=(a.y+b.y)/2+dx/d*curve;
+   const start=endPoint(a,1),end=endPoint(b,-1),pair=[edge.source,edge.target].sort().join('|'),n=pairCounts.get(pair)||0;pairCounts.set(pair,n+1);const curve=relationshipCurve(a,b,n,edge.source,edge.target),mx=curve.x,my=curve.y;
    const path=a===b?`M ${a.x+100} ${a.y} C ${a.x+190} ${a.y-100}, ${a.x-30} ${a.y-130}, ${a.x} ${a.y-29}`:`M ${start.x} ${start.y} Q ${mx} ${my} ${end.x} ${end.y}`;
-   const line=svgEl('path',{d:path,fill:'none',stroke:colours[edge.category],'stroke-width':'2','marker-end':`url(#relationship-arrow-${edge.category})`});line.append(svgEl('title',{},`${a.label}${relationshipWording(edge).between}${b.label}${relationshipWording(edge).after}`));svg.append(line,svgEl('text',{x:a===b?a.x+65:mx,y:a===b?a.y-80:my-4,'text-anchor':'middle',class:'relationship-edge-label'},edge.label.length>28?edge.label.slice(0,26)+'…':edge.label));
+   const line=svgEl('path',{d:path,fill:'none',stroke:colours[edge.category],'stroke-width':'2','marker-end':`url(#relationship-arrow-${edge.category})`});line.append(svgEl('title',{},`${a.label}${relationshipWording(edge).between}${b.label}${relationshipWording(edge).after}`));svg.append(line,svgEl('text',{x:a===b?a.x+65:curve.labelX,y:a===b?a.y-80:curve.labelY-4,'text-anchor':'middle',class:'relationship-edge-label'},edge.label.length>28?edge.label.slice(0,26)+'…':edge.label));
   }
   for(const node of points){const wrapper=svgEl(node.missing?'g':'a',node.missing?{}:{href:recordURL(worldId,node.kind,node.id,queryString()),'aria-label':`Open ${node.label}`}),group=svgEl('g',{'class':`relationship-node${node.missing?' missing':''}${node.key===root.key?' root':''}`});wrapper.append(svgEl('title',{},node.label),group);group.append(svgEl('rect',{x:node.x-104,y:node.y-29,width:208,height:58,rx:node.kind==='historical_figures'?12:2}));const label=Array.from(node.label),short=label.length>24?label.slice(0,22).join('')+'…':node.label;group.append(svgEl('text',{x:node.x,y:node.y-2,'text-anchor':'middle'},short),svgEl('text',{x:node.x,y:node.y+17,'text-anchor':'middle',class:'relationship-node-kind'},node.kind==='historical_figures'?'Figure':node.kind==='entities'?'Organisation':'Site'));svg.append(wrapper);}
   fitNetwork();

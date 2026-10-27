@@ -1,5 +1,5 @@
-import {recordKey} from './exploration.js?v=0.12.1';
-import {readableValue} from './language.js?v=0.12.1';
+import {recordKey} from './exploration.js?v=0.12.2';
+import {readableValue} from './language.js?v=0.12.2';
 export const relationshipCategories={family:'Family',social:'Friends and Other Social Ties',rivalry:'Rivalries',affiliation:'Organisations and Sites',worship:'Worship',other:'Other Recorded Links'};
 const family=new Set(['mother','father','parent','child','son','daughter','spouse','sibling','brother','sister','grandparent','grandchild','aunt','uncle','niece','nephew','cousin']);
 const social=new Set(['friend','companion','lover','master','apprentice','teacher','student']);
@@ -80,4 +80,10 @@ export function layoutRelationships(nodes,edges,root){
   }
  }
  return points;
+}
+
+// Canonical orientation keeps reciprocal edge labels on opposite sides of the pair.
+export function relationshipCurve(a,b,index,source,target){
+ const dx=b.x-a.x,dy=b.y-a.y,d=Math.hypot(dx,dy)||1,sign=source<target?1:-1,offset=(index%2===0?1:-1)*(64+Math.floor(index/2)*48),nx=-dy/d*sign,ny=dx/d*sign,mx=(a.x+b.x)/2,my=(a.y+b.y)/2;
+ return {x:mx+nx*offset,y:my+ny*offset,labelX:mx+nx*offset/2,labelY:my+ny*offset/2};
 }

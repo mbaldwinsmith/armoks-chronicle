@@ -2,11 +2,11 @@
 
 27 October 2026
 
-- 61 Node tests pass. Relationship tests cover typed categories, source-to-target direction, zero and sentinel IDs, unknown labels, main/Plus evidence deduplication, conflicting labels, incoming-only and reciprocal/cyclic links, exclusion of vague/shared-event associations, neighbour pagination, node/edge budgets, bounded source lists, deterministic non-overlapping node layout and affiliation wording.
+- 62 Node tests pass. Relationship tests cover typed categories, source-to-target direction, zero and sentinel IDs, unknown labels, main/Plus evidence deduplication, conflicting labels, incoming-only and reciprocal/cyclic links, exclusion of vague/shared-event associations, neighbour pagination, node/edge budgets, bounded source lists, deterministic non-overlapping node layout and affiliation wording.
 - The live Chrome integration suite passes with six authored fictional figures: lazy worker requests, eight/three edge pagination, missing-target placeholders, invalid target counts, merged/Plus evidence, category filtering, incoming family links and equivalent safe SVG/list rendering. Imported script-like graph text remains literal. Existing import, atlas, timeline, research and storage-isolation checks still pass.
 - Live UI: launch from a figure, expand more neighbours, filter to Family, expand a child with Enter, retain focus in the figure selector, inspect main/Plus evidence, open its supporting record with the source inspector expanded, and open a biography through an SVG node.
 - Major Events filtering works while a graph is open, and both existing and subsequently rendered graph links preserve that timeline choice. Directory and record timeline controls now have distinct IDs so labels target the correct controls when a hidden directory remains mounted.
-- Fit Network accounts for both diagram dimensions. Zoom and a keyboard-focusable scroll region complement the equivalent linked list. Full cross-browser/screen-reader qualification, dedicated generational family trees and two-record path searches remain open.
+- Reciprocal connections use opposite curve/label offsets, checked in a dedicated geometry test and the live preview. Fit Network accounts for both diagram dimensions. Zoom and a keyboard-focusable scroll region complement the equivalent linked list. Full cross-browser/screen-reader qualification, dedicated generational family trees and two-record path searches remain open.
 
 # Timeline reading verification
 

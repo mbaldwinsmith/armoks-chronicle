@@ -1,6 +1,6 @@
 import test from 'node:test';import assert from 'node:assert/strict';
 import {recordKey} from '../js/data/exploration.js';
-import {recordRelationships,relationshipNeighbourhood,graphPage,addGraphPage,layoutRelationships,relationshipLimits,relationshipWording} from '../js/data/relationships.js';
+import {recordRelationships,relationshipNeighbourhood,graphPage,addGraphPage,layoutRelationships,relationshipLimits,relationshipWording,relationshipCurve} from '../js/data/relationships.js';
 const figure=(id,data={},supplement)=>({kind:'historical_figures',id,data,supplement,sources:['standard','plus']});
 const key=id=>recordKey('historical_figures',id);
 test('explicit relationships retain direction, role, category and source evidence without inferring reciprocal family',()=>{
@@ -43,4 +43,8 @@ test('affiliation wording keeps the figure as member rather than describing the 
  const member=recordRelationships(figure('1',{entity_link:{entity_id:'5',link_type:'member'},site_link:{site_id:'2',link_type:'home'}})).edges;
  assert.deepEqual(relationshipWording(member[0]),{between:' is listed as a member of ',after:'.'});assert.deepEqual(relationshipWording(member[1]),{between:' lists ',after:' as a home.'});
  assert.deepEqual(relationshipWording({targetKind:'historical_figures',label:'Child'}),{between:' lists ',after:' as “Child”.'});
+});
+
+test('reciprocal edge labels occupy opposite sides of the same connection',()=>{
+ const a={x:0,y:0},b={x:0,y:200},forward=relationshipCurve(a,b,0,'a','b'),reverse=relationshipCurve(b,a,1,'b','a');assert.equal(forward.labelX,-32);assert.equal(reverse.labelX,32);assert.equal(forward.labelY,reverse.labelY);assert(Math.hypot(forward.labelX-reverse.labelX,forward.labelY-reverse.labelY)>=64);
 });
