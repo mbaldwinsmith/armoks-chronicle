@@ -1,8 +1,9 @@
 const routes = new Set(['library', 'import', 'guide']);
 export function startRouter(onNavigate) {
   function navigate(focus) {
-    const route = location.hash.replace(/^#\/?/, '') || 'library';
-    const view = routes.has(route) ? route : 'not-found';
+    const route = location.hash === '#main' ? 'library' : location.hash.replace(/^#\/?/, '') || 'library';
+    const worldMatch = route.match(/^world\/([^/]+)$/);
+    const view = worldMatch ? 'world' : routes.has(route) ? route : 'not-found';
     document.querySelectorAll('main > section').forEach(section => {
       section.hidden = section.id !== `view-${view}`;
     });
@@ -13,7 +14,7 @@ export function startRouter(onNavigate) {
     const title = document.querySelector(`#view-${view} h1`).textContent;
     document.title = `${title} · Armok’s Chronicle`;
     if (focus) document.querySelector('#main').focus();
-    onNavigate(view);
+    onNavigate(view, worldMatch ? worldMatch[1] : null);
   }
   window.addEventListener('hashchange', () => navigate(true));
   navigate(false);

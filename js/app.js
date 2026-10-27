@@ -1,6 +1,7 @@
 import { startRouter } from './router.js';
 import { state, readTheme, setTheme } from './state.js';
 import { setupImportPreview } from './views/import-preview.js';
+import { renderBookshelf, renderWorld, renderRecovery } from './views/worlds.js';
 const toggle = document.querySelector('#theme-toggle');
 function applyTheme(theme) {
   setTheme(theme);
@@ -8,7 +9,12 @@ function applyTheme(theme) {
 }
 applyTheme(readTheme());
 toggle.addEventListener('click', () => applyTheme(state.theme === 'dark' ? 'parchment' : 'dark'));
-startRouter(route => { state.route = route; });
+startRouter((route, id) => {
+  state.route = route;
+  if(route === 'library') void renderBookshelf();
+  if(route === 'world') void renderWorld(id);
+  if(route === 'import') void renderRecovery();
+});
 setupImportPreview();
 const unavailable = [];
 if (!('Worker' in window)) unavailable.push('background processing');
@@ -19,3 +25,5 @@ if (unavailable.length) {
   notice.hidden = false;
   notice.textContent = `Unavailable in this environment: ${unavailable.join(', ')}. Navigation and the field guide remain available.`;
 }
+
+document.querySelector('.skip-link').addEventListener('click', event => { event.preventDefault(); document.querySelector('#main').focus(); });

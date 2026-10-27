@@ -4,11 +4,15 @@
 
 A local-first Dwarf Fortress Legends explorer, built with semantic HTML, CSS, and native JavaScript modules. An unofficial fan project, independent of Bay 12 Games and DFHack.
 
-## Current edition: foundation
+## Current edition: local archives
 
-Implemented: responsive archive shell, hash navigation, dark/parchment reading themes, keyboard focus handling, field guide, and background preview of local export headers and sizes.
+Import standard Legends XML and matching Legends Plus XML in a background worker, save worlds in IndexedDB, reopen them from the bookshelf, browse categories with pagination, and inspect raw fields and supplementary provenance. Imports support progress, cancellation, malformed-file rollback, and unfinished-import recovery.
 
-World parsing, persistent archives, searching, maps (including optional Raised Relief), biographies, and records are planned, not yet implemented. File preview reads up to 8 KiB per file and does not upload or save exports.
+The parser supports CP437 and UTF-8, reports removed XML control characters, preserves repeated/nested fields, and supplements records by family and ID. Standard values remain authoritative; conflicting Plus values remain inspectable. Semantic event aliases and relationship indexes are planned.
+
+Choose **Try a tiny fictional example** on the import page to test without your own files. It is explicitly synthetic, not a game export.
+
+Map CSV and text reports are retained as files but not interpreted yet. Search, linked biographies, narrative events, maps, offline caching, and personal notes remain in development. Reimporting creates a separate archive; enrichment of existing worlds is planned.
 
 See [PLAN.md](PLAN.md) for the development checklist and [architecture](docs/architecture.md) for module boundaries and the worker protocol.
 
@@ -34,11 +38,20 @@ Save. Once GitHub publishes the branch, the site should be available at https://
 
 All deployable assets are committed. `.nojekyll` disables Jekyll processing. No custom build/deploy Action is needed; GitHub's own Pages publishing infrastructure may still appear in Actions. Pages settings and live publication must be verified separately from local checks.
 
-## Export preview
+## Export import
 
-Choose standard `legends.xml` and any matching `legends_plus.xml`, `world_map.csv`, `world_history.txt`, and `world_sites_and_pops.txt` files. The foundation edition identifies likely types and displays sizes. It does not check complete XML validity or confirm that files belong to the same world.
+Choose standard `legends.xml` and any matching `legends_plus.xml`, `world_map.csv`, `world_history.txt`, and `world_sites_and_pops.txt` files. The preview identifies likely types and sizes. Import requires a matching filename prefix and validates XML structure; filenames alone cannot prove world identity. Plus records are merged by record family and ID. Keep your original exports: browser data can be cleared or evicted.
 
 ## Tests
+
+Run the dependency-free parser/preview tests with Node 22 or newer:
+
+```sh
+node --test tests/parser.test.mjs tests/preview.cjs
+```
+
+Serve the site and open `tests/browser.html` to run module-worker/IndexedDB integration tests with synthetic fixtures. These tests only remove archives they create.
+
 
 The browser smoke test is optional development tooling. Install Playwright and its Chromium browser in your development environment, then start a static server from the repository's parent directory on port 8000 and run:
 
@@ -50,4 +63,4 @@ The default URL is http://127.0.0.1:8000/armoks-chronicle/; set `BASE_URL` to ov
 
 ## Licence
 
-MIT © 2026 Mark Baldwin-Smith. See [LICENSE](LICENSE). No third-party runtime libraries are bundled in this edition.
+MIT © 2026 Mark Baldwin-Smith. See [LICENSE](LICENSE). The vendored sax parser is separately licensed under Blue Oak Model License 1.0.0; see [vendor notices](vendor/README.md).

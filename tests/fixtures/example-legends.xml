@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<df_world>
+<sites><site><id>1</id><name>Example Copperhall</name><type>fortress</type><coords>4,7</coords></site></sites>
+<historical_figures>
+<historical_figure><id>1</id><name>Urist Examplekeeper</name><race>DWARF</race><birth_year>1</birth_year><death_year>-1</death_year><hf_link><hfid>2</hfid><link_type>spouse</link_type></hf_link></historical_figure>
+<historical_figure><id>2</id><name>Domas Examplewright</name><race>DWARF</race><birth_year>2</birth_year><death_year>-1</death_year></historical_figure>
+<historical_figure><id>3</id><name>The Entirely Fictional Dragon</name><race>DRAGON</race><birth_year>-10</birth_year><death_year>20</death_year></historical_figure>
+</historical_figures>
+<historical_events><historical_event><id>0</id><year>20</year><type>hf died</type><hfid>3</hfid><slayer_hfid>1</slayer_hfid><site_id>1</site_id></historical_event></historical_events>
+</df_world>
