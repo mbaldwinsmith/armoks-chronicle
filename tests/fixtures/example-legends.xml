@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <df_world>
-<sites><site><id>1</id><name>Example Copperhall</name><type>fortress</type><coords>4,7</coords><civ_id>6</civ_id><cur_owner_id>5</cur_owner_id></site></sites>
+<sites><site><id>1</id><name>example copperhall</name><type>fortress</type><coords>4,7</coords><civ_id>6</civ_id><cur_owner_id>5</cur_owner_id></site></sites>
 <entities><entity><id>5</id><name>Example Copper League</name></entity><entity><id>6</id><name>Example Mountain Civilisation</name></entity></entities>
 <historical_figures>
-<historical_figure><id>1</id><name>Urist Examplekeeper</name><race>DWARF</race><birth_year>1</birth_year><death_year>-1</death_year><hf_link><hfid>2</hfid><link_type>spouse</link_type></hf_link></historical_figure>
+<historical_figure><id>1</id><name>urist examplekeeper</name><race>DWARF</race><birth_year>1</birth_year><death_year>-1</death_year><hf_link><hfid>2</hfid><link_type>spouse</link_type></hf_link></historical_figure>
 <historical_figure><id>2</id><name>Domas Examplewright</name><race>DWARF</race><birth_year>2</birth_year><death_year>-1</death_year></historical_figure>
 <historical_figure><id>3</id><name>The Entirely Fictional Dragon</name><race>DRAGON</race><birth_year>-10</birth_year><death_year>20</death_year></historical_figure>
 </historical_figures>
-<historical_events><historical_event><id>0</id><year>20</year><type>hf died</type><hfid>3</hfid><slayer_hfid>1</slayer_hfid><site_id>1</site_id></historical_event></historical_events>
+<historical_events><historical_event><id>0</id><year>20</year><type>hf died</type><hfid>3</hfid><slayer_hfid>1</slayer_hfid><site_id>1</site_id></historical_event><historical_event><id>1</id><year>1</year><type>change hf state</type><hfid>1</hfid><site_id>1</site_id><state>settled</state></historical_event></historical_events>
 <artifacts><artifact><id>55</id><name>The Fictional Copper Book</name><item><name_string>copper book</name_string></item><holder_hfid>2</holder_hfid></artifact></artifacts>
 <written_contents><written_content><id>30</id><title>A Completely Fictional Poem</title><author_hfid>1</author_hfid><form>poem</form><form_id>78</form_id></written_content></written_contents>
 <poetic_forms><poetic_form><id>78</id><name>The Example Quatrain</name><description>A fictional four-line form.[B]This is a test description.</description></poetic_form></poetic_forms>

@@ -1,3 +1,4 @@
+import {titleCase} from './language.js?v=0.10.0';
 export function mergeData(base, extra) {
   if (base === undefined) return extra;
   if (base && extra && typeof base === 'object' && typeof extra === 'object' && !Array.isArray(base) && !Array.isArray(extra)) {
@@ -11,5 +12,5 @@ export function mergeData(base, extra) {
 }
 export function displayName(data, kind, id) {
   const n = data && typeof data === 'object' ? data.name || data.title || data.type : '';
-  return typeof n === 'string' && n ? n : `${kind.replaceAll('_', ' ')} ${id}`;
+  return typeof n === 'string' && n ? titleCase(n) : `${titleCase(kind.replaceAll('_', ' '))} ${id}`;
 }

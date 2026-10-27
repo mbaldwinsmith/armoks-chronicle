@@ -1,6 +1,6 @@
-import {narrateEvent,lifeSummary,figureRelationships,words} from '../data/narrative.js?v=0.9.1';
-import {recordURL,recordKey} from '../data/exploration.js?v=0.9.1';
-import {explore} from '../data/explorer-client.js?v=0.9.1';
+import {narrateEvent,lifeSummary,figureRelationships,words} from '../data/narrative.js?v=0.10.0';
+import {recordURL,recordKey} from '../data/exploration.js?v=0.10.0';
+import {explore} from '../data/explorer-client.js?v=0.10.0';
 export const el=(tag,text,cls)=>{const node=document.createElement(tag);if(text!==undefined)node.textContent=text;if(cls)node.className=cls;return node;};
 export async function narratives(records,worldId,query){
  const summaries=records.map(record=>narrateEvent(record.data));
@@ -22,6 +22,6 @@ export function biography(data,resolved,worldId,query){
  if(relationships.length){const details=el('details',undefined,'guide-card');details.open=relationships.length<=10;details.append(el('summary',`Recorded relationships (${relationships.length})`),el('p','Labels are preserved from this figure’s source record. They do not establish dates or current membership.','muted'));const list=el('ul',undefined,'reference-list');
   for(const relation of relationships){const item=el('li');item.append(el('strong',relation.label+' → '));const label=names.get(recordKey(relation.kind,relation.id));if(label){const a=el('a',label);a.href=recordURL(worldId,relation.kind,relation.id,query);item.append(a);}else item.append(document.createTextNode(/^\d+$/.test(relation.id||'')?`Unresolved record #${relation.id}`:'Unidentified record'));list.append(item);}details.append(list);section.append(details);
  }
- for(const field of ['sphere','goal','hf_skill'])if(data[field]){const details=el('details',undefined,'guide-card');details.append(el('summary',words(field)+' (source values)'),el('pre',JSON.stringify(data[field],null,2)));section.append(details);}
+ for(const field of ['sphere','goal','hf_skill'])if(data[field]){const details=el('details',undefined,'guide-card');details.append(el('summary',({sphere:'Spheres',goal:'Goals',hf_skill:'Skills'}[field]||words(field))+' (source values)'),el('pre',JSON.stringify(data[field],null,2)));section.append(details);}
  return section;
 }

@@ -2,7 +2,7 @@
 <df_world><name>The Example World</name><altname>Synthetic demonstration — not a game export</altname>
 <sites><site><id>1</id><civ_id>9</civ_id></site></sites>
 <historical_figures><historical_figure><id>1</id><race>dwarf</race><sex>1</sex></historical_figure></historical_figures>
-<historical_events><historical_event><id>0</id><type>hist_figure_died</type><death_cause>struck</death_cause></historical_event></historical_events>
+<historical_events><historical_event><id>0</id><type>hist_figure_died</type><death_cause>struck</death_cause></historical_event><historical_event><id>1</id><type>change_hf_state</type><hfid>1</hfid><state>settler</state><site>1</site></historical_event></historical_events>
 <artifacts><artifact><id>55</id><item_type>book</item_type><mat>copper</mat><page_count>2</page_count><writing>30</writing></artifact></artifacts>
 <written_contents><written_content><id>30</id><author>1</author><type>Poem</type><page_start>1</page_start><page_end>2</page_end></written_content></written_contents>
 </df_world>

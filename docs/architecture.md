@@ -48,7 +48,7 @@ Native IndexedDB was chosen for this limited schema to keep browser-ready distri
 
 ## Asset updates
 
-Runtime module, worker, and stylesheet URLs carry an explicit release query (`?v=0.9.1`) to prevent mixed releases during GitHub Pages cache revalidation. Bump these references together for code releases. This is plain source maintenance, not a build step.
+Runtime module, worker, and stylesheet URLs carry an explicit release query (`?v=0.10.0`) to prevent mixed releases during GitHub Pages cache revalidation. Bump these references together for code releases. This is plain source maintenance, not a build step.
 
 ## Exploration (0.3.0)
 
@@ -87,3 +87,5 @@ Culture (0.8.0): `culture.js` supplies contextual references for artifact `writi
 Research (0.9.0): IndexedDB v2 adds `annotations` keyed by world/kind/id with a world index. The v1 stores are created only on a fresh database; upgrading adds annotations without rewriting source data. `deleteWorld` intentionally does not touch annotations. Database connections close on version changes; a blocked open is rejected and closed if it later succeeds.
 
 Research saves compare expected revision inside a read/write transaction, rejecting stale tabs without overwriting saved data. The editor uses explicit Save, route-leave confirmation and a beforeunload guard. Draft text is retained after save errors. Backup v1 is a whitelisted annotation/world JSON format, capped at 5 MB, 10,000 entries and bounded note/tag fields. Restore previews missing references and requires an explicit target for different local world IDs. A single transaction checks the target world and adds only missing keys; concurrent existing entries are retained. This is annotation backup/transfer, not full world export or automatic world-identity matching.
+
+Display language (0.10.0): presentation helpers apply Title Case to proper record names, retaining minor title words and recognised acronyms/internal capitals. Friendly event headings are separate from canonical type keys, so date/type filters and reference identities keep the same values. Display labels are computed when reading existing archives and do not rewrite exported fields or user notes. Common settlement/visitor/wanderer states, occupations, memberships, enmities, captivity and deaths have direct prose templates. Unknown states/types retain a labelled fallback. Ended spouse links do not imply divorce, prisoner-link removal does not imply escape/release, and claims do not establish ownership. Raw fields remain literal in source inspectors.

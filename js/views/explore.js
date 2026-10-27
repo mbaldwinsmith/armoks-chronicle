@@ -1,16 +1,17 @@
-import {researchEditor} from './research.js?v=0.9.1';
-import {culturePanel,associations} from './culture.js?v=0.9.1';
-import {cultureReferences,culturalKinds,cultureLabel} from '../data/culture.js?v=0.9.1';
-import {conflictRecord} from '../data/conflicts.js?v=0.9.1';
-import {sitePosition} from '../data/terrain.js?v=0.9.1';
-import {narratives,biography} from './narrative.js?v=0.9.1';
-import {openDatabase,getWorld,getRecord} from '../data/database.js?v=0.9.1';
-import {explore} from '../data/explorer-client.js?v=0.9.1';
-import {kindNames,recordURL,collectReferences,eventDate} from '../data/exploration.js?v=0.9.1';
+import {titleCase,eventLabel} from '../data/language.js?v=0.10.0';
+import {researchEditor} from './research.js?v=0.10.0';
+import {culturePanel,associations} from './culture.js?v=0.10.0';
+import {cultureReferences,culturalKinds,cultureLabel} from '../data/culture.js?v=0.10.0';
+import {conflictRecord} from '../data/conflicts.js?v=0.10.0';
+import {sitePosition} from '../data/terrain.js?v=0.10.0';
+import {narratives,biography} from './narrative.js?v=0.10.0';
+import {openDatabase,getWorld,getRecord} from '../data/database.js?v=0.10.0';
+import {explore} from '../data/explorer-client.js?v=0.10.0';
+import {kindNames,recordURL,collectReferences,eventDate} from '../data/exploration.js?v=0.10.0';
 let generation=0,timer;
 export function cancelExploration(){generation++;clearTimeout(timer);}
 const element=(tag,text,className)=>{const el=document.createElement(tag);if(text!==undefined)el.textContent=text;if(className)el.className=className;return el;};
-function rowLink(row,world,query){const li=element('li'),a=element('a',row.label);a.href=recordURL(world,row.kind,row.id,query);li.append(a,element('span',`${kindNames[row.kind]||row.kind.replaceAll('_',' ')} · #${row.id}${row.year!==null&&row.year!==undefined?` · Year ${row.year}`:''}`,'muted'));return li;}
+function rowLink(row,world,query){const li=element('li'),a=element('a',row.label);a.href=recordURL(world,row.kind,row.id,query);li.append(a,element('span',`${kindNames[row.kind]||titleCase(row.kind.replaceAll('_',' '))} · #${row.id}${row.year!==null&&row.year!==undefined?` · Year ${row.year}`:''}`,'muted'));return li;}
 export async function renderDirectory(id,params) {
  const ticket=++generation;let request=0;
  const list=document.querySelector('#records'),status=document.querySelector('#record-status'),input=document.querySelector('#record-search'),select=document.querySelector('#record-kind'),sort=document.querySelector('#record-sort');
@@ -18,7 +19,7 @@ export async function renderDirectory(id,params) {
  input.value=params.get('q')||'';sort.value=params.get('sort')==='year'?'year':'name';
  const world=await withDB(db=>getWorld(db,id));if(ticket!==generation||world?.status!=='ready')return;
  select.replaceChildren(new Option('All record categories',''));
- for(const [kind,count] of Object.entries(world.counts).sort(([a],[b])=>a.localeCompare(b)))select.add(new Option(`${kindNames[kind]||kind.replaceAll('_',' ')} (${count.toLocaleString()})`,kind));
+ for(const [kind,count] of Object.entries(world.counts).sort(([a],[b])=>a.localeCompare(b)))select.add(new Option(`${kindNames[kind]||titleCase(kind.replaceAll('_',' '))} (${count.toLocaleString()})`,kind));
  select.value=params.get('kind')||'';if(select.selectedIndex<0)select.value='';
  const previous=document.querySelector('#previous-records'),next=document.querySelector('#next-records');
  async function search(){
@@ -53,7 +54,7 @@ export async function renderRecord(worldId,kind,id,params) {
   if(ticket!==generation)return;
   if(world?.status!=='ready'||!record){title.textContent='Record unavailable';status.textContent='This record is missing, or this world is not saved in this browser. Importing a world creates a new local address.';return;}
   title.textContent=cultureLabel(record);document.title=`${cultureLabel(record)} · Armok’s Chronicle`;
-  body.append(element('p',`${world.name} · ${kindNames[kind]||kind.replaceAll('_',' ')} · #${id}`,'intro'));
+  body.append(element('p',`${titleCase(world.name)} · ${kindNames[kind]||titleCase(kind.replaceAll('_',' '))} · #${id}`,'intro'));
   const editor=await researchEditor(world,{...record,label:cultureLabel(record)});if(ticket!==generation)return;body.append(editor);
   const data=record.data;
   if(kind==='entities'){for(const [basis,label] of [['owner','Show settlements owned by this organisation'],['civilisation','Show settlements with this recorded civilisation']]){const link=element('a',label,'button quiet');link.href=`#/world/${encodeURIComponent(worldId)}/atlas?basis=${basis}&faction=${encodeURIComponent(id)}`;body.append(link);}}
@@ -98,7 +99,7 @@ export async function renderRecord(worldId,kind,id,params) {
    note.textContent='Loading events…';
    try{const result=await explore(worldId,{type:'related',kind,recordId:id,offset,filters:selection});if(ticket!==generation||token!==request)return;
     filters.hidden=result.unfiltered===0;controls.hidden=result.unfiltered===0;
-    if(!typesLoaded){type.add(new Option('All types',''));for(const name of result.types)type.add(new Option(name,name));type.value=selection.type;if(type.selectedIndex<0){type.add(new Option(selection.type,selection.type));type.value=selection.type;}typesLoaded=true;}
+    if(!typesLoaded){type.add(new Option('All types',''));for(const name of result.types)type.add(new Option(eventLabel(name),name));type.value=selection.type;if(type.selectedIndex<0){type.add(new Option(selection.type,selection.type));type.value=selection.type;}typesLoaded=true;}
     const records=await withDB(db=>Promise.all(result.rows.map(row=>getRecord(db,worldId,row.kind,row.id))));
     const stories=await narratives(records.filter(Boolean),worldId,query);if(ticket!==generation||token!==request)return;
     let storyIndex=0;events.replaceChildren(...result.rows.map((row,i)=>{const li=rowLink(row,worldId,query);if(records[i])li.append(stories[storyIndex++]);return li;}));
