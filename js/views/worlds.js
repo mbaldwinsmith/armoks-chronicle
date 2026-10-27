@@ -1,6 +1,8 @@
-import {openDatabase,listWorlds,getWorld,readPage,deleteWorld} from '../data/database.js?v=0.2.2';
+import {renderDirectory} from './explore.js?v=0.3.0';
+import {openDatabase,listWorlds,getWorld,readPage,deleteWorld} from '../data/database.js?v=0.3.0';
 const names={historical_figures:'Historical figures',historical_events:'Historical events',sites:'Sites',entities:'Organisations',artifacts:'Artifacts',written_contents:'Written works'};
 let generation=0;
+export function cancelWorldView(){generation++;}
 export async function renderBookshelf() {
   const target=document.querySelector('#world-list');
   const empty=document.querySelector('#empty-archive');
@@ -22,7 +24,7 @@ export async function renderBookshelf() {
   } catch(error){document.querySelector('#storage-status').textContent=`World storage unavailable: ${error.message}`;}
   finally {db?.close();}
 }
-export async function renderWorld(id) {
+export async function renderWorld(id, params) {
   const ticket=++generation;let db;
   const title=document.querySelector('#world-title'),status=document.querySelector('#record-status'),list=document.querySelector('#records');
   title.textContent='Opening world…';list.replaceChildren();status.textContent='';
@@ -35,29 +37,12 @@ export async function renderWorld(id) {
     document.title=world.name+' · Armok’s Chronicle';
     document.querySelector('#world-subtitle').textContent=world.alternativeName||'Imported world archive';
     document.querySelector('#world-details').hidden=false;
-    const select=document.querySelector('#record-kind');select.replaceChildren();
-    for(const [kind,count] of Object.entries(world.counts).sort(([a],[b])=>a.localeCompare(b))){const option=document.createElement('option');option.value=kind;option.textContent=`${names[kind]||kind.replaceAll('_',' ')} (${count.toLocaleString()})`;select.append(option);}
-    if(world.counts.historical_figures)select.value='historical_figures';
     document.querySelector('#import-diagnostics').textContent=world.diagnostics.map(d=>`${d.file}: ${d.records.toLocaleString()} source records; ${d.removedControls} invalid XML control characters removed; ${d.encoding}.`).join('\n');
-    let offset=0,query=0;
-    async function loadPage(){
-      const request=++query,kind=select.value;let connection;
-      list.replaceChildren();status.textContent='Loading records…';
-      try{connection=await openDatabase();const rows=await readPage(connection,id,kind,offset);
-        if(ticket!==generation||request!==query)return;
-        for(const record of rows){const details=document.createElement('details'),summary=document.createElement('summary'),pre=document.createElement('pre');summary.textContent=`${record.label} · #${record.id}`;details.append(summary);details.addEventListener('toggle',()=>{if(details.open&&!pre.textContent){pre.textContent=JSON.stringify({fields:record.data,sources:record.sources,...(record.supplement?{supplementaryFields:record.supplement}:{})},null,2);details.append(pre);}},{once:true});list.append(details);}
-        const total=world.counts[kind];status.textContent=total?`Records ${offset+1}–${Math.min(offset+50,total)} of ${total.toLocaleString()}`:'No records in this section.';
-        document.querySelector('#previous-records').disabled=offset===0;document.querySelector('#next-records').disabled=offset+50>=total;
-      }catch(error){status.textContent=`Could not load records: ${error.message}`;}finally{connection?.close();}
-    }
-    select.onchange=()=>{offset=0;void loadPage();};
-    document.querySelector('#previous-records').onclick=()=>{offset=Math.max(0,offset-50);void loadPage();};
-    document.querySelector('#next-records').onclick=()=>{offset+=50;void loadPage();};
     const dialog=document.querySelector('#delete-dialog');
     document.querySelector('#delete-error').textContent='';
     document.querySelector('#delete-world').onclick=()=>{document.querySelector('#delete-name').textContent=world.name;dialog.showModal();};
     document.querySelector('#confirm-delete').onclick=async()=>{let connection;const button=document.querySelector('#confirm-delete');button.disabled=true;try{connection=await openDatabase();await deleteWorld(connection,id);dialog.close();location.hash='#/library';}catch(error){document.querySelector('#delete-error').textContent=error.message;}finally{connection?.close();button.disabled=false;}};
-    await loadPage();
+    await renderDirectory(id, params);
   }catch(error){status.textContent=error.message;}finally{db?.close();}
 }
 export async function renderRecovery() {

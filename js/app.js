@@ -1,7 +1,9 @@
-import { startRouter } from './router.js?v=0.2.2';
-import { state, readTheme, setTheme } from './state.js?v=0.2.2';
-import { setupImportPreview } from './views/import-preview.js?v=0.2.2';
-import { renderBookshelf, renderWorld, renderRecovery } from './views/worlds.js?v=0.2.2';
+import {renderRecord,cancelExploration} from './views/explore.js?v=0.3.0';
+import {stopExplorer} from './data/explorer-client.js?v=0.3.0';
+import { startRouter } from './router.js?v=0.3.0';
+import { state, readTheme, setTheme } from './state.js?v=0.3.0';
+import { setupImportPreview } from './views/import-preview.js?v=0.3.0';
+import { renderBookshelf, renderWorld, renderRecovery, cancelWorldView } from './views/worlds.js?v=0.3.0';
 const toggle = document.querySelector('#theme-toggle');
 function applyTheme(theme) {
   setTheme(theme);
@@ -9,10 +11,14 @@ function applyTheme(theme) {
 }
 applyTheme(readTheme());
 toggle.addEventListener('click', () => applyTheme(state.theme === 'dark' ? 'parchment' : 'dark'));
-startRouter((route, id) => {
+startRouter((route, parts, params) => {
+  cancelWorldView();cancelExploration();
+  if(!['world','record'].includes(route))stopExplorer();
+  const [id,kind,recordId]=parts;
   state.route = route;
   if(route === 'library') void renderBookshelf();
-  if(route === 'world') void renderWorld(id);
+  if(route === 'world') void renderWorld(id,params);
+  if(route === 'record') void renderRecord(id,kind,recordId,params);
   if(route === 'import') void renderRecovery();
 });
 setupImportPreview();

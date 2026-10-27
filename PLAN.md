@@ -2,7 +2,7 @@
 
 *Every world a history. Every downfall a story.*
 
-Status: local archive iteration implemented; exploration features in progress. Updated: 27 October 2026.
+Status: searchable archive iteration implemented; richer exploration features in progress. Updated: 27 October 2026.
 
 ## Current iteration
 
@@ -10,7 +10,7 @@ Local archives are implemented: streaming standard/Plus XML import, CP437/UTF-8 
 
 Eight Node tests and the deployed browser integration suite pass. All five supplied Cadenilina files were imported through the live UI; the saved world exposes 7,700 figures, 31,903 events, 577 sites, 276 artifacts, and 1,246 written works. Reload and pagination were verified. No user exports are committed.
 
-Structural merging is implemented; semantic event aliases, relationship indexes, advanced mismatch detection, migrations, cross-browser/mobile qualification, and complete accessibility review remain open. The next iteration should turn the raw archive into searchable linked records. See [verification notes](docs/verification.md).
+Structural merging is implemented; semantic event aliases, relationship indexes, advanced mismatch detection, migrations, cross-browser/mobile qualification, and complete accessibility review remain open. Searchable linked source records are now implemented, including case/accent folding, ID lookup, category selection, stable sorting, hash query persistence, and reverse event references. Rich biographies and narrative event templates are the next iteration. See [verification notes](docs/verification.md).
 
 ## Goal and working rules
 
@@ -113,7 +113,7 @@ A feature-complete v1 includes every required phase below, including specialist 
 - [x] Fail clearly on unrecoverable structural corruption; never present a partial parse as a complete import.
 - [x] Reject unsupported DTD/external-entity constructs and never fetch resources referenced by imported XML.
 - [ ] Parse integers and booleans consistently while preserving raw values for diagnostics.
-- [ ] Treat negative sentinel references as unknown/unavailable rather than valid links.
+- [x] Treat negative sentinel references as unknown/unavailable rather than valid links.
 - [ ] Normalise standard and Plus field/type aliases through explicit mappings.
 - [ ] Merge by record family and ID, preserving provenance and reporting conflicting fields.
 - [x] Supplement standard events with Plus fields rather than counting both exports as separate event streams.
@@ -159,7 +159,7 @@ A feature-complete v1 includes every required phase below, including specialist 
 - [ ] Add routes for the world bookshelf, Book of Records categories, political map selections, selected-war maps, and faction warfare networks.
 - [ ] Preserve filters, selected tabs, and pagination in route state where useful.
 - [ ] Support browser back/forward, copied links, reloads, invalid routes, and missing-world links.
-- [ ] Explain that a shared record link requires the same locally imported world; do not imply records are hosted publicly.
+- [x] Explain that a shared record link requires the same locally imported world; do not imply records are hosted publicly.
 - [ ] Add exploration breadcrumbs and a recent-records list.
 - [ ] Implement reusable record cards, metadata rows, linked references, empty states, loading states, and error boundaries.
 - [ ] Use textContent/safe DOM construction for all imported names, descriptions, and user notes.
@@ -173,16 +173,18 @@ A feature-complete v1 includes every required phase below, including specialist 
 
 ## 08 — Search and directories
 
-- [ ] Implement universal name search across all primary record families.
-- [ ] Normalise case and accents for matching while preserving original display names.
-- [ ] Support ID lookup, exact matches, partial matches, and deterministic result ordering.
+Implemented slice: all-family name/ID search, category filter, name/year sorting, linked source-record pages, explicit references and paginated related events. Full biographies and per-directory specialist filters remain open.
+
+- [x] Implement universal name search across all primary record families.
+- [x] Normalise case and accents for matching while preserving original display names.
+- [x] Support ID lookup, exact matches, partial matches, and deterministic result ordering.
 - [ ] Add record-type filters and per-directory filters for relevant race, date, status, affiliation, and site type.
 - [ ] Add composable vampire, werebeast, necromancer, and deity filters; support overlapping classifications rather than a mutually exclusive creature type.
 - [ ] Provide explicit present/absent/unknown classification filters, with evidence links and the option to include uncertain matches.
-- [ ] Provide sorting, result counts, pagination, and clear-all controls.
+- [x] Provide sorting, result counts, pagination, and clear-all controls.
 - [ ] Debounce input, cancel stale queries, and avoid main-thread full-world scans per keystroke.
 - [ ] Highlight matched text safely and expose result summaries to assistive technology.
-- [ ] Provide useful no-result suggestions without silently changing the query.
+- [x] Provide useful no-result suggestions without silently changing the query.
 - [ ] Add fuzzy search only if measured user needs justify it; pin and vendor any added dependency.
 - [ ] Verify search results and filters persist when returning from a record page.
 

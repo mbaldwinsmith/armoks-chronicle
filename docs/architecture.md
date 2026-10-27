@@ -48,4 +48,12 @@ Native IndexedDB was chosen for this limited schema to keep browser-ready distri
 
 ## Asset updates
 
-Runtime module, worker, and stylesheet URLs carry an explicit release query (`?v=0.2.2`) to prevent mixed releases during GitHub Pages cache revalidation. Bump these references together for code releases. This is plain source maintenance, not a build step.
+Runtime module, worker, and stylesheet URLs carry an explicit release query (`?v=0.3.0`) to prevent mixed releases during GitHub Pages cache revalidation. Bump these references together for code releases. This is plain source maintenance, not a build step.
+
+## Exploration (0.3.0)
+
+`explorer-worker.js` reads one ready world via the IndexedDB world index and retains compact names/dates and a reverse-reference index. Full source records stay in IndexedDB. Search folds case and accents, supports exact #ID and partial names, sorts deterministically, and returns 50 rows. The initial index is rebuilt per world/session; no database migration or reimport is required. Queries run in the worker; input is debounced and stale responses discarded. Large-world memory/latency targets are not yet qualified.
+
+`exploration.js` is the shared pure search/reference policy. Only explicit allowlisted ID fields become references. Ambiguous fields and negative sentinel IDs remain source data. References from standard and Plus fields both contribute; reverse event results deduplicate each event. A reference is not interpreted as a current relationship. Related events sort by recorded year, raw seconds72, then ID; unknown dates are last. Calendar conversion and prose templates are deferred.
+
+Directory query/filter/order/page state lives in the hash query and travels with record links. Record routes are `#/world/:world/record/:kind/:id`. User-controlled strings are rendered with textContent. Navigation invalidates pending render work; changing worlds releases the worker index.

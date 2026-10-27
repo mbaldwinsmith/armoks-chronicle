@@ -1,7 +1,8 @@
-import {openDatabase,saveWorld,saveRecords,getWorld,readPage,countKind,listWorlds,deleteWorld} from '../js/data/database.js?v=0.2.2';
+import {explore,stopExplorer} from '../js/data/explorer-client.js?v=0.3.0';
+import {openDatabase,saveWorld,saveRecords,getWorld,readPage,countKind,listWorlds,deleteWorld} from '../js/data/database.js?v=0.3.0';
 const output=document.querySelector('#results');
 function assert(value,message){if(!value)throw Error(message);}
-function runImport(id,files){return new Promise((resolve,reject)=>{const worker=new Worker(new URL('../js/import/import-worker.js?v=0.2.2',import.meta.url),{type:'module'});const timeout=setTimeout(()=>{worker.terminate();reject(Error('Import timed out'));},30000);worker.onmessage=({data})=>{if(data.type==='complete'||data.type==='error'){clearTimeout(timeout);worker.terminate();data.type==='complete'?resolve(data.world):reject(Error(data.message));}};worker.onerror=e=>{clearTimeout(timeout);worker.terminate();reject(Error(e.message));};worker.postMessage({type:'import',worldId:id,files});});}
+function runImport(id,files){return new Promise((resolve,reject)=>{const worker=new Worker(new URL('../js/import/import-worker.js?v=0.3.0',import.meta.url),{type:'module'});const timeout=setTimeout(()=>{worker.terminate();reject(Error('Import timed out'));},30000);worker.onmessage=({data})=>{if(data.type==='complete'||data.type==='error'){clearTimeout(timeout);worker.terminate();data.type==='complete'?resolve(data.world):reject(Error(data.message));}};worker.onerror=e=>{clearTimeout(timeout);worker.terminate();reject(Error(e.message));};worker.postMessage({type:'import',worldId:id,files});});}
 document.querySelector('#run').onclick=async()=>{
  const button=document.querySelector('#run');button.disabled=true;output.textContent='Running…\n';
  const prefix='test-'+crypto.randomUUID(),ids=[prefix+'-ok',prefix+'-bad',prefix+'-pages'];let db;
@@ -13,6 +14,9 @@ document.querySelector('#run').onclick=async()=>{
   assert(world.counts.historical_figures===3,'Figure count');assert(world.counts.historical_events===1,'Plus events duplicated');assert(world.name==='The Example World','World name');
   db.close();db=await openDatabase();assert((await getWorld(db,ids[0])).status==='ready','World not persistent');
   const rows=await readPage(db,ids[0],'historical_figures');const first=rows.find(r=>r.id==='1');assert(first.data.race==='DWARF'&&first.data.sex==='1'&&first.supplement.race==='dwarf','Merge lost provenance');log('PASS: real module worker import, ID merge, provenance, persistent reopen.');
+  const search=await explore(ids[0],{type:'search',options:{q:'urist'}});assert(search.total===1&&search.rows[0].id==='1','Worker search');
+  const related=await explore(ids[0],{type:'related',kind:'historical_figures',recordId:'1'});assert(related.total===1&&related.rows[0].id==='0','Reverse event references');
+  const resolved=await explore(ids[0],{type:'resolve',refs:[{kind:'historical_figures',id:'2'},{kind:'sites',id:'999'}]});assert(resolved[0].label==='Domas Examplewright'&&resolved[1].label===null,'Resolution or missing record fallback');stopExplorer();log('PASS: worker name search, reverse event index, reference resolution and missing targets.');
   let failed=false;try{await runImport(ids[1],[new File(['<df_world><sites><site><id>1</id></site></sites><broken>'],'bad-legends.xml')]);}catch{failed=true;}
   assert(failed,'Malformed XML accepted');assert(!await getWorld(db,ids[1]),'Failed import retained world');assert((await getWorld(db,ids[0])).status==='ready','Failed import destroyed existing world');log('PASS: malformed import rollback preserves existing worlds.');
   await saveWorld(db,{id:ids[2],status:'staging'});assert(!(await listWorlds(db)).some(w=>w.id===ids[2]),'Staging exposed');
@@ -21,5 +25,5 @@ document.querySelector('#run').onclick=async()=>{
   for(const id of ids)await deleteWorld(db,id);
   assert((await countKind(db,ids[2],'sites'))===0,'Record cleanup');assert(JSON.stringify((await listWorlds(db)).map(w=>w.id).sort())===JSON.stringify(before),'Unrelated worlds changed');log('PASS: exact-world deletion and isolation.');
   log('ALL TESTS PASSED');
- }catch(error){log('FAIL: '+error.message);}finally{if(db){for(const id of ids)try{await deleteWorld(db,id);}catch{}db.close();}button.disabled=false;}
+ }catch(error){log('FAIL: '+error.message);}finally{stopExplorer();if(db){for(const id of ids)try{await deleteWorld(db,id);}catch{}db.close();}button.disabled=false;}
 };
