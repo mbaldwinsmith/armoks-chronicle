@@ -2,9 +2,11 @@
 
 *Every world a history. Every downfall a story.*
 
-Status: recorded lives and event narrative iteration implemented; broader features in progress. Updated: 27 October 2026.
+Status: atlas and isometric relief preview implemented; broader features in progress. Updated: 27 October 2026.
 
 ## Current iteration
+
+Atlas slice: strict version-3 CSV validation, worker loading of saved terrain, elevation/alignment/savagery colours, selectable world-tile sites, reciprocal site-page links, pan/zoom/fit controls, keyboard and coordinate alternatives, and an opt-in Canvas isometric relief preview. Full 3D camera controls, political overlays, river geometry and biome names remain open. Live browser qualification is pending.
 
 Local archives are implemented: streaming standard/Plus XML import, CP437/UTF-8 decoding, staged IndexedDB writes, progress/cancellation controls, saved-world bookshelf, raw record pagination, provenance inspection, and exact-world deletion. Map/text files are retained but their contents are not yet interpreted.
 
@@ -243,13 +245,13 @@ Implemented slice: all-family name/ID search, category filter, name/year sorting
 
 ## 12 — Interactive world atlas
 
-- [ ] Render terrain from map CSV using Canvas with device-pixel-ratio handling.
+- [x] Render terrain from map CSV using Canvas with device-pixel-ratio handling.
 - [ ] Add verified biome colours, elevation shading, oceans, rivers, peaks, and volcano markers.
 - [ ] Overlay selectable sites, regions, and constructions from XML coordinates.
 - [ ] Verify coordinate orientation, scale conversion, edge cells, and site-rectangle interpretation against fixtures.
 - [ ] Implement pan, wheel/pinch zoom, fit-world, zoom buttons, and keyboard alternatives.
 - [ ] Add layers for biome, elevation, evilness, savagery, and volcanism, each with a legend.
-- [ ] Display unknown biome/flag codes explicitly instead of assigning guessed terrain.
+- [x] Display unknown biome/flag codes explicitly instead of assigning guessed terrain.
 - [ ] Add site-type filters, name search, marker clustering or scale-dependent labels, and selected-site emphasis.
 - [ ] Add a political settlement layer with stable faction colours, owner legend, individual faction toggles, and show-all/hide-all controls.
 - [ ] Keep unknown ownership and unaffiliated sites visible as explicit categories; combine colour with labels/shapes for accessibility.
@@ -266,10 +268,12 @@ Implemented slice: all-family name/ID search, category filter, name/year sorting
 - [ ] Filter warfare overlays by date, faction, and selected conflict using the shared map/timeline state.
 - [ ] Show location-unknown conflicts in a linked list rather than inventing coordinates; provide a chooser for multiple records on the same tile.
 - [ ] Label connecting lines/arrows as associations between conflict locations, never as verified army routes or territorial fronts.
-- [ ] Supply an accessible linked location list for Canvas-only information.
+- [x] Supply an accessible linked location list for Canvas-only information.
 - [ ] Test mobile gestures, reduced detail, redraw scheduling, and large marker counts.
 
 ### Optional atlas setting — Raised Relief
+
+- [x] Implement an initial opt-in isometric Canvas relief preview using stepped exported elevation, with flat-view escape, site selection and a bounded 257 × 257 tile budget. Full 3D interaction remains in the tasks below.
 
 This setting is part of v1 implementation but opt-in for users; the flat atlas remains the default. It depicts regional elevation as stepped voxel-style columns, not individual fortress blocks or reconstructed underground geometry.
 

@@ -1,5 +1,5 @@
-import {renderDirectory} from './explore.js?v=0.4.0';
-import {openDatabase,listWorlds,getWorld,deleteWorld} from '../data/database.js?v=0.4.0';
+import {renderDirectory} from './explore.js?v=0.5.0';
+import {openDatabase,listWorlds,getWorld,deleteWorld} from '../data/database.js?v=0.5.0';
 let generation=0;
 export function cancelWorldView(){generation++;}
 export async function renderBookshelf() {
@@ -32,6 +32,7 @@ export async function renderWorld(id, params) {
     db=await openDatabase();const world=await getWorld(db,id);
     if(ticket!==generation)return;
     if(!world || world.status!=='ready'){title.textContent='World not available';status.textContent='This world may have been deleted, or it belongs to another browser.';return;}
+    document.querySelector('#open-atlas').href=`#/world/${encodeURIComponent(id)}/atlas`;
     title.textContent=world.name;
     document.title=world.name+' · Armok’s Chronicle';
     document.querySelector('#world-subtitle').textContent=world.alternativeName||'Imported world archive';

@@ -1,7 +1,7 @@
-import {narratives,biography} from './narrative.js?v=0.4.0';
-import {openDatabase,getWorld,getRecord} from '../data/database.js?v=0.4.0';
-import {explore} from '../data/explorer-client.js?v=0.4.0';
-import {kindNames,recordURL,collectReferences,eventDate} from '../data/exploration.js?v=0.4.0';
+import {narratives,biography} from './narrative.js?v=0.5.0';
+import {openDatabase,getWorld,getRecord} from '../data/database.js?v=0.5.0';
+import {explore} from '../data/explorer-client.js?v=0.5.0';
+import {kindNames,recordURL,collectReferences,eventDate} from '../data/exploration.js?v=0.5.0';
 let generation=0,timer;
 export function cancelExploration(){generation++;clearTimeout(timer);}
 const element=(tag,text,className)=>{const el=document.createElement(tag);if(text!==undefined)el.textContent=text;if(className)el.className=className;return el;};
@@ -49,7 +49,9 @@ export async function renderRecord(worldId,kind,id,params) {
   if(world?.status!=='ready'||!record){title.textContent='Record unavailable';status.textContent='This record is missing, or this world is not saved in this browser. Importing a world creates a new local address.';return;}
   title.textContent=record.label;document.title=`${record.label} · Armok’s Chronicle`;
   body.append(element('p',`${world.name} · ${kindNames[kind]||kind.replaceAll('_',' ')} · #${id}`,'intro'));
-  const data=record.data,fields=element('dl',undefined,'record-facts');
+  const data=record.data;
+  if(kind==='sites'&&/^\d+,\d+$/.test(data.coords||'')){const [x,y]=data.coords.split(',');const mapLink=element('a','Show this site in the atlas','button quiet');mapLink.href=`#/world/${encodeURIComponent(worldId)}/atlas?x=${x}&y=${y}`;body.append(mapLink);}
+  const fields=element('dl',undefined,'record-facts');
   for(const [key,value] of Object.entries(data))if(typeof value==='string'&&!['id','name'].includes(key)){
    fields.append(element('dt',key.replaceAll('_',' ')),element('dd',value==='-1'?'Unknown / not recorded (−1)':value));
   }

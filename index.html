@@ -7,8 +7,8 @@
   <meta name="description" content="Armok’s Chronicle: a local-first explorer for the histories of Dwarf Fortress worlds.">
   <title>Armok’s Chronicle</title>
   <link rel="icon" href="./assets/mark.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="./css/app.css?v=0.4.0">
-  <script type="module" src="./js/app.js?v=0.4.0"></script>
+  <link rel="stylesheet" href="./css/app.css?v=0.5.0">
+  <script type="module" src="./js/app.js?v=0.5.0"></script>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -66,12 +66,25 @@
     </section>
     <section id="view-world" hidden aria-labelledby="world-title">
       <div class="eyebrow">YOUR WORLD ARCHIVE</div><h1 id="world-title">Opening world…</h1><p id="world-subtitle" class="intro"></p>
-      <div id="world-details" hidden><div class="section-heading"><h2>Explore the records</h2><button id="delete-world" class="quiet" type="button">Delete world</button></div>
+      <div id="world-details" hidden><div class="section-heading"><h2>Explore the records</h2><a id="open-atlas" class="button quiet">Open world atlas →</a><button id="delete-world" class="quiet" type="button">Delete world</button></div>
       <p class="notice">Search names or enter # followed by an ID. Open a record to follow explicit references and related events. Links require this same archive in this browser; they do not publish your world.</p>
       <div class="search-controls"><div><label for="record-search">Search this world</label><input id="record-search" type="search" placeholder="Name, event type, or #ID" maxlength="200" autocomplete="off"></div><div><label for="record-kind">Record category</label><select id="record-kind"></select></div><div><label for="record-sort">Order</label><select id="record-sort"><option value="name">Name</option><option value="year">Event year</option></select></div><button id="clear-search" class="quiet" type="button">Clear search</button></div>
       <ul id="records" class="record-results"></ul><div class="record-pagination"><button id="previous-records" class="quiet" type="button">Previous</button><button id="next-records" class="quiet" type="button">Next</button></div>
       <details class="guide-card"><summary>Import diagnostics</summary><pre id="import-diagnostics"></pre></details></div>
       <p id="record-status" role="status"></p><a class="text-link" href="#/library">Back to the bookshelf</a>
+    </section>
+    <section id="view-atlas" hidden aria-labelledby="atlas-title">
+      <a id="atlas-back" class="text-link">← Back to world records</a><h1 id="atlas-title">World atlas</h1>
+      <p id="atlas-status" role="status"></p>
+      <div id="atlas-controls" hidden>
+        <div class="atlas-toolbar"><div><label for="atlas-mode">View</label><select id="atlas-mode"><option value="flat">Flat atlas</option><option value="relief">Raised Relief</option></select></div><div><label for="atlas-layer">Colour layer</label><select id="atlas-layer"><option value="elevation">Elevation</option><option value="evilness">Evilness</option><option value="savagery">Savagery</option></select></div><label><input id="atlas-sites" type="checkbox" checked> Site markers</label><button id="atlas-in" class="quiet" aria-label="Zoom in">+</button><button id="atlas-out" class="quiet" aria-label="Zoom out">−</button><button id="atlas-fit" class="quiet">Fit world</button></div>
+        <p id="relief-note" class="muted"></p><p class="muted">Drag to pan; use the wheel or +/− to zoom. Focus the map and use arrow keys to pan. Click a tile to inspect it. North is up on the flat atlas; X increases east, Y south.</p>
+        <p class="muted">Elevation palette: low blue → green → tan → high pale. Lakes use blue. Evilness and savagery: low green → high red. Site markers are copper dots. Elevation is shown in export units.</p>
+        <label for="atlas-site-select">Find a site</label><select id="atlas-site-select"></select>
+        <form id="atlas-go" class="atlas-coordinates"><label>X <input id="atlas-x" type="number" min="0" step="1" required></label><label>Y <input id="atlas-y" type="number" min="0" step="1" required></label><button class="quiet">Inspect tile</button></form>
+      </div>
+      <canvas id="atlas-canvas" tabindex="0" aria-label="Interactive world atlas. Use the site selector or coordinate fields for an alternative to clicking." hidden></canvas>
+      <p id="atlas-hover" class="muted">Hover over the flat map to inspect elevation.</p><p class="muted">Terrain is an export-time snapshot. Changing the view does not reconstruct past terrain.</p><p id="tile-details" role="status"></p><ul id="tile-sites"></ul>
     </section>
     <section id="view-record" hidden aria-labelledby="detail-title"><a id="back-results" class="text-link">← Back to search results</a><h1 id="detail-title">Opening record…</h1><p id="detail-status" role="status"></p><div id="detail-body"></div></section>
     <template id="world-card"><article class="world-card"><span class="small-label">SAVED WORLD</span><h3></h3><p class="world-subtitle"></p><p class="world-stats"></p><a class="button primary">Open archive →</a><p class="world-date muted"></p></article></template>

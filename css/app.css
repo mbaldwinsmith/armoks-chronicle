@@ -37,3 +37,11 @@
 .timeline-filters > div { min-width:0; }
 .biography { margin-bottom:28px; }
 @media(max-width:700px){.timeline-filters{grid-template-columns:1fr 1fr;}}
+
+#atlas-title { margin-top:24px; font-size:clamp(2rem,4vw,3.5rem); }
+#atlas-canvas { width:100%; height:clamp(320px,65vh,700px); border:1px solid var(--line); display:block; touch-action:none; cursor:grab; margin-top:20px; }
+#atlas-canvas:active { cursor:grabbing; }
+.atlas-toolbar { display:flex; flex-wrap:wrap; align-items:end; gap:12px; margin-top:20px; }
+.atlas-toolbar label { display:block; font-size:.85rem; }.atlas-toolbar select { margin:4px 0 0; }
+.atlas-coordinates { display:flex; flex-wrap:wrap; gap:12px; align-items:end; margin:16px 0; }
+.atlas-coordinates input { display:block; width:100px; padding:8px; background:var(--panel); color:var(--ink); border:1px solid var(--line); }

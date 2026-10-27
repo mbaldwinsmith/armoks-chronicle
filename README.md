@@ -14,7 +14,7 @@ Search any saved world by name, event type, or `#ID`; select a category and sort
 
 Choose **Try a tiny fictional example** on the import page to test without your own files. It is explicitly synthetic, not a game export.
 
-Map CSV and text reports are retained as files but not interpreted yet. Search and linked source-record pages are available. Figure pages now show recorded life dates and labelled relationships. Event lists and pages have 28 deterministic prose templates, linked participants, and an explicit fallback for other types. Timelines support type/year filters and a documented major-events preset. Complete biographies, broader event coverage, maps, offline caching, and personal notes remain in development. Reimporting creates a separate archive; enrichment of existing worlds is planned.
+Version 3 world_map.csv exports now power a Canvas atlas with elevation, evilness and savagery layers, selectable sites, pan/zoom, and an optional isometric Raised Relief preview. Existing archives with a saved CSV work without reimport. Text reports remain stored for future interpretation. Search and linked source-record pages are available. Figure pages now show recorded life dates and labelled relationships. Event lists and pages have 28 deterministic prose templates, linked participants, and an explicit fallback for other types. Timelines support type/year filters and a documented major-events preset. Complete biographies, broader event coverage, advanced map overlays, offline caching, and personal notes remain in development. Reimporting creates a separate archive; enrichment of existing worlds is planned.
 
 See [PLAN.md](PLAN.md) for the development checklist and [architecture](docs/architecture.md) for module boundaries and the worker protocol.
 

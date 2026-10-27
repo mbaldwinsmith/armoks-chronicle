@@ -1,3 +1,12 @@
+# Atlas iteration verification
+
+27 October 2026
+
+- 23 Node tests pass, including complete/duplicate/missing cells, bounds, unknown CSV versions, elevation range, site coordinate alignment, rectangle noninterpretation, and isometric orientation.
+- Supplied map validates as 129 × 129, 16,641 cells, elevation 1–250.
+- Atlas worker integration and live UI checks are pending publication.
+- Free camera rotation, pinch zoom, verified biome names, river/road drawing, political and historical overlays, and mobile/browser qualification remain planned. The optional Raised Relief view is an isometric preview.
+
 # Recorded lives iteration verification
 
 27 October 2026

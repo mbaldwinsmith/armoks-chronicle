@@ -48,7 +48,7 @@ Native IndexedDB was chosen for this limited schema to keep browser-ready distri
 
 ## Asset updates
 
-Runtime module, worker, and stylesheet URLs carry an explicit release query (`?v=0.4.0`) to prevent mixed releases during GitHub Pages cache revalidation. Bump these references together for code releases. This is plain source maintenance, not a build step.
+Runtime module, worker, and stylesheet URLs carry an explicit release query (`?v=0.5.0`) to prevent mixed releases during GitHub Pages cache revalidation. Bump these references together for code releases. This is plain source maintenance, not a build step.
 
 ## Exploration (0.3.0)
 
@@ -63,3 +63,11 @@ Directory query/filter/order/page state lives in the hash query and travels with
 `data/narrative.js` canonicalises selected known event aliases and defines 28 deterministic token templates. Tokens are plain text or typed record IDs. `views/narrative.js` resolves names in a batch and creates text nodes/links; no export text is interpreted as HTML. Known standard field names take precedence over aliases when both occur. Raw merged fields and raw Plus provenance remain inspectable. Unsupported types use a labelled fallback, so no event is silently dropped.
 
 Event text is hydrated only for the visible page, without retaining all source event data in the worker. The compact worker index now includes canonical event types. Related-event filtering happens before pagination; counts, hidden totals, and results use the same predicate. Major events hides only the documented routine types, retaining unknown types. Year ranges exclude undated events, support negative years, and persist in record hash parameters. Figure summaries never infer survival from missing death dates; calendar-year differences are explicitly qualified, and relationship labels retain the source direction without asserting current status.
+
+## Atlas (0.5.0)
+
+The atlas worker reads saved File blobs and site records from IndexedDB, with no schema changes. Only DFHACK_WORLD_MAP version 3 is currently accepted; dimensions are capped at 1025, file size at 64 MB, and rows require complete unique in-bounds integer coordinates. Invalid files fail visibly. Site `coords` are world tile positions; site rectangles are retained as source data and not rescaled or interpreted.
+
+The flat canvas caches one pixel per tile and scales without smoothing. Canvas output accounts for device pixel ratio (capped at 2). Native Canvas is also used for an isometric stepped-column preview, capped at 257 × 257. Relief is a regional elevation illustration with fixed exaggeration, not a free-camera WebGL scene. It builds only when requested. Projection picking uses a colour-ID buffer. Both views expose a site selector, selected-tile linked list, numeric coordinate controls and keyboard pan/zoom.
+
+Format provenance: DFHack/scripts `exportlegends.lua`, function `export_world_map_metadata`, reviewed 27 October 2026: https://github.com/DFHack/scripts/blob/master/exportlegends.lua . The exporter emits x increasing across rows, y increasing between rows; flags are lake=1, river=2, road=4. River direction bits are N=1,S=2,W=4,E=8. This version retains river bits but does not draw river connections. Elevation is shown in raw export units; biome names and sea-level interpretation are not guessed. Elevation colours are an application palette.
