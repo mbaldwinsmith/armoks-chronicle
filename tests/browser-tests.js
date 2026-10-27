@@ -1,8 +1,8 @@
-import {explore,stopExplorer} from '../js/data/explorer-client.js?v=0.3.1';
-import {openDatabase,saveWorld,saveRecords,getWorld,readPage,countKind,listWorlds,deleteWorld} from '../js/data/database.js?v=0.3.1';
+import {explore,stopExplorer} from '../js/data/explorer-client.js?v=0.3.2';
+import {openDatabase,saveWorld,saveRecords,getWorld,readPage,countKind,listWorlds,deleteWorld} from '../js/data/database.js?v=0.3.2';
 const output=document.querySelector('#results');
 function assert(value,message){if(!value)throw Error(message);}
-function runImport(id,files){return new Promise((resolve,reject)=>{const worker=new Worker(new URL('../js/import/import-worker.js?v=0.3.1',import.meta.url),{type:'module'});const timeout=setTimeout(()=>{worker.terminate();reject(Error('Import timed out'));},30000);worker.onmessage=({data})=>{if(data.type==='complete'||data.type==='error'){clearTimeout(timeout);worker.terminate();data.type==='complete'?resolve(data.world):reject(Error(data.message));}};worker.onerror=e=>{clearTimeout(timeout);worker.terminate();reject(Error(e.message));};worker.postMessage({type:'import',worldId:id,files});});}
+function runImport(id,files){return new Promise((resolve,reject)=>{const worker=new Worker(new URL('../js/import/import-worker.js?v=0.3.2',import.meta.url),{type:'module'});const timeout=setTimeout(()=>{worker.terminate();reject(Error('Import timed out'));},30000);worker.onmessage=({data})=>{if(data.type==='complete'||data.type==='error'){clearTimeout(timeout);worker.terminate();data.type==='complete'?resolve(data.world):reject(Error(data.message));}};worker.onerror=e=>{clearTimeout(timeout);worker.terminate();reject(Error(e.message));};worker.postMessage({type:'import',worldId:id,files});});}
 document.querySelector('#run').onclick=async()=>{
  const button=document.querySelector('#run');button.disabled=true;output.textContent='Running…\n';
  const prefix='test-'+crypto.randomUUID(),ids=[prefix+'-ok',prefix+'-bad',prefix+'-pages'];let db;

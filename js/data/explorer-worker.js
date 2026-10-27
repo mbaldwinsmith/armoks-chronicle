@@ -1,5 +1,5 @@
-import {openDatabase,getWorld} from './database.js?v=0.3.1';
-import {normalise,recordKey,collectReferences,eventDate,compareEvents,searchEntries} from './exploration.js?v=0.3.1';
+import {openDatabase,getWorld} from './database.js?v=0.3.2';
+import {normalise,recordKey,collectReferences,eventDate,compareEvents,searchEntries} from './exploration.js?v=0.3.2';
 let cachedWorld, entries=[],lookup=new Map(), incoming=new Map();
 async function load(worldId) {
  if(cachedWorld===worldId)return;

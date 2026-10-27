@@ -1,6 +1,6 @@
-import {openDatabase,getWorld,getRecord} from '../data/database.js?v=0.3.1';
-import {explore} from '../data/explorer-client.js?v=0.3.1';
-import {kindNames,recordURL,collectReferences,eventDate} from '../data/exploration.js?v=0.3.1';
+import {openDatabase,getWorld,getRecord} from '../data/database.js?v=0.3.2';
+import {explore} from '../data/explorer-client.js?v=0.3.2';
+import {kindNames,recordURL,collectReferences,eventDate} from '../data/exploration.js?v=0.3.2';
 let generation=0,timer;
 export function cancelExploration(){generation++;clearTimeout(timer);}
 const element=(tag,text,className)=>{const el=document.createElement(tag);if(text!==undefined)el.textContent=text;if(className)el.className=className;return el;};
