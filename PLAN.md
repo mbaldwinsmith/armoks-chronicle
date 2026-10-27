@@ -6,7 +6,7 @@ Status: atlas and isometric relief preview implemented; broader features in prog
 
 ## Current iteration
 
-Artifacts and culture slice: object/work/form metadata panels, author bibliographies, physical copies, typed references, artistic descriptions, culture-directory totals and additional artifact lifecycle prose. 35 automated tests pass; live checks pending.
+Artifacts and culture slice: object/work/form metadata panels, author bibliographies, physical copies, typed references, artistic descriptions, culture-directory totals and additional artifact lifecycle prose. 36 automated tests pass. The live integration suite verifies bibliography/copy/form indexes and safe metadata rendering. Live artifact → content → author navigation, physical copies, and form-linked works were checked.
 
 Conflict atlas slice: grouped dated event markers, type/year/explicit-organisation filters, location-unknown linked events, tile event chooser, reciprocal event links, river/road overlays and 0.5×–3× relief exaggeration. 31 automated tests and live browser integration checks pass. Cadenilina has 6,403 supported conflict events (5,875 mapped, 528 location unknown); 14 field battles, organisation/date filtering, shared-tile choice, reciprocal links, and relief-height/road persistence were verified.
 
@@ -313,7 +313,8 @@ This setting is part of v1 implementation but opt-in for users; the flat atlas r
 - [x] Build author bibliographies and searchable world-library directories.
 - [ ] Expose poetic, musical, and dance forms, descriptions, creators, and associated performances where available.
 - [ ] Link ceremonies, processions, competitions, and discoveries of knowledge.
-- [x] Add culture and scholarship summaries whose totals link back to their underlying records.
+- [ ] Add culture and scholarship summaries whose totals link back to their underlying records.
+- [x] Add artifact/work/form directory shortcuts with source-family totals.
 
 ## 14 — Conflicts, religion, beasts, and intrigue
 

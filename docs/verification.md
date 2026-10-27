@@ -1,3 +1,14 @@
+# Artifacts, written works and culture verification
+
+27 October 2026
+
+- 36 Node tests pass, including contextual author/form/typed-reference resolution, physical book content and holder roles, vanilla item-page content references, unsafe description text, metadata/page ranges, and claims that do not assert proven ownership.
+- Live Chrome integration suite passes: worker bibliography, physical-copy and form-to-work reverse indexes; bibliographic disclosure; safe cultural DOM text rendering; and all previous import/storage/atlas checks.
+- Existing Cadenilina archive opens without reimport. Artifact #55 is a 28-page sard book with content #30 and a recorded site. Its timeline shows creation (year 10) and storage (year 19), with distinct source locations.
+- Written work #30 shows title, author #1271, essay form, source style, page range 1–28, a reference to event #2809, one physical copy, and its composition event. Author #1271 has three source-linked written works.
+- Poetic form #78, “The Oblivion of Bone”, displays its exported description and two linked works. Independent parsing confirms the physical-copy and form reference counts. Unknown reference types remain raw source values.
+- Musical/dance descriptions use the same safe paragraph renderer. Complete performance/ceremony interpretation, verified semantic style labels, current ownership derivation, scholarship discovery summaries and non-Chrome/mobile qualification remain planned.
+
 # Conflict atlas and terrain overlay verification
 
 27 October 2026

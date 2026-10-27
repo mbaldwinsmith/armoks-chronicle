@@ -1,11 +1,11 @@
-import {culturePanel,associations} from './culture.js?v=0.8.0';
-import {cultureReferences,culturalKinds,cultureLabel} from '../data/culture.js?v=0.8.0';
-import {conflictRecord} from '../data/conflicts.js?v=0.8.0';
-import {sitePosition} from '../data/terrain.js?v=0.8.0';
-import {narratives,biography} from './narrative.js?v=0.8.0';
-import {openDatabase,getWorld,getRecord} from '../data/database.js?v=0.8.0';
-import {explore} from '../data/explorer-client.js?v=0.8.0';
-import {kindNames,recordURL,collectReferences,eventDate} from '../data/exploration.js?v=0.8.0';
+import {culturePanel,associations} from './culture.js?v=0.8.1';
+import {cultureReferences,culturalKinds,cultureLabel} from '../data/culture.js?v=0.8.1';
+import {conflictRecord} from '../data/conflicts.js?v=0.8.1';
+import {sitePosition} from '../data/terrain.js?v=0.8.1';
+import {narratives,biography} from './narrative.js?v=0.8.1';
+import {openDatabase,getWorld,getRecord} from '../data/database.js?v=0.8.1';
+import {explore} from '../data/explorer-client.js?v=0.8.1';
+import {kindNames,recordURL,collectReferences,eventDate} from '../data/exploration.js?v=0.8.1';
 let generation=0,timer;
 export function cancelExploration(){generation++;clearTimeout(timer);}
 const element=(tag,text,className)=>{const el=document.createElement(tag);if(text!==undefined)el.textContent=text;if(className)el.className=className;return el;};
@@ -74,6 +74,7 @@ export async function renderRecord(worldId,kind,id,params) {
   const raw=element('details',undefined,'guide-card'),pre=element('pre',JSON.stringify({fields:data,sources:record.sources,supplementaryFields:record.supplement},null,2));raw.append(element('summary','Source fields and provenance'),pre);body.append(raw);
   const resolved=await explore(worldId,{type:'resolve',refs});if(ticket!==generation)return;
   for(const ref of resolved){const li=element('li');li.append(element('span',ref.path.replaceAll('_',' ')+' → ','muted'));if(ref.label){const a=element('a',`${ref.label} · #${ref.id}`);a.href=recordURL(worldId,ref.kind,ref.id,suffix);li.append(a);}else li.append(element('span',`Unresolved ${kindNames[ref.kind]||ref.kind} #${ref.id}`));links.append(li);}
+  if(!resolved.length&&culturalKinds.has(kind))section.hidden=true;
   if(!resolved.length)links.append(element('li','No supported explicit references in this record. Other fields remain available in the source inspector.'));
   if(kind==='historical_figures')body.insertBefore(biography(data,resolved,worldId,suffix),fieldDetails);
   if(culturalKinds.has(kind)){const resolvedCulture=await explore(worldId,{type:'resolve',refs:extraRefs});if(ticket!==generation)return;body.insertBefore(culturePanel(record,resolvedCulture,worldId,suffix),fieldDetails);}
@@ -94,6 +95,7 @@ export async function renderRecord(worldId,kind,id,params) {
    const query=current.size?'?'+current:'';history.replaceState(null,'',recordURL(worldId,kind,id,query));
    note.textContent='Loading events…';
    try{const result=await explore(worldId,{type:'related',kind,recordId:id,offset,filters:selection});if(ticket!==generation||token!==request)return;
+    filters.hidden=result.unfiltered===0;controls.hidden=result.unfiltered===0;
     if(!typesLoaded){type.add(new Option('All types',''));for(const name of result.types)type.add(new Option(name,name));type.value=selection.type;if(type.selectedIndex<0){type.add(new Option(selection.type,selection.type));type.value=selection.type;}typesLoaded=true;}
     const records=await withDB(db=>Promise.all(result.rows.map(row=>getRecord(db,worldId,row.kind,row.id))));
     const stories=await narratives(records.filter(Boolean),worldId,query);if(ticket!==generation||token!==request)return;
