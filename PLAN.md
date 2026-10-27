@@ -6,7 +6,7 @@ Status: atlas and isometric relief preview implemented; broader features in prog
 
 ## Current iteration
 
-Timeline reading: All Events, Major Events, Warfare and Personal History presets; optional occupation/movement/affiliation exclusions; shared worker filtering/counts for event directories and record timelines; chronological year groups and URL-persisted filters across linked navigation/reload. 52 Node tests pass. Browser integration covers shared counts, reset, restored controls, year-heading DOM and a 55-event pagination fixture. Live UI qualification follows deployment.
+Timeline reading: All Events, Major Events, Warfare and Personal History presets; optional occupation/movement/affiliation exclusions; shared worker filtering/counts for event directories and record timelines; chronological year groups and URL-persisted filters across linked navigation/reload. 52 Node tests pass. Browser integration covers shared counts, reset, restored controls, year-heading DOM and a 55-event pagination fixture. Live Chrome checks pass for Warfare and Major presets, independent movement exclusion, hidden counts, linked navigation, reload restoration, reset and chronological directory grouping.
 
 Language polish: display-only Title Case for record names, human-readable event headings, and direct prose for settlement, movement, occupations, affiliations, clashes and deaths. Canonical filter keys, source fields, notes and tags retain their original values. 47 automated tests and live browser integration checks pass, including the linked settlement sentence, Title Case display names and preservation of raw source values. Raw event-type searches retain compatibility with the new headings.
 

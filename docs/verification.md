@@ -1,3 +1,12 @@
+# Timeline reading verification
+
+27 October 2026
+
+- 52 Node tests pass. New coverage checks explicit preset membership, unknown types retained in Major Events, composable routine exclusions, inclusive/negative year bounds, undated handling, filter URL round trips, reset isolation, and year groups.
+- Live Chrome integration suite passes: shared worker filters/counts in event directories and related timelines; restored controls and reset; semantic year headings; 55 synthetic events split into 50/5 pages and 28 Major Events. Existing import, source-preservation, atlas, research and isolation checks also pass.
+- Live UI checks on authored fictional records: Warfare follows a person-to-site link and survives reload; Show all events resets filters; movement exclusion hides the settlement event with an accurate hidden count. The event directory defaults to chronological grouping and Major Events produces the same filtered count.
+- Timeline filters are encoded in local hash URLs. Atlas conflict state, saved-search management and timeline charts are separate future work. Warfare includes deaths/wounds/abductions without claiming they belong to a war.
+
 # Language and presentation verification
 
 27 October 2026
