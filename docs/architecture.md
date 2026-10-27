@@ -48,7 +48,7 @@ Native IndexedDB was chosen for this limited schema to keep browser-ready distri
 
 ## Asset updates
 
-Runtime module, worker, and stylesheet URLs carry an explicit release query (`?v=0.5.2`) to prevent mixed releases during GitHub Pages cache revalidation. Bump these references together for code releases. This is plain source maintenance, not a build step.
+Runtime module, worker, and stylesheet URLs carry an explicit release query (`?v=0.5.3`) to prevent mixed releases during GitHub Pages cache revalidation. Bump these references together for code releases. This is plain source maintenance, not a build step.
 
 ## Exploration (0.3.0)
 
@@ -73,3 +73,5 @@ The flat canvas caches one pixel per tile and scales without smoothing. Canvas o
 Format provenance: DFHack/scripts `exportlegends.lua`, function `export_world_map_metadata`, reviewed 27 October 2026: https://github.com/DFHack/scripts/blob/master/exportlegends.lua . The exporter emits x increasing across rows, y increasing between rows; flags are lake=1, river=2, road=4. River direction bits are N=1,S=2,W=4,E=8. This version retains river bits but does not draw river connections. Elevation is shown in raw export units; biome names and sea-level interpretation are not guessed. Elevation colours are an application palette.
 
 Relief ocean fill (0.5.2): translucent top and side faces cover non-lake tiles below elevation 100. Terrain retains its exported seafloor elevation; picking and marker projection use the water surface. Faces are drawn in the same back-to-front tile order as terrain so dry land occludes water correctly. Classification follows DFHack `Maps::getBiomeTypeWithRef` (lake first, then elevation < 100 for oceans): https://github.com/DFHack/dfhack/blob/develop/library/modules/Maps.cpp . Lakes retain their own exported levels.
+
+Relief sharpness (0.5.3): colour geometry is rasterised at up to 4× the original linear resolution (16× pixels), with a 16-million-pixel buffer budget. High-quality resampling is enabled for relief; the flat tile atlas retains nearest-neighbour rendering. Logical map coordinates, marker positions, zoom and the picking buffer are independent of colour-buffer resolution.
