@@ -1,8 +1,18 @@
-# Local archive iteration verification
+# Searchable archive iteration verification
 
 27 October 2026
 
-## Passed
+## Exploration checks (0.3.1)
+
+- Twelve Node tests pass, including accent/case folding, exact/partial name matching, family-scoped ID lookup, pagination, stable event ordering, negative years, empty/unknown dates, reference roles, nested paths, sentinel exclusion, ambiguous-field exclusion, and route encoding.
+- Live Chrome integration suite passes with the new exploration module worker: name search, reverse-event index, name resolution and missing-target fallback, plus all existing import/storage checks.
+- Existing Cadenilina archive opened without reimport. ID search #315 restricted to historical figures returns Smangba; his page exposes 79 related events, with page two showing 51–79. This matches the independently parsed standard-export count.
+- Followed figure → death event #5351 → Hammerbit site #76. Victim and slayer remain distinct source references. The site page survives a reload.
+- Return to results restores the #315 query and figure category. Name search and no-result guidance were checked, along with clear search.
+- Reference lists with more than ten entries are collapsed by default; small lists remain open. These pages are structured source views, not complete narrative biographies.
+- Search indexes are rebuilt in a background worker for each world/session. No IndexedDB schema change or migration was required. Large-world memory/performance budgets are not yet qualified.
+
+## Previous import checks
 
 - Eight Node tests pass (`node --test tests/parser.test.mjs tests/preview.cjs`): nested/repeated/unknown XML fields, entities, CP437, invalid control counts, UTF-8 chunk boundaries, duplicate IDs, malformed XML, DTD rejection, unsupported encodings, merge precedence, filename manifests, bounded header reads, and per-file failures.
 - Both supplied XML exports parsed in Node: 47,697 standard source records and 46,523 supplementary source records; 24 invalid controls removed from standard XML and none from Plus.
@@ -15,7 +25,7 @@
 
 ## Scope and pending checks
 
-- This is a raw archive browser, not yet linked biographies or narrative event exploration. Structural merging preserves standard values and exposes raw Plus values; semantic aliases and relationship indexes remain planned.
+- The archive now has search, linked source-record pages, and related-event lists. Rich biographies, semantic event aliases, narrative templates, and comprehensive relationship interpretation remain planned. Merged-field references and raw Plus references are labelled separately.
 - Map CSV and text reports are saved as supplementary files but not interpreted or visualised yet.
 - Cancellation and unfinished-import recovery are implemented; exhaustive timing/race and quota-failure tests remain pending.
 - Browser qualification so far is desktop Chrome. Firefox, Safari, mobile, screen-reader and full keyboard/contrast audits remain pending.

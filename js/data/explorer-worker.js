@@ -1,5 +1,5 @@
-import {openDatabase,getWorld} from './database.js?v=0.3.0';
-import {normalise,recordKey,collectReferences,eventDate,compareEvents,searchEntries} from './exploration.js?v=0.3.0';
+import {openDatabase,getWorld} from './database.js?v=0.3.1';
+import {normalise,recordKey,collectReferences,eventDate,compareEvents,searchEntries} from './exploration.js?v=0.3.1';
 let cachedWorld, entries=[],lookup=new Map(), incoming=new Map();
 async function load(worldId) {
  if(cachedWorld===worldId)return;
@@ -14,7 +14,7 @@ async function load(worldId) {
     const record=cursor.value,key=recordKey(record.kind,record.id);
     const row={key,kind:record.kind,id:record.id,label:record.label,search:normalise(record.label),...eventDate(record.data)};
     entries.push(row);lookup.set(key,row);
-    for(const ref of collectReferences({standard:record.data,plus:record.supplement})) {
+    for(const ref of collectReferences({merged:record.data,plus:record.supplement})) {
      const target=recordKey(ref.kind,ref.id);if(target===key)continue;
      if(!incoming.has(target))incoming.set(target,new Set());incoming.get(target).add(key);
     }

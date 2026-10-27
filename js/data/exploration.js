@@ -12,18 +12,17 @@ export function referenceKind(field,value) {
  return typeof value==='string' && /^\d+$/.test(value) ? references[field] || null : null;
 }
 export function collectReferences(data,path=[],result=[]) {
- if(!data || typeof data!=='object')return result;
- for(const [field,value] of Object.entries(data)) {
-  const next=[...path,field];
-  if(Array.isArray(value))value.forEach((item,i)=>collectReferences({[field]:item},[...path,String(i)],result));
-  else if(value && typeof value==='object')collectReferences(value,next,result);
-  else {const kind=referenceKind(field,value);if(kind)result.push({kind,id:value,path:next.join('.'),role:field});}
+ function visit(value,field,parts) {
+  if(Array.isArray(value)){value.forEach((item,i)=>visit(item,field,[...parts,String(i)]));return;}
+  if(value && typeof value==='object'){for(const [key,item] of Object.entries(value))visit(item,key,[...parts,key]);return;}
+  const kind=referenceKind(field,value);if(kind)result.push({kind,id:value,path:parts.join('.'),role:field});
  }
+ if(data && typeof data==='object')for(const [field,value] of Object.entries(data))visit(value,field,[...path,field]);
  return result;
 }
 export function eventDate(data) {
  const year=Number(data?.year),seconds=Number(data?.seconds72);
- return {year:data?.year!==undefined && Number.isFinite(year)?year:null,seconds:data?.seconds72!==undefined&&Number.isFinite(seconds)&&seconds>=0?seconds:null};
+ return {year:typeof data?.year==='string' && data.year.trim()!=='' && Number.isFinite(year)?year:null,seconds:data?.seconds72!==undefined&&Number.isFinite(seconds)&&seconds>=0?seconds:null};
 }
 export function compareEvents(a,b) {
  return (a.year??Infinity)-(b.year??Infinity) || (a.seconds??Infinity)-(b.seconds??Infinity) || String(a.id).localeCompare(String(b.id),'en',{numeric:true});

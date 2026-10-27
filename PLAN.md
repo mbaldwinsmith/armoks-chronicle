@@ -8,9 +8,9 @@ Status: searchable archive iteration implemented; richer exploration features in
 
 Local archives are implemented: streaming standard/Plus XML import, CP437/UTF-8 decoding, staged IndexedDB writes, progress/cancellation controls, saved-world bookshelf, raw record pagination, provenance inspection, and exact-world deletion. Map/text files are retained but their contents are not yet interpreted.
 
-Eight Node tests and the deployed browser integration suite pass. All five supplied Cadenilina files were imported through the live UI; the saved world exposes 7,700 figures, 31,903 events, 577 sites, 276 artifacts, and 1,246 written works. Reload and pagination were verified. No user exports are committed.
+Twelve Node tests and the deployed browser integration suite pass. All five supplied Cadenilina files were imported through the live UI; the saved world exposes 7,700 figures, 31,903 events, 577 sites, 276 artifacts, and 1,246 written works. Reload and pagination were verified. No user exports are committed.
 
-Structural merging is implemented; semantic event aliases, relationship indexes, advanced mismatch detection, migrations, cross-browser/mobile qualification, and complete accessibility review remain open. Searchable linked source records are now implemented, including case/accent folding, ID lookup, category selection, stable sorting, hash query persistence, and reverse event references. Rich biographies and narrative event templates are the next iteration. See [verification notes](docs/verification.md).
+Structural merging is implemented; semantic event aliases, broader relationship interpretation, advanced mismatch detection, migrations, cross-browser/mobile qualification, and complete accessibility review remain open. Searchable linked source records are now implemented, including case/accent folding, ID lookup, category selection, stable sorting, hash query persistence, and reverse event references. Rich biographies and narrative event templates are the next iteration. See [verification notes](docs/verification.md).
 
 ## Goal and working rules
 
@@ -134,7 +134,7 @@ A feature-complete v1 includes every required phase below, including specialist 
 - [ ] Define schemas for terrain, creature definitions, population snapshots, relationships, import metadata, and user research.
 - [ ] Store source provenance and unknown values explicitly.
 - [ ] Build indexes by name, record type, event year, participant, site, entity, artifact, and collection.
-- [ ] Build reverse references so biographies and site histories do not repeatedly scan all events.
+- [x] Build reverse references so biographies and site histories do not repeatedly scan all events.
 - [ ] Distinguish relationship types, directions, strengths, dates, and provenance.
 - [ ] Track unresolved references without inventing replacement records or guessed identities.
 - [x] Save imports in batches under a staging world ID; expose the world only after successful finalisation.
@@ -186,7 +186,7 @@ Implemented slice: all-family name/ID search, category filter, name/year sorting
 - [ ] Highlight matched text safely and expose result summaries to assistive technology.
 - [x] Provide useful no-result suggestions without silently changing the query.
 - [ ] Add fuzzy search only if measured user needs justify it; pin and vendor any added dependency.
-- [ ] Verify search results and filters persist when returning from a record page.
+- [x] Verify search results and filters persist when returning from a record page.
 
 ## 09 — Historical figures and biographies
 

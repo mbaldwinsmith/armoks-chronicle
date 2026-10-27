@@ -1,6 +1,6 @@
-import {openDatabase,getWorld,getRecord} from '../data/database.js?v=0.3.0';
-import {explore} from '../data/explorer-client.js?v=0.3.0';
-import {kindNames,recordURL,collectReferences,eventDate} from '../data/exploration.js?v=0.3.0';
+import {openDatabase,getWorld,getRecord} from '../data/database.js?v=0.3.1';
+import {explore} from '../data/explorer-client.js?v=0.3.1';
+import {kindNames,recordURL,collectReferences,eventDate} from '../data/exploration.js?v=0.3.1';
 let generation=0,timer;
 export function cancelExploration(){generation++;clearTimeout(timer);}
 const element=(tag,text,className)=>{const el=document.createElement(tag);if(text!==undefined)el.textContent=text;if(className)el.className=className;return el;};
@@ -51,8 +51,8 @@ export async function renderRecord(worldId,kind,id,params) {
   }
   body.append(fields);
   if(kind==='historical_events'){const d=eventDate(data);body.append(element('p',`Recorded event: ${data.type||'unknown type'}. ${d.year===null?'Year not recorded.':`Year ${d.year}.`} Structured source fields are shown above; narrative wording is not yet available.`,'notice'));}
-  const refs=collectReferences({standard:data,plus:record.supplement});
-  const section=element('section'),heading=element('h2','Linked references'),links=element('ul',undefined,'reference-list');section.append(heading,element('p','Field paths retain the source roles. A reference alone does not establish friendship, ownership, or current membership.','muted'),links);body.append(section);
+  const refs=collectReferences({merged:data,plus:record.supplement});
+  const section=element('details',undefined,'guide-card'),heading=element('summary',`Linked references (${refs.length})`),links=element('ul',undefined,'reference-list');section.open=refs.length<=10;section.append(heading,element('p','Field paths retain the source roles. A reference alone does not establish friendship, ownership, or current membership.','muted'),links);body.append(section);
   const raw=element('details',undefined,'guide-card'),pre=element('pre',JSON.stringify({fields:data,sources:record.sources,supplementaryFields:record.supplement},null,2));raw.append(element('summary','Source fields and provenance'),pre);body.append(raw);
   const resolved=await explore(worldId,{type:'resolve',refs});if(ticket!==generation)return;
   for(const ref of resolved){const li=element('li');li.append(element('span',ref.path.replaceAll('_',' ')+' → ','muted'));if(ref.label){const a=element('a',`${ref.label} · #${ref.id}`);a.href=recordURL(worldId,ref.kind,ref.id,suffix);li.append(a);}else li.append(element('span',`Unresolved ${kindNames[ref.kind]||ref.kind} #${ref.id}`));links.append(li);}
