@@ -6,21 +6,11 @@ Status: atlas and isometric relief preview implemented; broader features in prog
 
 ## Current iteration
 
-Personal research slice: record/event bookmarks, plain-text notes and tags, cross-world research directory, explicit Save with unsaved-change protection and stale-tab rejection, versioned annotation backups and additive restore/transfer preview. IndexedDB v2 preserves v1 source stores and retains annotations when deleting a source world. 39 automated tests pass; live verification pending.
+Personal research is implemented: record/event bookmarks, plain-text notes and tags, a cross-world research directory, explicit Save with unsaved-change protection and stale-tab rejection, versioned annotation backups, and additive restore/transfer preview. IndexedDB v2 adds a separate annotations store while preserving existing source stores. Deleting a source archive retains annotations.
 
-Artifacts and culture slice: object/work/form metadata panels, author bibliographies, physical copies, typed references, artistic descriptions, culture-directory totals and additional artifact lifecycle prose. 36 automated tests pass. The live integration suite verifies bibliography/copy/form indexes and safe metadata rendering. Live artifact → content → author navigation, physical copies, and form-linked works were checked.
+39 automated tests and the live browser integration suite pass. UI checks cover note save/reload, bookmark/tag search, JSON download, additive restore preview and unsaved-navigation cancellation. Public verification notes describe synthetic fixtures and behaviour; integration-export contents and derived findings are kept out of this documentation.
 
-Conflict atlas slice: grouped dated event markers, type/year/explicit-organisation filters, location-unknown linked events, tile event chooser, reciprocal event links, river/road overlays and 0.5×–3× relief exaggeration. 31 automated tests and live browser integration checks pass. Cadenilina has 6,403 supported conflict events (5,875 mapped, 528 location unknown); 14 field battles, organisation/date filtering, shared-tile choice, reciprocal links, and relief-height/road persistence were verified.
-
-Political geography slice: owner/civilisation marker colours, faction legend and visibility, unknown/sentinel categories, name/type filters, paginated linked settlements, and organisation atlas actions. 27 automated tests and the live browser integration suite pass. Live name/type filtering, basis switching, reload persistence, faction visibility, and organisation-to-atlas focus were verified.
-
-Atlas slice: strict version-3 CSV validation, worker loading of saved terrain, elevation/alignment/savagery colours, selectable world-tile sites, reciprocal site-page links, pan/zoom/fit controls, keyboard and coordinate alternatives, and an opt-in Canvas isometric relief preview. Full 3D camera controls, political overlays, river geometry and biome names remain open. Live desktop Chrome integration and real-world atlas loading pass; 577 sites align with the 129 × 129 grid. Broader browser/mobile qualification remains pending.
-
-Local archives are implemented: streaming standard/Plus XML import, CP437/UTF-8 decoding, staged IndexedDB writes, progress/cancellation controls, saved-world bookshelf, raw record pagination, provenance inspection, and exact-world deletion. Map/text files are retained but their contents are not yet interpreted.
-
-Nineteen Node tests and the deployed browser integration suite pass, including narrative DOM links, source-role ordering, unsafe-text rendering, biography uncertainty, and filtered event counts. Live type/year filtering, reload persistence, the major-events preset, and reversed-range validation were verified. All five supplied Cadenilina files were imported through the live UI; the saved world exposes 7,700 figures, 31,903 events, 577 sites, 276 artifacts, and 1,246 written works. Reload and pagination were verified. No user exports are committed.
-
-Structural merging is implemented; semantic event aliases, broader relationship interpretation, advanced mismatch detection, migrations, cross-browser/mobile qualification, and complete accessibility review remain open. Searchable linked source records are now implemented, including case/accent folding, ID lookup, category selection, stable sorting, hash query persistence, and reverse event references. The new iteration adds 28 deterministic event templates, explicit fallbacks, life-date summaries, labelled figure relationships, and type/year/preset controls for related-event timelines. Complete biographies, broader templates, and maps remain open. See [verification notes](docs/verification.md).
+Earlier completed slices include streaming imports, searchable linked records, narrative event templates, artifact and culture panels, author bibliographies, world terrain and relief, political settlement filters, and conflict overlays. The remaining tasks below track their fuller requirements and qualification limits.
 
 ## Goal and working rules
 
@@ -74,7 +64,7 @@ A feature-complete v1 includes every required phase below, including specialist 
 - [x] Include CP437 names, UTF-8 names, invalid XML control characters, escaped entities, and split multibyte chunks.
 - [ ] Include truncated XML, malformed CSV, mismatched supplementary exports, and duplicate record IDs.
 - [x] Keep original user exports out of public commits unless explicitly authorised; use the attached examples locally for integration checks.
-- [x] Record baseline sample totals: 7,700 figures, 577 sites, 31,903 standard events, 276 artifacts, and 1,246 written works.
+- [x] Reconcile local integration imports against reference totals without publishing export-derived details.
 - [ ] Record the sample map baseline of 129 × 129 tiles and event years 1–73.
 - [ ] Define expected optional-data capabilities separately from required standard-XML capabilities.
 - [ ] Add fixtures for supernatural evidence, absent/ambiguous status, vague relationships, dedicated structures, and competing sources for ownership.
