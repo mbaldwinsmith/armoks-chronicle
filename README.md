@@ -70,3 +70,9 @@ MIT © 2026 Mark Baldwin-Smith. See [LICENSE](LICENSE). The vendored sax parser 
 ## Political geography
 
 Atlas markers can be coloured by recorded current owner or recorded civilisation. Search and site-type filters compose with faction visibility toggles. Faction colours are deterministic, and missing/−1 affiliations have separate labels and marker shapes. Use the faction legend or the paginated linked settlement list for names. Organisation pages provide separate atlas actions for owned settlements and civilisation references. These are export-time settlement associations, not territorial boundaries or dated ownership reconstructions.
+
+## Conflict atlas and terrain overlays
+
+Open **Battles and conflict events** in the atlas to enable grouped red markers, filter by type/year/explicit event organisation, and browse paginated linked events. Events with unknown locations remain in the list. Clicking a marked tile offers a chooser for its events. Conflict event pages have reciprocal atlas links. Event filters do not change terrain or export-time settlement ownership.
+
+Rivers follow exported N/S/W/E connections. Road links are inferred between adjacent flagged tiles. Both can be toggled; relief height can be adjusted from 0.5× to 3×. These settings and conflict filters persist in the atlas URL.

@@ -1,7 +1,9 @@
-import {narratives,biography} from './narrative.js?v=0.6.0';
-import {openDatabase,getWorld,getRecord} from '../data/database.js?v=0.6.0';
-import {explore} from '../data/explorer-client.js?v=0.6.0';
-import {kindNames,recordURL,collectReferences,eventDate} from '../data/exploration.js?v=0.6.0';
+import {conflictRecord} from '../data/conflicts.js?v=0.7.0';
+import {sitePosition} from '../data/terrain.js?v=0.7.0';
+import {narratives,biography} from './narrative.js?v=0.7.0';
+import {openDatabase,getWorld,getRecord} from '../data/database.js?v=0.7.0';
+import {explore} from '../data/explorer-client.js?v=0.7.0';
+import {kindNames,recordURL,collectReferences,eventDate} from '../data/exploration.js?v=0.7.0';
 let generation=0,timer;
 export function cancelExploration(){generation++;clearTimeout(timer);}
 const element=(tag,text,className)=>{const el=document.createElement(tag);if(text!==undefined)el.textContent=text;if(className)el.className=className;return el;};
@@ -52,6 +54,11 @@ export async function renderRecord(worldId,kind,id,params) {
   const data=record.data;
   if(kind==='entities'){for(const [basis,label] of [['owner','Show settlements owned by this organisation'],['civilisation','Show settlements with this recorded civilisation']]){const link=element('a',label,'button quiet');link.href=`#/world/${encodeURIComponent(worldId)}/atlas?basis=${basis}&faction=${encodeURIComponent(id)}`;body.append(link);}}
 
+  if(kind==='historical_events'){
+   const siteId=[data.site_id,data.site].find(value=>typeof value==='string'&&/^\d+$/.test(value));const site=siteId?await withDB(db=>getRecord(db,worldId,'sites',siteId)):null;if(ticket!==generation)return;
+   const pos=site&&sitePosition(site.data,1025,1025);const event=conflictRecord(record,pos?[{id:site.id,label:site.label,...pos}]:[],1025,1025);
+   if(event){if(event.x!==undefined){const query=new URLSearchParams({x:event.x,y:event.y,conflicts:'1',conflictType:event.type});if(event.year!==null){query.set('conflictFrom',event.year);query.set('conflictTo',event.year);}const link=element('a','Show this conflict in the atlas','button quiet');link.href=`#/world/${encodeURIComponent(worldId)}/atlas?${query}`;body.append(link);}else body.append(element('p','This conflict has no usable recorded location; it remains available in the atlas event list.','muted'));}
+  }
   if(kind==='sites'&&/^\d+,\d+$/.test(data.coords||'')){const [x,y]=data.coords.split(',');const mapLink=element('a','Show this site in the atlas','button quiet');mapLink.href=`#/world/${encodeURIComponent(worldId)}/atlas?x=${x}&y=${y}`;body.append(mapLink);}
   const fields=element('dl',undefined,'record-facts');
   for(const [key,value] of Object.entries(data))if(typeof value==='string'&&!['id','name'].includes(key)){

@@ -48,7 +48,7 @@ Native IndexedDB was chosen for this limited schema to keep browser-ready distri
 
 ## Asset updates
 
-Runtime module, worker, and stylesheet URLs carry an explicit release query (`?v=0.6.0`) to prevent mixed releases during GitHub Pages cache revalidation. Bump these references together for code releases. This is plain source maintenance, not a build step.
+Runtime module, worker, and stylesheet URLs carry an explicit release query (`?v=0.7.0`) to prevent mixed releases during GitHub Pages cache revalidation. Bump these references together for code releases. This is plain source maintenance, not a build step.
 
 ## Exploration (0.3.0)
 
@@ -77,3 +77,7 @@ Relief ocean fill (0.5.2): translucent top and side faces cover non-lake tiles b
 Relief sharpness (0.5.3): colour geometry is rasterised at up to 4× the original linear resolution (16× pixels), with a 16-million-pixel buffer budget. High-quality resampling is enabled for relief; the flat tile atlas retains nearest-neighbour rendering. Logical map coordinates, marker positions, zoom and the picking buffer are independent of colour-buffer resolution.
 
 Political geography (0.6.0): the atlas worker reads entity labels and copies site `cur_owner_id` and `civ_id` into distinct fields. `politics.js` resolves groups and pure filters; unknown/missing values and the explicit −1 sentinel remain separate categories. ID zero is valid. Colour hashing is deterministic by entity ID. No field is inferred from the other. `basis`, `hidden`, `siteQ`, and `siteType` hash parameters preserve political filter state through view switches/reload. Organisation atlas links use `faction` plus `basis` to isolate and fit matching settlements. The site selector, marker set, selected-tile links, and paginated accessible list use the same filtered records. Legend counts describe all mapped sites per group; the visible match count describes active filters.
+
+Conflict atlas (0.7.0): the worker makes a compact event index for an explicit allowlist of battle, attack, destruction, plunder, wound, death and abduction types. Location precedence is referenced site coordinates, then explicit in-bounds event coords, otherwise unknown. No region-centre location is fabricated. Organisation filters use explicit event organisation fields, independently of present-day site affiliation. One filter predicate drives event list, counts, marker groups and selected-tile chooser. Source event pages retain participant roles and raw evidence. Year/type/faction and overlay state lives in the hash query.
+
+Rivers use exported cardinal direction bits. Road segments connect neighbouring flagged road cells and are labelled as inferred. The atlas draws tile-centre connection lines at the shared projected tile elevation; these are regional connections, not surveyed local paths. Height exaggeration is 0.5–3 and changes geometry, picking, water and marker projection together. Relief buffer bounds account for increased height.

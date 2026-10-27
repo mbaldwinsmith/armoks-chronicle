@@ -6,6 +6,8 @@ Status: atlas and isometric relief preview implemented; broader features in prog
 
 ## Current iteration
 
+Conflict atlas slice: grouped dated event markers, type/year/explicit-organisation filters, location-unknown linked events, tile event chooser, reciprocal event links, river/road overlays and 0.5×–3× relief exaggeration. 31 automated tests pass; live verification pending.
+
 Political geography slice: owner/civilisation marker colours, faction legend and visibility, unknown/sentinel categories, name/type filters, paginated linked settlements, and organisation atlas actions. 27 automated tests and the live browser integration suite pass. Live name/type filtering, basis switching, reload persistence, faction visibility, and organisation-to-atlas focus were verified.
 
 Atlas slice: strict version-3 CSV validation, worker loading of saved terrain, elevation/alignment/savagery colours, selectable world-tile sites, reciprocal site-page links, pan/zoom/fit controls, keyboard and coordinate alternatives, and an opt-in Canvas isometric relief preview. Full 3D camera controls, political overlays, river geometry and biome names remain open. Live desktop Chrome integration and real-world atlas loading pass; 577 sites align with the 129 × 129 grid. Broader browser/mobile qualification remains pending.
@@ -268,7 +270,7 @@ Implemented slice: all-family name/ID search, category filter, name/year sorting
 - [ ] Add battle markers and selected-war overlays with dates, participants, outcomes, and separate named/squad casualty details where available.
 - [ ] Link map markers/popups to battle and war pages, and add reciprocal “view on map” actions from those pages.
 - [ ] Filter warfare overlays by date, faction, and selected conflict using the shared map/timeline state.
-- [ ] Show location-unknown conflicts in a linked list rather than inventing coordinates; provide a chooser for multiple records on the same tile.
+- [x] Show location-unknown conflicts in a linked list rather than inventing coordinates; provide a chooser for multiple records on the same tile.
 - [ ] Label connecting lines/arrows as associations between conflict locations, never as verified army routes or territorial fronts.
 - [x] Supply an accessible linked location list for Canvas-only information.
 - [ ] Test mobile gestures, reduced detail, redraw scheduling, and large marker counts.

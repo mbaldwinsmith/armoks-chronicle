@@ -1,6 +1,6 @@
-import {eventType,filterEvents} from './narrative.js?v=0.6.0';
-import {openDatabase,getWorld} from './database.js?v=0.6.0';
-import {normalise,recordKey,collectReferences,eventDate,compareEvents,searchEntries} from './exploration.js?v=0.6.0';
+import {eventType,filterEvents} from './narrative.js?v=0.7.0';
+import {openDatabase,getWorld} from './database.js?v=0.7.0';
+import {normalise,recordKey,collectReferences,eventDate,compareEvents,searchEntries} from './exploration.js?v=0.7.0';
 let cachedWorld, entries=[],lookup=new Map(), incoming=new Map();
 async function load(worldId) {
  if(cachedWorld===worldId)return;
