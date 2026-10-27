@@ -1,6 +1,6 @@
 import test from 'node:test';import assert from 'node:assert/strict';
 import {recordKey} from '../js/data/exploration.js';
-import {recordRelationships,relationshipNeighbourhood,graphPage,addGraphPage,layoutRelationships,relationshipLimits} from '../js/data/relationships.js';
+import {recordRelationships,relationshipNeighbourhood,graphPage,addGraphPage,layoutRelationships,relationshipLimits,relationshipWording} from '../js/data/relationships.js';
 const figure=(id,data={},supplement)=>({kind:'historical_figures',id,data,supplement,sources:['standard','plus']});
 const key=id=>recordKey('historical_figures',id);
 test('explicit relationships retain direction, role, category and source evidence without inferring reciprocal family',()=>{
@@ -37,4 +37,10 @@ test('bounded network layout is deterministic and keeps labels separate with the
  const nodes=Array.from({length:40},(_,i)=>({key:key(String(i+1))})),edges=nodes.slice(1).map(node=>({source:key('1'),target:node.key}));const points=layoutRelationships(nodes,edges,key('1'));
  assert.deepEqual(points,layoutRelationships(nodes,edges,key('1')));assert.equal(points[0].x,0);assert.equal(points[0].y,0);assert(points.every(node=>Number.isFinite(node.x)&&Number.isFinite(node.y)));
  for(let i=0;i<points.length;i++)for(let j=i+1;j<points.length;j++)assert(Math.abs(points[i].x-points[j].x)>=207||Math.abs(points[i].y-points[j].y)>=57,'Node labels overlap');
+});
+
+test('affiliation wording keeps the figure as member rather than describing the organisation as a member',()=>{
+ const member=recordRelationships(figure('1',{entity_link:{entity_id:'5',link_type:'member'},site_link:{site_id:'2',link_type:'home'}})).edges;
+ assert.deepEqual(relationshipWording(member[0]),{between:' is listed as a member of ',after:'.'});assert.deepEqual(relationshipWording(member[1]),{between:' lists ',after:' as a home.'});
+ assert.deepEqual(relationshipWording({targetKind:'historical_figures',label:'Child'}),{between:' lists ',after:' as “Child”.'});
 });

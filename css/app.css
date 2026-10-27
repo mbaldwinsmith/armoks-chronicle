@@ -87,7 +87,7 @@
 .relationship-toolbar select { margin:5px 0 0;max-width:none; }
 .relationship-toolbar button { flex:0 0 auto; }
 .relationship-viewport { height:540px;max-height:70vh;min-height:260px;overflow:auto;overscroll-behavior:contain;border:1px solid var(--line);background:var(--panel); }
-.relationship-viewport svg { display:block;min-width:0; }
+.relationship-viewport svg { display:block;min-width:0;margin:0 auto; }
 .relationship-node rect { fill:var(--panel-raised);stroke:var(--muted);stroke-width:1.5; }
 .relationship-node.root rect { stroke:var(--accent);stroke-width:3; }
 .relationship-node.missing rect { stroke-dasharray:6 4; }

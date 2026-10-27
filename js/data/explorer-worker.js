@@ -1,7 +1,7 @@
-import {cultureReferences,cultureLabel} from './culture.js?v=0.12.0';
-import {eventType,filterEvents} from './narrative.js?v=0.12.0';
-import {openDatabase,getWorld} from './database.js?v=0.12.0';
-import {normalise,recordKey,collectReferences,eventDate,compareEvents,searchEntries} from './exploration.js?v=0.12.0';
+import {cultureReferences,cultureLabel} from './culture.js?v=0.12.1';
+import {eventType,filterEvents} from './narrative.js?v=0.12.1';
+import {openDatabase,getWorld} from './database.js?v=0.12.1';
+import {normalise,recordKey,collectReferences,eventDate,compareEvents,searchEntries} from './exploration.js?v=0.12.1';
 const neighbourhoods=new Map();
 let cachedWorld, entries=[],lookup=new Map(), incoming=new Map();
 async function load(worldId) {
@@ -28,7 +28,7 @@ async function load(worldId) {
  }finally{db.close();}
 }
 async function relationshipPage(data){
- const {relationshipNeighbourhood,graphPage,relationshipLimits}=await import('./relationships.js?v=0.12.0');
+ const {relationshipNeighbourhood,graphPage,relationshipLimits}=await import('./relationships.js?v=0.12.1');
  const key=recordKey(data.kind,data.recordId),current=lookup.get(key);
  if(data.kind!=='historical_figures'||!current)throw Error('Choose an available historical figure to expand.');
  if(!neighbourhoods.has(key)){

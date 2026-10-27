@@ -1,5 +1,5 @@
-import {recordKey} from './exploration.js?v=0.12.0';
-import {readableValue} from './language.js?v=0.12.0';
+import {recordKey} from './exploration.js?v=0.12.1';
+import {readableValue} from './language.js?v=0.12.1';
 export const relationshipCategories={family:'Family',social:'Friends and Other Social Ties',rivalry:'Rivalries',affiliation:'Organisations and Sites',worship:'Worship',other:'Other Recorded Links'};
 const family=new Set(['mother','father','parent','child','son','daughter','spouse','sibling','brother','sister','grandparent','grandchild','aunt','uncle','niece','nephew','cousin']);
 const social=new Set(['friend','companion','lover','master','apprentice','teacher','student']);
@@ -8,6 +8,15 @@ export function relationshipCategory(type,kind){
  if(kind==='entities'||kind==='sites')return 'affiliation';
  if(family.has(type))return 'family';if(social.has(type))return 'social';if(rivalry.has(type))return 'rivalry';
  if(['deity','worship','worshipper','worshipped'].includes(type))return 'worship';return 'other';
+}
+export function relationshipWording(edge){
+ if(edge.targetKind==='entities'){
+  const roles={member:'a member of',enemy:'an enemy of',prisoner:'a prisoner of','former member':'a former member of'};
+  if(Object.hasOwn(roles,edge.type))return {between:` is listed as ${roles[edge.type]} `,after:'.'};
+  return {between:` has a recorded “${edge.label}” link to `,after:'.'};
+ }
+ if(edge.targetKind==='sites')return edge.type==='home'?{between:' lists ',after:' as a home.'}:{between:` has a recorded “${edge.label}” association with `,after:'.'};
+ return {between:' lists ',after:` as “${edge.label}”.`};
 }
 const fields=[['hf_link','historical_figures','hfid'],['entity_link','entities','entity_id'],['site_link','sites','site_id']];
 export const relationshipLimits={nodes:40,edges:100,page:8,sourceRecords:500,linksPerRecord:5000,neighbours:4000};
