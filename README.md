@@ -76,3 +76,7 @@ Atlas markers can be coloured by recorded current owner or recorded civilisation
 Open **Battles and conflict events** in the atlas to enable grouped red markers, filter by type/year/explicit event organisation, and browse paginated linked events. Events with unknown locations remain in the list. Clicking a marked tile offers a chooser for its events. Conflict event pages have reciprocal atlas links. Event filters do not change terrain or export-time settlement ownership.
 
 Rivers follow exported N/S/W/E connections. Road links are inferred between adjacent flagged tiles. Both can be toggled; relief height can be adjusted from 0.5× to 3×. These settings and conflict filters persist in the atlas URL.
+
+## Artifacts and culture
+
+World records include direct directories for artifacts, written works and artistic forms. Artifact pages show available item/material/page metadata, recorded holders, content links and source-linked event histories. Written-work pages show author/form/style/page metadata and typed references, with reverse lists of physical copies and citing works. Figure pages include paginated author bibliographies. Artistic-form pages present exported descriptions as plain text with paragraph breaks and link to works using that form. Full book text is not included in Legends metadata. Claims, possession, and event locations remain separate evidence.

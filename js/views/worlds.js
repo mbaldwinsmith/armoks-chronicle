@@ -1,5 +1,5 @@
-import {renderDirectory} from './explore.js?v=0.7.1';
-import {openDatabase,listWorlds,getWorld,deleteWorld} from '../data/database.js?v=0.7.1';
+import {renderDirectory} from './explore.js?v=0.8.0';
+import {openDatabase,listWorlds,getWorld,deleteWorld} from '../data/database.js?v=0.8.0';
 let generation=0;
 export function cancelWorldView(){generation++;}
 export async function renderBookshelf() {
@@ -33,6 +33,7 @@ export async function renderWorld(id, params) {
     if(ticket!==generation)return;
     if(!world || world.status!=='ready'){title.textContent='World not available';status.textContent='This world may have been deleted, or it belongs to another browser.';return;}
     document.querySelector('#open-atlas').href=`#/world/${encodeURIComponent(id)}/atlas`;
+    const shortcuts=document.querySelector('#culture-shortcuts');shortcuts.replaceChildren();for(const [kind,label] of [['artifacts','Artifacts'],['written_contents','Written works'],['poetic_forms','Poetic forms'],['musical_forms','Musical forms'],['dance_forms','Dance forms']]){const link=document.createElement('a');link.className='button quiet';link.textContent=`${label} (${world.counts[kind]||0})`;link.href=`#/world/${encodeURIComponent(id)}?kind=${kind}`;shortcuts.append(link);}
     title.textContent=world.name;
     document.title=world.name+' · Armok’s Chronicle';
     document.querySelector('#world-subtitle').textContent=world.alternativeName||'Imported world archive';

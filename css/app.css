@@ -58,3 +58,7 @@
 .faction-swatch { display:inline-block;width:14px;height:14px;border:1px solid var(--line);flex-shrink:0;border-radius:50%; }
 #atlas-results li { padding:6px 0; }#atlas-results span { color:var(--muted);font-size:.85rem; }
 @media(max-width:700px){.political-controls{grid-template-columns:1fr;}}
+
+.culture-shortcuts { display:flex;gap:10px;flex-wrap:wrap;margin:20px 0; }
+.culture-shortcuts .button { padding:8px 12px;font-size:.85rem; }
+.culture-panel { margin:24px 0; }.culture-panel .guide-card p { white-space:pre-wrap; }

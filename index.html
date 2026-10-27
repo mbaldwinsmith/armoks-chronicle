@@ -7,8 +7,8 @@
   <meta name="description" content="Armok’s Chronicle: a local-first explorer for the histories of Dwarf Fortress worlds.">
   <title>Armok’s Chronicle</title>
   <link rel="icon" href="./assets/mark.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="./css/app.css?v=0.7.1">
-  <script type="module" src="./js/app.js?v=0.7.1"></script>
+  <link rel="stylesheet" href="./css/app.css?v=0.8.0">
+  <script type="module" src="./js/app.js?v=0.8.0"></script>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -67,7 +67,7 @@
     <section id="view-world" hidden aria-labelledby="world-title">
       <div class="eyebrow">YOUR WORLD ARCHIVE</div><h1 id="world-title">Opening world…</h1><p id="world-subtitle" class="intro"></p>
       <div id="world-details" hidden><div class="section-heading"><h2>Explore the records</h2><a id="open-atlas" class="button quiet">Open world atlas →</a><button id="delete-world" class="quiet" type="button">Delete world</button></div>
-      <p class="notice">Search names or enter # followed by an ID. Open a record to follow explicit references and related events. Links require this same archive in this browser; they do not publish your world.</p>
+      <div id="culture-shortcuts" class="culture-shortcuts" aria-label="Artifact and culture directories"></div><p class="notice">Search names or enter # followed by an ID. Open a record to follow explicit references and related events. Links require this same archive in this browser; they do not publish your world.</p>
       <div class="search-controls"><div><label for="record-search">Search this world</label><input id="record-search" type="search" placeholder="Name, event type, or #ID" maxlength="200" autocomplete="off"></div><div><label for="record-kind">Record category</label><select id="record-kind"></select></div><div><label for="record-sort">Order</label><select id="record-sort"><option value="name">Name</option><option value="year">Event year</option></select></div><button id="clear-search" class="quiet" type="button">Clear search</button></div>
       <ul id="records" class="record-results"></ul><div class="record-pagination"><button id="previous-records" class="quiet" type="button">Previous</button><button id="next-records" class="quiet" type="button">Next</button></div>
       <details class="guide-card"><summary>Import diagnostics</summary><pre id="import-diagnostics"></pre></details></div>

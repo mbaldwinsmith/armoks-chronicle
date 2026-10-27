@@ -48,7 +48,7 @@ Native IndexedDB was chosen for this limited schema to keep browser-ready distri
 
 ## Asset updates
 
-Runtime module, worker, and stylesheet URLs carry an explicit release query (`?v=0.7.1`) to prevent mixed releases during GitHub Pages cache revalidation. Bump these references together for code releases. This is plain source maintenance, not a build step.
+Runtime module, worker, and stylesheet URLs carry an explicit release query (`?v=0.8.0`) to prevent mixed releases during GitHub Pages cache revalidation. Bump these references together for code releases. This is plain source maintenance, not a build step.
 
 ## Exploration (0.3.0)
 
@@ -81,3 +81,5 @@ Political geography (0.6.0): the atlas worker reads entity labels and copies sit
 Conflict atlas (0.7.0): the worker makes a compact event index for an explicit allowlist of battle, attack, destruction, plunder, wound, death and abduction types. Location precedence is referenced site coordinates, then explicit in-bounds event coords, otherwise unknown. No region-centre location is fabricated. Organisation filters use explicit event organisation fields, independently of present-day site affiliation. One filter predicate drives event list, counts, marker groups and selected-tile chooser. Source event pages retain participant roles and raw evidence. Year/type/faction and overlay state lives in the hash query.
 
 Rivers use exported cardinal direction bits. Road segments connect neighbouring flagged road cells and are labelled as inferred. The atlas draws tile-centre connection lines at the shared projected tile elevation; these are regional connections, not surveyed local paths. Height exaggeration is 0.5–3 and changes geometry, picking, water and marker projection together. Relief buffer bounds account for increased height.
+
+Culture (0.8.0): `culture.js` supplies contextual references for artifact `writing`→written content, work author/form, and typed work references. Ambiguous `author`, `form_id` and `reference.id` fields are never globally interpreted outside their source family/context. Unknown reference types remain raw source data. The worker merges these edges into the reverse-reference index and supports paginated `associations` requests. This enables author bibliographies, physical-copy lists, citing works and form-linked works without repeated full-world scans. Raw Plus fields remain inspectable when merged values differ. Source `[B]` description markers become paragraph boundaries; other source strings remain literal text nodes. Item-name fallback labels are computed on read, without reimport or database migration.

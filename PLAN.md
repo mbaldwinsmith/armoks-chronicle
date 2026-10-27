@@ -6,6 +6,8 @@ Status: atlas and isometric relief preview implemented; broader features in prog
 
 ## Current iteration
 
+Artifacts and culture slice: object/work/form metadata panels, author bibliographies, physical copies, typed references, artistic descriptions, culture-directory totals and additional artifact lifecycle prose. 35 automated tests pass; live checks pending.
+
 Conflict atlas slice: grouped dated event markers, type/year/explicit-organisation filters, location-unknown linked events, tile event chooser, reciprocal event links, river/road overlays and 0.5×–3× relief exaggeration. 31 automated tests and live browser integration checks pass. Cadenilina has 6,403 supported conflict events (5,875 mapped, 528 location unknown); 14 field battles, organisation/date filtering, shared-tile choice, reciprocal links, and relief-height/road persistence were verified.
 
 Political geography slice: owner/civilisation marker colours, faction legend and visibility, unknown/sentinel categories, name/type filters, paginated linked settlements, and organisation atlas actions. 27 automated tests and the live browser integration suite pass. Live name/type filtering, basis switching, reload persistence, faction visibility, and organisation-to-atlas focus were verified.
@@ -305,13 +307,13 @@ This setting is part of v1 implementation but opt-in for users; the flat atlas r
 - [ ] Build artifact pages with material, item type, description, creator, holder, and location where supplied.
 - [ ] Link creation, theft, gift, claim, storage, loss, finding, possession, and copying events.
 - [ ] Distinguish claimed ownership, physical possession, and last recorded location.
-- [ ] Connect physical books/scrolls to their written contents.
-- [ ] Build written-work pages with title, author, form, style, page metadata, and references.
-- [ ] Do not imply full book text exists when only metadata is exported.
-- [ ] Build author bibliographies and searchable world-library directories.
+- [x] Connect physical books/scrolls to their written contents.
+- [x] Build written-work pages with title, author, form, style, page metadata, and references.
+- [x] Do not imply full book text exists when only metadata is exported.
+- [x] Build author bibliographies and searchable world-library directories.
 - [ ] Expose poetic, musical, and dance forms, descriptions, creators, and associated performances where available.
 - [ ] Link ceremonies, processions, competitions, and discoveries of knowledge.
-- [ ] Add culture and scholarship summaries whose totals link back to their underlying records.
+- [x] Add culture and scholarship summaries whose totals link back to their underlying records.
 
 ## 14 — Conflicts, religion, beasts, and intrigue
 
