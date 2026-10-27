@@ -118,7 +118,7 @@
 .connection-finder form > button { margin:0 12px 12px 0; }
 .connection-steps { padding-left:26px; }
 .connection-steps > li { padding:16px;border-left:2px solid var(--accent);background:var(--panel);margin:14px 0;overflow-wrap:anywhere; }
-.connection-steps h4 { margin:0 0 10px; }
+.connection-steps h3 { margin:0 0 10px;font:600 1rem/1.5 system-ui,sans-serif; }
 .connection-steps p { color:var(--ink); }
 .connection-steps details { color:var(--muted);font-size:.85rem; }
 @media(max-width:700px){.connection-pickers{grid-template-columns:1fr}.connection-options{align-items:start}}

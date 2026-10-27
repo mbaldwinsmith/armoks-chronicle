@@ -1,5 +1,5 @@
-import { parseXML, PARSER_VERSION } from './parser.js?v=0.13.1';
-import { openDatabase, saveWorld, saveRecords, countKind, saveFile, deleteWorld } from '../data/database.js?v=0.13.1';
+import { parseXML, PARSER_VERSION } from './parser.js?v=0.13.2';
+import { openDatabase, saveWorld, saveRecords, countKind, saveFile, deleteWorld } from '../data/database.js?v=0.13.2';
 self.addEventListener('message', async ({data}) => {
   if(data.type !== 'import') return;
   const {worldId,files}=data;

@@ -1,6 +1,6 @@
-import {explore} from '../data/explorer-client.js?v=0.13.1';
-import {recordURL} from '../data/exploration.js?v=0.13.1';
-import {relationshipWording} from '../data/relationships.js?v=0.13.1';
+import {explore} from '../data/explorer-client.js?v=0.13.2';
+import {recordURL} from '../data/exploration.js?v=0.13.2';
+import {relationshipWording} from '../data/relationships.js?v=0.13.2';
 const el=(tag,text,cls)=>{const node=document.createElement(tag);if(text!==undefined)node.textContent=text;if(cls)node.className=cls;return node;};
 const reasonNames={depth_limit:'maximum path length',node_limit:'record limit',edge_limit:'link limit',source_record_limit:'source-reading budget',neighbourhood_limit:'incomplete neighbourhood scan'};
 export function connectionSummary(result){
@@ -16,7 +16,7 @@ export function connectionResult(result,worldId,query=''){
  if(result.status==='found'){
   const start=nodes.get(result.nodes[0]?.key);if(start){const intro=el('p','Start: ');intro.append(link(start));container.append(intro);}
   const list=el('ol',undefined,'connection-steps');
-  for(const step of result.steps){const item=el('li'),heading=el('h4'),from=nodes.get(step.from),to=nodes.get(step.to),source=nodes.get(step.edge.source),target=nodes.get(step.edge.target),sentence=el('p'),wording=relationshipWording(step.edge);
+  for(const step of result.steps){const item=el('li'),heading=el('h3'),from=nodes.get(step.from),to=nodes.get(step.to),source=nodes.get(step.edge.source),target=nodes.get(step.edge.target),sentence=el('p'),wording=relationshipWording(step.edge);
    heading.append(link(from),document.createTextNode(' → '),link(to));sentence.append(link(source),document.createTextNode(wording.between),link(target),document.createTextNode(wording.after));item.append(heading,sentence);
    if(step.reversed)item.append(el('p','This step follows the recorded link in reverse. The sentence above preserves its original direction.','muted'));
    const evidence=el('details'),summary=el('summary','Source evidence'),facts=el('ul');for(const entry of step.edge.evidence)facts.append(el('li',`${entry.origin}: ${entry.path}`+(entry.sources?.length?` (${entry.sources.join(', ')})`:'')+(entry.strength!==undefined?` · link_strength: ${entry.strength}`:'')+(entry.startYear!==undefined?` · start_year: ${entry.startYear}`:'')+(entry.endYear!==undefined?` · end_year: ${entry.endYear}`:'')));evidence.append(summary,facts);
