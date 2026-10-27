@@ -1,15 +1,15 @@
-import {timelineParams,timelineKeys} from '../data/timeline.js?v=0.11.0';
-import {timelineFilters,renderTimeline,timelineCount} from './timeline.js?v=0.11.0';
-import {titleCase,eventLabel,readableValue,referenceLabel} from '../data/language.js?v=0.11.0';
-import {researchEditor} from './research.js?v=0.11.0';
-import {culturePanel,associations} from './culture.js?v=0.11.0';
-import {cultureReferences,culturalKinds,cultureLabel} from '../data/culture.js?v=0.11.0';
-import {conflictRecord} from '../data/conflicts.js?v=0.11.0';
-import {sitePosition} from '../data/terrain.js?v=0.11.0';
-import {narratives,biography} from './narrative.js?v=0.11.0';
-import {openDatabase,getWorld,getRecord} from '../data/database.js?v=0.11.0';
-import {explore} from '../data/explorer-client.js?v=0.11.0';
-import {kindNames,recordURL,collectReferences,eventDate} from '../data/exploration.js?v=0.11.0';
+import {timelineParams,timelineKeys} from '../data/timeline.js?v=0.11.1';
+import {timelineFilters,renderTimeline,timelineCount} from './timeline.js?v=0.11.1';
+import {titleCase,eventLabel,readableValue,referenceLabel} from '../data/language.js?v=0.11.1';
+import {researchEditor} from './research.js?v=0.11.1';
+import {culturePanel,associations} from './culture.js?v=0.11.1';
+import {cultureReferences,culturalKinds,cultureLabel} from '../data/culture.js?v=0.11.1';
+import {conflictRecord} from '../data/conflicts.js?v=0.11.1';
+import {sitePosition} from '../data/terrain.js?v=0.11.1';
+import {narratives,biography} from './narrative.js?v=0.11.1';
+import {openDatabase,getWorld,getRecord} from '../data/database.js?v=0.11.1';
+import {explore} from '../data/explorer-client.js?v=0.11.1';
+import {kindNames,recordURL,collectReferences,eventDate} from '../data/exploration.js?v=0.11.1';
 let generation=0,timer;
 export function cancelExploration(){generation++;clearTimeout(timer);}
 const element=(tag,text,className)=>{const el=document.createElement(tag);if(text!==undefined)el.textContent=text;if(className)el.className=className;return el;};
@@ -25,7 +25,7 @@ export async function renderDirectory(id,params) {
  select.value=params.get('kind')||'';if(select.selectedIndex<0)select.value='';
  const previous=document.querySelector('#previous-records'),next=document.querySelector('#next-records');
  document.querySelector('#directory-timeline-filters')?.remove();
- const reader=timelineFilters(params,()=>{offset=0;void search();});reader.form.id='directory-timeline-filters';list.before(reader.form);
+ const reader=timelineFilters(params,()=>{offset=0;void search();});reader.form.id='directory-timeline-filters';list.before(reader.form,status);
  reader.form.hidden=select.value!=='historical_events';
  async function search(){
   const token=++request;previous.disabled=true;next.disabled=true;list.replaceChildren();status.textContent='Preparing search…';
@@ -92,7 +92,7 @@ export async function renderRecord(worldId,kind,id,params) {
   if(kind==='historical_events')return;
   const timeline=element('section'),events=element('ul',undefined,'record-results'),note=element('p','Loading related events…'),controls=element('div',undefined,'record-pagination'),prev=element('button','Previous events','quiet'),next=element('button','Next events','quiet');prev.type=next.type='button';controls.append(prev,next);note.setAttribute('role','status');timeline.append(element('h2','Recorded events'),element('p','Events that explicitly reference this record, earliest first. Missing dates are placed last; equal or missing timestamps do not establish an exact sequence.','muted'),events,note,controls);body.insertBefore(timeline,raw);
   let offset=Math.max(0,Math.floor((Number(params.get('eventOffset'))||0)/50)*50),request=0;
-  const reader=timelineFilters(params,()=>{offset=0;void load();});timeline.insertBefore(reader.form,events);
+  const reader=timelineFilters(params,()=>{offset=0;void load();});timeline.insertBefore(reader.form,events);timeline.insertBefore(note,events);
   async function load(){const token=++request;prev.disabled=next.disabled=true;
    const selection=reader.selection(),current=timelineParams(params,selection,offset);
    const query=current.size?'?'+current:'';history.replaceState(null,'',recordURL(worldId,kind,id,query));
