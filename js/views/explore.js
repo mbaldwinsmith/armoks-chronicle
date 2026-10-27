@@ -1,13 +1,13 @@
-import {titleCase,eventLabel,readableValue,referenceLabel} from '../data/language.js?v=0.10.1';
-import {researchEditor} from './research.js?v=0.10.1';
-import {culturePanel,associations} from './culture.js?v=0.10.1';
-import {cultureReferences,culturalKinds,cultureLabel} from '../data/culture.js?v=0.10.1';
-import {conflictRecord} from '../data/conflicts.js?v=0.10.1';
-import {sitePosition} from '../data/terrain.js?v=0.10.1';
-import {narratives,biography} from './narrative.js?v=0.10.1';
-import {openDatabase,getWorld,getRecord} from '../data/database.js?v=0.10.1';
-import {explore} from '../data/explorer-client.js?v=0.10.1';
-import {kindNames,recordURL,collectReferences,eventDate} from '../data/exploration.js?v=0.10.1';
+import {titleCase,eventLabel,readableValue,referenceLabel} from '../data/language.js?v=0.10.2';
+import {researchEditor} from './research.js?v=0.10.2';
+import {culturePanel,associations} from './culture.js?v=0.10.2';
+import {cultureReferences,culturalKinds,cultureLabel} from '../data/culture.js?v=0.10.2';
+import {conflictRecord} from '../data/conflicts.js?v=0.10.2';
+import {sitePosition} from '../data/terrain.js?v=0.10.2';
+import {narratives,biography} from './narrative.js?v=0.10.2';
+import {openDatabase,getWorld,getRecord} from '../data/database.js?v=0.10.2';
+import {explore} from '../data/explorer-client.js?v=0.10.2';
+import {kindNames,recordURL,collectReferences,eventDate} from '../data/exploration.js?v=0.10.2';
 let generation=0,timer;
 export function cancelExploration(){generation++;clearTimeout(timer);}
 const element=(tag,text,className)=>{const el=document.createElement(tag);if(text!==undefined)el.textContent=text;if(className)el.className=className;return el;};

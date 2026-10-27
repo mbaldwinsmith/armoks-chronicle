@@ -29,7 +29,7 @@ export function compareEvents(a,b) {
 }
 export function searchEntries(entries,{q='',kind='',sort='name',offset=0,limit=50}={}) {
  const term=normalise(q),idQuery=/^#\d+$/.test(term)?term.slice(1):null;
- const hits=entries.filter(row=>(!kind||row.kind===kind)&&(!term||(idQuery!==null?row.id===idQuery:row.search.includes(term)||row.id===term)));
+ const hits=entries.filter(row=>(!kind||row.kind===kind)&&(!term||(idQuery!==null?row.id===idQuery:row.search.includes(term)||row.id===term||row.aliases?.some(alias=>alias.includes(term)))));
  hits.sort((a,b)=>sort==='year' ? compareEvents(a,b)||a.key.localeCompare(b.key) : Number(b.search===term)-Number(a.search===term)||a.search.localeCompare(b.search,'en')||a.key.localeCompare(b.key,'en',{numeric:true}));
- return {total:hits.length,rows:hits.slice(offset,offset+limit).map(({search,...row})=>row)};
+ return {total:hits.length,rows:hits.slice(offset,offset+limit).map(({search,aliases,...row})=>row)};
 }

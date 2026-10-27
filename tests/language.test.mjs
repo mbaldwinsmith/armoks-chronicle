@@ -1,3 +1,4 @@
+import {searchEntries} from '../js/data/exploration.js';
 import test from 'node:test';import assert from 'node:assert/strict';import {titleCase,eventLabel,readableValue,referenceLabel} from '../js/data/language.js';import {narrateEvent} from '../js/data/narrative.js';import {cultureLabel} from '../js/data/culture.js';
 const render=data=>narrateEvent(data).tokens.map(token=>typeof token==='string'?token:`[${token.kind}:${token.id}]`).join('');
 test('proper names and titles use Title Case with articles, Unicode and existing internal capitals',()=>{assert.equal(titleCase('the city of copper-halls'),'The City of Copper-Halls');assert.equal(titleCase('élan and McUrist: the XML chronicle'),'Élan and McUrist: The XML Chronicle');assert.equal(titleCase("armok’s chronicle"),'Armok’s Chronicle');});
@@ -8,3 +9,5 @@ test('friendly event labels and names do not change source data',()=>{const reco
 test('old-age deaths and ended marriages do not invent murder or divorce',()=>{assert.match(render({type:'hf died',hfid:'1',cause:'old_age'}),/died of old age/);const story=render({type:'remove hf hf link',hfid:'1',hfid_target:'2',link_type:'spouse'});assert.match(story,/no longer recorded as married/);assert.doesNotMatch(story,/divorced/);});
 
 test('enum and reference labels are readable without changing canonical keys',()=>{assert.equal(readableValue('MusicalComposition'),'Musical Composition');assert.equal(referenceLabel('slayer_hfid'),'Killer');assert.equal(referenceLabel('hfid',true),'Victim');assert.equal(eventLabel('hist_figure_died'),'Death');});
+
+test('friendly event headings remain searchable by their raw event-type aliases',()=>{const entries=[{key:'event:1',kind:'historical_events',id:'1',label:'Death',search:'death',aliases:['hf died']}];assert.equal(searchEntries(entries,{q:'hf died'}).total,1);assert.equal(searchEntries(entries,{q:'death'}).total,1);assert.equal(searchEntries(entries,{q:'hf died'}).rows[0].label,'Death');});

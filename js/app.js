@@ -1,11 +1,11 @@
-import {renderResearch,cancelResearchView,allowResearchNavigation} from './views/research.js?v=0.10.1';
-import {renderAtlas,stopAtlas} from './views/atlas.js?v=0.10.1';
-import {renderRecord,cancelExploration} from './views/explore.js?v=0.10.1';
-import {stopExplorer} from './data/explorer-client.js?v=0.10.1';
-import { startRouter } from './router.js?v=0.10.1';
-import { state, readTheme, setTheme } from './state.js?v=0.10.1';
-import { setupImportPreview } from './views/import-preview.js?v=0.10.1';
-import { renderBookshelf, renderWorld, renderRecovery, cancelWorldView } from './views/worlds.js?v=0.10.1';
+import {renderResearch,cancelResearchView,allowResearchNavigation} from './views/research.js?v=0.10.2';
+import {renderAtlas,stopAtlas} from './views/atlas.js?v=0.10.2';
+import {renderRecord,cancelExploration} from './views/explore.js?v=0.10.2';
+import {stopExplorer} from './data/explorer-client.js?v=0.10.2';
+import { startRouter } from './router.js?v=0.10.2';
+import { state, readTheme, setTheme } from './state.js?v=0.10.2';
+import { setupImportPreview } from './views/import-preview.js?v=0.10.2';
+import { renderBookshelf, renderWorld, renderRecovery, cancelWorldView } from './views/worlds.js?v=0.10.2';
 const toggle = document.querySelector('#theme-toggle');
 function applyTheme(theme) {
   setTheme(theme);

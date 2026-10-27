@@ -1,7 +1,7 @@
-import {cultureReferences,cultureLabel} from './culture.js?v=0.10.1';
-import {eventType,filterEvents} from './narrative.js?v=0.10.1';
-import {openDatabase,getWorld} from './database.js?v=0.10.1';
-import {normalise,recordKey,collectReferences,eventDate,compareEvents,searchEntries} from './exploration.js?v=0.10.1';
+import {cultureReferences,cultureLabel} from './culture.js?v=0.10.2';
+import {eventType,filterEvents} from './narrative.js?v=0.10.2';
+import {openDatabase,getWorld} from './database.js?v=0.10.2';
+import {normalise,recordKey,collectReferences,eventDate,compareEvents,searchEntries} from './exploration.js?v=0.10.2';
 let cachedWorld, entries=[],lookup=new Map(), incoming=new Map();
 async function load(worldId) {
  if(cachedWorld===worldId)return;
@@ -14,7 +14,7 @@ async function load(worldId) {
    request.onsuccess=()=>{
     const cursor=request.result;if(!cursor){resolve();return;}
     const record=cursor.value,key=recordKey(record.kind,record.id);
-    const row={key,kind:record.kind,id:record.id,label:cultureLabel(record),search:normalise(cultureLabel(record)),...eventDate(record.data),eventType:record.kind==='historical_events'?eventType(record.data):null};
+    const row={key,kind:record.kind,id:record.id,label:cultureLabel(record),search:normalise(cultureLabel(record)),aliases:record.kind==='historical_events'?[normalise(record.data.type),normalise(record.label)]:[],...eventDate(record.data),eventType:record.kind==='historical_events'?eventType(record.data):null};
     entries.push(row);lookup.set(key,row);
     for(const ref of [...collectReferences({merged:record.data,plus:record.supplement}),...cultureReferences(record)]) {
      const target=recordKey(ref.kind,ref.id);if(target===key)continue;

@@ -1,6 +1,6 @@
-import {titleCase} from '../data/language.js?v=0.10.1';
-import {renderDirectory} from './explore.js?v=0.10.1';
-import {openDatabase,listWorlds,getWorld,deleteWorld} from '../data/database.js?v=0.10.1';
+import {titleCase} from '../data/language.js?v=0.10.2';
+import {renderDirectory} from './explore.js?v=0.10.2';
+import {openDatabase,listWorlds,getWorld,deleteWorld} from '../data/database.js?v=0.10.2';
 let generation=0;
 export function cancelWorldView(){generation++;}
 export async function renderBookshelf() {

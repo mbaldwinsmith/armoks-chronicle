@@ -2,10 +2,11 @@
 
 27 October 2026
 
-- 46 Node tests pass. New cases cover Title Case, Unicode/minor words/internal capitals, settlement aliases, missing locations, visits, occupations/articles, role-specific affiliations, source immutability, old-age deaths and ended marriages without invented causes.
+- 47 Node tests pass. New cases cover Title Case, Unicode/minor words/internal capitals, settlement aliases, missing locations, visits, occupations/articles, role-specific affiliations, source immutability, old-age deaths and ended marriages without invented causes.
 - Synthetic browser fixtures now include lowercase source names and a settlement event, with matching Plus aliases. Browser checks assert the natural linked sentence and unchanged source values.
 - Existing role-order tests now assert direct victim/killer prose rather than the previous mechanical phrasing. Untrusted strings remain text nodes; raw descriptions, notes and source fields remain unchanged.
-- Live verification is pending publication.
+- Live browser integration suite passes, including the synthetic sentence “Urist Examplekeeper settled at Example Copperhall.” The UI renders linked names in Title Case, labels event headings in readable English, and replaces raw reference paths with role labels.
+- A new synthetic example import was browsed through figure → settlement event. Its source names remain lowercase in storage. Raw event terms are retained as search aliases for compatibility.
 
 # Verification notes
 
