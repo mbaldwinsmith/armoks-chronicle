@@ -1,11 +1,11 @@
-import {elevationColour,reliefPoint} from '../data/terrain.js?v=0.5.1';
-import {recordURL} from '../data/exploration.js?v=0.5.1';
+import {elevationColour,reliefPoint,oceanSurface} from '../data/terrain.js?v=0.5.2';
+import {recordURL} from '../data/exploration.js?v=0.5.2';
 let worker,observer,cleanup=()=>{},generation=0;
 export function stopAtlas(){generation++;worker?.terminate();worker=null;observer?.disconnect();cleanup();cleanup=()=>{};}
 export function renderAtlas(worldId,params){
  stopAtlas();const ticket=generation,canvas=document.querySelector('#atlas-canvas'),status=document.querySelector('#atlas-status'),panel=document.querySelector('#atlas-controls'),readout=document.querySelector('#tile-details'),siteList=document.querySelector('#tile-sites');
  panel.hidden=true;canvas.hidden=true;readout.textContent='';siteList.replaceChildren();status.textContent='Reading saved terrain…';document.querySelector('#atlas-back').href=`#/world/${encodeURIComponent(worldId)}`;
- worker=new Worker(new URL('../data/atlas-worker.js?v=0.5.1',import.meta.url),{type:'module'});worker.onerror=()=>{status.textContent='Could not start the atlas worker.';};worker.onmessage=({data})=>{if(ticket!==generation)return;worker.terminate();worker=null;if(data.error){status.textContent=data.error;return;}document.querySelector('#atlas-title').textContent=data.world.name+' · Atlas';if(data.missing){status.textContent='No terrain file was saved with this world. Import your matching world_map.csv together with the XML exports to create an atlas archive.';return;}mount(data);};worker.postMessage({worldId});
+ worker=new Worker(new URL('../data/atlas-worker.js?v=0.5.2',import.meta.url),{type:'module'});worker.onerror=()=>{status.textContent='Could not start the atlas worker.';};worker.onmessage=({data})=>{if(ticket!==generation)return;worker.terminate();worker=null;if(data.error){status.textContent=data.error;return;}document.querySelector('#atlas-title').textContent=data.world.name+' · Atlas';if(data.missing){status.textContent='No terrain file was saved with this world. Import your matching world_map.csv together with the XML exports to create an atlas archive.';return;}mount(data);};worker.postMessage({worldId});
  function mount({terrain,sites,unmapped}){
  const {width,height,cells}=terrain;panel.hidden=false;canvas.hidden=false;document.title='Atlas · Armok’s Chronicle';
  status.textContent=`${width} × ${height} world tiles · elevation ${terrain.min}–${terrain.max} · ${sites.length} mapped sites · ${unmapped} sites without usable coordinates.`;
@@ -14,12 +14,19 @@ export function renderAtlas(worldId,params){
  layer.value='elevation';showSites.checked=true;siteSelect.replaceChildren(new Option('Choose a site…',''));for(const site of [...sites].sort((a,b)=>a.label.localeCompare(b.label)))siteSelect.add(new Option(site.label,site.id));xInput.max=width-1;yInput.max=height-1;
  const scene=document.createElement('canvas'),pick=document.createElement('canvas'),ctx=canvas.getContext('2d');let cw=1,ch=1,scale=1,panX=0,panY=0,selected=null,drag=null,moved=false;
  const colour=cell=>layer.value==='evilness'?`hsl(${120-cell.evilness*1.2} 40% 45%)`:layer.value==='savagery'?`hsl(${100-cell.savagery} 50% 45%)`:elevationColour(cell);
- function project(x,y){return mode.value==='flat'?{x:x+.5,y:y+.5}:reliefPoint(x,y,cells[y*width+x].elevation,height);}
+ function project(x,y){return mode.value==='flat'?{x:x+.5,y:y+.5}:reliefPoint(x,y,(oceanSurface(cells[y*width+x])??cells[y*width+x].elevation),height);}
  function build(){scene.width=mode.value==='flat'?width:(width+height)*4+16;scene.height=mode.value==='flat'?height:(width+height)*2+120;pick.width=scene.width;pick.height=scene.height;const c=scene.getContext('2d'),p=pick.getContext('2d');
   function polygon(context,points,fill){context.fillStyle=fill;context.beginPath();points.forEach(([x,y],i)=>i?context.lineTo(x,y):context.moveTo(x,y));context.closePath();context.fill();}
-  for(const cell of (mode.value==='flat'?cells:[...cells].sort((a,b)=>a.x+a.y-b.x-b.y||a.x-b.x))){const {x,y}=cell;if(mode.value==='flat'){c.fillStyle=colour(cell);c.fillRect(x,y,1,1);continue;}const q=project(x,y),z=Math.round(cell.elevation/8)*3,id=y*width+x+1,key=`rgb(${id&255},${(id>>8)&255},${(id>>16)&255})`;
+  for(const cell of (mode.value==='flat'?cells:[...cells].sort((a,b)=>a.x+a.y-b.x-b.y||a.x-b.x))){const {x,y}=cell;if(mode.value==='flat'){c.fillStyle=colour(cell);c.fillRect(x,y,1,1);continue;}const q=reliefPoint(x,y,cell.elevation,height),z=Math.round(cell.elevation/8)*3,id=y*width+x+1,key=`rgb(${id&255},${(id>>8)&255},${(id>>16)&255})`;
    const top=[[q.x,q.y-2],[q.x+4,q.y],[q.x,q.y+2],[q.x-4,q.y]],left=[[q.x-4,q.y],[q.x,q.y+2],[q.x,q.y+2+z],[q.x-4,q.y+z]],right=[[q.x,q.y+2],[q.x+4,q.y],[q.x+4,q.y+z],[q.x,q.y+2+z]];
    for(const [points,fill] of [[left,'#5a5745'],[right,'#78725b'],[top,colour(cell)]]){polygon(c,points,fill);polygon(p,points,key);}
+   const sea=oceanSurface(cell);
+   if(sea!==null){const water=reliefPoint(x,y,sea,height),depth=q.y-water.y;
+    const surface=[[water.x,water.y-2],[water.x+4,water.y],[water.x,water.y+2],[water.x-4,water.y]];
+    const west=[[water.x-4,water.y],[water.x,water.y+2],[water.x,water.y+2+depth],[water.x-4,water.y+depth]];
+    const east=[[water.x,water.y+2],[water.x+4,water.y],[water.x+4,water.y+depth],[water.x,water.y+2+depth]];
+    for(const [points,fill] of [[west,'rgba(40,113,157,0.42)'],[east,'rgba(48,130,169,0.42)'],[surface,'rgba(63,151,192,0.62)']]){polygon(c,points,fill);polygon(p,points,key);}
+   }
   }fit();}
  function size(){const rect=canvas.getBoundingClientRect();cw=Math.max(1,Math.round(rect.width));ch=Math.max(1,Math.round(rect.height));const dpr=Math.min(devicePixelRatio||1,2);canvas.width=Math.round(cw*dpr);canvas.height=Math.round(ch*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);fit();}
  function fit(){scale=Math.min(cw/scene.width,ch/scene.height)*.92;panX=(cw-scene.width*scale)/2;panY=(ch-scene.height*scale)/2;draw();}

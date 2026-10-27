@@ -15,3 +15,7 @@ export function parseTerrain(text){
 export function sitePosition(data,width,height){const match=typeof data.coords==='string'&&data.coords.match(/^(\d+),(\d+)$/);if(!match)return null;const x=Number(match[1]),y=Number(match[2]);return x<width&&y<height?{x,y}:null;}
 export function elevationColour(cell){if(cell.flags&1)return '#487f9c';const e=cell.elevation;const stops=[[0,[39,67,87]],[99,[70,132,156]],[100,[90,120,75]],[150,[147,145,90]],[200,[157,132,108]],[255,[236,233,221]]];for(let i=1;i<stops.length;i++)if(e<=stops[i][0]){const [a,c]=stops[i-1],[b,d]=stops[i],t=(e-a)/(b-a);return `rgb(${c.map((v,j)=>Math.round(v+(d[j]-v)*t)).join(',')})`;}return '#eee9dd';}
 export function reliefPoint(x,y,elevation,width){return {x:(x-y)*4+width*4+8,y:(x+y)*2+110-Math.round(elevation/8)*3};}
+
+// DFHack Maps::getBiomeTypeWithRef checks lakes before elevation < 100 oceans.
+export const SEA_LEVEL=100;
+export function oceanSurface(cell){return !(cell.flags&1)&&cell.elevation<SEA_LEVEL?SEA_LEVEL:null;}

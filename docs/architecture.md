@@ -48,7 +48,7 @@ Native IndexedDB was chosen for this limited schema to keep browser-ready distri
 
 ## Asset updates
 
-Runtime module, worker, and stylesheet URLs carry an explicit release query (`?v=0.5.1`) to prevent mixed releases during GitHub Pages cache revalidation. Bump these references together for code releases. This is plain source maintenance, not a build step.
+Runtime module, worker, and stylesheet URLs carry an explicit release query (`?v=0.5.2`) to prevent mixed releases during GitHub Pages cache revalidation. Bump these references together for code releases. This is plain source maintenance, not a build step.
 
 ## Exploration (0.3.0)
 
@@ -71,3 +71,5 @@ The atlas worker reads saved File blobs and site records from IndexedDB, with no
 The flat canvas caches one pixel per tile and scales without smoothing. Canvas output accounts for device pixel ratio (capped at 2). Native Canvas is also used for an isometric stepped-column preview, capped at 257 × 257. Relief is a regional elevation illustration with fixed exaggeration, not a free-camera WebGL scene. It builds only when requested. Projection picking uses a colour-ID buffer. Both views expose a site selector, selected-tile linked list, numeric coordinate controls and keyboard pan/zoom.
 
 Format provenance: DFHack/scripts `exportlegends.lua`, function `export_world_map_metadata`, reviewed 27 October 2026: https://github.com/DFHack/scripts/blob/master/exportlegends.lua . The exporter emits x increasing across rows, y increasing between rows; flags are lake=1, river=2, road=4. River direction bits are N=1,S=2,W=4,E=8. This version retains river bits but does not draw river connections. Elevation is shown in raw export units; biome names and sea-level interpretation are not guessed. Elevation colours are an application palette.
+
+Relief ocean fill (0.5.2): translucent top and side faces cover non-lake tiles below elevation 100. Terrain retains its exported seafloor elevation; picking and marker projection use the water surface. Faces are drawn in the same back-to-front tile order as terrain so dry land occludes water correctly. Classification follows DFHack `Maps::getBiomeTypeWithRef` (lake first, then elevation < 100 for oceans): https://github.com/DFHack/dfhack/blob/develop/library/modules/Maps.cpp . Lakes retain their own exported levels.
