@@ -1,3 +1,13 @@
+# Connection-finder verification
+
+27 October 2026
+
+- 71 Node tests pass. New cases cover shortest breadth-first routes, deterministic ties, cycles, unchanged source evidence on reverse traversal, organisation opt-in, depth/record/link/source budgets, complete exhaustion versus limited searches, missing endpoints/intermediates, qualified results after partial scans, same-figure selections and cancellation.
+- The live Chrome integration suite passes. Synthetic cases verify a two-step figure path with intermediate records and source evidence, organisation-only routes, original membership roles on reverse steps, no-path and missing-endpoint states, world isolation, AbortSignal cancellation and successful worker reuse afterwards. Existing graph, atlas, timeline, research and storage-isolation cases pass.
+- Live UI on authored fictional records: launch from a figure page; search by name and by #ID; explicitly choose a result; render a two-step path with a reverse-link explanation; and retain timeline filters on each record/evidence link. Editing a search input removes the previous result and selection.
+- Results distinguish a shortest recorded path from a path found with incomplete search data. Unknown intermediate records are disclosed and not traversed. Organisation paths are excluded by default; site links and shared events do not create shortcuts.
+- Path search is bounded, periodically yields in the worker, and is cancelled on figure-page disposal. Search-result counts and missing-data copy use natural singular/plural wording; implementation statistics are available under Search details. Broader cross-browser/screen-reader qualification remains open.
+
 # Relationship-network verification
 
 27 October 2026

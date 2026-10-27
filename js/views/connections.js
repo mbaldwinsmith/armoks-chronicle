@@ -1,6 +1,6 @@
-import {explore} from '../data/explorer-client.js?v=0.13.0';
-import {recordURL} from '../data/exploration.js?v=0.13.0';
-import {relationshipWording} from '../data/relationships.js?v=0.13.0';
+import {explore} from '../data/explorer-client.js?v=0.13.1';
+import {recordURL} from '../data/exploration.js?v=0.13.1';
+import {relationshipWording} from '../data/relationships.js?v=0.13.1';
 const el=(tag,text,cls)=>{const node=document.createElement(tag);if(text!==undefined)node.textContent=text;if(cls)node.className=cls;return node;};
 const reasonNames={depth_limit:'maximum path length',node_limit:'record limit',edge_limit:'link limit',source_record_limit:'source-reading budget',neighbourhood_limit:'incomplete neighbourhood scan'};
 export function connectionSummary(result){
@@ -26,8 +26,8 @@ export function connectionResult(result,worldId,query=''){
   container.append(list);
  }
  const reasons=result.reasons.map(reason=>reasonNames[reason]||reason);if(reasons.length)container.append(el('p','Search limits encountered: '+reasons.join(', ')+'.','notice'));
- if(result.missingRecords||result.stats.invalidLinks)container.append(el('p',`Missing data encountered: ${result.missingRecords} referenced records unavailable; ${result.stats.invalidLinks} links with unusable target IDs. These were not traversed.`,'muted'));
- container.append(el('p',`${result.stats.examined} records examined · ${result.stats.sourceRecords} source records read · maximum ${result.maxDepth} links. Organisation paths ${result.organisations?'allowed':'excluded'}.`,'muted'));
+ if(result.missingRecords||result.stats.invalidLinks){const messages=[];if(result.missingRecords)messages.push(`${result.missingRecords} referenced ${result.missingRecords===1?'record is':'records are'} unavailable.`);if(result.stats.invalidLinks)messages.push(`${result.stats.invalidLinks} ${result.stats.invalidLinks===1?'link has an unusable target ID.':'links have unusable target IDs.'}`);container.append(el('p',messages.join(' ')+' These were not traversed.','muted'));}
+ const details=el('details'),summary=el('summary','Search details');details.append(summary,el('p',`${result.stats.examined} ${result.stats.examined===1?'record':'records'} examined · ${result.stats.sourceRecords} source ${result.stats.sourceRecords===1?'record':'records'} read · maximum ${result.maxDepth} ${result.maxDepth===1?'link':'links'}. Organisation paths ${result.organisations?'allowed':'excluded'}.`,'muted'));container.append(details);
  return container;
 }
 export function connectionFinder(record,worldId,query,isCurrent=()=>true){
@@ -43,7 +43,7 @@ export function connectionFinder(record,worldId,query,isCurrent=()=>true){
   group.append(legend,inputLabel,input,search,selectLabel,select,message);pickers.append(group);
   input.oninput=()=>{request++;search.disabled=busy;chosen=null;select.replaceChildren(new Option('Choose a figure',''));message.textContent='Search again to choose this figure.';invalidate();};
   async function searchFigures(){const ticket=++request,term=input.value.trim();chosen=null;select.replaceChildren(new Option('Choose a figure',''));invalidate();if(!term){message.textContent='Enter a name or # followed by an ID.';return;}search.disabled=true;message.textContent='Searching figures…';
-   try{const result=await explore(worldId,{type:'search',options:{kind:'historical_figures',q:term,limit:10}});if(!current()||ticket!==request)return;for(const row of result.rows)select.add(new Option(`${row.label} · #${row.id}`,row.id));message.textContent=result.total?`${result.total.toLocaleString()} matches; showing up to 10. Choose a figure, or narrow your search.`:'No matching figures. Try a shorter name or #ID.';select.onchange=()=>{chosen=result.rows.find(row=>row.id===select.value)||null;invalidate();};
+   try{const result=await explore(worldId,{type:'search',options:{kind:'historical_figures',q:term,limit:10}});if(!current()||ticket!==request)return;for(const row of result.rows)select.add(new Option(`${row.label} · #${row.id}`,row.id));message.textContent=result.total?result.total===1?'1 match found. Choose the figure.':`${result.total.toLocaleString()} matches found${result.total>10?'; showing the first 10':''}. Choose a figure, or narrow your search.`:'No matching figures. Try a shorter name or #ID.';select.onchange=()=>{chosen=result.rows.find(row=>row.id===select.value)||null;invalidate();};
    }catch(error){if(current()&&ticket===request)message.textContent=`Figure search unavailable: ${error.message}`;}finally{if(current()&&ticket===request)search.disabled=busy;}
   }
   search.onclick=()=>void searchFigures();input.onkeydown=event=>{if(event.key==='Enter'){event.preventDefault();void searchFigures();}};
