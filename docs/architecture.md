@@ -48,7 +48,7 @@ Native IndexedDB was chosen for this limited schema to keep browser-ready distri
 
 ## Asset updates
 
-Runtime module, worker, and stylesheet URLs carry an explicit release query (`?v=0.12.2`) to prevent mixed releases during GitHub Pages cache revalidation. Bump these references together for code releases. This is plain source maintenance, not a build step.
+Runtime module, worker, and stylesheet URLs carry an explicit release query (`?v=0.13.0`) to prevent mixed releases during GitHub Pages cache revalidation. Bump these references together for code releases. This is plain source maintenance, not a build step.
 
 ## Exploration (0.3.0)
 
@@ -95,3 +95,9 @@ Display language (0.10.0): presentation helpers apply Title Case to proper recor
 `views/relationships.js` is dynamically loaded from the figure-page launch button. It renders safe native SVG and a semantic list; `data/relationships.js` owns typed edge extraction, category policy, bounded merge and deterministic layout. The exploration worker loads this adapter only for relationship requests, reads the selected figure and candidate incoming figure records using the existing reverse-reference index, and filters actual explicit relationship fields. It caches at most 16 neighbourhoods per world.
 
 Each neighbourhood reads at most 500 candidate source records, at most 5,000 link children per record, and keeps at most 4,000 incident edges. Expansion returns eight edges at a time; the view bounds the network to 40 nodes and 100 edges. Reaching any read limit marks the result incomplete. Evidence carries merged/Plus origin, source fields, available source strength/date values and an explicit source-record link. No event co-occurrence or inferred reciprocal edges are introduced. No database migration is required.
+
+## Connection search
+
+`data/connections.js` implements async breadth-first traversal through injected neighbour/existence adapters. The worker reuses bounded neighbourhood reads and reverse references for figures and optional organisation intermediaries; it never derives edges from event co-occurrence. It preserves the exact supporting edge and traversal direction at each hop. Complete searches can claim shortest recorded paths; truncated source/graph searches qualify their results.
+
+The search bounds depth, discovered nodes, examined links and fresh source reads separately. It yields periodically and accepts cancellation messages outside the serial request queue. `explorer-client.js` accepts an AbortSignal, cleans listeners on completion/navigation and discards aborted responses. `views/connections.js` provides explicit name/ID selections, progress/cancel controls, linked path steps and source evidence. Figure-page disposal aborts a search on navigation.

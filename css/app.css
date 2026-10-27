@@ -104,3 +104,21 @@
 .relationship-legend { display:flex;flex-wrap:wrap;gap:8px 18px;list-style:none;padding:0;font-size:.8rem;color:var(--muted); }
 .relationship-legend li { display:flex;align-items:center;gap:7px; }
 .relationship-legend span { display:inline-block;width:18px;height:4px; }
+.record-tool { margin:0 12px 12px 0; }
+.connection-finder { border-top:1px solid var(--line);padding-top:24px; }
+.connection-pickers { display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:20px 0; }
+.connection-pickers fieldset { min-width:0;border:1px solid var(--line);padding:18px; }
+.connection-pickers legend { color:var(--accent);padding:0 6px; }
+.connection-pickers label { display:block;font-size:.85rem;margin:8px 0 4px; }
+.connection-pickers input,.connection-pickers select { width:100%;min-width:0;max-width:none;padding:10px;margin:0 0 10px;border:1px solid var(--line);background:var(--panel);color:var(--ink);font:inherit; }
+.connection-options { display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin:18px 0; }
+.connection-options select { width:100px;margin:0; }
+.connection-options input[type=checkbox] { width:18px;height:18px;vertical-align:middle; }
+.connection-options > label:first-child { flex:1 1 250px; }
+.connection-finder form > button { margin:0 12px 12px 0; }
+.connection-steps { padding-left:26px; }
+.connection-steps > li { padding:16px;border-left:2px solid var(--accent);background:var(--panel);margin:14px 0;overflow-wrap:anywhere; }
+.connection-steps h4 { margin:0 0 10px; }
+.connection-steps p { color:var(--ink); }
+.connection-steps details { color:var(--muted);font-size:.85rem; }
+@media(max-width:700px){.connection-pickers{grid-template-columns:1fr}.connection-options{align-items:start}}

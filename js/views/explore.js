@@ -1,17 +1,17 @@
-import {timelineParams,timelineKeys} from '../data/timeline.js?v=0.12.2';
-import {timelineFilters,renderTimeline,timelineCount} from './timeline.js?v=0.12.2';
-import {titleCase,eventLabel,readableValue,referenceLabel} from '../data/language.js?v=0.12.2';
-import {researchEditor} from './research.js?v=0.12.2';
-import {culturePanel,associations} from './culture.js?v=0.12.2';
-import {cultureReferences,culturalKinds,cultureLabel} from '../data/culture.js?v=0.12.2';
-import {conflictRecord} from '../data/conflicts.js?v=0.12.2';
-import {sitePosition} from '../data/terrain.js?v=0.12.2';
-import {narratives,biography} from './narrative.js?v=0.12.2';
-import {openDatabase,getWorld,getRecord} from '../data/database.js?v=0.12.2';
-import {explore} from '../data/explorer-client.js?v=0.12.2';
-import {kindNames,recordURL,collectReferences,eventDate} from '../data/exploration.js?v=0.12.2';
-let generation=0,timer;
-export function cancelExploration(){generation++;clearTimeout(timer);}
+import {timelineParams,timelineKeys} from '../data/timeline.js?v=0.13.0';
+import {timelineFilters,renderTimeline,timelineCount} from './timeline.js?v=0.13.0';
+import {titleCase,eventLabel,readableValue,referenceLabel} from '../data/language.js?v=0.13.0';
+import {researchEditor} from './research.js?v=0.13.0';
+import {culturePanel,associations} from './culture.js?v=0.13.0';
+import {cultureReferences,culturalKinds,cultureLabel} from '../data/culture.js?v=0.13.0';
+import {conflictRecord} from '../data/conflicts.js?v=0.13.0';
+import {sitePosition} from '../data/terrain.js?v=0.13.0';
+import {narratives,biography} from './narrative.js?v=0.13.0';
+import {openDatabase,getWorld,getRecord} from '../data/database.js?v=0.13.0';
+import {explore} from '../data/explorer-client.js?v=0.13.0';
+import {kindNames,recordURL,collectReferences,eventDate} from '../data/exploration.js?v=0.13.0';
+let generation=0,timer,disposeConnections;
+export function cancelExploration(){generation++;clearTimeout(timer);disposeConnections?.();disposeConnections=null;}
 const element=(tag,text,className)=>{const el=document.createElement(tag);if(text!==undefined)el.textContent=text;if(className)el.className=className;return el;};
 function rowLink(row,world,query){const li=element('li'),a=element('a',row.label);a.href=recordURL(world,row.kind,row.id,query);li.append(a,element('span',`${kindNames[row.kind]||titleCase(row.kind.replaceAll('_',' '))} · #${row.id}${row.year!==null&&row.year!==undefined?` · Year ${row.year}`:''}`,'muted'));return li;}
 export async function renderDirectory(id,params) {
@@ -88,8 +88,10 @@ export async function renderRecord(worldId,kind,id,params) {
   if(!resolved.length)links.append(element('li','No supported explicit references in this record. Other fields remain available in the source inspector.'));
   if(kind==='historical_figures'){
    body.insertBefore(biography(data,resolved,worldId,suffix),fieldDetails);
-   const launch=element('button','Explore family and relationships','quiet');launch.type='button';body.insertBefore(launch,fieldDetails);
-   launch.onclick=async()=>{launch.disabled=true;launch.textContent='Opening relationships…';try{const {relationshipPanel}=await import('./relationships.js?v=0.12.2');if(ticket!==generation)return;const panel=relationshipPanel({...record,label:cultureLabel(record)},worldId,()=>{const query=location.hash.split('?')[1]||'';return query?'?'+query:'';},()=>ticket===generation);launch.replaceWith(panel);panel.querySelector('h2').tabIndex=-1;panel.querySelector('h2').focus();}catch(error){if(ticket===generation){launch.disabled=false;launch.textContent='Try opening relationships again';status.textContent=error.message;}}};
+   const find=element('button','Find a connection','quiet record-tool');find.type='button';body.insertBefore(find,fieldDetails);
+   find.onclick=async()=>{find.disabled=true;try{const {connectionFinder}=await import('./connections.js?v=0.13.0');if(ticket!==generation)return;const finder=connectionFinder({...record,label:cultureLabel(record)},worldId,()=>{const query=location.hash.split('?')[1]||'';return query?'?'+query:'';},()=>ticket===generation);disposeConnections=finder.dispose;find.replaceWith(finder.element);const heading=finder.element.querySelector('h2');heading.tabIndex=-1;heading.focus();}catch(error){if(ticket===generation){find.disabled=false;status.textContent=error.message;}}};
+   const launch=element('button','Explore family and relationships','quiet record-tool');launch.type='button';body.insertBefore(launch,fieldDetails);
+   launch.onclick=async()=>{launch.disabled=true;launch.textContent='Opening relationships…';try{const {relationshipPanel}=await import('./relationships.js?v=0.13.0');if(ticket!==generation)return;const panel=relationshipPanel({...record,label:cultureLabel(record)},worldId,()=>{const query=location.hash.split('?')[1]||'';return query?'?'+query:'';},()=>ticket===generation);launch.replaceWith(panel);panel.querySelector('h2').tabIndex=-1;panel.querySelector('h2').focus();}catch(error){if(ticket===generation){launch.disabled=false;launch.textContent='Try opening relationships again';status.textContent=error.message;}}};
   }
   if(culturalKinds.has(kind)){const resolvedCulture=await explore(worldId,{type:'resolve',refs:extraRefs});if(ticket!==generation)return;body.insertBefore(culturePanel(record,resolvedCulture,worldId,suffix),fieldDetails);}
   const connected=await associations(record,worldId,suffix,()=>ticket===generation);if(ticket!==generation)return;for(const section of connected)body.insertBefore(section,raw);

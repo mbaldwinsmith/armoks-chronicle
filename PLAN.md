@@ -6,6 +6,8 @@ Status: atlas and isometric relief preview implemented; broader features in prog
 
 ## Current iteration
 
+Connection finder: figure pages offer two explicit name/ID pickers and a bounded worker breadth-first search. Figure links can be followed in either direction with unchanged source roles; organisation intermediaries are opt-in. Results include every intermediate record and evidence, distinguish exhausted searches, limits, missing endpoints and cancellation, and qualify paths found with incomplete neighbourhood data. Searches stop at the selected depth (up to eight links), 500 discovered records, 40,000 examined links or 4,000 fresh source reads; per-neighbourhood limits remain explicit. Navigation and Cancel abort a search without discarding selections. 71 Node tests pass; browser qualification follows deployment.
+
 Relationship networks: figure pages lazily open a native SVG graph with explicit directed figure/organisation/site links, category filters, eight-link expansion pages, a 40-node/100-edge display budget, zoom/scroll controls and a matching keyboard-accessible evidence list. Incoming-only links, reciprocal/cyclic links, separate conflicting labels, merged/Plus evidence and missing records are retained. Worker neighbourhood reads and caching are bounded and disclose incomplete scans. Shared events and vague association fields never create personal edges. A genealogical layout and two-record path search remain future work. 62 Node tests and the live Chrome integration suite pass. Live UI checks cover expansion, category filtering, keyboard focus retention, source evidence, diagram-to-biography navigation and timeline filters while a graph is open.
 
 Timeline reading: All Events, Major Events, Warfare and Personal History presets; optional occupation/movement/affiliation exclusions; shared worker filtering/counts for event directories and record timelines; chronological year groups and URL-persisted filters across linked navigation/reload. 52 Node tests pass. Browser integration covers shared counts, reset, restored controls, year-heading DOM and a 55-event pagination fixture. Live Chrome checks pass for Warfare and Major presets, independent movement exclusion, hidden counts, linked navigation, reload restoration, reset and chronological directory grouping.
@@ -341,11 +343,11 @@ Implemented slice: directed source-record networks with family/social/rivalry/af
 - [ ] Provide family-tree layouts that handle remarriage, multiple parents, unknown relatives, and cycles.
 - [x] Preserve distinct edge meanings; shared battle participation must not imply a personal meeting.
 - [x] Add keyboard-accessible equivalent relationship lists.
-- [ ] Implement two-record connection search using bounded graph traversal in a worker.
-- [ ] Let users include/exclude broad membership edges that create unhelpful shortcuts.
-- [ ] Display the shortest found path with every intermediate record, relationship type, and supporting source.
-- [ ] Report no path, truncated search, and missing data distinctly.
-- [ ] Support cancellation, maximum path depth, and deterministic results.
+- [x] Implement two-record connection search using bounded graph traversal in a worker.
+- [x] Let users include/exclude broad membership edges that create unhelpful shortcuts.
+- [x] Display the shortest found path with every intermediate record, relationship type, and supporting source.
+- [x] Report no path, truncated search, and missing data distinctly.
+- [x] Support cancellation, maximum path depth, and deterministic results.
 - [ ] Add graph zoom/reset controls and dispose of graph instances when leaving the view.
 - [ ] Add a faction-centred warfare network showing opponents, dated conflicts, and links to the underlying wars/battles.
 - [ ] Let users filter warfare networks by years and conflict type and expand neighbours within bounded node/edge limits.
