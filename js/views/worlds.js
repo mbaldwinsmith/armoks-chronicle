@@ -1,4 +1,4 @@
-import {openDatabase,listWorlds,getWorld,readPage,deleteWorld} from '../data/database.js?v=0.2.1';
+import {openDatabase,listWorlds,getWorld,readPage,deleteWorld} from '../data/database.js?v=0.2.2';
 const names={historical_figures:'Historical figures',historical_events:'Historical events',sites:'Sites',entities:'Organisations',artifacts:'Artifacts',written_contents:'Written works'};
 let generation=0;
 export async function renderBookshelf() {
@@ -13,7 +13,7 @@ export async function renderBookshelf() {
       const row=document.querySelector('#world-card').content.cloneNode(true);
       row.querySelector('h3').textContent=world.name;
       row.querySelector('.world-subtitle').textContent=world.alternativeName || 'A world awaiting exploration';
-      row.querySelector('.world-stats').textContent=`${(world.counts.historical_figures||0).toLocaleString()} figures · ${(world.counts.historical_events||0).toLocaleString()} events`;
+      row.querySelector('.world-stats').textContent=`${(world.counts.historical_figures||0).toLocaleString()} figures · ${(world.counts.historical_events||0).toLocaleString()} event${world.counts.historical_events===1?'':'s'}`;
       row.querySelector('a').href=`#/world/${encodeURIComponent(world.id)}`;
       row.querySelector('.world-date').textContent=`Imported ${new Date(world.importedAt).toLocaleDateString()}`;
       target.append(row);
@@ -32,6 +32,7 @@ export async function renderWorld(id) {
     if(ticket!==generation)return;
     if(!world || world.status!=='ready'){title.textContent='World not available';status.textContent='This world may have been deleted, or it belongs to another browser.';return;}
     title.textContent=world.name;
+    document.title=world.name+' · Armok’s Chronicle';
     document.querySelector('#world-subtitle').textContent=world.alternativeName||'Imported world archive';
     document.querySelector('#world-details').hidden=false;
     const select=document.querySelector('#record-kind');select.replaceChildren();
@@ -53,6 +54,7 @@ export async function renderWorld(id) {
     document.querySelector('#previous-records').onclick=()=>{offset=Math.max(0,offset-50);void loadPage();};
     document.querySelector('#next-records').onclick=()=>{offset+=50;void loadPage();};
     const dialog=document.querySelector('#delete-dialog');
+    document.querySelector('#delete-error').textContent='';
     document.querySelector('#delete-world').onclick=()=>{document.querySelector('#delete-name').textContent=world.name;dialog.showModal();};
     document.querySelector('#confirm-delete').onclick=async()=>{let connection;const button=document.querySelector('#confirm-delete');button.disabled=true;try{connection=await openDatabase();await deleteWorld(connection,id);dialog.close();location.hash='#/library';}catch(error){document.querySelector('#delete-error').textContent=error.message;}finally{connection?.close();button.disabled=false;}};
     await loadPage();

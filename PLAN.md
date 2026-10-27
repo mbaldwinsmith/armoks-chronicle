@@ -2,11 +2,15 @@
 
 *Every world a history. Every downfall a story.*
 
-Status: foundation iteration in progress. Updated: 27 October 2026.
+Status: local archive iteration implemented; exploration features in progress. Updated: 27 October 2026.
 
 ## Current iteration
 
-Foundation shell implemented: native HTML/CSS/JS, hash navigation, theme controls, field guide, and a bounded export-header preview worker. No full world import or storage is implemented yet. Syntax, worker-contract tests, sample export-header checks, and local project-subpath asset delivery passed. Browser interaction/visual checks and live Pages verification remain pending; see [verification notes](docs/verification.md). The next iteration should finish those checks and establish export fixtures and the streaming parser.
+Local archives are implemented: streaming standard/Plus XML import, CP437/UTF-8 decoding, staged IndexedDB writes, progress/cancellation controls, saved-world bookshelf, raw record pagination, provenance inspection, and exact-world deletion. Map/text files are retained but their contents are not yet interpreted.
+
+Eight Node tests and the deployed browser integration suite pass. All five supplied Cadenilina files were imported through the live UI; the saved world exposes 7,700 figures, 31,903 events, 577 sites, 276 artifacts, and 1,246 written works. Reload and pagination were verified. No user exports are committed.
+
+Structural merging is implemented; semantic event aliases, relationship indexes, advanced mismatch detection, migrations, cross-browser/mobile qualification, and complete accessibility review remain open. The next iteration should turn the raw archive into searchable linked records. See [verification notes](docs/verification.md).
 
 ## Goal and working rules
 
@@ -42,7 +46,7 @@ A feature-complete v1 includes every required phase below, including specialist 
 - [x] Add a local static-server command to the README; optional developer tooling must not be required to serve production files.
 - [x] Document Pages configuration: “Deploy from a branch”, branch `main`, folder `/ (root)`.
 - [ ] Configure that Pages source when repository administration access is available; otherwise document the exact manual setting.
-- [ ] Verify a root page, nested module, vendor file, worker, and asset load from the actual Pages project path.
+- [x] Verify a root page, nested module, vendor file, worker, and asset load from the actual Pages project path.
 - [x] Verify no custom build Action or generated output directory is needed. GitHub’s own branch-based Pages publishing infrastructure is acceptable.
 
 **Exit check:** committed static files can be served unchanged locally and on Pages.
@@ -57,10 +61,10 @@ A feature-complete v1 includes every required phase below, including specialist 
 - [ ] Derive biome codes, flags, river direction bits, and height units from the matching DFHack/game definitions; document sources and versions rather than guessing meanings.
 - [ ] Create small, redistributable fixtures covering every supported record family, with provenance and permission recorded.
 - [ ] Include fixtures for repeated tags, missing names, empty sections, unknown types, sentinel IDs, and missing linked records.
-- [ ] Include CP437 names, UTF-8 names, invalid XML control characters, escaped entities, and split multibyte chunks.
+- [x] Include CP437 names, UTF-8 names, invalid XML control characters, escaped entities, and split multibyte chunks.
 - [ ] Include truncated XML, malformed CSV, mismatched supplementary exports, and duplicate record IDs.
-- [ ] Keep original user exports out of public commits unless explicitly authorised; use the attached examples locally for integration checks.
-- [ ] Record baseline sample totals: 7,700 figures, 577 sites, 31,903 standard events, 276 artifacts, and 1,246 written works.
+- [x] Keep original user exports out of public commits unless explicitly authorised; use the attached examples locally for integration checks.
+- [x] Record baseline sample totals: 7,700 figures, 577 sites, 31,903 standard events, 276 artifacts, and 1,246 written works.
 - [ ] Record the sample map baseline of 129 × 129 tiles and event years 1–73.
 - [ ] Define expected optional-data capabilities separately from required standard-XML capabilities.
 - [ ] Add fixtures for supernatural evidence, absent/ambiguous status, vague relationships, dedicated structures, and competing sources for ownership.
@@ -72,12 +76,12 @@ A feature-complete v1 includes every required phase below, including specialist 
 ## 03 — Dependency selection and delivery
 
 - [ ] Evaluate a streaming SAX-style XML parser against fixtures, browser-worker execution, memory use, licence, and maintenance status.
-- [ ] Select and pin a parser release; do not assume a Node/CommonJS package works directly in browser modules.
-- [ ] Select and pin Dexie or a similarly small IndexedDB wrapper with a browser-ready distribution.
+- [x] Select and pin a parser release; do not assume a Node/CommonJS package works directly in browser modules.
+- [x] Select a browser-ready storage implementation: the initial schema uses an application-specific native IndexedDB adapter, avoiding a wrapper dependency; see docs/architecture.md.
 - [ ] Validate Cytoscape.js for graph views and select a compatible browser distribution and any necessary layout extension.
-- [ ] Commit ready-to-run distributions, licences, source/version references, and checksums under `vendor/`.
+- [x] Commit ready-to-run distributions, licences, source/version references, and checksums under `vendor/`.
 - [ ] Write dependency adapters so application code does not directly depend on library-specific records everywhere.
-- [ ] Document how maintainers replace vendor files without introducing a production build pipeline.
+- [x] Document how maintainers replace vendor files without introducing a production build pipeline.
 - [ ] Load graph code only when a graph view is opened.
 - [ ] Verify the application makes no runtime CDN, remote font, or package-registry requests.
 - [ ] Record why each dependency is needed; avoid a framework, general mapping engine, or chart suite without a demonstrated requirement.
@@ -86,7 +90,7 @@ A feature-complete v1 includes every required phase below, including specialist 
 
 - [ ] Provide keyboard-accessible file selection and drag-and-drop for multiple export files.
 - [ ] Recognise standard XML, Plus XML, map CSV, history text, and sites/populations text by content as well as filenames.
-- [ ] Require standard Legends XML for a complete world; explain what each optional file adds.
+- [x] Require standard Legends XML for a complete world; explain what each optional file adds.
 - [ ] Display a pre-import manifest with detected formats, sizes, world/date clues, and warnings.
 - [ ] Check filename/date consistency and overlapping IDs to detect likely mismatches; disclose that matching names alone do not prove world identity.
 - [ ] Reject ambiguous mixed-world batches or require an explicit assignment before merging.
@@ -95,32 +99,32 @@ A feature-complete v1 includes every required phase below, including specialist 
 - [ ] Report byte progress where measurable; label indeterminate work honestly.
 - [ ] Support cancellation during each expensive stage and remove temporary data.
 - [ ] Handle unsupported files, empty files, permission errors, and worker crashes with actionable messages.
-- [ ] Keep the previous usable world available if a replacement import fails.
+- [x] Keep the previous usable world available if a replacement import fails.
 - [ ] Show a completion summary with counts, enabled features, sanitation changes, unsupported records, and unresolved references.
 - [ ] Offer an import diagnostics download without automatically exposing the entire source export.
 
 ## 05 — Streaming parsing and normalisation
 
-- [ ] Read files in bounded chunks in a dedicated worker; avoid a full XML DOM or repeated full-file string copies.
-- [ ] Detect BOM/XML declaration and implement explicit CP437 decoding; do not assume native TextDecoder supports CP437.
-- [ ] Decode UTF-8 incrementally while preserving character boundaries between chunks.
-- [ ] Remove only characters illegal in the selected XML version; count and report removals rather than silently rewriting text.
-- [ ] Preserve meaningful Unicode, accents, punctuation, XML entities, line breaks, and repeated child elements.
-- [ ] Fail clearly on unrecoverable structural corruption; never present a partial parse as a complete import.
-- [ ] Reject unsupported DTD/external-entity constructs and never fetch resources referenced by imported XML.
+- [x] Read files in bounded chunks in a dedicated worker; avoid a full XML DOM or repeated full-file string copies.
+- [x] Detect BOM/XML declaration and implement explicit CP437 decoding; do not assume native TextDecoder supports CP437.
+- [x] Decode UTF-8 incrementally while preserving character boundaries between chunks.
+- [x] Remove only characters illegal in the selected XML version; count and report removals rather than silently rewriting text.
+- [x] Preserve meaningful Unicode, accents, punctuation, XML entities, line breaks, and repeated child elements.
+- [x] Fail clearly on unrecoverable structural corruption; never present a partial parse as a complete import.
+- [x] Reject unsupported DTD/external-entity constructs and never fetch resources referenced by imported XML.
 - [ ] Parse integers and booleans consistently while preserving raw values for diagnostics.
 - [ ] Treat negative sentinel references as unknown/unavailable rather than valid links.
 - [ ] Normalise standard and Plus field/type aliases through explicit mappings.
 - [ ] Merge by record family and ID, preserving provenance and reporting conflicting fields.
-- [ ] Supplement standard events with Plus fields rather than counting both exports as separate event streams.
-- [ ] Preserve unknown fields/types for inspection and future compatibility.
+- [x] Supplement standard events with Plus fields rather than counting both exports as separate event streams.
+- [x] Preserve unknown fields/types for inspection and future compatibility.
 - [ ] Parse nested structures, site properties, entity positions, assignments, identities, and written-work references.
 - [ ] Parse event collections and nested child collections without recursion loops.
 - [ ] Parse map CSV incrementally; validate version, dimensions, duplicate coordinates, and missing cells.
 - [ ] Parse text population reports conservatively; validate site matches and flag ambiguous matches.
 - [ ] Preserve original text reports for a readable fallback when structured extraction cannot be trusted.
 - [ ] Implement DF calendar conversion from verified units; distinguish unknown dates, negative years, and year-only dates.
-- [ ] Record import/parser versions and original filenames on the world metadata record.
+- [x] Record import/parser versions and original filenames on the world metadata record.
 
 **Exit check:** the supplied world imports with expected standard totals and no duplicate events from Plus enrichment.
 
@@ -133,7 +137,7 @@ A feature-complete v1 includes every required phase below, including specialist 
 - [ ] Build reverse references so biographies and site histories do not repeatedly scan all events.
 - [ ] Distinguish relationship types, directions, strengths, dates, and provenance.
 - [ ] Track unresolved references without inventing replacement records or guessed identities.
-- [ ] Save imports in batches under a staging world ID; expose the world only after successful finalisation.
+- [x] Save imports in batches under a staging world ID; expose the world only after successful finalisation.
 - [ ] Check storage estimates, handle quota failures, and explain persistent-storage permission outcomes.
 - [ ] Add schema migrations that preserve annotations and support safe failure recovery.
 - [ ] Separate replaceable source indexes from irreplaceable user notes.
@@ -198,7 +202,7 @@ A feature-complete v1 includes every required phase below, including specialist 
 - [ ] Link artifacts held/created, authored works, relevant sites, and event collections.
 - [ ] Show identities and aliases with a clear distinction between assumed identities and historical figures.
 - [ ] Add recorded journeys and a link to the map; mark gaps and avoid implying continuous travel.
-- [ ] Provide raw/source details behind an expandable inspector.
+- [x] Provide raw/source details behind an expandable inspector.
 - [ ] Handle deities, supernatural beings, transformed creatures, unknown birth dates, and living-status uncertainty.
 
 ## 10 — Settlements, organisations, and geography records
@@ -415,7 +419,7 @@ Tests may run locally using optional developer tooling. They must not compile pr
 - [ ] Test bookshelf thumbnails, sorting, snapshot grouping/ungrouping, reload, and snapshot deletion preserve other worlds and annotations.
 - [ ] Add end-to-end checks for import → search → biography → linked event → map → bookmark → reload.
 - [ ] Add end-to-end checks for optional enrichment, second-world import, switching, cancellation, deletion, and restore.
-- [ ] Test the attached sample as a local integration dataset and reconcile counts against the baseline.
+- [x] Test the attached sample as a local integration dataset and reconcile counts against the baseline.
 - [ ] Test at least one substantially larger authorised dataset and a generated stress fixture; document their characteristics.
 - [ ] Establish a reproducible reference desktop/device and record import time, stored size, interaction latency, and memory observations.
 - [ ] Target visible feedback within 100 ms, indexed search within 200 ms, and common cached-page navigation within 200 ms on the reference desktop.

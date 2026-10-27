@@ -1,5 +1,5 @@
-import sax from '../../vendor/sax.js?v=0.2.1';
-import { decodeCP437 } from './encoding.js?v=0.2.1';
+import sax from '../../vendor/sax.js?v=0.2.2';
+import { decodeCP437 } from './encoding.js?v=0.2.2';
 export const PARSER_VERSION = 1;
 const CHUNK = 64 * 1024;
 function add(object, key, value) {
@@ -16,6 +16,8 @@ function valueOf(frame) {
 /** Parse bounded XML chunks, emitting batches of raw records without a DOM. */
 export async function parseXML(file, onBatch, onProgress = () => {}) {
   const header = new TextDecoder().decode(await file.slice(0, 1024).arrayBuffer());
+  const xmlVersion = header.match(/<\?xml\s+version\s*=\s*['"]([^'"]+)/i)?.[1] || '1.0';
+  if(xmlVersion !== '1.0') throw Error(`Unsupported XML version: ${xmlVersion}`);
   const encoding = header.match(/encoding\s*=\s*['"]([^'"]+)/i)?.[1]?.toLowerCase() || 'utf-8';
   if (!['utf-8', 'utf8', 'cp437', 'ibm437'].includes(encoding)) throw Error(`Unsupported XML encoding: ${encoding}`);
   const cp437 = encoding === 'cp437' || encoding === 'ibm437';
