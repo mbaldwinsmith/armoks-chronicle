@@ -6,7 +6,7 @@ Status: atlas and isometric relief preview implemented; broader features in prog
 
 ## Current iteration
 
-Conflict atlas slice: grouped dated event markers, type/year/explicit-organisation filters, location-unknown linked events, tile event chooser, reciprocal event links, river/road overlays and 0.5×–3× relief exaggeration. 31 automated tests pass; live verification pending.
+Conflict atlas slice: grouped dated event markers, type/year/explicit-organisation filters, location-unknown linked events, tile event chooser, reciprocal event links, river/road overlays and 0.5×–3× relief exaggeration. 31 automated tests and live browser integration checks pass. Cadenilina has 6,403 supported conflict events (5,875 mapped, 528 location unknown); 14 field battles, organisation/date filtering, shared-tile choice, reciprocal links, and relief-height/road persistence were verified.
 
 Political geography slice: owner/civilisation marker colours, faction legend and visibility, unknown/sentinel categories, name/type filters, paginated linked settlements, and organisation atlas actions. 27 automated tests and the live browser integration suite pass. Live name/type filtering, basis switching, reload persistence, faction visibility, and organisation-to-atlas focus were verified.
 
@@ -297,6 +297,8 @@ This setting is part of v1 implementation but opt-in for users; the flat atlas r
 - [ ] Respect reduced motion and avoid automatic camera rotation; provide labelled controls and a flat-view escape action.
 
 - [x] Add separate organisation actions to fit settlements by recorded owner or recorded civilisation; preserve the source distinction.
+
+- [x] Add river connections from exported direction bits, explicitly inferred adjacent-road links, and a persistent 0.5×–3× regional relief-height control.
 
 ## 13 — Artifacts, books, and culture
 

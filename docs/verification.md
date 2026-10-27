@@ -1,3 +1,16 @@
+# Conflict atlas and terrain overlay verification
+
+27 October 2026
+
+- All 31 Node tests pass. New cases cover conflict classification, referenced-site vs explicit-coordinate placement, negative years, location-unknown preservation, composed organisation/date/type filters, tile clustering, explicit river edges, inferred adjacent roads, and height scaling.
+- Live browser integration suite passes, including a synthetic death event placed at the referenced fixture site by the atlas worker.
+- Independently parsed Cadenilina baseline: 6,403 supported conflict events, 5,875 mapped and 528 location unknown; 14 field battles. Live atlas reports the same totals.
+- Field-battle list sorts by year (20–72), and every field battle has explicit event coordinates. Battle #5105 renders distinct attacker/defender names and its atlas link selects tile 54,100 with a matching event chooser.
+- Tile 54,115 offers battles #12508 (year 40) and #19840 (year 52). Changing the chooser updates the event link correctly.
+- Field-battle organisation filter #300 returns eight events. Reversed year range 80–20 is rejected. Conflict filter state persists alongside relief mode.
+- Relief height set to 2× and roads enabled; reload restores both. Rivers use exported connections; roads are explicitly labelled inferred. Desktop visual checks cover the overlays and red battle markers.
+- War collections, army routes, casualty analysis, territorial boundaries and reconstructed historical ownership remain planned. The overlay describes events, not a complete military simulation. Mobile/non-Chrome and large-world performance qualification remain open.
+
 # Political geography verification
 
 27 October 2026
