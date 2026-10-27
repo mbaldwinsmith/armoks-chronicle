@@ -259,6 +259,25 @@ A feature-complete v1 includes every required phase below, including specialist 
 - [ ] Supply an accessible linked location list for Canvas-only information.
 - [ ] Test mobile gestures, reduced detail, redraw scheduling, and large marker counts.
 
+### Optional atlas setting — Raised Relief
+
+This setting is part of v1 implementation but opt-in for users; the flat atlas remains the default. It depicts regional elevation as stepped voxel-style columns, not individual fortress blocks or reconstructed underground geometry.
+
+- [ ] Add a “Flat atlas / Raised Relief” setting and persist the user's preference; load 3D code and terrain geometry only when relief is requested.
+- [ ] Choose native WebGL or a small, justified rendering library; vendor any browser-ready dependency and licence without adding a build step or remote runtime request.
+- [ ] Generate column-top and exposed-side surfaces from map CSV elevation using batched meshes or instancing, avoiding one object per voxel and hidden stacks of cubes.
+- [ ] Verify elevation scale, baseline, water classification, and sea-level interpretation against the export format before displaying height labels; do not imply raw values are metres.
+- [ ] Apply verified biome colours and water surfaces, with rivers, peaks, and volcano markers aligned to the shared atlas coordinates.
+- [ ] Add rotate, tilt, zoom, pan, fit-world, reset-view, and adjustable vertical-exaggeration controls with keyboard and touch alternatives.
+- [ ] Preserve selected site, map centre, year, faction filters, and active overlays when switching between flat and relief views.
+- [ ] Keep settlement markers selectable and readable above terrain; support selection where terrain or overlapping markers obscure a record.
+- [ ] Support political settlement colours, battle/war overlays, and recorded journey lines at terrain height with the same evidence labels as the flat atlas.
+- [ ] Label terrain as an export-time regional snapshot; the year slider changes supported historical overlays, not past terrain.
+- [ ] Disable relief with a useful explanation when elevation data or graphics support is unavailable; retain the accessible location list and flat atlas.
+- [ ] Handle graphics-context loss and excessive resource demands by offering a flat-map fallback without losing exploration state.
+- [ ] Add bounded geometry/detail budgets for larger worlds, render on demand, pause when hidden, and release GPU resources when relief is closed.
+- [ ] Respect reduced motion and avoid automatic camera rotation; provide labelled controls and a flat-view escape action.
+
 ## 13 — Artifacts, books, and culture
 
 - [ ] Build artifact pages with material, item type, description, creator, holder, and location where supplied.
@@ -402,6 +421,9 @@ Tests may run locally using optional developer tooling. They must not compile pr
 - [ ] Verify every runtime asset is present in the repository and no bare package specifiers or build-only imports remain.
 - [ ] Test an HTTP server mounted at the repository subpath, not only a site served at origin root.
 - [ ] Test the actual Pages deployment, hash-route reloads, workers, manifest scope, offline mode, and updates.
+- [ ] Test relief heights, water classification, coordinate alignment, vertical exaggeration, terrain picking, and overlay placement using known fixtures.
+- [ ] Test flat/relief switching, persisted preferences, keyboard/touch navigation, missing elevation, graphics-context loss, and fallback state preservation.
+- [ ] Benchmark relief with the supplied 129 × 129 map and a larger fixture on desktop and a weaker device; record frame times, memory use, detail limits, and repeated-open cleanup.
 - [ ] Resolve release-blocking errors and record any supported-data limitations in the compatibility documentation.
 
 ## 21 — Documentation and v1 release
@@ -415,6 +437,7 @@ Tests may run locally using optional developer tooling. They must not compile pr
 - [ ] Document source uncertainty, incomplete histories, population snapshots, and the difference between derived stories and source facts.
 - [ ] Document Book of Records metrics, supernatural evidence rules, political/war-map semantics, event-noise presets, and snapshot grouping.
 - [ ] Record LegendsViewer-Next as feature research inspiration with upstream links; retain applicable notices for any code or assets actually reused.
+- [ ] Document the opt-in Raised Relief setting, controls, graphics requirements, performance limits, and regional/export-time resolution.
 - [ ] Add contributing guidance, fixture provenance rules, compatibility reporting, and meaningful test commands.
 - [ ] Add appropriate Dwarf Fortress/DFHack attribution and clarify that the app is an unofficial fan project.
 - [ ] Add changelog, application version, dependency notices, and known-limitations page.
@@ -439,6 +462,7 @@ Tests may run locally using optional developer tooling. They must not compile pr
 - [ ] The imported world works offline after setup; app updates preserve user data.
 - [ ] A second world can be imported and removed without contaminating the first world.
 - [ ] Core flows remain usable with a keyboard, on a narrow screen, and with optional exports absent.
+- [ ] The visitor enables Raised Relief, adjusts terrain exaggeration, selects a settlement and war overlay, then returns to the flat atlas with filters and selection intact.
 - [ ] Malformed or oversized imports fail or cancel cleanly without destroying a usable world.
 
 ## Delivery checkpoints
@@ -461,5 +485,5 @@ These ideas must not delay the feature-complete static app above.
 - Live integration with a running game or direct save-file parsing.
 - Full historical terrain, population, or border reconstruction unsupported by export data.
 - Automatic semantic diffing between world snapshots.
-- Huge whole-world 3D visualisations or unbounded global relationship graphs.
+- Full-resolution fortress/block-level 3D reconstruction, unbounded volumetric worlds, or unbounded global relationship graphs; the bounded optional regional Raised Relief atlas is included in v1.
 - A build pipeline, framework migration, or server solely for convenience.
