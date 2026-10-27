@@ -1,7 +1,7 @@
-import {cultureReferences,cultureLabel} from './culture.js?v=0.8.1';
-import {eventType,filterEvents} from './narrative.js?v=0.8.1';
-import {openDatabase,getWorld} from './database.js?v=0.8.1';
-import {normalise,recordKey,collectReferences,eventDate,compareEvents,searchEntries} from './exploration.js?v=0.8.1';
+import {cultureReferences,cultureLabel} from './culture.js?v=0.9.0';
+import {eventType,filterEvents} from './narrative.js?v=0.9.0';
+import {openDatabase,getWorld} from './database.js?v=0.9.0';
+import {normalise,recordKey,collectReferences,eventDate,compareEvents,searchEntries} from './exploration.js?v=0.9.0';
 let cachedWorld, entries=[],lookup=new Map(), incoming=new Map();
 async function load(worldId) {
  if(cachedWorld===worldId)return;

@@ -62,3 +62,9 @@
 .culture-shortcuts { display:flex;gap:10px;flex-wrap:wrap;margin:20px 0; }
 .culture-shortcuts .button { padding:8px 12px;font-size:.85rem; }
 .culture-panel { margin:24px 0; }.culture-panel .guide-card p { white-space:pre-wrap; }
+
+.research-editor { border-left:3px solid var(--accent);margin:20px 0; }
+.research-editor form { display:grid;gap:10px;margin-top:16px; }
+.research-editor textarea,.research-editor input:not([type=checkbox]) { width:100%;padding:10px;color:var(--ink);background:var(--bg);border:1px solid var(--line);font:inherit; }
+.personal-note { white-space:pre-wrap;overflow-wrap:anywhere;border-left:2px solid var(--accent);padding-left:16px;color:var(--ink); }
+#research-restore-file { display:block;max-width:100%;margin:16px 0; }

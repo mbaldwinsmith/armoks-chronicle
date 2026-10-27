@@ -1,5 +1,5 @@
-import {renderDirectory} from './explore.js?v=0.8.1';
-import {openDatabase,listWorlds,getWorld,deleteWorld} from '../data/database.js?v=0.8.1';
+import {renderDirectory} from './explore.js?v=0.9.0';
+import {openDatabase,listWorlds,getWorld,deleteWorld} from '../data/database.js?v=0.9.0';
 let generation=0;
 export function cancelWorldView(){generation++;}
 export async function renderBookshelf() {

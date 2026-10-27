@@ -1,5 +1,5 @@
-import { validateFiles } from '../import/manifest.js?v=0.8.1';
-import { openDatabase, deleteWorld } from '../data/database.js?v=0.8.1';
+import { validateFiles } from '../import/manifest.js?v=0.9.0';
+import { openDatabase, deleteWorld } from '../data/database.js?v=0.9.0';
 export function setupImportPreview() {
   const input = document.querySelector('#export-files');
   const zone = document.querySelector('#drop-zone');
@@ -20,7 +20,7 @@ export function setupImportPreview() {
     status.textContent='Selected files ready for import.';
     const worldId=crypto.randomUUID();
     try {
-      importWorker=new Worker(new URL('../import/import-worker.js?v=0.8.1',import.meta.url),{type:'module'});
+      importWorker=new Worker(new URL('../import/import-worker.js?v=0.9.0',import.meta.url),{type:'module'});
       setBusy(true);progress.removeAttribute('value');importStatus.textContent='Starting local import…';
       const cleanup=async message=>{importWorker?.terminate();importWorker=null;let db;try{db=await openDatabase();await deleteWorld(db,worldId);importStatus.textContent=message;}catch(error){importStatus.textContent=message+' Cleanup failed: '+error.message+' Use unfinished-import recovery on your next visit.';}finally{db?.close();setBusy(false);}};
       cancel.onclick=()=>void cleanup('Import cancelled. Existing worlds were not changed.');
@@ -44,7 +44,7 @@ export function setupImportPreview() {
     clear.disabled = false;
     status.textContent = `Checking ${files.length} file headers…`;
     try {
-      worker = new Worker(new URL('../import/preview-worker.js?v=0.8.1', import.meta.url), { type: 'module' });
+      worker = new Worker(new URL('../import/preview-worker.js?v=0.9.0', import.meta.url), { type: 'module' });
       worker.addEventListener('message', ({ data }) => {
         if (data.requestId !== requestId) return;
         if (data.type === 'complete') {

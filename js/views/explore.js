@@ -1,11 +1,12 @@
-import {culturePanel,associations} from './culture.js?v=0.8.1';
-import {cultureReferences,culturalKinds,cultureLabel} from '../data/culture.js?v=0.8.1';
-import {conflictRecord} from '../data/conflicts.js?v=0.8.1';
-import {sitePosition} from '../data/terrain.js?v=0.8.1';
-import {narratives,biography} from './narrative.js?v=0.8.1';
-import {openDatabase,getWorld,getRecord} from '../data/database.js?v=0.8.1';
-import {explore} from '../data/explorer-client.js?v=0.8.1';
-import {kindNames,recordURL,collectReferences,eventDate} from '../data/exploration.js?v=0.8.1';
+import {researchEditor} from './research.js?v=0.9.0';
+import {culturePanel,associations} from './culture.js?v=0.9.0';
+import {cultureReferences,culturalKinds,cultureLabel} from '../data/culture.js?v=0.9.0';
+import {conflictRecord} from '../data/conflicts.js?v=0.9.0';
+import {sitePosition} from '../data/terrain.js?v=0.9.0';
+import {narratives,biography} from './narrative.js?v=0.9.0';
+import {openDatabase,getWorld,getRecord} from '../data/database.js?v=0.9.0';
+import {explore} from '../data/explorer-client.js?v=0.9.0';
+import {kindNames,recordURL,collectReferences,eventDate} from '../data/exploration.js?v=0.9.0';
 let generation=0,timer;
 export function cancelExploration(){generation++;clearTimeout(timer);}
 const element=(tag,text,className)=>{const el=document.createElement(tag);if(text!==undefined)el.textContent=text;if(className)el.className=className;return el;};
@@ -53,6 +54,7 @@ export async function renderRecord(worldId,kind,id,params) {
   if(world?.status!=='ready'||!record){title.textContent='Record unavailable';status.textContent='This record is missing, or this world is not saved in this browser. Importing a world creates a new local address.';return;}
   title.textContent=cultureLabel(record);document.title=`${cultureLabel(record)} · Armok’s Chronicle`;
   body.append(element('p',`${world.name} · ${kindNames[kind]||kind.replaceAll('_',' ')} · #${id}`,'intro'));
+  const editor=await researchEditor(world,{...record,label:cultureLabel(record)});if(ticket!==generation)return;body.append(editor);
   const data=record.data;
   if(kind==='entities'){for(const [basis,label] of [['owner','Show settlements owned by this organisation'],['civilisation','Show settlements with this recorded civilisation']]){const link=element('a',label,'button quiet');link.href=`#/world/${encodeURIComponent(worldId)}/atlas?basis=${basis}&faction=${encodeURIComponent(id)}`;body.append(link);}}
 

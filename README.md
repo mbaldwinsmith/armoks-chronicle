@@ -80,3 +80,11 @@ Rivers follow exported N/S/W/E connections. Road links are inferred between adja
 ## Artifacts and culture
 
 World records include direct directories for artifacts, written works and artistic forms. Artifact pages show available item/material/page metadata, recorded holders, content links and source-linked event histories. Written-work pages show author/form/style/page metadata and typed references, with reverse lists of physical copies and citing works. Figure pages include paginated author bibliographies. Artistic-form pages present exported descriptions as plain text with paragraph breaks and link to works using that form. Full book text is not included in Legends metadata. Claims, possession, and event locations remain separate evidence.
+
+## Personal research
+
+Open **Your research** on any record to bookmark it, write a plain-text note, add comma-separated tags, and choose **Save research**. The sidebar research page searches and filters saved entries across worlds. Unsaved edits prompt before leaving, and stale saves from another tab are rejected with the draft retained.
+
+Use **Download research JSON** to export annotations for one archive. Restore validates version/size/fields and previews new, existing, and missing-record counts. Select the matching saved world explicitly when transferring to a reimport: names and record IDs alone do not establish world identity. Restore only adds absent entries and never replaces existing entries. Backups contain annotations, not source XML, terrain or a full world archive. Keep your original exports too.
+
+The annotations store is separate from source records. Deleting a world retains notes and bookmarks under **Your research**, with its source marked unavailable. Browser storage clearing can still remove everything; keep backups. IndexedDB schema v2 adds this store without replacing existing worlds. If storage upgrade is blocked, close other app tabs and reload.

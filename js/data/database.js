@@ -1,10 +1,11 @@
-import { mergeData, displayName } from './records.js?v=0.8.1';
+import { mergeData, displayName } from './records.js?v=0.9.0';
 const NAME = 'armoks-chronicle';
 export function openDatabase() {
   return new Promise((resolve, reject) => {
-    const request = indexedDB.open(NAME, 1);
-    request.onupgradeneeded = () => {
+    const request = indexedDB.open(NAME, 2);
+    request.onupgradeneeded = event => {
       const db = request.result;
+      if(event.oldVersion<1){
       const worlds = db.createObjectStore('worlds', {keyPath:'id'});
       worlds.createIndex('status','status');
       const records = db.createObjectStore('records', {keyPath:['worldId','kind','id']});
@@ -12,10 +13,13 @@ export function openDatabase() {
       records.createIndex('worldKind',['worldId','kind']);
       const files = db.createObjectStore('files', {keyPath:['worldId','name']});
       files.createIndex('world','worldId');
+      }
+      if(event.oldVersion<2){const annotations=db.createObjectStore('annotations',{keyPath:['worldId','kind','id']});annotations.createIndex('world','worldId');}
     };
+    let blocked=false;
     request.onerror = () => reject(request.error);
-    request.onblocked = () => reject(Error('Close other Armok’s Chronicle tabs, then reload to update storage.'));
-    request.onsuccess = () => { const db=request.result; db.onversionchange=()=>db.close(); resolve(db); };
+    request.onblocked = () => {blocked=true;reject(Error('Close other Armok’s Chronicle tabs, then reload to update storage.'));};
+    request.onsuccess = () => { const db=request.result;if(blocked){db.close();return;} db.onversionchange=()=>db.close(); resolve(db); };
   });
 }
 function finished(tx) { return new Promise((resolve,reject)=>{tx.oncomplete=resolve;tx.onabort=()=>reject(tx.error || Error('Storage transaction cancelled.'));tx.onerror=()=>{};}); }

@@ -7,8 +7,8 @@
   <meta name="description" content="Armok’s Chronicle: a local-first explorer for the histories of Dwarf Fortress worlds.">
   <title>Armok’s Chronicle</title>
   <link rel="icon" href="./assets/mark.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="./css/app.css?v=0.8.1">
-  <script type="module" src="./js/app.js?v=0.8.1"></script>
+  <link rel="stylesheet" href="./css/app.css?v=0.9.0">
+  <script type="module" src="./js/app.js?v=0.9.0"></script>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -23,6 +23,7 @@
     <nav aria-label="Primary">
       <a href="#/library" data-route="library"><span aria-hidden="true">▤</span> World bookshelf</a>
       <a href="#/import" data-route="import"><span aria-hidden="true">＋</span> Import a world</a>
+      <a href="#/research" data-route="research"><span aria-hidden="true">☆</span> Your research</a>
       <a href="#/guide" data-route="guide"><span aria-hidden="true">◇</span> Field guide</a>
     </nav>
     <div class="sidebar-note"><span class="status-dot" aria-hidden="true"></span><strong>Your worlds, on your device.</strong><p>Selected files are inspected locally in your browser.</p></div>
@@ -73,6 +74,11 @@
       <details class="guide-card"><summary>Import diagnostics</summary><pre id="import-diagnostics"></pre></details></div>
       <p id="record-status" role="status"></p><a class="text-link" href="#/library">Back to the bookshelf</a>
     </section>
+    <section id="view-research" hidden aria-labelledby="research-title"><div class="eyebrow">YOUR PERSONAL CHRONICLE</div><h1 id="research-title">Your research</h1><p class="intro">Bookmarks, notes, and tags are personal annotations stored in this browser. They remain here if a source archive is deleted. Keep a backup to protect them from browser storage being cleared.</p>
+      <div class="search-controls"><div><label for="research-search">Search notes, titles, and tags</label><input id="research-search" type="search" maxlength="200"></div><div><label for="research-world">World</label><select id="research-world"></select></div><label><input id="research-bookmarked" type="checkbox"> Bookmarks only</label></div><p id="research-status" role="status"></p><div id="research-list"></div>
+      <section class="guide-card"><h2>Export research backup</h2><p>JSON backups contain your annotations and world association, alongside record IDs and labels. Keep your original Legends exports separately. Record links require the associated archive in this browser.</p><label for="research-export-world">Archive</label><select id="research-export-world"></select><button id="research-export" class="quiet" type="button">Download research JSON</button></section>
+      <section class="guide-card"><h2>Restore or transfer research</h2><p>Choose the correct source world yourself. Matching filenames or names alone cannot prove two exports are the same world. Existing research is preserved; only new entries are added. Notes for missing records remain available.</p><label for="research-restore-file">Research backup (JSON, up to 5 MB)</label><input id="research-restore-file" type="file" accept=".json,application/json"><label for="research-restore-world">Target saved world</label><select id="research-restore-world"></select><p id="research-preview" role="status"></p><button id="research-restore" class="quiet" type="button" disabled>Restore new entries to selected world</button></section>
+    </section>
     <section id="view-atlas" hidden aria-labelledby="atlas-title">
       <a id="atlas-back" class="text-link">← Back to world records</a><h1 id="atlas-title">World atlas</h1>
       <p id="atlas-status" role="status"></p>
@@ -94,7 +100,7 @@
     </section>
     <section id="view-record" hidden aria-labelledby="detail-title"><a id="back-results" class="text-link">← Back to search results</a><h1 id="detail-title">Opening record…</h1><p id="detail-status" role="status"></p><div id="detail-body"></div></section>
     <template id="world-card"><article class="world-card"><span class="small-label">SAVED WORLD</span><h3></h3><p class="world-subtitle"></p><p class="world-stats"></p><a class="button primary">Open archive →</a><p class="world-date muted"></p></article></template>
-    <dialog id="delete-dialog" aria-labelledby="delete-title"><h2 id="delete-title">Delete this local archive?</h2><p id="delete-name"></p><p>Your original export files will not be changed.</p><p id="delete-error" role="alert"></p><form method="dialog"><button class="quiet">Keep world</button><button id="confirm-delete" class="quiet" type="button">Delete world</button></form></dialog>
+    <dialog id="delete-dialog" aria-labelledby="delete-title"><h2 id="delete-title">Delete this local archive?</h2><p id="delete-name"></p><p>Your original export files will not be changed. Personal research will remain in Your research, where you can export a backup.</p><p id="delete-error" role="alert"></p><form method="dialog"><button class="quiet">Keep world</button><button id="confirm-delete" class="quiet" type="button">Delete world</button></form></dialog>
     <section id="view-not-found" hidden aria-labelledby="not-found-title"><div class="eyebrow">AN UNRECORDED PATH</div><h1 id="not-found-title">This page is missing.</h1><p>The address may be incomplete, or this part of the archive has not been built yet.</p><a class="button primary" href="#/library">Return to the bookshelf</a></section>
     <footer>ARMOK’S CHRONICLE <span>Made for worlds worth remembering.</span></footer>
   </main>

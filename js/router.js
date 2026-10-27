@@ -1,6 +1,7 @@
-const routes = new Set(['library', 'import', 'guide']);
-export function startRouter(onNavigate) {
+const routes = new Set(['library', 'import', 'guide', 'research']);
+export function startRouter(onNavigate,beforeNavigate=()=>true) {
   function navigate(focus) {
+    if(focus&&!beforeNavigate())return;
     const raw = location.hash === '#main' ? 'library' : location.hash.replace(/^#\/?/, '') || 'library';
     const [route, query = ''] = raw.split('?');
     const atlasMatch=route.match(/^world\/([^/]+)\/atlas$/);

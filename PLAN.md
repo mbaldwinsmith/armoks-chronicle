@@ -6,6 +6,8 @@ Status: atlas and isometric relief preview implemented; broader features in prog
 
 ## Current iteration
 
+Personal research slice: record/event bookmarks, plain-text notes and tags, cross-world research directory, explicit Save with unsaved-change protection and stale-tab rejection, versioned annotation backups and additive restore/transfer preview. IndexedDB v2 preserves v1 source stores and retains annotations when deleting a source world. 39 automated tests pass; live verification pending.
+
 Artifacts and culture slice: object/work/form metadata panels, author bibliographies, physical copies, typed references, artistic descriptions, culture-directory totals and additional artifact lifecycle prose. 36 automated tests pass. The live integration suite verifies bibliography/copy/form indexes and safe metadata rendering. Live artifact → content → author navigation, physical copies, and form-linked works were checked.
 
 Conflict atlas slice: grouped dated event markers, type/year/explicit-organisation filters, location-unknown linked events, tile event chooser, reciprocal event links, river/road overlays and 0.5×–3× relief exaggeration. 31 automated tests and live browser integration checks pass. Cadenilina has 6,403 supported conflict events (5,875 mapped, 528 location unknown); 14 field battles, organisation/date filtering, shared-tile choice, reciprocal links, and relief-height/road persistence were verified.
@@ -380,7 +382,7 @@ This setting is part of v1 implementation but opt-in for users; the flat atlas r
 - [ ] Add bookmarks for records, events, maps, and saved searches.
 - [ ] Add plain-text notes, tags, and named collections.
 - [ ] Let users reorder selected records/events into a personal chronicle.
-- [ ] Keep user commentary visually distinct from source-derived descriptions.
+- [x] Keep user commentary visually distinct from source-derived descriptions.
 - [ ] Implement local autosave, unsaved-change handling, and multi-tab conflict feedback.
 - [ ] Export/import versioned JSON backups of notes, bookmarks, collections, and world association metadata.
 - [ ] Validate backup format and size; preview merges, conflicts, and missing record references before restoring.
@@ -388,7 +390,10 @@ This setting is part of v1 implementation but opt-in for users; the flat atlas r
 - [ ] Treat later export snapshots as distinct datasets unless an explicit, validated annotation transfer is requested.
 - [ ] Provide Markdown/plain-text chronicle export and print-friendly biography/chronicle layouts.
 - [ ] Ensure exported links explain their dependency on locally available world data.
-- [ ] Make deletion scope clear: source world, derived indexes, annotations, and backups are separate concerns.
+- [x] Make deletion scope clear: source world, derived indexes, annotations, and backups are separate concerns.
+
+- [x] Add record/event bookmark, note and tag editors with explicit Save, unsaved-change guards, and stale-tab protection.
+- [x] Add versioned annotation-only JSON export and validated additive restore with explicit target selection and missing-record preview.
 
 ## 18 — Offline use and application updates
 
