@@ -7,8 +7,8 @@
   <meta name="description" content="Armok’s Chronicle: a local-first explorer for the histories of Dwarf Fortress worlds.">
   <title>Armok’s Chronicle</title>
   <link rel="icon" href="./assets/mark.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="./css/app.css?v=0.5.3">
-  <script type="module" src="./js/app.js?v=0.5.3"></script>
+  <link rel="stylesheet" href="./css/app.css?v=0.6.0">
+  <script type="module" src="./js/app.js?v=0.6.0"></script>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -80,11 +80,16 @@
         <div class="atlas-toolbar"><div><label for="atlas-mode">View</label><select id="atlas-mode"><option value="flat">Flat atlas</option><option value="relief">Raised Relief</option></select></div><div><label for="atlas-layer">Colour layer</label><select id="atlas-layer"><option value="elevation">Elevation</option><option value="evilness">Evilness</option><option value="savagery">Savagery</option></select></div><label><input id="atlas-sites" type="checkbox" checked> Site markers</label><button id="atlas-in" class="quiet" aria-label="Zoom in">+</button><button id="atlas-out" class="quiet" aria-label="Zoom out">−</button><button id="atlas-fit" class="quiet">Fit world</button></div>
         <details class="atlas-help"><summary>Map controls and legend</summary><p id="relief-note" class="muted"></p><p class="muted">Drag to pan; use the wheel or +/− to zoom. Focus the map and use arrow keys to pan. Click a tile to inspect it. North is up on the flat atlas; X increases east, Y south.</p>
         <p class="muted">Elevation palette: low blue → green → tan → high pale. Lakes use blue. Evilness and savagery: low green → high red. Site markers are copper dots. Elevation is shown in export units.</p>
-        </details><label for="atlas-site-select">Find a site</label><select id="atlas-site-select"></select>
+        </details>
+        <div class="political-controls"><div><label for="atlas-basis">Settlement colours</label><select id="atlas-basis"><option value="owner">Recorded current owner</option><option value="civilisation">Recorded civilisation</option></select></div><div><label for="atlas-search">Search sites</label><input id="atlas-search" type="search" placeholder="Site name" maxlength="200"></div><div><label for="atlas-type">Site type</label><select id="atlas-type"></select></div></div>
+        <p class="muted">Ownership and civilisation are separate export-time fields. Dots show settlements; they do not mark territorial borders. Circle: organisation reference; diamond: −1 (no recorded affiliation); square: missing affiliation. Colours are stable, with names in the legend.</p>
+        <details class="atlas-help"><summary>Faction legend and visibility</summary><div class="record-pagination"><button id="factions-all" type="button" class="quiet">Show all factions</button><button id="factions-none" type="button" class="quiet">Hide all factions</button></div><div id="faction-legend"></div></details>
+        <p id="atlas-filter-status" role="status"></p>
+        <label for="atlas-site-select">Find a site</label><select id="atlas-site-select"></select>
         <form id="atlas-go" class="atlas-coordinates"><label>X <input id="atlas-x" type="number" min="0" step="1" required></label><label>Y <input id="atlas-y" type="number" min="0" step="1" required></label><button class="quiet">Inspect tile</button></form>
       </div>
       <canvas id="atlas-canvas" tabindex="0" aria-label="Interactive world atlas. Use the site selector or coordinate fields for an alternative to clicking." hidden></canvas>
-      <p id="atlas-hover" class="muted">Hover over the flat map to inspect elevation.</p><p class="muted">Terrain is an export-time snapshot. Changing the view does not reconstruct past terrain.</p><p id="tile-details" role="status"></p><ul id="tile-sites"></ul>
+      <p id="atlas-hover" class="muted">Hover over the flat map to inspect elevation.</p><p class="muted">Terrain is an export-time snapshot. Changing the view does not reconstruct past terrain.</p><p id="tile-details" role="status"></p><ul id="tile-sites"></ul><details class="atlas-help"><summary>Matching settlements — linked list</summary><ul id="atlas-results"></ul><div class="record-pagination"><button id="sites-previous" class="quiet" type="button">Previous sites</button><button id="sites-next" class="quiet" type="button">Next sites</button></div><p id="sites-page-status" role="status"></p></details>
     </section>
     <section id="view-record" hidden aria-labelledby="detail-title"><a id="back-results" class="text-link">← Back to search results</a><h1 id="detail-title">Opening record…</h1><p id="detail-status" role="status"></p><div id="detail-body"></div></section>
     <template id="world-card"><article class="world-card"><span class="small-label">SAVED WORLD</span><h3></h3><p class="world-subtitle"></p><p class="world-stats"></p><a class="button primary">Open archive →</a><p class="world-date muted"></p></article></template>

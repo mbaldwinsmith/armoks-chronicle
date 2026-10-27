@@ -6,6 +6,8 @@ Status: atlas and isometric relief preview implemented; broader features in prog
 
 ## Current iteration
 
+Political geography slice: owner/civilisation marker colours, faction legend and visibility, unknown/sentinel categories, name/type filters, paginated linked settlements, and organisation atlas actions. 27 automated tests pass; live checks pending.
+
 Atlas slice: strict version-3 CSV validation, worker loading of saved terrain, elevation/alignment/savagery colours, selectable world-tile sites, reciprocal site-page links, pan/zoom/fit controls, keyboard and coordinate alternatives, and an opt-in Canvas isometric relief preview. Full 3D camera controls, political overlays, river geometry and biome names remain open. Live desktop Chrome integration and real-world atlas loading pass; 577 sites align with the 129 × 129 grid. Broader browser/mobile qualification remains pending.
 
 Local archives are implemented: streaming standard/Plus XML import, CP437/UTF-8 decoding, staged IndexedDB writes, progress/cancellation controls, saved-world bookshelf, raw record pagination, provenance inspection, and exact-world deletion. Map/text files are retained but their contents are not yet interpreted.
@@ -253,8 +255,8 @@ Implemented slice: all-family name/ID search, category filter, name/year sorting
 - [ ] Add layers for biome, elevation, evilness, savagery, and volcanism, each with a legend.
 - [x] Display unknown biome/flag codes explicitly instead of assigning guessed terrain.
 - [ ] Add site-type filters, name search, marker clustering or scale-dependent labels, and selected-site emphasis.
-- [ ] Add a political settlement layer with stable faction colours, owner legend, individual faction toggles, and show-all/hide-all controls.
-- [ ] Keep unknown ownership and unaffiliated sites visible as explicit categories; combine colour with labels/shapes for accessibility.
+- [x] Add a political settlement layer with stable faction colours, owner legend, individual faction toggles, and show-all/hide-all controls.
+- [x] Keep unknown ownership and unaffiliated sites visible as explicit categories; combine colour with labels/shapes for accessibility.
 - [ ] Add entity-page actions to fit/highlight all associated settlements, distinguishing founding civilisation from current ownership.
 - [ ] Synchronise faction selection with map routes and dates; do not turn settlement markers into unsupported territorial borders.
 - [ ] Open site/region history from a map selection and centre the map from record pages.
@@ -291,6 +293,8 @@ This setting is part of v1 implementation but opt-in for users; the flat atlas r
 - [ ] Handle graphics-context loss and excessive resource demands by offering a flat-map fallback without losing exploration state.
 - [ ] Add bounded geometry/detail budgets for larger worlds, render on demand, pause when hidden, and release GPU resources when relief is closed.
 - [ ] Respect reduced motion and avoid automatic camera rotation; provide labelled controls and a flat-view escape action.
+
+- [x] Add separate organisation actions to fit settlements by recorded owner or recorded civilisation; preserve the source distinction.
 
 ## 13 — Artifacts, books, and culture
 

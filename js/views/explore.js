@@ -1,7 +1,7 @@
-import {narratives,biography} from './narrative.js?v=0.5.3';
-import {openDatabase,getWorld,getRecord} from '../data/database.js?v=0.5.3';
-import {explore} from '../data/explorer-client.js?v=0.5.3';
-import {kindNames,recordURL,collectReferences,eventDate} from '../data/exploration.js?v=0.5.3';
+import {narratives,biography} from './narrative.js?v=0.6.0';
+import {openDatabase,getWorld,getRecord} from '../data/database.js?v=0.6.0';
+import {explore} from '../data/explorer-client.js?v=0.6.0';
+import {kindNames,recordURL,collectReferences,eventDate} from '../data/exploration.js?v=0.6.0';
 let generation=0,timer;
 export function cancelExploration(){generation++;clearTimeout(timer);}
 const element=(tag,text,className)=>{const el=document.createElement(tag);if(text!==undefined)el.textContent=text;if(className)el.className=className;return el;};
@@ -50,6 +50,8 @@ export async function renderRecord(worldId,kind,id,params) {
   title.textContent=record.label;document.title=`${record.label} · Armok’s Chronicle`;
   body.append(element('p',`${world.name} · ${kindNames[kind]||kind.replaceAll('_',' ')} · #${id}`,'intro'));
   const data=record.data;
+  if(kind==='entities'){for(const [basis,label] of [['owner','Show settlements owned by this organisation'],['civilisation','Show settlements with this recorded civilisation']]){const link=element('a',label,'button quiet');link.href=`#/world/${encodeURIComponent(worldId)}/atlas?basis=${basis}&faction=${encodeURIComponent(id)}`;body.append(link);}}
+
   if(kind==='sites'&&/^\d+,\d+$/.test(data.coords||'')){const [x,y]=data.coords.split(',');const mapLink=element('a','Show this site in the atlas','button quiet');mapLink.href=`#/world/${encodeURIComponent(worldId)}/atlas?x=${x}&y=${y}`;body.append(mapLink);}
   const fields=element('dl',undefined,'record-facts');
   for(const [key,value] of Object.entries(data))if(typeof value==='string'&&!['id','name'].includes(key)){

@@ -48,7 +48,7 @@ Native IndexedDB was chosen for this limited schema to keep browser-ready distri
 
 ## Asset updates
 
-Runtime module, worker, and stylesheet URLs carry an explicit release query (`?v=0.5.3`) to prevent mixed releases during GitHub Pages cache revalidation. Bump these references together for code releases. This is plain source maintenance, not a build step.
+Runtime module, worker, and stylesheet URLs carry an explicit release query (`?v=0.6.0`) to prevent mixed releases during GitHub Pages cache revalidation. Bump these references together for code releases. This is plain source maintenance, not a build step.
 
 ## Exploration (0.3.0)
 
@@ -75,3 +75,5 @@ Format provenance: DFHack/scripts `exportlegends.lua`, function `export_world_ma
 Relief ocean fill (0.5.2): translucent top and side faces cover non-lake tiles below elevation 100. Terrain retains its exported seafloor elevation; picking and marker projection use the water surface. Faces are drawn in the same back-to-front tile order as terrain so dry land occludes water correctly. Classification follows DFHack `Maps::getBiomeTypeWithRef` (lake first, then elevation < 100 for oceans): https://github.com/DFHack/dfhack/blob/develop/library/modules/Maps.cpp . Lakes retain their own exported levels.
 
 Relief sharpness (0.5.3): colour geometry is rasterised at up to 4× the original linear resolution (16× pixels), with a 16-million-pixel buffer budget. High-quality resampling is enabled for relief; the flat tile atlas retains nearest-neighbour rendering. Logical map coordinates, marker positions, zoom and the picking buffer are independent of colour-buffer resolution.
+
+Political geography (0.6.0): the atlas worker reads entity labels and copies site `cur_owner_id` and `civ_id` into distinct fields. `politics.js` resolves groups and pure filters; unknown/missing values and the explicit −1 sentinel remain separate categories. ID zero is valid. Colour hashing is deterministic by entity ID. No field is inferred from the other. `basis`, `hidden`, `siteQ`, and `siteType` hash parameters preserve political filter state through view switches/reload. Organisation atlas links use `faction` plus `basis` to isolate and fit matching settlements. The site selector, marker set, selected-tile links, and paginated accessible list use the same filtered records. Legend counts describe all mapped sites per group; the visible match count describes active filters.

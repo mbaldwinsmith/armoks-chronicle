@@ -47,3 +47,14 @@
 .atlas-coordinates input { display:block; width:100px; padding:8px; background:var(--panel); color:var(--ink); border:1px solid var(--line); }
 
 .atlas-help { margin:16px 0; padding:12px; border:1px solid var(--line); }
+
+.political-controls { display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin:20px 0; }
+.political-controls label { display:block;font-size:.85rem; }
+.political-controls select,.political-controls input { width:100%;max-width:none;margin:6px 0 0;padding:10px;min-height:44px;background:var(--panel);border:1px solid var(--line);color:var(--ink);font:inherit; }
+#faction-legend { max-height:320px;overflow:auto; }
+#faction-legend > div { display:flex;justify-content:space-between;gap:16px;padding:8px 0;border-bottom:1px solid var(--line); }
+#faction-legend label { display:flex;align-items:center;gap:8px; }
+#faction-legend a { font-size:.8rem; }
+.faction-swatch { display:inline-block;width:14px;height:14px;border:1px solid var(--line);flex-shrink:0;border-radius:50%; }
+#atlas-results li { padding:6px 0; }#atlas-results span { color:var(--muted);font-size:.85rem; }
+@media(max-width:700px){.political-controls{grid-template-columns:1fr;}}

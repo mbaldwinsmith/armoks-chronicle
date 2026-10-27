@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <df_world>
-<sites><site><id>1</id><name>Example Copperhall</name><type>fortress</type><coords>4,7</coords></site></sites>
+<sites><site><id>1</id><name>Example Copperhall</name><type>fortress</type><coords>4,7</coords><civ_id>6</civ_id><cur_owner_id>5</cur_owner_id></site></sites>
+<entities><entity><id>5</id><name>Example Copper League</name></entity><entity><id>6</id><name>Example Mountain Civilisation</name></entity></entities>
 <historical_figures>
 <historical_figure><id>1</id><name>Urist Examplekeeper</name><race>DWARF</race><birth_year>1</birth_year><death_year>-1</death_year><hf_link><hfid>2</hfid><link_type>spouse</link_type></hf_link></historical_figure>
 <historical_figure><id>2</id><name>Domas Examplewright</name><race>DWARF</race><birth_year>2</birth_year><death_year>-1</death_year></historical_figure>

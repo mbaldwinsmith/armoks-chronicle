@@ -66,3 +66,7 @@ The default URL is http://127.0.0.1:8000/armoks-chronicle/; set `BASE_URL` to ov
 ## Licence
 
 MIT © 2026 Mark Baldwin-Smith. See [LICENSE](LICENSE). The vendored sax parser is separately licensed under Blue Oak Model License 1.0.0; see [vendor notices](vendor/README.md).
+
+## Political geography
+
+Atlas markers can be coloured by recorded current owner or recorded civilisation. Search and site-type filters compose with faction visibility toggles. Faction colours are deterministic, and missing/−1 affiliations have separate labels and marker shapes. Use the faction legend or the paginated linked settlement list for names. Organisation pages provide separate atlas actions for owned settlements and civilisation references. These are export-time settlement associations, not territorial boundaries or dated ownership reconstructions.
