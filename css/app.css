@@ -71,3 +71,11 @@
 
 .search-controls input[type=checkbox] { width:18px;height:18px;vertical-align:middle;margin-right:6px; }
 #research-list h2 { overflow-wrap:anywhere; }
+
+.timeline-filters .timeline-noise,.timeline-filters .timeline-help { grid-column:1/-1; }
+.timeline-noise summary { cursor:pointer;padding:.5rem 0; }
+.timeline-noise label { display:inline-flex;align-items:center;gap:8px;margin:.5rem 1.25rem .5rem 0; }
+.timeline-noise input[type=checkbox] { width:18px;height:18px;min-height:0;padding:0; }
+.record-results > .timeline-year { padding:0;border:0; }
+.timeline-year-heading { padding:.7rem 1rem;margin:1.5rem 0 0;background:var(--panel);border-left:3px solid var(--copper,var(--line)); }
+.timeline-year > .record-results { margin-top:0; }

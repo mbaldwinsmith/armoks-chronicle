@@ -1,4 +1,4 @@
-import {titleCase,readableValue,eventLabel} from './language.js?v=0.10.2';
+import {titleCase,readableValue,eventLabel} from './language.js?v=0.11.0';
 // Deterministic export renderings, not inferred motives or generated fiction.
 export const words=value=>String(value??'').replaceAll('_',' ');
 const aliases={'hist figure died':'hf died','hist figure wounded':'hf wounded','created building':'created structure','change creature type':'changed creature type','hist figure new pet':'hf new pet','war peace accepted':'peace accepted','war peace rejected':'peace rejected'};
@@ -51,6 +51,12 @@ export const formatters={
  'hf learns secret':d=>[hf(d,'student_hfid','student'),' learned a secret',...(scalar(d,'teacher_hfid','teacher')?[' from ',hf(d,'teacher_hfid','teacher')]:[]),...(scalar(d,'secret_text')?[': ',text(d,'secret_text')]:[])],
  'changed creature type':d=>[hf(d,'changee_hfid','changee'),' changed from ',text(d,'old_race'),' to ',text(d,'new_race')],
  'item stolen':d=>[hf(d,'histfig'),' stole an item',...(scalar(d,'item_type')?[' recorded as ',text(d,'item_type')]:[]),...where(d)],
+ 'peace accepted':d=>['A peace proposal was accepted',...where(d)],
+ 'peace rejected':d=>['A peace proposal was rejected',...where(d)],
+ 'add hf site link':d=>[subject(d),' became associated with ',site(d),...(scalar(d,'link_type','link')?[' as ',article(text(d,'link_type','link')),text(d,'link_type','link')]:[])],
+ 'remove hf site link':d=>[subject(d),' was no longer recorded as ',article(text(d,'link_type','link')),text(d,'link_type','link'),' at ',site(d)],
+ 'created structure':d=>[hf(d,'builder_hfid','builder_hf'),' built a structure',...where(d)],
+ 'hf new pet':d=>[subject(d),' acquired a new pet',...where(d)],
  'entity created':d=>[entity(d,'entity_id','entity'),' was established',...where(d)],
  'entity dissolved':d=>[entity(d,'entity_id','entity'),' was dissolved',...(scalar(d,'reason')?['; recorded reason: ',text(d,'reason')]:[])],
  'hf gains secret goal':d=>[subject(d),' gained the secret goal “',text(d,'secret_goal'),'”']
@@ -61,10 +67,20 @@ export function narrateEvent(data){
  if(typeof tokens[0]==='string')tokens[0]=tokens[0].replace(/^\p{Ll}/u,letter=>letter.toLocaleUpperCase('en'));
  return {type,fallback:!formatter,tokens:[...tokens,'.']};
 }
-export const routineTypes=new Set(['change hf job','change hf state','add hf entity link','remove hf entity link','add hf site link','remove hf site link']);
-export function filterEvents(rows,{type='',from='',to='',preset='all'}={}){
+export const routineGroups={
+ jobs:{label:'Occupation changes',types:['change hf job']},
+ movement:{label:'Settlement and movement',types:['change hf state']},
+ affiliations:{label:'Organisation and site affiliations',types:['add hf entity link','remove hf entity link','add hf site link','remove hf site link']}
+};
+export const routineTypes=new Set(Object.values(routineGroups).flatMap(group=>group.types));
+// Explicit categories: unknown types remain visible in All/Major, without a guessed classification.
+export const warfareTypes=new Set(['hf died','hf wounded','hf abducted','hf simple battle event','hf attacked site','hf destroyed site','attacked site','destroyed site','field battle','site taken over','war field battle','war attacked site','peace accepted','peace rejected','war peace accepted','war peace rejected','war declared','plundered site','razed structure']);
+export const personalTypes=new Set(['hf died','hf wounded','hf abducted','change hf job','change hf state','add hf entity link','remove hf entity link','add hf site link','remove hf site link','add hf hf link','remove hf hf link','hf new pet','hf learns secret','hf gains secret goal','changed creature type','artifact created','artifact possessed','artifact found','artifact given','written content composed','knowledge discovered']);
+export const readingPresets={all:'All Events',major:'Major Events',warfare:'Warfare',personal:'Personal History'};
+export function filterEvents(rows,{type='',from='',to='',preset='all',exclude=[]}={}){
  const lower=from!==''&&Number.isFinite(Number(from))?Number(from):null,upper=to!==''&&Number.isFinite(Number(to))?Number(to):null;
- return rows.filter(row=>(!type||row.eventType===type)&&(preset!=='major'||!routineTypes.has(row.eventType))&&((lower===null&&upper===null)||(row.year!==null&&(lower===null||row.year>=lower)&&(upper===null||row.year<=upper))));
+ const hidden=new Set((Array.isArray(exclude)?exclude:[]).flatMap(key=>routineGroups[key]?.types||[]));
+ return rows.filter(row=>(!type||row.eventType===type)&&!hidden.has(row.eventType)&&(preset!=='major'||!routineTypes.has(row.eventType))&&(preset!=='warfare'||warfareTypes.has(row.eventType))&&(preset!=='personal'||personalTypes.has(row.eventType))&&((lower===null&&upper===null)||(row.year!==null&&(lower===null||row.year>=lower)&&(upper===null||row.year<=upper))));
 }
 export function lifeSummary(data){
  const year=key=>typeof data[key]==='string'&&data[key].trim()!==''&&data[key]!=='-1'&&Number.isFinite(Number(data[key]))?Number(data[key]):null;

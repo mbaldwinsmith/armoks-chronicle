@@ -1,7 +1,7 @@
-import {cultureReferences,cultureLabel} from './culture.js?v=0.10.2';
-import {eventType,filterEvents} from './narrative.js?v=0.10.2';
-import {openDatabase,getWorld} from './database.js?v=0.10.2';
-import {normalise,recordKey,collectReferences,eventDate,compareEvents,searchEntries} from './exploration.js?v=0.10.2';
+import {cultureReferences,cultureLabel} from './culture.js?v=0.11.0';
+import {eventType,filterEvents} from './narrative.js?v=0.11.0';
+import {openDatabase,getWorld} from './database.js?v=0.11.0';
+import {normalise,recordKey,collectReferences,eventDate,compareEvents,searchEntries} from './exploration.js?v=0.11.0';
 let cachedWorld, entries=[],lookup=new Map(), incoming=new Map();
 async function load(worldId) {
  if(cachedWorld===worldId)return;
@@ -31,7 +31,12 @@ let queue=Promise.resolve();
 self.onmessage=({data})=>{queue=queue.then(async()=>{
  try {
   await load(data.worldId);let result;
-  if(data.type==='search')result=searchEntries(entries,data.options);
+  if(data.type==='search'){
+   if(data.options?.kind==='historical_events'){
+    const all=searchEntries(entries,{...data.options,offset:0,limit:entries.length}).rows,filtered=filterEvents(all,data.filters||{}),offset=data.options.offset||0;
+    result={total:filtered.length,unfiltered:all.length,types:[...new Set(all.map(row=>row.eventType))].sort(),rows:filtered.slice(offset,offset+50)};
+   }else result=searchEntries(entries,data.options);
+  }
   else if(data.type==='related'){
    const rows=[...(incoming.get(recordKey(data.kind,data.recordId))||[])].map(key=>lookup.get(key)).filter(row=>row.kind==='historical_events').sort(compareEvents);
    const filtered=filterEvents(rows,data.filters);result={total:filtered.length,unfiltered:rows.length,types:[...new Set(rows.map(row=>row.eventType))].sort(),rows:filtered.slice(data.offset||0,(data.offset||0)+50)};

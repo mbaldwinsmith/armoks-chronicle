@@ -6,6 +6,8 @@ Status: atlas and isometric relief preview implemented; broader features in prog
 
 ## Current iteration
 
+Timeline reading: All Events, Major Events, Warfare and Personal History presets; optional occupation/movement/affiliation exclusions; shared worker filtering/counts for event directories and record timelines; chronological year groups and URL-persisted filters across linked navigation/reload. 52 Node tests pass. Browser integration covers shared counts, reset, restored controls, year-heading DOM and a 55-event pagination fixture. Live UI qualification follows deployment.
+
 Language polish: display-only Title Case for record names, human-readable event headings, and direct prose for settlement, movement, occupations, affiliations, clashes and deaths. Canonical filter keys, source fields, notes and tags retain their original values. 47 automated tests and live browser integration checks pass, including the linked settlement sentence, Title Case display names and preservation of raw source values. Raw event-type searches retain compatibility with the new headings.
 
 Personal research is implemented: record/event bookmarks, plain-text notes and tags, a cross-world research directory, explicit Save with unsaved-change protection and stale-tab rejection, versioned annotation backups, and additive restore/transfer preview. IndexedDB v2 adds a separate annotations store while preserving existing source stores. Deleting a source archive retains annotations.
@@ -234,7 +236,7 @@ Implemented slice: all-family name/ID search, category filter, name/year sorting
 - [ ] Preserve source roles: attacker, defender, victim, killer, witness, author, claimant, and owner must not be conflated.
 - [ ] Order events deterministically and avoid claiming precise order when timestamps are missing.
 - [ ] Provide year/range controls, era markers, category filters, and record-specific filters.
-- [ ] Add event exclusion controls and named reading presets, including a major-events preset that hides routine job and affiliation changes.
+- [x] Add event exclusion controls and named reading presets, including a major-events preset that hides routine job and affiliation changes.
 - [ ] Keep deaths, discoveries, thefts, and conflicts available in the major-events preset; let users inspect and customise the exact included/excluded types.
 - [ ] Use one filter state for event lists, counts, and associated charts; show a persistent hidden-events count and a one-click reset.
 - [ ] Preserve event-noise controls in navigation and saved searches while retaining a clear distinction between raw and filtered totals.

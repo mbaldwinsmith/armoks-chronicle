@@ -88,3 +88,9 @@ Open **Your research** on any record to bookmark it, write a plain-text note, ad
 Use **Download research JSON** to export annotations for one archive. Restore validates version/size/fields and previews new, existing, and missing-record counts. Select the matching saved world explicitly when transferring to a reimport: names and record IDs alone do not establish world identity. Restore only adds absent entries and never replaces existing entries. Backups contain annotations, not source XML, terrain or a full world archive. Keep your original exports too.
 
 The annotations store is separate from source records. Deleting a world retains notes and bookmarks under **Your research**, with its source marked unavailable. Browser storage clearing can still remove everything; keep backups. IndexedDB schema v2 adds this store without replacing existing worlds. If storage upgrade is blocked, close other app tabs and reload.
+
+### Reading histories
+
+Record timelines and the Historical Events directory offer **All Events**, **Major Events**, **Warfare** and **Personal History** presets. Open **Hide routine events** to exclude occupation, movement or affiliation changes independently, then apply your filters. Major Events keeps unknown types visible. Warfare includes deaths, wounds and abductions even when the export does not connect them to a war.
+
+Chronological views group events by year, with undated records last. Year bounds exclude undated events. The status reports visible and hidden totals; **Show all events** clears timeline filters. Filter choices travel in local hash links and survive reloads. They are independent of atlas conflict filters; saved-search management and timeline charts remain planned.
