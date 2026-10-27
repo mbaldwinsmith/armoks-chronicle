@@ -2,13 +2,17 @@
 
 *Every world a history. Every downfall a story.*
 
-Status: planned. Updated: 27 October 2026.
+Status: foundation iteration in progress. Updated: 27 October 2026.
+
+## Current iteration
+
+Foundation shell implemented: native HTML/CSS/JS, hash navigation, theme controls, field guide, and a bounded export-header preview worker. No full world import or storage is implemented yet. Syntax, worker-contract tests, sample export-header checks, and local project-subpath asset delivery passed. Browser interaction/visual checks and live Pages verification remain pending; see [verification notes](docs/verification.md). The next iteration should finish those checks and establish export fixtures and the streaming parser.
 
 ## Goal and working rules
 
 Build a complete, accessible, local-first Dwarf Fortress Legends explorer. Players import their own exports, explore linked histories and geography, discover stories, and preserve personal research.
 
-All tasks below are initially unchecked: this document plans work rather than claiming implementation. Tick a task only after its behaviour has been verified; record material limitations beside the task. Complete phases in order unless their dependencies explicitly allow otherwise.
+Completed tasks are checked below; unchecked tasks remain planned or await verification. Tick a task only after its behaviour has been verified; record material limitations beside the task. Complete phases in order unless their dependencies explicitly allow otherwise.
 
 ### Fixed architecture
 
@@ -28,18 +32,18 @@ A feature-complete v1 includes every required phase below, including specialist 
 
 ## 01 — Repository and static hosting foundation
 
-- [ ] Confirm the existing MIT licence and preserve its notices.
-- [ ] Add root `index.html`, `.nojekyll`, and directories for `css/`, `js/`, `vendor/`, `assets/`, `docs/`, and `tests/`.
-- [ ] Keep core landmarks, navigation, import controls, dialogs, and page templates explicit in HTML; populate records using DOM APIs and templates.
+- [x] Confirm the existing MIT licence and preserve its notices.
+- [x] Add root `index.html`, `.nojekyll`, and directories for `css/`, `js/`, `vendor/`, `assets/`, `docs/`, and `tests/`.
+- [x] Keep core landmarks, navigation, import controls, dialogs, and page templates explicit in HTML; populate records using DOM APIs and templates.
 - [ ] Establish modules for routing, application state, import workers, storage, data queries, event formatting, maps, graphs, and views.
-- [ ] Document module boundaries and worker message contracts before implementing cross-module features.
-- [ ] Use relative asset URLs and module-relative worker URLs that work beneath `/armoks-chronicle/`.
+- [x] Document module boundaries and worker message contracts before implementing cross-module features.
+- [x] Use relative asset URLs and module-relative worker URLs that work beneath `/armoks-chronicle/`.
 - [ ] Add a useful no-JavaScript explanation and browser capability checks.
-- [ ] Add a local static-server command to the README; optional developer tooling must not be required to serve production files.
-- [ ] Document Pages configuration: “Deploy from a branch”, branch `main`, folder `/ (root)`.
+- [x] Add a local static-server command to the README; optional developer tooling must not be required to serve production files.
+- [x] Document Pages configuration: “Deploy from a branch”, branch `main`, folder `/ (root)`.
 - [ ] Configure that Pages source when repository administration access is available; otherwise document the exact manual setting.
 - [ ] Verify a root page, nested module, vendor file, worker, and asset load from the actual Pages project path.
-- [ ] Verify no custom build Action or generated output directory is needed. GitHub’s own branch-based Pages publishing infrastructure is acceptable.
+- [x] Verify no custom build Action or generated output directory is needed. GitHub’s own branch-based Pages publishing infrastructure is acceptable.
 
 **Exit check:** committed static files can be served unchanged locally and on Pages.
 
@@ -487,3 +491,4 @@ These ideas must not delay the feature-complete static app above.
 - Automatic semantic diffing between world snapshots.
 - Full-resolution fortress/block-level 3D reconstruction, unbounded volumetric worlds, or unbounded global relationship graphs; the bounded optional regional Raised Relief atlas is included in v1.
 - A build pipeline, framework migration, or server solely for convenience.
+
