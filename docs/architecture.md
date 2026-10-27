@@ -48,7 +48,7 @@ Native IndexedDB was chosen for this limited schema to keep browser-ready distri
 
 ## Asset updates
 
-Runtime module, worker, and stylesheet URLs carry an explicit release query (`?v=0.3.2`) to prevent mixed releases during GitHub Pages cache revalidation. Bump these references together for code releases. This is plain source maintenance, not a build step.
+Runtime module, worker, and stylesheet URLs carry an explicit release query (`?v=0.4.0`) to prevent mixed releases during GitHub Pages cache revalidation. Bump these references together for code releases. This is plain source maintenance, not a build step.
 
 ## Exploration (0.3.0)
 
@@ -57,3 +57,9 @@ Runtime module, worker, and stylesheet URLs carry an explicit release query (`?v
 `exploration.js` is the shared pure search/reference policy. Only explicit allowlisted ID fields become references. Ambiguous fields and negative sentinel IDs remain source data. References from standard and Plus fields both contribute; reverse event results deduplicate each event. A reference is not interpreted as a current relationship. Related events sort by recorded year, raw seconds72, then ID; unknown dates are last. Calendar conversion and prose templates are deferred.
 
 Directory query/filter/order/page state lives in the hash query and travels with record links. Record routes are `#/world/:world/record/:kind/:id`. User-controlled strings are rendered with textContent. Navigation invalidates pending render work; changing worlds releases the worker index.
+
+## Narrative rendering (0.4.0)
+
+`data/narrative.js` canonicalises selected known event aliases and defines 28 deterministic token templates. Tokens are plain text or typed record IDs. `views/narrative.js` resolves names in a batch and creates text nodes/links; no export text is interpreted as HTML. Known standard field names take precedence over aliases when both occur. Raw merged fields and raw Plus provenance remain inspectable. Unsupported types use a labelled fallback, so no event is silently dropped.
+
+Event text is hydrated only for the visible page, without retaining all source event data in the worker. The compact worker index now includes canonical event types. Related-event filtering happens before pagination; counts, hidden totals, and results use the same predicate. Major events hides only the documented routine types, retaining unknown types. Year ranges exclude undated events, support negative years, and persist in record hash parameters. Figure summaries never infer survival from missing death dates; calendar-year differences are explicitly qualified, and relationship labels retain the source direction without asserting current status.

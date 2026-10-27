@@ -3,9 +3,9 @@ export const normalise = value => String(value ?? '').normalize('NFD').replace(/
 export const recordKey = (kind,id) => JSON.stringify([kind,String(id)]);
 export const recordURL = (world,kind,id,query='') => `#/world/${encodeURIComponent(world)}/record/${encodeURIComponent(kind)}/${encodeURIComponent(id)}${query}`;
 const references = Object.fromEntries([
- ['historical_figures','hfid histfig_id historical_figure_id histfig hf slayer_hfid slayer_hf victim_hf creator_hfid appointer_hfid promise_to_hfid hf_target builder_hf identity_histfig_id'],
- ['sites','site_id site stash_site'], ['entities','entity_id entity civ_id civ site_civ_id site_civ'],
- ['artifacts','artifact_id artifact'], ['regions','region_id'], ['underground_regions','underground_region_id'], ['written_contents','written_content_id']
+ ['historical_figures','hfid histfig_id historical_figure_id histfig hf slayer_hfid slayer_hf victim_hf creator_hfid appointer_hfid promise_to_hfid hf_target builder_hf identity_histfig_id hist_figure_id hist_fig_id builder_hfid woundee_hfid wounder_hfid woundee wounder hfid_target target_hfid snatcher_hfid attacker_hfid group_1_hfid group_2_hfid group_hfid student_hfid teacher_hfid student teacher changee_hfid changer_hfid changee changer giver_hist_figure_id receiver_hist_figure_id'],
+ ['sites','site_id site stash_site source_site_id dest_site_id'], ['entities','entity_id entity civ_id civ site_civ_id site_civ attacker_civ_id defender_civ_id giver_entity_id receiver_entity_id'],
+ ['artifacts','artifact_id artifact'], ['regions','region_id'], ['underground_regions','underground_region_id'], ['written_contents','written_content_id wc_id']
 ].flatMap(([kind,keys])=>keys.split(' ').map(key=>[key,kind])));
 // Only documented, unambiguous ID fields. A generic target, owner, or id is not enough.
 export function referenceKind(field,value) {

@@ -4,7 +4,7 @@
 
 A local-first Dwarf Fortress Legends explorer, built with semantic HTML, CSS, and native JavaScript modules. An unofficial fan project, independent of Bay 12 Games and DFHack.
 
-## Current edition: searchable archives
+## Current edition: recorded lives and histories
 
 Import standard Legends XML and matching Legends Plus XML in a background worker, save worlds in IndexedDB, reopen them from the bookshelf, browse categories with pagination, and inspect raw fields and supplementary provenance. Imports support progress, cancellation, malformed-file rollback, and unfinished-import recovery.
 
@@ -14,7 +14,7 @@ Search any saved world by name, event type, or `#ID`; select a category and sort
 
 Choose **Try a tiny fictional example** on the import page to test without your own files. It is explicitly synthetic, not a game export.
 
-Map CSV and text reports are retained as files but not interpreted yet. Search and linked source-record pages are available. Rich biographies, narrative events, maps, offline caching, and personal notes remain in development. Reimporting creates a separate archive; enrichment of existing worlds is planned.
+Map CSV and text reports are retained as files but not interpreted yet. Search and linked source-record pages are available. Figure pages now show recorded life dates and labelled relationships. Event lists and pages have 28 deterministic prose templates, linked participants, and an explicit fallback for other types. Timelines support type/year filters and a documented major-events preset. Complete biographies, broader event coverage, maps, offline caching, and personal notes remain in development. Reimporting creates a separate archive; enrichment of existing worlds is planned.
 
 See [PLAN.md](PLAN.md) for the development checklist and [architecture](docs/architecture.md) for module boundaries and the worker protocol.
 
@@ -49,7 +49,7 @@ Choose standard `legends.xml` and any matching `legends_plus.xml`, `world_map.cs
 Run the dependency-free parser/preview tests with Node 22 or newer:
 
 ```sh
-node --test tests/parser.test.mjs tests/preview.cjs tests/exploration.test.mjs
+node --test tests/*.test.mjs tests/preview.cjs
 ```
 
 Serve the site and open `tests/browser.html` to run module-worker/IndexedDB integration tests with synthetic fixtures. These tests only remove archives they create.

@@ -1,5 +1,5 @@
-import sax from '../../vendor/sax.js?v=0.3.2';
-import { decodeCP437 } from './encoding.js?v=0.3.2';
+import sax from '../../vendor/sax.js?v=0.4.0';
+import { decodeCP437 } from './encoding.js?v=0.4.0';
 export const PARSER_VERSION = 1;
 const CHUNK = 64 * 1024;
 function add(object, key, value) {

@@ -1,8 +1,9 @@
-import {explore,stopExplorer} from '../js/data/explorer-client.js?v=0.3.2';
-import {openDatabase,saveWorld,saveRecords,getWorld,readPage,countKind,listWorlds,deleteWorld} from '../js/data/database.js?v=0.3.2';
+import {narratives,biography} from '../js/views/narrative.js?v=0.4.0';
+import {explore,stopExplorer} from '../js/data/explorer-client.js?v=0.4.0';
+import {openDatabase,saveWorld,saveRecords,getWorld,getRecord,readPage,countKind,listWorlds,deleteWorld} from '../js/data/database.js?v=0.4.0';
 const output=document.querySelector('#results');
 function assert(value,message){if(!value)throw Error(message);}
-function runImport(id,files){return new Promise((resolve,reject)=>{const worker=new Worker(new URL('../js/import/import-worker.js?v=0.3.2',import.meta.url),{type:'module'});const timeout=setTimeout(()=>{worker.terminate();reject(Error('Import timed out'));},30000);worker.onmessage=({data})=>{if(data.type==='complete'||data.type==='error'){clearTimeout(timeout);worker.terminate();data.type==='complete'?resolve(data.world):reject(Error(data.message));}};worker.onerror=e=>{clearTimeout(timeout);worker.terminate();reject(Error(e.message));};worker.postMessage({type:'import',worldId:id,files});});}
+function runImport(id,files){return new Promise((resolve,reject)=>{const worker=new Worker(new URL('../js/import/import-worker.js?v=0.4.0',import.meta.url),{type:'module'});const timeout=setTimeout(()=>{worker.terminate();reject(Error('Import timed out'));},30000);worker.onmessage=({data})=>{if(data.type==='complete'||data.type==='error'){clearTimeout(timeout);worker.terminate();data.type==='complete'?resolve(data.world):reject(Error(data.message));}};worker.onerror=e=>{clearTimeout(timeout);worker.terminate();reject(Error(e.message));};worker.postMessage({type:'import',worldId:id,files});});}
 document.querySelector('#run').onclick=async()=>{
  const button=document.querySelector('#run');button.disabled=true;output.textContent='Running…\n';
  const prefix='test-'+crypto.randomUUID(),ids=[prefix+'-ok',prefix+'-bad',prefix+'-pages'];let db;
@@ -16,7 +17,11 @@ document.querySelector('#run').onclick=async()=>{
   const rows=await readPage(db,ids[0],'historical_figures');const first=rows.find(r=>r.id==='1');assert(first.data.race==='DWARF'&&first.data.sex==='1'&&first.supplement.race==='dwarf','Merge lost provenance');log('PASS: real module worker import, ID merge, provenance, persistent reopen.');
   const search=await explore(ids[0],{type:'search',options:{q:'urist'}});assert(search.total===1&&search.rows[0].id==='1','Worker search');
   const related=await explore(ids[0],{type:'related',kind:'historical_figures',recordId:'1'});assert(related.total===1&&related.rows[0].id==='0','Reverse event references');
-  const resolved=await explore(ids[0],{type:'resolve',refs:[{kind:'historical_figures',id:'2'},{kind:'sites',id:'999'}]});assert(resolved[0].label==='Domas Examplewright'&&resolved[1].label===null,'Resolution or missing record fallback');stopExplorer();log('PASS: worker name search, reverse event index, reference resolution and missing targets.');
+  const resolved=await explore(ids[0],{type:'resolve',refs:[{kind:'historical_figures',id:'2'},{kind:'sites',id:'999'}]});assert(resolved[0].label==='Domas Examplewright'&&resolved[1].label===null,'Resolution or missing record fallback');const narrowed=await explore(ids[0],{type:'related',kind:'historical_figures',recordId:'1',filters:{from:'21'}});assert(narrowed.total===0&&narrowed.unfiltered===1,'Filtered counts');
+  const event=await getRecord(db,ids[0],'historical_events','0');const [story]=await narratives([event],ids[0],'');assert(story.textContent.includes('The Entirely Fictional Dragon died'),'Death summary missing victim');assert(story.textContent.includes('recorded killer was Urist Examplekeeper'),'Death summary swapped killer');assert(story.querySelectorAll('a').length===3,'Narrative linked names');
+  const [unsafe]=await narratives([{data:{type:'<img src=x onerror=alert(1)>'}}],ids[0],'');assert(!unsafe.querySelector('img'),'Untrusted event type became markup');
+  const life=biography(first.data,[],ids[0],'');assert(life.textContent.includes('does not prove the figure is alive'),'Biography inferred survival');log('PASS: narrative DOM rendering, linked roles, lifespan uncertainty, date filtering/counts.');
+  stopExplorer();log('PASS: worker name search, reverse event index, reference resolution and missing targets.');
   let failed=false;try{await runImport(ids[1],[new File(['<df_world><sites><site><id>1</id></site></sites><broken>'],'bad-legends.xml')]);}catch{failed=true;}
   assert(failed,'Malformed XML accepted');assert(!await getWorld(db,ids[1]),'Failed import retained world');assert((await getWorld(db,ids[0])).status==='ready','Failed import destroyed existing world');log('PASS: malformed import rollback preserves existing worlds.');
   await saveWorld(db,{id:ids[2],status:'staging'});assert(!(await listWorlds(db)).some(w=>w.id===ids[2]),'Staging exposed');

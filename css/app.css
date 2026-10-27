@@ -26,3 +26,14 @@
 .record-facts dt { margin:0; }
 
 .search-controls > div { min-width:0; }
+
+.event-story { border-left:2px solid var(--accent); padding:12px 18px; margin:14px 0; background:var(--panel); }
+.event-story p { color:var(--ink); margin:0 0 8px; line-height:1.8; }
+.event-story a { display:inline; font-size:inherit; text-underline-offset:3px; }
+.event-story .story-note { display:block; font-size:.75rem; color:var(--muted); }
+.timeline-filters { display:grid; grid-template-columns:2fr 1fr 1fr 2fr; gap:12px; margin:20px 0; align-items:end; }
+.timeline-filters label { display:block; font-size:.85rem; margin-bottom:5px; }
+.timeline-filters input,.timeline-filters select { margin:0; min-width:0; width:100%; padding:10px; font:inherit; color:var(--ink); background:var(--panel); border:1px solid var(--line); min-height:44px; }
+.timeline-filters > div { min-width:0; }
+.biography { margin-bottom:28px; }
+@media(max-width:700px){.timeline-filters{grid-template-columns:1fr 1fr;}}

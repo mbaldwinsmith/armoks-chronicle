@@ -1,6 +1,7 @@
-import {openDatabase,getWorld,getRecord} from '../data/database.js?v=0.3.2';
-import {explore} from '../data/explorer-client.js?v=0.3.2';
-import {kindNames,recordURL,collectReferences,eventDate} from '../data/exploration.js?v=0.3.2';
+import {narratives,biography} from './narrative.js?v=0.4.0';
+import {openDatabase,getWorld,getRecord} from '../data/database.js?v=0.4.0';
+import {explore} from '../data/explorer-client.js?v=0.4.0';
+import {kindNames,recordURL,collectReferences,eventDate} from '../data/exploration.js?v=0.4.0';
 let generation=0,timer;
 export function cancelExploration(){generation++;clearTimeout(timer);}
 const element=(tag,text,className)=>{const el=document.createElement(tag);if(text!==undefined)el.textContent=text;if(className)el.className=className;return el;};
@@ -24,6 +25,9 @@ export async function renderDirectory(id,params) {
    const result=await explore(id,{type:'search',options:{q:input.value,kind:select.value,sort:sort.value,offset}},count=>{if(ticket===generation&&token===request)status.textContent=`Preparing search: ${count.toLocaleString()} records indexed…`;});
    if(ticket!==generation||token!==request)return;
    for(const row of result.rows)list.append(rowLink(row,id,suffix));
+   const eventRows=result.rows.filter(row=>row.kind==='historical_events');
+   if(eventRows.length){const records=await withDB(db=>Promise.all(eventRows.map(row=>getRecord(db,id,row.kind,row.id))));const stories=await narratives(records.filter(Boolean),id,suffix);if(ticket!==generation||token!==request)return;let i=0;for(const child of list.children){const row=result.rows[Array.from(list.children).indexOf(child)];if(row.kind==='historical_events'&&records[eventRows.findIndex(r=>r.id===row.id)])child.append(stories[i++]);}}
+
    status.textContent=result.total?`${(offset+1).toLocaleString()}–${Math.min(offset+50,result.total).toLocaleString()} of ${result.total.toLocaleString()} matching records`:'No matching records. Try a shorter name, # followed by an ID, or clear the category filter.';
    previous.disabled=offset===0;next.disabled=offset+50>=result.total;
   }catch(error){if(ticket===generation&&token===request)status.textContent=`Search unavailable: ${error.message}`;}
@@ -49,18 +53,41 @@ export async function renderRecord(worldId,kind,id,params) {
   for(const [key,value] of Object.entries(data))if(typeof value==='string'&&!['id','name'].includes(key)){
    fields.append(element('dt',key.replaceAll('_',' ')),element('dd',value==='-1'?'Unknown / not recorded (−1)':value));
   }
-  body.append(fields);
-  if(kind==='historical_events'){const d=eventDate(data);body.append(element('p',`Recorded event: ${data.type||'unknown type'}. ${d.year===null?'Year not recorded.':`Year ${d.year}.`} Structured source fields are shown above; narrative wording is not yet available.`,'notice'));}
+  const fieldDetails=element('details',undefined,'guide-card');fieldDetails.append(element('summary','Recorded fields'),fields);
+  if(kind==='historical_figures'||kind==='historical_events')body.append(fieldDetails);else body.append(fields);
+  if(kind==='historical_events'){const [story]=await narratives([record],worldId,suffix);if(ticket!==generation)return;const date=eventDate(data);story.prepend(element('p',date.year===null?'Year not recorded':`Year ${date.year}`,'small-label'));body.insertBefore(story,fieldDetails);}
   const refs=collectReferences({merged:data,plus:record.supplement});
   const section=element('details',undefined,'guide-card'),heading=element('summary',`Linked references (${refs.length})`),links=element('ul',undefined,'reference-list');section.open=refs.length<=10;section.append(heading,element('p','Field paths retain the source roles. A reference alone does not establish friendship, ownership, or current membership.','muted'),links);body.append(section);
   const raw=element('details',undefined,'guide-card'),pre=element('pre',JSON.stringify({fields:data,sources:record.sources,supplementaryFields:record.supplement},null,2));raw.append(element('summary','Source fields and provenance'),pre);body.append(raw);
   const resolved=await explore(worldId,{type:'resolve',refs});if(ticket!==generation)return;
   for(const ref of resolved){const li=element('li');li.append(element('span',ref.path.replaceAll('_',' ')+' → ','muted'));if(ref.label){const a=element('a',`${ref.label} · #${ref.id}`);a.href=recordURL(worldId,ref.kind,ref.id,suffix);li.append(a);}else li.append(element('span',`Unresolved ${kindNames[ref.kind]||ref.kind} #${ref.id}`));links.append(li);}
   if(!resolved.length)links.append(element('li','No supported explicit references in this record. Other fields remain available in the source inspector.'));
+  if(kind==='historical_figures')body.insertBefore(biography(data,resolved,worldId,suffix),fieldDetails);
   if(kind==='historical_events')return;
   const timeline=element('section'),events=element('ul',undefined,'record-results'),note=element('p','Loading related events…'),controls=element('div',undefined,'record-pagination'),prev=element('button','Previous events','quiet'),next=element('button','Next events','quiet');prev.type=next.type='button';controls.append(prev,next);note.setAttribute('role','status');timeline.append(element('h2','Recorded events'),element('p','Events that explicitly reference this record, earliest first. Missing dates are placed last; equal or missing timestamps do not establish an exact sequence.','muted'),events,note,controls);body.insertBefore(timeline,raw);
-  let offset=0,request=0;
-  async function load(){const token=++request;prev.disabled=next.disabled=true;try{const result=await explore(worldId,{type:'related',kind,recordId:id,offset});if(ticket!==generation||token!==request)return;events.replaceChildren(...result.rows.map(row=>rowLink(row,worldId,suffix)));note.textContent=result.total?`Events ${offset+1}–${Math.min(offset+50,result.total)} of ${result.total.toLocaleString()}`:'No events with supported explicit references were found.';prev.disabled=offset===0;next.disabled=offset+50>=result.total;}catch(error){if(ticket===generation)note.textContent=error.message;}}
+  const filters=element('form',undefined,'timeline-filters');
+  const type=element('select'),from=element('input'),to=element('input'),preset=element('select'),apply=element('button','Apply filters','quiet'),reset=element('button','Show all events','quiet');
+  type.id='event-type';from.id='event-from';to.id='event-to';preset.id='event-preset';from.type=to.type='number';from.step=to.step='1';apply.type='submit';reset.type='button';
+  for(const [node,label] of [[type,'Event type'],[from,'From year'],[to,'To year'],[preset,'Reading preset']]){const group=element('div'),labelEl=element('label',label);labelEl.htmlFor=node.id;group.append(labelEl,node);filters.append(group);}
+  preset.add(new Option('All events','all'));preset.add(new Option('Major events','major'));preset.value=params.get('eventPreset')==='major'?'major':'all';from.value=params.get('eventFrom')||'';to.value=params.get('eventTo')||'';
+  filters.append(apply,reset);timeline.insertBefore(filters,events);timeline.insertBefore(element('p','Major events hides job/state changes and organisation/site affiliation changes. Other types, including unknown types, remain visible. Year bounds exclude undated events.','muted'),events);
+  let offset=0,request=0,typesLoaded=false;
+  async function load(){const token=++request;prev.disabled=next.disabled=true;
+   if(from.value!==''&&to.value!==''&&Number(from.value)>Number(to.value)){events.replaceChildren();note.textContent='From year must be no later than To year.';return;}
+   const selection={type:typesLoaded?type.value:params.get('eventType')||'',from:from.value,to:to.value,preset:preset.value};
+   const current=new URLSearchParams(params);for(const [key,value] of Object.entries({eventType:selection.type,eventFrom:selection.from,eventTo:selection.to,eventPreset:selection.preset==='all'?'':selection.preset})){if(value)current.set(key,value);else current.delete(key);}
+   const query=current.size?'?'+current:'';history.replaceState(null,'',recordURL(worldId,kind,id,query));
+   note.textContent='Loading events…';
+   try{const result=await explore(worldId,{type:'related',kind,recordId:id,offset,filters:selection});if(ticket!==generation||token!==request)return;
+    if(!typesLoaded){type.add(new Option('All types',''));for(const name of result.types)type.add(new Option(name,name));type.value=selection.type;if(type.selectedIndex<0){type.add(new Option(selection.type,selection.type));type.value=selection.type;}typesLoaded=true;}
+    const records=await withDB(db=>Promise.all(result.rows.map(row=>getRecord(db,worldId,row.kind,row.id))));
+    const stories=await narratives(records.filter(Boolean),worldId,query);if(ticket!==generation||token!==request)return;
+    let storyIndex=0;events.replaceChildren(...result.rows.map((row,i)=>{const li=rowLink(row,worldId,query);if(records[i])li.append(stories[storyIndex++]);return li;}));
+    note.textContent=(result.total?`Events ${offset+1}–${Math.min(offset+50,result.total)} of ${result.total.toLocaleString()}`:'No matching events.')+` · ${result.unfiltered-result.total} hidden by filters (${result.unfiltered} recorded references).`;
+    prev.disabled=offset===0;next.disabled=offset+50>=result.total;
+   }catch(error){if(ticket===generation&&token===request)note.textContent=error.message;}
+  }
+  filters.onsubmit=event=>{event.preventDefault();offset=0;void load();};reset.onclick=()=>{type.value='';from.value=to.value='';preset.value='all';offset=0;void load();};
   prev.onclick=()=>{offset=Math.max(0,offset-50);void load();};next.onclick=()=>{offset+=50;void load();};await load();
  }catch(error){if(ticket===generation)status.textContent=`Could not open record: ${error.message}`;}
 }

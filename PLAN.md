@@ -2,15 +2,15 @@
 
 *Every world a history. Every downfall a story.*
 
-Status: searchable archive iteration implemented; richer exploration features in progress. Updated: 27 October 2026.
+Status: recorded lives and event narrative iteration implemented; broader features in progress. Updated: 27 October 2026.
 
 ## Current iteration
 
 Local archives are implemented: streaming standard/Plus XML import, CP437/UTF-8 decoding, staged IndexedDB writes, progress/cancellation controls, saved-world bookshelf, raw record pagination, provenance inspection, and exact-world deletion. Map/text files are retained but their contents are not yet interpreted.
 
-Twelve Node tests and the deployed browser integration suite pass. All five supplied Cadenilina files were imported through the live UI; the saved world exposes 7,700 figures, 31,903 events, 577 sites, 276 artifacts, and 1,246 written works. Reload and pagination were verified. No user exports are committed.
+Nineteen Node tests pass; live checks for the new narrative iteration are pending. The previous deployed browser integration suite passed. All five supplied Cadenilina files were imported through the live UI; the saved world exposes 7,700 figures, 31,903 events, 577 sites, 276 artifacts, and 1,246 written works. Reload and pagination were verified. No user exports are committed.
 
-Structural merging is implemented; semantic event aliases, broader relationship interpretation, advanced mismatch detection, migrations, cross-browser/mobile qualification, and complete accessibility review remain open. Searchable linked source records are now implemented, including case/accent folding, ID lookup, category selection, stable sorting, hash query persistence, and reverse event references. Rich biographies and narrative event templates are the next iteration. See [verification notes](docs/verification.md).
+Structural merging is implemented; semantic event aliases, broader relationship interpretation, advanced mismatch detection, migrations, cross-browser/mobile qualification, and complete accessibility review remain open. Searchable linked source records are now implemented, including case/accent folding, ID lookup, category selection, stable sorting, hash query persistence, and reverse event references. The new iteration adds 28 deterministic event templates, explicit fallbacks, life-date summaries, labelled figure relationships, and type/year/preset controls for related-event timelines. Complete biographies, broader templates, and maps remain open. See [verification notes](docs/verification.md).
 
 ## Goal and working rules
 
@@ -198,7 +198,7 @@ Implemented slice: all-family name/ID search, category filter, name/year sorting
 - [ ] Add dedicated linked panels for notable kills, abducted figures, and structures dedicated to the figure; show counts and source evidence.
 - [ ] Keep abductor, victim, killer, and dedication roles distinct; do not label a structure as owned or built by its dedicatee.
 - [ ] Show supernatural badges with explanations and supporting secrets, transformations, interactions, or other verified evidence; show uncertainty when classification is inconclusive.
-- [ ] Add a chronological life timeline with category and date filters.
+- [x] Add a chronological life timeline with category and date filters.
 - [ ] Summarise major recorded events using deterministic templates.
 - [ ] Show death cause, killer when identified, and location; retain unnamed killer race/caste details.
 - [ ] Link artifacts held/created, authored works, relevant sites, and event collections.
@@ -224,10 +224,10 @@ Implemented slice: all-family name/ID search, category filter, name/year sorting
 
 ## 11 — Event language and world timeline
 
-- [ ] Define a formatter registry keyed by normalised event type.
+- [x] Define a formatter registry keyed by normalised event type.
 - [ ] Prioritise readable templates for deaths, wounds, battles, jobs, affiliations, family links, founding, thefts, and artifacts.
-- [ ] Cover every event type in the supplied example with a readable template or an explicitly labelled structured fallback.
-- [ ] Support unknown future event types without hiding them.
+- [x] Cover every event type in the supplied example with a readable template or an explicitly labelled structured fallback.
+- [x] Support unknown future event types without hiding them.
 - [ ] Resolve linked names consistently, including unidentified participants.
 - [ ] Preserve source roles: attacker, defender, victim, killer, witness, author, claimant, and owner must not be conflated.
 - [ ] Order events deterministically and avoid claiming precise order when timestamps are missing.
@@ -239,7 +239,7 @@ Implemented slice: all-family name/ID search, category filter, name/year sorting
 - [ ] Support bookmarking and direct links to individual events.
 - [ ] Add expandable event details showing the underlying fields and provenance.
 - [ ] Paginate or virtualise event rows without breaking keyboard reading and focus.
-- [ ] Label generated prose as a rendering of export data; do not invent dialogue, intentions, or causation.
+- [x] Label generated prose as a rendering of export data; do not invent dialogue, intentions, or causation.
 
 ## 12 — Interactive world atlas
 

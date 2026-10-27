@@ -1,5 +1,6 @@
-import {openDatabase,getWorld} from './database.js?v=0.3.2';
-import {normalise,recordKey,collectReferences,eventDate,compareEvents,searchEntries} from './exploration.js?v=0.3.2';
+import {eventType,filterEvents} from './narrative.js?v=0.4.0';
+import {openDatabase,getWorld} from './database.js?v=0.4.0';
+import {normalise,recordKey,collectReferences,eventDate,compareEvents,searchEntries} from './exploration.js?v=0.4.0';
 let cachedWorld, entries=[],lookup=new Map(), incoming=new Map();
 async function load(worldId) {
  if(cachedWorld===worldId)return;
@@ -12,7 +13,7 @@ async function load(worldId) {
    request.onsuccess=()=>{
     const cursor=request.result;if(!cursor){resolve();return;}
     const record=cursor.value,key=recordKey(record.kind,record.id);
-    const row={key,kind:record.kind,id:record.id,label:record.label,search:normalise(record.label),...eventDate(record.data)};
+    const row={key,kind:record.kind,id:record.id,label:record.label,search:normalise(record.label),...eventDate(record.data),eventType:record.kind==='historical_events'?eventType(record.data):null};
     entries.push(row);lookup.set(key,row);
     for(const ref of collectReferences({merged:record.data,plus:record.supplement})) {
      const target=recordKey(ref.kind,ref.id);if(target===key)continue;
@@ -32,7 +33,7 @@ self.onmessage=({data})=>{queue=queue.then(async()=>{
   if(data.type==='search')result=searchEntries(entries,data.options);
   else if(data.type==='related'){
    const rows=[...(incoming.get(recordKey(data.kind,data.recordId))||[])].map(key=>lookup.get(key)).filter(row=>row.kind==='historical_events').sort(compareEvents);
-   result={total:rows.length,rows:rows.slice(data.offset||0,(data.offset||0)+50)};
+   const filtered=filterEvents(rows,data.filters);result={total:filtered.length,unfiltered:rows.length,types:[...new Set(rows.map(row=>row.eventType))].sort(),rows:filtered.slice(data.offset||0,(data.offset||0)+50)};
   }else if(data.type==='resolve')result=data.refs.map(ref=>({ ...ref,label:lookup.get(recordKey(ref.kind,ref.id))?.label||null }));
   else throw Error('Unknown exploration request.');
   postMessage({id:data.id,result});
