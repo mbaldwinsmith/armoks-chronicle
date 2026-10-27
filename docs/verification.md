@@ -7,7 +7,15 @@
 - 19 Node tests pass. New coverage includes event aliases, victim/killer and wound/abduction roles, missing IDs, unnamed killer details, unknown event fallback, source relationship direction, negative birth years, qualified lifespan differences, inconsistent dates, and composed timeline filters.
 - The merged Cadenilina dataset contains 31,903 events across 75 canonical types: 22,193 use a prose template; 9,710 use the explicit structured fallback. All events produce a nonempty rendering. No user data is committed.
 - Expanded explicit reference fields now identify 147 events associated with Smangba (#315), compared with 79 in the narrower previous reference index. New references include battle, wound, abduction, and artifact roles. This is broader coverage of the same archive, not new imported events.
-- Browser tests now include narrative DOM links, role order, untrusted type text, lifespan uncertainty, and date-filter counts. Live execution is pending publication.
+- Live Chrome integration tests pass, including narrative DOM links, role order, untrusted type text, lifespan uncertainty, and date-filter counts.
+
+## Live narrative checks
+
+- Existing Cadenilina opened without reimport. Smangba’s page shows birth year −254, an explicitly unknown death status, labelled source relationships, and 147 related events.
+- Type “hf died” with year 21–21 shows one event, 146 hidden, and the correct victim Lor Ringedbulb / killer Smangba / site Hammerbit. Filter state survives reload.
+- The major-events preset retains 124 of 147 events and reports 23 hidden routine events. A reversed 50–20 year range is rejected with a clear message.
+- Opened event #5351 from the filtered timeline; linked narrative, source-field disclosure and provenance are visible. Desktop parchment layout was visually reviewed.
+- Qualification remains desktop Chrome. Other browsers, mobile, screen readers, and large-world performance budgets remain pending. Calendar-day conversion, full role/alias coverage, biographies with offices and supernatural evidence, and prose templates for the remaining event types are still planned.
 
 ## Previous iteration verification
 
