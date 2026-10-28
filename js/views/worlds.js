@@ -1,6 +1,6 @@
-import {titleCase} from '../data/language.js?v=0.20.1';
-import {renderDirectory} from './explore.js?v=0.20.1';
-import {openDatabase,listWorlds,getWorld,deleteWorld} from '../data/database.js?v=0.20.1';
+import {titleCase} from '../data/language.js?v=0.21.0';
+import {renderDirectory} from './explore.js?v=0.21.0';
+import {openDatabase,listWorlds,getWorld,deleteWorld} from '../data/database.js?v=0.21.0';
 let generation=0;
 export function cancelWorldView(){generation++;}
 export async function renderBookshelf() {
@@ -34,6 +34,7 @@ export async function renderWorld(id, params) {
     if(ticket!==generation)return;
     if(!world || world.status!=='ready'){title.textContent='World not available';status.textContent='This world may have been deleted, or it belongs to another browser.';return;}
     document.querySelector('#open-desk').href=`#/world/${encodeURIComponent(id)}/desk`;
+    document.querySelector('#open-grudges').href=`#/world/${encodeURIComponent(id)}/grudges`;
     document.querySelector('#open-warfare').href=`#/world/${encodeURIComponent(id)}/wars`;
     document.querySelector('#open-record-book').href=`#/world/${encodeURIComponent(id)}/records`;
     document.querySelector('#open-atlas').href=`#/world/${encodeURIComponent(id)}/atlas`;

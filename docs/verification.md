@@ -140,3 +140,7 @@ Source export contents, names, coordinates and export-derived counts are intenti
 ## Follow the Thread — 0.20.1
 
 All 134 Node tests pass, including eight recommendation cases covering direction, source roles, natural prose, membership, bounded sampling and exclusions. Browser integration assertions cover worker recommendations, safe cards, evidence links, Show more and cancellation. The deployed browser integration suite passed on both 0.20.0 and final 0.20.1. Live site navigation on a previously imported authored world confirmed record-to-record thread links, natural event prose, category variety, source-inspector opening and the six-card layout. Explicit relationship reasons retain priority over earlier event context; a dedicated regression test preserves the primary supporting source. No reimport is required.
+
+## Grudge Ledger — 0.21.0
+
+All 146 Node tests pass, including twelve ledger cases for explicit-versus-harm eligibility, source roles, filters, date ambiguity, pagination, unknown records, limits, cancellation and a generated 50,000-entry filter. The new authored fixture and browser assertions cover import, category/source counts, direct filters, safe source/evidence DOM and archive isolation. Live release verification follows deployment.

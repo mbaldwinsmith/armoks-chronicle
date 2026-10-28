@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<df_world><name>The Fictional Ledger World</name>
+<sites><site><id>1</id><name>example copperhall</name><civ_id>5</civ_id></site><site><id>2</id><name>example ash ford</name></site></sites>
+<entities><entity><id>5</id><name>the copper league</name></entity><entity><id>6</id><name>the ashen host</name></entity></entities>
+<historical_figures>
+<historical_figure><id>1</id><name>urist examplewarden</name><hf_link><hfid>2</hfid><link_type>grudge bearer</link_type></hf_link><entity_link><entity_id>5</entity_id><link_type>member</link_type></entity_link></historical_figure>
+<historical_figure><id>2</id><name>domas exampletraveller</name><hf_link><hfid>1</hfid><link_type>enemy</link_type></hf_link></historical_figure>
+<historical_figure><id>3</id><name>mistem exampleguard</name></historical_figure><historical_figure><id>4</id><name>kogan exampleelder</name></historical_figure>
+</historical_figures>
+<artifacts><artifact><id>55</id><name>the fictional silver cup</name></artifact></artifacts>
+<historical_events>
+<historical_event><id>0</id><type>hf died</type><year>10</year><hfid>3</hfid><slayer_hfid>1</slayer_hfid><site_id>1</site_id></historical_event>
+<historical_event><id>2</id><type>hf died</type><year>14</year><hfid>4</hfid><slayer_hfid>1</slayer_hfid><cause>old age</cause></historical_event>
+<historical_event><id>3</id><type>hf died</type><year>15</year><hfid>4</hfid></historical_event>
+<historical_event><id>4</id><type>item stolen</type><year>11</year><histfig>2</histfig><artifact_id>55</artifact_id><item_type>goblet</item_type><site_id>1</site_id></historical_event>
+<historical_event><id>6</id><type>hf abducted</type><year>12</year><snatcher_hfid>1</snatcher_hfid><target_hfid>2</target_hfid><site_id>2</site_id></historical_event>
+<historical_event><id>7</id><type>hf died</type><year>-1</year><hfid>3</hfid><slayer_hfid>999</slayer_hfid></historical_event>
+<historical_event><id>8</id><type>attacked site</type><year>10</year><attacker_civ_id>5</attacker_civ_id><defender_civ_id>6</defender_civ_id><site_id>1</site_id></historical_event>
+</historical_events>
+<historical_event_collections>
+<historical_event_collection><id>100</id><name>the invented copper war</name><type>war</type><start_year>10</start_year><end_year>12</end_year><aggressor_ent_id>5</aggressor_ent_id><defender_ent_id>6</defender_ent_id><eventcol>101</eventcol></historical_event_collection>
+<historical_event_collection><id>101</id><name>the invented counterattack</name><type>battle</type><start_year>10</start_year><end_year>10</end_year><war_eventcol>100</war_eventcol><attacking_enid>6</attacking_enid><defending_enid>5</defending_enid><site_id>1</site_id><event>0</event><event>8</event></historical_event_collection>
+</historical_event_collections></df_world>

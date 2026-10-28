@@ -15,3 +15,5 @@ For a normal UI import of the campaign, name the reused authored map `warfare-wo
 The faction-network extension adds the fictional Silver Compact, a second connected war, a separate raid and a standalone battle event. Explicit opposing fields and a counterattack exercise distinct-group weights and source-role directions. The added history remains entirely authored test data.
 
 The base fictional example includes two authored era records with start years and no end years or IDs. This tests parser-assigned era addresses and explicitly unknown end dates; no intervening end year is inferred.
+
+`grudge-legends.xml` is an independently authored fictional ledger world under the same MIT licence. It tests explicit directed grudge labels versus enemy links, killings versus natural/unexplained deaths, theft without an invented owner, abduction roles, missing and undated references, and war/counterattack/member-event overlap. No original game export was copied.

@@ -1,15 +1,16 @@
-import {renderDesk,cancelDesk} from './views/desk.js?v=0.20.1';
-import {renderFactionWarfare,cancelFactionWarfare} from './views/faction-warfare.js?v=0.20.1';
-import {renderWarfare,cancelWarfare} from './views/warfare.js?v=0.20.1';
-import {renderRecordBook,cancelRecordBook} from './views/book-of-records.js?v=0.20.1';
-import {renderResearch,cancelResearchView,allowResearchNavigation} from './views/research.js?v=0.20.1';
-import {renderAtlas,stopAtlas} from './views/atlas.js?v=0.20.1';
-import {renderRecord,cancelExploration} from './views/explore.js?v=0.20.1';
-import {stopExplorer} from './data/explorer-client.js?v=0.20.1';
-import { startRouter } from './router.js?v=0.20.1';
-import { state, readTheme, setTheme } from './state.js?v=0.20.1';
-import { setupImportPreview } from './views/import-preview.js?v=0.20.1';
-import { renderBookshelf, renderWorld, renderRecovery, cancelWorldView } from './views/worlds.js?v=0.20.1';
+import {renderGrudges,cancelGrudges} from './views/grudges.js?v=0.21.0';
+import {renderDesk,cancelDesk} from './views/desk.js?v=0.21.0';
+import {renderFactionWarfare,cancelFactionWarfare} from './views/faction-warfare.js?v=0.21.0';
+import {renderWarfare,cancelWarfare} from './views/warfare.js?v=0.21.0';
+import {renderRecordBook,cancelRecordBook} from './views/book-of-records.js?v=0.21.0';
+import {renderResearch,cancelResearchView,allowResearchNavigation} from './views/research.js?v=0.21.0';
+import {renderAtlas,stopAtlas} from './views/atlas.js?v=0.21.0';
+import {renderRecord,cancelExploration} from './views/explore.js?v=0.21.0';
+import {stopExplorer} from './data/explorer-client.js?v=0.21.0';
+import { startRouter } from './router.js?v=0.21.0';
+import { state, readTheme, setTheme } from './state.js?v=0.21.0';
+import { setupImportPreview } from './views/import-preview.js?v=0.21.0';
+import { renderBookshelf, renderWorld, renderRecovery, cancelWorldView } from './views/worlds.js?v=0.21.0';
 const toggle = document.querySelector('#theme-toggle');
 function applyTheme(theme) {
   setTheme(theme);
@@ -18,12 +19,13 @@ function applyTheme(theme) {
 applyTheme(readTheme());
 toggle.addEventListener('click', () => applyTheme(state.theme === 'dark' ? 'parchment' : 'dark'));
 startRouter((route, parts, params) => {
-  cancelDesk();cancelFactionWarfare();cancelWarfare();cancelRecordBook();cancelResearchView();cancelWorldView();cancelExploration();stopAtlas();
-  if(!['world','record','book','warfare','faction','desk'].includes(route))stopExplorer();
+  cancelGrudges();cancelDesk();cancelFactionWarfare();cancelWarfare();cancelRecordBook();cancelResearchView();cancelWorldView();cancelExploration();stopAtlas();
+  if(!['world','record','book','warfare','faction','desk','grudges'].includes(route))stopExplorer();
   const [id,kind,recordId]=parts;
   state.route = route;
   if(route === 'research') void renderResearch();
   if(route === 'library') void renderBookshelf();
+  if(route === 'grudges') void renderGrudges(id,params);
   if(route === 'desk') void renderDesk(id,params);
   if(route === 'faction') void renderFactionWarfare(id,kind,params);
   if(route === 'warfare') void renderWarfare(id,params);

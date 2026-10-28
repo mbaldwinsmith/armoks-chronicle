@@ -7,8 +7,8 @@
   <meta name="description" content="Armok’s Chronicle: a local-first explorer for the histories of Dwarf Fortress worlds.">
   <title>Armok’s Chronicle</title>
   <link rel="icon" href="./assets/mark.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="./css/app.css?v=0.20.1">
-  <script type="module" src="./js/app.js?v=0.20.1"></script>
+  <link rel="stylesheet" href="./css/app.css?v=0.21.0">
+  <script type="module" src="./js/app.js?v=0.21.0"></script>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -67,7 +67,7 @@
     </section>
     <section id="view-world" hidden aria-labelledby="world-title">
       <div class="eyebrow">YOUR WORLD ARCHIVE</div><h1 id="world-title">Opening world…</h1><p id="world-subtitle" class="intro"></p>
-      <div id="world-details" hidden><div class="section-heading"><h2>Explore the records</h2><a id="open-desk" class="button quiet">Chronicler’s Desk →</a><a id="open-warfare" class="button quiet">Wars &amp; Battles →</a><a id="open-record-book" class="button quiet">Book of Records →</a><a id="open-atlas" class="button quiet">Open world atlas →</a><button id="delete-world" class="quiet" type="button">Delete world</button></div>
+      <div id="world-details" hidden><div class="section-heading"><h2>Explore the records</h2><a id="open-desk" class="button quiet">Chronicler’s Desk →</a><a id="open-grudges" class="button quiet">Grudge Ledger →</a><a id="open-warfare" class="button quiet">Wars &amp; Battles →</a><a id="open-record-book" class="button quiet">Book of Records →</a><a id="open-atlas" class="button quiet">Open world atlas →</a><button id="delete-world" class="quiet" type="button">Delete world</button></div>
       <div id="culture-shortcuts" class="culture-shortcuts" aria-label="Artifact and culture directories"></div><p class="notice">Search names or enter # followed by an ID. Open a record to follow explicit references and related events. Links require this same archive in this browser; they do not publish your world.</p>
       <div class="search-controls"><div><label for="record-search">Search this world</label><input id="record-search" type="search" placeholder="Name, event type, or #ID" maxlength="200" autocomplete="off"></div><div><label for="record-kind">Record category</label><select id="record-kind"></select></div><div><label for="record-sort">Order</label><select id="record-sort"><option value="name">Name</option><option value="year">Event year</option></select></div><button id="clear-search" class="quiet" type="button">Clear search</button></div>
       <ul id="records" class="record-results"></ul><div class="record-pagination"><button id="previous-records" class="quiet" type="button">Previous</button><button id="next-records" class="quiet" type="button">Next</button></div>
@@ -81,6 +81,22 @@
       <section class="guide-card"><h2>Your Recent Trail</h2><p class="muted">Your last twelve distinct record visits in this archive, most recent first. This is a disposable reading history, separate from your saved research.</p><p id="desk-trail-status" role="status"></p><ol id="desk-trail" class="desk-trail"></ol><button id="desk-trail-clear" class="quiet" type="button">Clear this world’s recent trail</button></section>
     </section>
     <section id="view-faction" hidden aria-labelledby="faction-title"><div class="eyebrow">FACTIONS IN CONFLICT</div><h1 id="faction-title">Warfare Network</h1><div id="faction-content"></div></section>
+    <section id="view-grudges" hidden aria-labelledby="grudge-title">
+      <a id="grudge-back" class="text-link">← Chronicler’s Desk</a><div class="eyebrow">WRONGS RECORDED, MOTIVES UNASSUMED</div><h1 id="grudge-title">Grudge Ledger</h1><p id="grudge-world" class="intro"></p>
+      <p>Explore recorded killings, thefts, abductions and faction conflicts. A harm is not automatically a grudge: explicit grudge links are shown separately. A later attack is not proof of revenge.</p>
+      <details class="guide-card"><summary>What does this ledger count?</summary><p>Each event, conflict collection or explicit source-figure relationship is a source entry. Wars, battles and their member events can overlap; the total is not a count of independent incidents. Natural deaths and deaths with no killing evidence are excluded.</p><p>Filters match people, factions and sites explicitly named in each entry. They do not infer a person’s civilisation, a site’s later owner or an unnamed theft victim. Year filters use recorded dates only. Unknown dates and undated snapshot grudges are excluded when years are selected. A missing end date does not establish that a conflict continued.</p></details>
+      <form id="grudge-filters" class="grudge-filters guide-card">
+        <div><label for="grudge-q">Search entries</label><input id="grudge-q" name="q" type="search" maxlength="160" placeholder="Names, event types or #source ID"></div>
+        <div><label for="grudge-category">Entry category</label><select id="grudge-category" name="category"></select></div>
+        <div><label for="grudge-person">Person name or #ID</label><input id="grudge-person" name="person" type="search" maxlength="160" placeholder="Any directly named figure"></div>
+        <div><label for="grudge-faction">Faction name or #ID</label><input id="grudge-faction" name="faction" type="search" maxlength="160" placeholder="Any directly named organisation"></div>
+        <div><label for="grudge-site">Place name or #ID</label><input id="grudge-site" name="site" type="search" maxlength="160" placeholder="Any directly named site"></div>
+        <div><label for="grudge-from">From year</label><input id="grudge-from" name="from" type="text" inputmode="numeric" maxlength="160" placeholder="Any year"></div>
+        <div><label for="grudge-to">To year</label><input id="grudge-to" name="to" type="text" inputmode="numeric" maxlength="160" placeholder="Any year"></div>
+        <div><label for="grudge-sort">Order</label><select id="grudge-sort" name="sort"><option value="earliest">Earliest First</option><option value="latest">Latest First</option></select></div>
+        <div class="grudge-actions"><button class="quiet" type="submit">Apply filters</button><button id="grudge-clear" class="quiet" type="button">Clear filters</button></div>
+      </form><p class="muted">Filters apply when you choose Apply filters. Totals below describe the current selection.</p><p id="grudge-status" role="status"></p><div id="grudge-summary" class="grudge-summary"></div><div id="grudge-entries" class="grudge-entries"></div><div id="grudge-pages" class="record-pagination"></div>
+    </section>
     <section id="view-warfare" hidden aria-labelledby="war-title">
       <div class="eyebrow">THE CONFLICT CHRONICLES</div><h1 id="war-title">Wars &amp; Battles</h1><p id="war-world" class="intro"></p><a id="war-back" class="text-link">← Back to this world</a>
       <p class="notice">Follow the conflicts recorded in this archive, from wars to battles, duels and raids. Collections group explicit source events; missing histories and unknown outcomes remain unknown.</p>
