@@ -105,3 +105,7 @@ The search bounds depth, discovered nodes, examined links and fresh source reads
 ## Biome layer
 
 `data/biomes.js` owns the verified numeric code/name map, immutable palette, unknown-code fallback, layer validation and world legend aggregation. See [Biome provenance](biomes.md) for pinned primary sources and compatibility limits. The atlas defaults to Biomes when no valid layer is requested, stores explicit `layer` state in its hash URL, and uses the same biome colours in flat and relief rendering. Colour-only changes preserve camera and selection. Existing saved CSV files need no migration.
+
+## Book of Records
+
+A lazy `records` explorer-worker request scans the selected archive once with `createRecordBook`, using merged records and recognised explicit references. It retains ranked summaries, counts and up to five evidence links per entry, not full source records. Category/page queries use the same world-scoped worker cache. View disposal aborts requests and cursor aggregation; world switches clear the cache. Definitions, evidence rules and remaining metrics are documented in [book-of-records.md](book-of-records.md).

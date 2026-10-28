@@ -1,11 +1,12 @@
-import {renderResearch,cancelResearchView,allowResearchNavigation} from './views/research.js?v=0.14.1';
-import {renderAtlas,stopAtlas} from './views/atlas.js?v=0.14.1';
-import {renderRecord,cancelExploration} from './views/explore.js?v=0.14.1';
-import {stopExplorer} from './data/explorer-client.js?v=0.14.1';
-import { startRouter } from './router.js?v=0.14.1';
-import { state, readTheme, setTheme } from './state.js?v=0.14.1';
-import { setupImportPreview } from './views/import-preview.js?v=0.14.1';
-import { renderBookshelf, renderWorld, renderRecovery, cancelWorldView } from './views/worlds.js?v=0.14.1';
+import {renderRecordBook,cancelRecordBook} from './views/book-of-records.js?v=0.15.0';
+import {renderResearch,cancelResearchView,allowResearchNavigation} from './views/research.js?v=0.15.0';
+import {renderAtlas,stopAtlas} from './views/atlas.js?v=0.15.0';
+import {renderRecord,cancelExploration} from './views/explore.js?v=0.15.0';
+import {stopExplorer} from './data/explorer-client.js?v=0.15.0';
+import { startRouter } from './router.js?v=0.15.0';
+import { state, readTheme, setTheme } from './state.js?v=0.15.0';
+import { setupImportPreview } from './views/import-preview.js?v=0.15.0';
+import { renderBookshelf, renderWorld, renderRecovery, cancelWorldView } from './views/worlds.js?v=0.15.0';
 const toggle = document.querySelector('#theme-toggle');
 function applyTheme(theme) {
   setTheme(theme);
@@ -14,12 +15,13 @@ function applyTheme(theme) {
 applyTheme(readTheme());
 toggle.addEventListener('click', () => applyTheme(state.theme === 'dark' ? 'parchment' : 'dark'));
 startRouter((route, parts, params) => {
-  cancelResearchView();cancelWorldView();cancelExploration();stopAtlas();
-  if(!['world','record'].includes(route))stopExplorer();
+  cancelRecordBook();cancelResearchView();cancelWorldView();cancelExploration();stopAtlas();
+  if(!['world','record','book'].includes(route))stopExplorer();
   const [id,kind,recordId]=parts;
   state.route = route;
   if(route === 'research') void renderResearch();
   if(route === 'library') void renderBookshelf();
+  if(route === 'book') void renderRecordBook(id,params);
   if(route === 'world') void renderWorld(id,params);
   if(route === 'atlas') renderAtlas(id,params);
   if(route === 'record') void renderRecord(id,kind,recordId,params);

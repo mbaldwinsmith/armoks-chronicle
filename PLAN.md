@@ -6,6 +6,8 @@ Status: atlas and isometric relief preview implemented; broader features in prog
 
 ## Current iteration
 
+Book of Records: eight world-scoped rankings cover distinct named kills, completed calendar-year life spans, explicitly open-ended life records, distinct written works by author, eventful settlements, knowledge-discovery events, artifact event histories and distinct physical artifacts containing written works. Safe semantic tables link source records and bounded evidence samples; highlights disclose ties. Competition ranks, eligibility/exclusions and source uncertainty are explicit. Categories and pages persist in hash routes; a lazy worker aggregation is cached for one immutable archive and cleared on world/worker changes. Supernatural filters, reigns and deduplicated battle casualty rankings remain open. See docs/book-of-records.md.
+
 Biome atlas: Biomes is now the default terrain colour layer, with 51 named, distinct palette entries, a world-specific labelled legend and tile/hover names. Explicit layer choices are retained in atlas URLs and restored on reload; changing colour layers preserves the camera, filters and selection. Unknown codes use an explicit diagnostic label/colour. The same palette colours flat tiles and relief tops, while the translucent ocean geometry is retained. 77 Node tests and the full live browser integration suite pass. Live UI checks cover the default Biomes layer, named tile inspection, legend visibility, explicit layer restoration on reload, zoom preservation on colour changes, and both flat/relief rendering. The supplied export was verified locally; public verification notes retain only authored fixture results.
 
 Connection finder: figure pages offer two explicit name/ID pickers and a bounded worker breadth-first search. Figure links can be followed in either direction with unchanged source roles; organisation intermediaries are opt-in. Results include every intermediate record and evidence, distinguish exhausted searches, limits, missing endpoints and cancellation, and qualify paths found with incomplete neighbourhood data. Searches are bounded by the selected depth (up to eight links), 500 discovered records, 40,000 examined links or 4,000 fresh source reads; per-neighbourhood limits remain explicit. Navigation and Cancel abort a search without discarding selections. 71 Node tests and the live browser integration suite pass, including shortest/reverse paths, organisation-only connections, missing endpoints, no-path results, world isolation, cancellation and subsequent worker reuse. Live picker checks verify explicit selection, ID search and invalidation of stale results.
@@ -362,7 +364,7 @@ Implemented slice: directed source-record networks with family/social/rivalry/af
 - [ ] Build the Chronicler’s Desk with useful world totals, eras, recent discoveries, and suggested records.
 - [ ] Define reproducible discovery rules for long lives, prolific authors, contested artifacts, notable beasts, and event-rich sites.
 - [ ] Explain each discovery card’s selection criterion and link to supporting records.
-- [ ] Qualify superlatives as “among recorded figures/events”; handle ties, unknown dates, and incomplete data.
+- [x] Qualify Book of Records superlatives as among recorded figures/events; disclose ties, unknown dates and incomplete data in each implemented metric.
 - [ ] Implement Follow the Thread recommendations from the current record.
 - [ ] Keep a navigable thread history and allow users to save an exploration trail.
 - [ ] Add a random-record option with category filters and preference for usable records.
@@ -371,7 +373,7 @@ Implemented slice: directed source-record networks with family/social/rivalry/af
 - [ ] Add comparative statistics by year, race, faction, site, and event category with transparent counting definitions.
 - [ ] Provide accessible tables alongside charts; avoid suggesting historical figures represent the whole world population.
 - [ ] Cache expensive discovery calculations and invalidate them when source data changes.
-- [ ] Build a dedicated Book of Records with category tabs, ranked tables, highlight cards, source links, and preserved route/filter state.
+- [x] Build a dedicated Book of Records with category links, ranked tables, highlight cards, source links, and preserved category/page route state. Additional metric and supernatural filters remain below.
 - [ ] Include deadliest creatures/figures by recorded notable kills, bloodiest battles by available casualty totals, and separate summaries for named victims and squad casualties.
 - [ ] Include longest and shortest reigns, defining treatment of incomplete dates, concurrent offices, ongoing terms, and tied durations.
 - [ ] Include most contested settlements using a documented metric such as recorded ownership changes; distinguish this from attack count.
