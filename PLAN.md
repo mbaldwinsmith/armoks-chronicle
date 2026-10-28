@@ -2,9 +2,11 @@
 
 *Every world a history. Every downfall a story.*
 
-Status: atlas and isometric relief preview implemented; broader features in progress. Updated: 27 October 2026.
+Status: atlas and isometric relief preview implemented; broader features in progress. Updated: 28 October 2026.
 
 ## Current iteration
+
+Biome atlas: Biomes is now the default terrain colour layer, with 51 named, distinct palette entries, a world-specific labelled legend and tile/hover names. Explicit layer choices are retained in atlas URLs and restored on reload; changing colour layers preserves the camera, filters and selection. Unknown codes use an explicit diagnostic label/colour. The same palette colours flat tiles and relief tops, while the translucent ocean geometry is retained. 76 Node tests pass; browser qualification follows deployment.
 
 Connection finder: figure pages offer two explicit name/ID pickers and a bounded worker breadth-first search. Figure links can be followed in either direction with unchanged source roles; organisation intermediaries are opt-in. Results include every intermediate record and evidence, distinguish exhausted searches, limits, missing endpoints and cancellation, and qualify paths found with incomplete neighbourhood data. Searches are bounded by the selected depth (up to eight links), 500 discovered records, 40,000 examined links or 4,000 fresh source reads; per-neighbourhood limits remain explicit. Navigation and Cancel abort a search without discarding selections. 71 Node tests and the live browser integration suite pass, including shortest/reverse paths, organisation-only connections, missing endpoints, no-path results, world isolation, cancellation and subsequent worker reuse. Live picker checks verify explicit selection, ID search and invalidation of stale results.
 
@@ -252,6 +254,7 @@ Implemented slice: all-family name/ID search, category filter, name/year sorting
 ## 12 — Interactive world atlas
 
 - [x] Render terrain from map CSV using Canvas with device-pixel-ratio handling.
+- [x] Default to a named Biomes layer with distinct per-biome colours, a world-specific legend and biome-aware tile/hover inspection.
 - [ ] Add verified biome colours, elevation shading, oceans, rivers, peaks, and volcano markers.
 - [ ] Overlay selectable sites, regions, and constructions from XML coordinates.
 - [ ] Verify coordinate orientation, scale conversion, edge cells, and site-rectangle interpretation against fixtures.

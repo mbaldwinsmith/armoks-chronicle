@@ -122,3 +122,7 @@
 .connection-steps p { color:var(--ink); }
 .connection-steps details { color:var(--muted);font-size:.85rem; }
 @media(max-width:700px){.connection-pickers{grid-template-columns:1fr}.connection-options{align-items:start}}
+
+.biome-legend { display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,270px),1fr));gap:9px 18px;list-style:none;padding:0;font-size:.85rem; }
+.biome-legend li { display:flex;align-items:center;gap:9px;overflow-wrap:anywhere; }
+.biome-swatch { width:22px;height:18px;flex:0 0 22px;border:1px solid var(--muted);border-radius:2px; }

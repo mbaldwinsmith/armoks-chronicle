@@ -110,3 +110,9 @@ Choose **Find a connection** on a figure page. The first figure is preselected; 
 The result shows one shortest recorded connection in the available data, preserving the source’s direction and evidence even when a step follows the link backwards. It does not establish a meeting, current status or simultaneous relationships. If a source scan is incomplete, a found route is qualified because a shorter connection may have been missed. No-path, search-limit, missing-endpoint and cancelled results are distinct; missing intermediate records are disclosed and never traversed.
 
 Search runs in the exploration worker with limits of eight links, 500 discovered records, 40,000 examined links and 4,000 fresh source reads, in addition to the documented per-neighbourhood limits. Cancel preserves your selections, and navigating away cancels active work. Source and record links retain timeline filters. No import or database migration is needed for existing archives.
+
+### Biome colours
+
+The atlas opens in **Biomes** by default. Each mapped biome has its own colour, with an expandable legend beneath the map showing names, exported codes and world-tile counts. Hover or inspect a tile to read its biome name. Elevation, Evilness and Savagery remain available under **Colour layer**. Layer choices travel in atlas URLs and survive reloads; changing layers preserves your camera position.
+
+Names follow the DFHack `biome_type` definitions documented in the architecture notes; colours are an application palette. Unknown codes remain explicitly labelled. Biome colours also apply to Raised Relief tile tops, with the existing translucent ocean surface retained. Previously imported maps work without reimporting.

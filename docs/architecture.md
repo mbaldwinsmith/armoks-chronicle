@@ -48,7 +48,7 @@ Native IndexedDB was chosen for this limited schema to keep browser-ready distri
 
 ## Asset updates
 
-Runtime module, worker, and stylesheet URLs carry an explicit release query (`?v=0.13.2`) to prevent mixed releases during GitHub Pages cache revalidation. Bump these references together for code releases. This is plain source maintenance, not a build step.
+Runtime module, worker, and stylesheet URLs carry an explicit release query (`?v=0.14.0`) to prevent mixed releases during GitHub Pages cache revalidation. Bump these references together for code releases. This is plain source maintenance, not a build step.
 
 ## Exploration (0.3.0)
 
@@ -70,7 +70,7 @@ The atlas worker reads saved File blobs and site records from IndexedDB, with no
 
 The flat canvas caches one pixel per tile and scales without smoothing. Canvas output accounts for device pixel ratio (capped at 2). Native Canvas is also used for an isometric stepped-column preview, capped at 257 × 257. Relief is a regional elevation illustration with fixed exaggeration, not a free-camera WebGL scene. It builds only when requested. Projection picking uses a colour-ID buffer. Both views expose a site selector, selected-tile linked list, numeric coordinate controls and keyboard pan/zoom.
 
-Format provenance: DFHack/scripts `exportlegends.lua`, function `export_world_map_metadata`, reviewed 27 October 2026: https://github.com/DFHack/scripts/blob/master/exportlegends.lua . The exporter emits x increasing across rows, y increasing between rows; flags are lake=1, river=2, road=4. River direction bits are N=1,S=2,W=4,E=8. This version retains river bits but does not draw river connections. Elevation is shown in raw export units; biome names and sea-level interpretation are not guessed. Elevation colours are an application palette.
+Format provenance: DFHack/scripts `exportlegends.lua`, function `export_world_map_metadata`, reviewed 27 October 2026: https://github.com/DFHack/scripts/blob/master/exportlegends.lua . The exporter emits x increasing across rows, y increasing between rows; flags are lake=1, river=2, road=4. River direction bits are N=1,S=2,W=4,E=8. River connections are drawn from these bits. Elevation is shown in raw export units; biome names now use the verified enum mapping described below. Elevation colours are an application palette.
 
 Relief ocean fill (0.5.2): translucent top and side faces cover non-lake tiles below elevation 100. Terrain retains its exported seafloor elevation; picking and marker projection use the water surface. Faces are drawn in the same back-to-front tile order as terrain so dry land occludes water correctly. Classification follows DFHack `Maps::getBiomeTypeWithRef` (lake first, then elevation < 100 for oceans): https://github.com/DFHack/dfhack/blob/develop/library/modules/Maps.cpp . Lakes retain their own exported levels.
 
@@ -101,3 +101,7 @@ Each neighbourhood reads at most 500 candidate source records, at most 5,000 lin
 `data/connections.js` implements async breadth-first traversal through injected neighbour/existence adapters. The worker reuses bounded neighbourhood reads and reverse references for figures and optional organisation intermediaries; it never derives edges from event co-occurrence. It preserves the exact supporting edge and traversal direction at each hop. Complete searches can claim shortest recorded paths; truncated source/graph searches qualify their results.
 
 The search bounds depth, discovered nodes, examined links and fresh source reads separately. It yields periodically and accepts cancellation messages outside the serial request queue. `explorer-client.js` accepts an AbortSignal, cleans listeners on completion/navigation and discards aborted responses. `views/connections.js` provides explicit name/ID selections, progress/cancel controls, linked path steps and source evidence. Figure-page disposal aborts a search on navigation.
+
+## Biome layer
+
+`data/biomes.js` owns the verified numeric code/name map, immutable palette, unknown-code fallback, layer validation and world legend aggregation. See [Biome provenance](biomes.md) for pinned primary sources and compatibility limits. The atlas defaults to Biomes when no valid layer is requested, stores explicit `layer` state in its hash URL, and uses the same biome colours in flat and relief rendering. Colour-only changes preserve camera and selection. Existing saved CSV files need no migration.
