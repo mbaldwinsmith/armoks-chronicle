@@ -1,13 +1,13 @@
-import {religionReferences} from './religion.js?v=0.29.0';
-import {beastRoles} from './bestiary.js?v=0.29.0';
-import {settlementReferences} from './settlements.js?v=0.29.0';
-import {supernaturalReferences} from './supernatural.js?v=0.29.0';
-import {collectReferences,recordKey} from './exploration.js?v=0.29.0';
-import {cultureReferences} from './culture.js?v=0.29.0';
-import {recordRelationships,relationshipWording} from './relationships.js?v=0.29.0';
-import {narrateEvent} from './narrative.js?v=0.29.0';
-import {collectionFacts} from './warfare.js?v=0.29.0';
-import {referenceLabel,clippedLabel} from './language.js?v=0.29.0';
+import {religionReferences} from './religion.js?v=0.29.1';
+import {beastRoles} from './bestiary.js?v=0.29.1';
+import {settlementReferences} from './settlements.js?v=0.29.1';
+import {supernaturalReferences} from './supernatural.js?v=0.29.1';
+import {collectReferences,recordKey} from './exploration.js?v=0.29.1';
+import {cultureReferences} from './culture.js?v=0.29.1';
+import {recordRelationships,relationshipWording} from './relationships.js?v=0.29.1';
+import {narrateEvent} from './narrative.js?v=0.29.1';
+import {collectionFacts} from './warfare.js?v=0.29.1';
+import {referenceLabel,clippedLabel} from './language.js?v=0.29.1';
 export const threadLimits={sources:60,references:500,candidates:36,page:6};
 export function threadReferences(record){
  const refs=[...religionReferences(record),...beastRoles(record),...collectReferences({merged:record.data,plus:record.supplement}),...cultureReferences(record),...supernaturalReferences(record),...settlementReferences(record)];

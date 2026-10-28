@@ -1,7 +1,7 @@
-import {eventType,narrateEvent} from './narrative.js?v=0.29.0';
-import {recordKey} from './exploration.js?v=0.29.0';
-import {clippedLabel,eventLabel} from './language.js?v=0.29.0';
-import {sitePosition} from './terrain.js?v=0.29.0';
+import {eventType,narrateEvent} from './narrative.js?v=0.29.1';
+import {recordKey} from './exploration.js?v=0.29.1';
+import {clippedLabel,eventLabel} from './language.js?v=0.29.1';
+import {sitePosition} from './terrain.js?v=0.29.1';
 export const settlementLimits={records:500000,facts:100000,sites:50000,page:12};
 export const settlementCategories={all:'All Settlement History',origins:'Founding and Reclamation',conflict:'Attacks and Destruction',government:'Government and Diplomacy',building:'Construction and Rebuilding'};
 const types={
