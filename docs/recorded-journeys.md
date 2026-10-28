@@ -35,3 +35,5 @@ Settlement/faction filters and conflict-year controls do not filter this separat
 ## Bounds and persistence
 
 Profiles scan at most 500,000 events per subject, retain the latest 200 dated events and first 40 undated events in source-ID order, and page 12 at a time. The summary uses the retained sample; if recent context crowds out earlier location records, the app says no dated location evidence is retained. Scan limits explicitly warn that additional/latest evidence may remain unexamined. Map data is bounded by the same sample. Eight derived profiles are cached per loaded archive, cleared on world switch; cancelled scans do not populate the cache. No source data or notes are modified. Existing archives require no reimport or database migration.
+
+Artifact dossiers also retain recovery and destruction records as dated location evidence. These events now appear in the existing artifact journey history with their explicit action labels; a destruction location is not proof of a surviving object. The dossier flags destruction separately.

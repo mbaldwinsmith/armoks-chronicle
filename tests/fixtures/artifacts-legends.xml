@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<df_world><name>The Fictional Cabinet of Loose Claims</name>
+<sites><site><id>1</id><name>copperhall</name><coords>1,2</coords></site><site><id>2</id><name>ash ford</name><coords>4,5</coords></site></sites>
+<entities><entity><id>5</id><name>the copper council</name></entity></entities>
+<historical_figures><historical_figure><id>1</id><name>urist marginreader</name></historical_figure><historical_figure><id>2</id><name>domas packkeeper</name></historical_figure><historical_figure><id>3</id><name>mistem stonewright</name></historical_figure><historical_figure><id>4</id><name>kogan distantclaim</name></historical_figure></historical_figures>
+<artifacts>
+<artifact><id>51</id><name>the quiet margin</name><holder_hfid>2</holder_hfid><site_id>1</site_id><item><name_string>engraved granite slab</name_string></item></artifact>
+<artifact><id>52</id><name>the secret keeper</name><holder_hfid>-1</holder_hfid><site_id>2</site_id></artifact>
+<artifact><id>53</id><name>the second reading</name><site_id>1</site_id></artifact>
+<artifact><id>54</id><name>the argument in copper</name><holder_hfid>-1</holder_hfid><item><name_string>copper-bound codex</name_string><writing_written_content_id>30</writing_written_content_id><page_number>12</page_number></item></artifact>
+<artifact><id>55</id><name>the reasonable objection</name><holder_hfid>3</holder_hfid></artifact>
+<artifact><id>56</id><name>the doubtful lesson</name><holder_hfid>1</holder_hfid><site_id>1</site_id></artifact>
+</artifacts>
+<written_contents><written_content><id>30</id><title>Secrets of Sensible Bookkeeping</title><author_hfid>3</author_hfid><form>manual</form></written_content></written_contents>
+<historical_events>
+<historical_event><id>0</id><type>artifact created</type><artifact_id>51</artifact_id><hist_figure_id>3</hist_figure_id><site_id>2</site_id><year>2</year></historical_event>
+<historical_event><id>1</id><type>artifact claim formed</type><artifact_id>51</artifact_id><entity_id>5</entity_id><claim>symbol</claim><circumstance>from afar</circumstance><year>6</year></historical_event>
+<historical_event><id>2</id><type>artifact claim formed</type><artifact_id>51</artifact_id><hist_figure_id>4</hist_figure_id><claim>heirloom</claim><year>7</year></historical_event>
+<historical_event><id>3</id><type>artifact possessed</type><artifact_id>51</artifact_id><hist_figure_id>1</hist_figure_id><site_id>2</site_id><year>8</year></historical_event>
+<historical_event><id>4</id><type>hf learns secret</type><artifact_id>51</artifact_id><student_hfid>1</student_hfid><teacher_hfid>-1</teacher_hfid><interaction>SECRET_17</interaction><year>9</year></historical_event>
+<historical_event><id>5</id><type>artifact claim formed</type><artifact_id>54</artifact_id><hist_figure_id>999</hist_figure_id><claim>treasure</claim><year>-1</year></historical_event>
+<historical_event><id>6</id><type>hf learns secret</type><artifact_id>56</artifact_id><student_hfid>1</student_hfid><teacher_hfid>3</teacher_hfid><interaction>SECRET_18</interaction><year>12</year></historical_event>
+<historical_event><id>7</id><type>artifact created</type><artifact_id>55</artifact_id><hist_figure_id>3</hist_figure_id><site_id>1</site_id><year>3</year></historical_event>
+<historical_event><id>8</id><type>artifact destroyed</type><artifact_id>55</artifact_id><site_id>2</site_id><year>14</year></historical_event>
+</historical_events></df_world>

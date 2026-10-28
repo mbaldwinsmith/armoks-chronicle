@@ -1,6 +1,6 @@
-import {eventType} from './narrative.js?v=0.26.0';
-import {recordKey} from './exploration.js?v=0.26.0';
-import {eventLabel,clippedLabel} from './language.js?v=0.26.0';
+import {eventType} from './narrative.js?v=0.27.0';
+import {recordKey} from './exploration.js?v=0.27.0';
+import {eventLabel,clippedLabel} from './language.js?v=0.27.0';
 export const journeyLimits={records:500000,dated:200,undated:40,page:12,cache:8};
 const valid=v=>typeof v==='string'&&v.length<=128&&/^\d+$/.test(v);
 const id=(d,...keys)=>keys.map(k=>d[k]).find(valid)||null;
@@ -18,7 +18,7 @@ export function journeyFact(record,kind,subjectId){
   else return null;
  }else if(kind==='artifacts'){
   subject=id(d,'artifact_id');
-  const actions={'artifact created':'Created','artifact possessed':'Recorded Possession','artifact stored':'Stored','artifact lost':'Lost','artifact found':'Found','artifact claim formed':'Ownership Claim Recorded','artifact given':'Transfer Recorded'};
+  const actions={'artifact created':'Created','artifact possessed':'Recorded Possession','artifact stored':'Stored','artifact lost':'Lost','artifact found':'Found','artifact recovered':'Recovered','artifact destroyed':'Destruction Recorded','artifact claim formed':'Ownership Claim Recorded','artifact given':'Transfer Recorded'};
   action=actions[type];if(!action)return null;
   if(type==='artifact created'&&Object.hasOwn(d,'name_only')){action='Received Its Name';category='context';}
   if(type==='artifact claim formed')category='claim';

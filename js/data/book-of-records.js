@@ -1,7 +1,7 @@
-import {createSettlementIndex,contestedSettlements} from './settlements.js?v=0.26.0';
-import {createOfficeIndex,officeRankings} from './offices.js?v=0.26.0';
-import {eventType} from './narrative.js?v=0.26.0';
-import {recordKey} from './exploration.js?v=0.26.0';
+import {createSettlementIndex,contestedSettlements} from './settlements.js?v=0.27.0';
+import {createOfficeIndex,officeRankings} from './offices.js?v=0.27.0';
+import {eventType} from './narrative.js?v=0.27.0';
+import {recordKey} from './exploration.js?v=0.27.0';
 export const recordCategories=Object.freeze([
  {id:'kills',title:'Deadliest Figures',unit:'named victims',kind:'historical_figures',definition:'Distinct historical figures explicitly named as victims in death events naming this killer. Repeated deaths for the same victim count once per killer. Self-kills, old-age deaths, missing victims and unnamed squad casualties are excluded. Conflicting killer attributions remain source claims, not a resolved verdict.'},
  {id:'lifespans',title:'Longest Completed Lives',unit:'calendar years',kind:'historical_figures',definition:'Death year minus birth year in the merged figure record. These are differences between calendar years, not exact birthdays. Both years must be recorded, neither may be the -1 sentinel, and death must not precede birth. Negative years other than -1 are retained. Supernatural figures are included.'},
@@ -13,7 +13,7 @@ export const recordCategories=Object.freeze([
  {id:'artifacts',title:'Most Chronicled Artifacts',unit:'recorded events',kind:'artifacts',definition:'Distinct event records explicitly referencing the artifact through recognised artifact-ID fields. Several references in one event count once. This measures the recorded history, not age, value, number of owners or physical copies.'},
  {id:'longest-terms',title:'Longest Completed Office Terms',unit:'calendar years',kind:'historical_figures',population:'recorded office entries',definition:'Each explicitly paired appointment/removal term is ranked separately, by removal year minus appointment year. Missing or ongoing endpoints, ambiguous event order, unresolved holders/organisations, conflicting office definitions and potentially overlapping terms in the same office are excluded. Concurrent different offices remain separate. Zero-year terms require ordered within-year timestamps. No death, next appointment or export date supplies a missing endpoint. All office types and supernatural figures are included; these are not exclusively royal reigns.'},
  {id:'shortest-terms',title:'Shortest Completed Office Terms',unit:'calendar years',kind:'historical_figures',population:'recorded office entries',definition:'The same eligible completed office terms as Longest Completed Office Terms, ordered shortest first. Year differences are not exact anniversaries. Repeated terms are not summed; distinct offices are not merged. Equal durations share competition ranks, including qualifying zero-year terms. Scan limits and missing export coverage can exclude further evidence.'},
- {id:'copies',title:'Works With the Most Recorded Copies',unit:'recorded physical artifacts',kind:'written_contents',definition:'Distinct artifact records explicitly referencing written content through writing or item.page_written_content_id. Repeated page references in one artifact count once. This counts recorded physical artifacts, not copying events, pages, surviving copies or all copies ever made.'}
+ {id:'copies',title:'Works With the Most Recorded Copies',unit:'recorded physical artifacts',kind:'written_contents',definition:'Distinct artifact records explicitly referencing written content through writing, item.page_written_content_id or item.writing_written_content_id. Repeated page references in one artifact count once. This counts recorded physical artifacts, not copying events, pages, surviving copies or all copies ever made.'}
 ]);
 const array=v=>v===undefined?[]:Array.isArray(v)?v:[v];
 const id=v=>typeof v==='string'&&/^\d+$/.test(v)?v:null;
@@ -53,7 +53,7 @@ export function createRecordBook(existingOffices=null,existingSettlements=null){
     }
    }
    if(record.kind==='written_contents')add('authors','historical_figures',first(d,'author_hfid','author'),key,evidence);
-   if(record.kind==='artifacts')for(const content of new Set([...array(d.writing),...array(d.item?.page_written_content_id)]))add('copies','written_contents',id(content),key,evidence);
+   if(record.kind==='artifacts')for(const content of new Set([...array(d.writing),...array(d.item?.page_written_content_id),...array(d.item?.writing_written_content_id)]))add('copies','written_contents',id(content),key,evidence);
   },
   finish(lookup){
    for(const life of lives){const category=life.death!==null?'lifespans':life.open&&latestYear!==null?'open-lives':null,end=life.death??latestYear;

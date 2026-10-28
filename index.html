@@ -7,8 +7,8 @@
   <meta name="description" content="Armok’s Chronicle: a local-first explorer for the histories of Dwarf Fortress worlds.">
   <title>Armok’s Chronicle</title>
   <link rel="icon" href="./assets/mark.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="./css/app.css?v=0.26.0">
-  <script type="module" src="./js/app.js?v=0.26.0"></script>
+  <link rel="stylesheet" href="./css/app.css?v=0.27.0">
+  <script type="module" src="./js/app.js?v=0.27.0"></script>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -106,6 +106,10 @@
       <form id="war-filters" class="search-controls"><div><label for="war-search">Find a conflict</label><input id="war-search" type="search" maxlength="200" placeholder="Name or #ID"></div><div><label for="war-type">Conflict collection type</label><select id="war-type"></select></div><div><label for="war-from">From year</label><input id="war-from" type="number" step="1"></div><div><label for="war-to">To year</label><input id="war-to" type="number" step="1"></div><button type="submit" class="quiet">Apply years</button><button type="button" id="war-clear" class="quiet">Clear filters</button></form>
       <p class="muted">Year filters intersect recorded start/end dates. With only one recorded date, that date is used; an unknown end is not assumed to mean an ongoing war. Undated collections are excluded only when years are filtered.</p>
       <h2>Recorded Conflicts</h2><p id="war-status" role="status"></p><div id="war-directory" class="conflict-grid"></div><div id="war-pages"></div>
+    </section>
+    <section id="view-artifacts" hidden aria-labelledby="artifact-title">
+      <a id="artifact-back" class="text-link">← Chronicler’s Desk</a><p class="eyebrow">RELICS, RUMOURS AND READABLE STONE</p><h1 id="artifact-title">The Artifact Cabinet</h1><p id="artifact-world" class="intro"></p><p>Some treasures are carried. Others are claimed from a comfortable distance. Browse the objects, follow their recorded hands and places, and read what their inscriptions reveal.</p>
+      <form id="artifact-filters" class="timeline-filters"><div><label for="artifact-search">Name, Material or #ID</label><input id="artifact-search" type="search" maxlength="200" placeholder="Find a relic…"></div><div><label for="artifact-type">Object Type</label><select id="artifact-type"></select></div><div><label for="artifact-secret">Secret Evidence</label><select id="artifact-secret"><option value="any">Any Evidence State</option><option value="present">Recorded Secret Source</option><option value="possible">Possible Secret Connection</option><option value="unknown">Secret Status Unknown</option></select></div><div><label for="artifact-custody">Hands, Places and Claims</label><select id="artifact-custody"><option value="any">Any Recorded Context</option><option value="holder">Holder Named in Snapshot</option><option value="location">Place Named in Snapshot</option><option value="claim">With Recorded Claims</option></select></div><div><label for="artifact-sort">Order</label><select id="artifact-sort"><option value="name">Name</option><option value="history">Most Selected History Records</option></select></div><button class="quiet">Explore the Cabinet</button><button id="artifact-reset" type="button" class="quiet">Clear Cabinet Filters</button></form><p id="artifact-status" role="status"></p><div id="artifact-cabinet" class="artifact-cabinet"></div><div id="artifact-pages" class="record-pagination"></div>
     </section>
     <section id="view-book" hidden aria-labelledby="book-title">
       <div class="eyebrow">NOTABLE AMONG THE RECORDED</div><h1 id="book-title">Book of Records</h1>

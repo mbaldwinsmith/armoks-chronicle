@@ -6,6 +6,8 @@ Status: atlas and isometric relief preview implemented; broader features in prog
 
 ## Current iteration
 
+The Artifact Cabinet: a dedicated searchable/filterable relic gallery and characterful dossiers now distinguish snapshot holders/places, historical possession, recorded claims and unknown ownership. Slabs show explicit secret-source learning evidence separately from description mentions, teacher ambiguity and unknown status. Safe quoted inscriptions, linked writing, source/return context, native relic glyphs and deterministic editorial asides enrich the reading experience. Recovery/destruction and naming-only records retain their meaning; existing archives need no reimport. See docs/artifact-cabinet.md.
+
 Settlement Chronicles: source-linked site histories now combine founding/reclamation, attacks/destruction, diplomacy, local-government changes and structure construction/rebuilding. Export-time owners/civilisations remain separate from dated governments. Category/year controls, paging, source returns and flat/relief map returns retain reader context. Most Contested Settlements compares conservative dated government-change groups, excluding attacks, tribute, surrender, undated/missing/conflicting government claims and unchanged owners. Related sources are grouped with timing limits disclosed. All 231 Node tests and the deployed 0.26.0 browser integration suite pass, including source/map return flows and archive isolation. See docs/settlement-chronicles.md.
 
 Offices and Succession: figure/organisation panels now distinguish dated appointment/removal terms from export-time holder assignments and office-creation context. Source-linked appointer/promise roles, organisation-scoped office definitions, neighbouring recorded holders, uncertain handovers and overlapping/open terms remain explicit. Longest and Shortest Completed Office Terms rank eligible calendar-year spans separately, with ties, both endpoints and exclusions. Existing archives require no reimport. All 209 Node tests and the deployed 0.25.1 browser integration suite pass; live checks verify organisation/figure panels, assignment snapshots, tied rankings, reload and source inspection. See docs/offices-and-succession.md.
@@ -395,6 +397,11 @@ This setting is part of v1 implementation but opt-in for users; the flat atlas r
 - [x] Add a dedicated evidence-qualified artifact creator/ownership timeline panel for creation, possession, storage, loss, finding, claims and gifts; keep undated holder/site snapshots separate.
 - [x] Link creation, theft, gift, claim, storage, loss, finding, possession, and copying events.
 - [x] Distinguish claimed ownership, physical possession, and last recorded location.
+- [x] Add an Artifact Cabinet gallery with name/material/ID search, type, secret-evidence and holder/place/claim filters, stable paging and reloadable routes.
+- [x] Add flavourful artifact dossiers with safe exported inscriptions, distinct holder/place/claimant cards, explicit ownership uncertainty and dated source links.
+- [x] Distinguish slabs with recorded secret-source learning from description-only/teacher-ambiguous evidence and unknown secret status.
+- [x] Preserve conflicting snapshot sources, missing writing/claimant records, naming-only creation and destruction evidence without inferred survival.
+- [x] Recognise nested writing_written_content_id alongside existing writing aliases, deduplicating works and physical-copy counts.
 - [x] Connect physical books/scrolls to their written contents.
 - [x] Build written-work pages with title, author, form, style, page metadata, and references.
 - [x] Do not imply full book text exists when only metadata is exported.

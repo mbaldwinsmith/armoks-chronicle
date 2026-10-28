@@ -15,7 +15,7 @@ The definitions displayed above each table are authoritative and are maintained 
 | Most Eventful Settlements | Distinct events explicitly referencing a recognised site-ID field | Repeated references within an event count once per site. Includes routine events and source/destination references; does not measure attack count or population. |
 | Most Recorded Knowledge Discoveries | Distinct knowledge-discovered events naming a figure | Repeated topics remain separate event records. Secrets, learned knowledge and written works are separate concepts. |
 | Most Chronicled Artifacts | Distinct events explicitly referencing recognised artifact-ID fields | Does not establish value, age, ownership changes or possession. |
-| Works With the Most Recorded Copies | Distinct artifact records linking written content through writing or item.page_written_content_id | Multiple page references in one artifact count once. Neither copying-event count nor a survival claim. |
+| Works With the Most Recorded Copies | Distinct artifact records linking written content through writing, item.page_written_content_id or item.writing_written_content_id | Multiple page references in one artifact count once. Neither copying-event count nor a survival claim. |
 
 All categories use merged records, with standard fields authoritative and supplementary fields filling gaps. Conflicting raw Plus fields are inspectable on record pages, but are not counted as additional evidence. Supported aliases use the stated precedence. Recognised site and artifact fields are shared with the linked-record adapter. Unknown event types are retained elsewhere but do not silently become knowledge or death events.
 

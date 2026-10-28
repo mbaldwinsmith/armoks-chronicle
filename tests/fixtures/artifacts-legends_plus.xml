@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<df_world><name>The Fictional Cabinet of Loose Claims</name><artifacts>
+<artifact><id>51</id><item_type>slab</item_type><mat>INORGANIC:GRANITE</mat><item_description>A granite slab, its surface crowded with careful lettering.[B]The export records an inscription; a later learning event names this slab.</item_description></artifact>
+<artifact><id>52</id><item_type>slab</item_type><mat>INORGANIC:MARBLE</mat><item_description>In memory of a patient clerk. The lettering is neat and entirely unhelpful to immortality.</item_description></artifact>
+<artifact><id>53</id><item_type>slab</item_type><mat>INORGANIC:OBSIDIAN</mat><item_description>This slab contains the secrets of life and death.</item_description></artifact>
+<artifact><id>54</id><item_type>book</item_type><mat>INORGANIC:COPPER</mat><writing>30</writing><writing>999</writing><page_count>12</page_count><item_description>A copper-bound book. Several pages are devoted to the virtues of keeping receipts.</item_description></artifact>
+<artifact><id>55</id><item_type>weapon</item_type><item_subtype>battle axe</item_subtype><mat>INORGANIC:IRON</mat><item_description>An iron axe, named with unusual optimism.</item_description></artifact>
+<artifact><id>56</id><item_type>slab</item_type><mat>INORGANIC:GRANITE</mat><holder_hfid>2</holder_hfid><site_id>2</site_id></artifact>
+</artifacts><historical_events><historical_event><id>4</id><secret_text>[IS_NAME:the secrets of life and death]</secret_text></historical_event><historical_event><id>6</id><secret_text>a teaching whose source is uncertain</secret_text></historical_event></historical_events></df_world>

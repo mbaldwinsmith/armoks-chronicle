@@ -164,3 +164,7 @@ Historical figure and organisation pages now show **Offices and Succession**: da
 ## Settlement Chronicles
 
 Site pages now offer a **Settlement Chronicle** with founding, reclamation, attacks, destruction, government/diplomacy and structure construction/rebuilding records. Category/year filters and source/map return links preserve your reading context. **Most Contested Settlements** ranks conservatively grouped dated changes of local government, with supporting events and clear exclusions. Export-time owners remain separate; an attack does not automatically change ownership. Existing archives need no reimport. See [sources, counting rules and limits](docs/settlement-chronicles.md).
+
+## The Artifact Cabinet
+
+Choose **Artifact Explorer** on the Desk for a gallery of relics, slabs and written objects. Filter by type, secret evidence, named holders/places or recorded claims. Each dossier asks **Who Owns It?**, **Who Has It?**, **Where Is It?** and **Who Claims It?**, keeping those relationships distinct. Slab inscriptions and secret-learning sources are prominent; description hints and unknowns remain qualified. Native relic marks and dry editorial asides add some dwarven character without inventing history. Existing archives need no reimport. See [evidence rules and bounds](docs/artifact-cabinet.md).

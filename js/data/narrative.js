@@ -1,4 +1,4 @@
-import {titleCase,readableValue,eventLabel} from './language.js?v=0.26.0';
+import {titleCase,readableValue,eventLabel} from './language.js?v=0.27.0';
 // Deterministic export renderings, not inferred motives or generated fiction.
 export const words=value=>String(value??'').replaceAll('_',' ');
 const aliases={'hist figure died':'hf died','hist figure wounded':'hf wounded','created building':'created structure','change creature type':'changed creature type','hist figure new pet':'hf new pet','war peace accepted':'peace accepted','war peace rejected':'peace rejected'};
@@ -38,7 +38,9 @@ export const formatters={
  'hf destroyed site':d=>[hf(d,'attacker_hfid'),' destroyed ',site(d)],
  'attacked site':d=>[entity(d,'attacker_civ_id'),' attacked ',site(d),'; the recorded defender was ',entity(d,'defender_civ_id')],
  'field battle':d=>[entity(d,'attacker_civ_id'),' fought ',entity(d,'defender_civ_id'),' in a field battle'],
- 'artifact created':d=>[hf(d,'hist_figure_id','creator_hfid'),' created ',artifact(d),...where(d)],
+ 'artifact created':d=>Object.hasOwn(d,'name_only')?[artifact(d),' received its name from ',hf(d,'hist_figure_id','creator_hfid','hfid'),...where(d)]:[hf(d,'hist_figure_id','creator_hfid','hfid'),' created ',artifact(d),...where(d)],
+ 'artifact recovered':d=>[hf(d,'hist_figure_id'),' recovered ',artifact(d),...where(d)],
+ 'artifact destroyed':d=>[artifact(d),' was destroyed',...where(d)],
  'artifact possessed':d=>[hf(d,'hist_figure_id'),' took possession of ',artifact(d),...where(d)],
  'artifact claim formed':d=>['A claim was recorded for ',artifact(d),'; claim type: ',text(d,'claim'),...(scalar(d,'hist_figure_id')?['; figure: ',hf(d,'hist_figure_id')]:[]),...(scalar(d,'entity_id')?['; organisation: ',entity(d,'entity_id')]:[])],
  'artifact copied':d=>[artifact(d),' was copied from ',ref(d,'sites',['source_site_id'],'an unidentified site'),' to ',ref(d,'sites',['dest_site_id'],'an unidentified site')],

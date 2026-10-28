@@ -1,6 +1,6 @@
-import {eventType} from './narrative.js?v=0.26.0';
-import {recordKey} from './exploration.js?v=0.26.0';
-import {titleCase,clippedLabel} from './language.js?v=0.26.0';
+import {eventType} from './narrative.js?v=0.27.0';
+import {recordKey} from './exploration.js?v=0.27.0';
+import {titleCase,clippedLabel} from './language.js?v=0.27.0';
 export const officeLimits={records:500000,facts:100000,nested:512,definitions:50000,assignments:50000,page:12};
 const array=v=>v===undefined?[]:Array.isArray(v)?v:[v];
 const id=v=>typeof v==='string'&&/^\d{1,128}$/.test(v)?v:null;

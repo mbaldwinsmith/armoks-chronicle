@@ -185,3 +185,20 @@
 .settlement-card {padding:1rem 1.2rem;border-left:3px solid #be9660;background:rgba(128,128,128,.06);overflow-wrap:anywhere;}
 .settlement-card h3 {margin:.4rem 0;}.settlement-counting {font-size:.9rem;color:var(--muted,#c2baaa);}
 .settlement-panel .button {margin:.3rem .5rem .7rem 0;}
+
+/* A cabinet of relics: native vector marks and restrained copper, with no image downloads. */
+.artifact-cabinet {display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,19rem),1fr));gap:1.2rem;margin-block:1.5rem;}
+.artifact-card {position:relative;padding:1.25rem;border:1px solid #71634b;border-radius:.7rem;background:linear-gradient(145deg,rgba(190,150,96,.12),rgba(128,128,128,.03));overflow-wrap:anywhere;}
+.artifact-card h2 {font-size:1.3rem;}.artifact-card .artifact-glyph {float:right;width:4.2rem;height:4.2rem;margin:0 0 .5rem .5rem;}
+.artifact-glyph {width:5rem;height:5rem;fill:rgba(190,150,96,.12);stroke:#be9660;stroke-width:3;stroke-linejoin:round;stroke-linecap:round;}
+.artifact-aside {font-family:Georgia,serif;font-style:italic;color:var(--muted,#c2baaa);}
+.artifact-badge {display:inline-block;border:1px solid #82745f;border-radius:1rem;padding:.25rem .65rem;font-size:.8rem;margin:.25rem 0;}
+.artifact-badge.present {border-color:#b69b65;background:rgba(190,150,96,.18);}.artifact-badge.possible {border-style:dashed;}
+.artifact-card-fact {font-size:.9rem;}.artifact-dossier {margin-block:1.5rem;}
+.artifact-hero {padding:1.5rem;border-top:2px solid #be9660;background:linear-gradient(105deg,rgba(190,150,96,.11),transparent);}
+.artifact-hero>.artifact-glyph {float:right;width:7rem;height:7rem;margin-left:1rem;}.artifact-hero h2 {font-size:clamp(1.6rem,3vw,2.3rem);margin:.3rem 0;}
+.artifact-custody {display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,17rem),1fr));gap:1rem;margin-block:1rem;}
+.artifact-custody small {display:block;}.artifact-inscription {border:1px solid #71634b;border-radius:.6rem;padding:1.5rem;margin-block:1.5rem;}
+.artifact-inscription blockquote {font-family:Georgia,serif;line-height:1.75;border-left:3px solid #be9660;margin:1rem 0;padding:.4rem 1.2rem;background:rgba(128,128,128,.06);white-space:pre-wrap;overflow-wrap:anywhere;}
+.artifact-evidence {border-left:2px solid #82745f;padding:.7rem 1rem;margin-block:.7rem;background:rgba(128,128,128,.05);overflow-wrap:anywhere;}.artifact-evidence p {margin:.4rem 0;}
+.artifact-claims {margin-block:2rem;}

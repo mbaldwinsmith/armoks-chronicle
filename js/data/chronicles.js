@@ -1,4 +1,4 @@
-import {recordKey,recordURL} from './exploration.js?v=0.26.0';
+import {recordKey,recordURL} from './exploration.js?v=0.27.0';
 export const chronicleLimits={entries:100,perWorld:100,backup:5*1024*1024};
 const text=(v,n)=>typeof v==='string'&&v.length<=n;
 const worldId=v=>text(v,150)&&v.trim()!=='';
