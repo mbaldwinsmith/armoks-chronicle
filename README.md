@@ -172,3 +172,7 @@ Choose **Artifact Explorer** on the Desk for a gallery of relics, slabs and writ
 ### The Bestiary
 
 Open **Bestiary** from the Chronicler’s Desk to browse creature definitions and linked historical figures. Search species or individuals, inspect recorded attacks, victims, transformations, secret-learning and deaths, and follow each source. Unclassified/all-creature scopes support archives with missing definitions; species traits never become invented individual deeds. See [Bestiary evidence and limits](docs/bestiary.md).
+
+### Deities and Religions
+
+Open **Deities and Religions** from the Chronicler’s Desk to browse recorded gods, religious organisations, forces and unclassified worship targets. Search spheres, follow named worshippers and separate membership links, explore direct versus group-associated temples, and inspect religious history. Relevant figure, organisation and settlement pages include a Faith and Worship panel. See [evidence rules and limits](docs/deities-and-religions.md).

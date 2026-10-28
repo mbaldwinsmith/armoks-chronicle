@@ -6,6 +6,10 @@ Status: atlas and isometric relief preview implemented; broader features in prog
 
 ## Current iteration
 
+Deities and Religions: the sacred annals now separate explicit deity markers, religious organisations, forces, other worshipping entities and unclassified worship targets. Spheres, named worship/membership links, direct versus group-associated temples, local structure identity, source disagreement and dated religious events have bounded worker dossiers and figure/entity/site panels. Source inspector links retain gallery return filters; membership and temple visits never imply personal worship. See `docs/deities-and-religions.md`.
+
+Bestiary: searchable individual and definition galleries, source-linked directed deeds, exact/unique-alias species matching and explicit unclassified fallback are implemented and verified in 0.28.1 (272 Node tests and the live browser suite). See `docs/bestiary.md`.
+
 The Artifact Cabinet: a dedicated searchable/filterable relic gallery and characterful dossiers now distinguish snapshot holders/places, historical possession, recorded claims and unknown ownership. Slabs show explicit secret-source learning evidence separately from description mentions, teacher ambiguity and unknown status. Safe quoted inscriptions, linked writing, source/return context, native relic glyphs and deterministic editorial asides enrich the reading experience. Recovery/destruction and naming-only records retain their meaning; existing archives need no reimport. All 255 Node tests and the deployed 0.27.1 browser suite pass, including safe inscriptions, Cabinet/source navigation and world isolation. See docs/artifact-cabinet.md.
 
 Settlement Chronicles: source-linked site histories now combine founding/reclamation, attacks/destruction, diplomacy, local-government changes and structure construction/rebuilding. Export-time owners/civilisations remain separate from dated governments. Category/year controls, paging, source returns and flat/relief map returns retain reader context. Most Contested Settlements compares conservative dated government-change groups, excluding attacks, tribute, surrender, undated/missing/conflicting government claims and unchanged owners. Related sources are grouped with timing limits disclosed. All 231 Node tests and the deployed 0.26.0 browser integration suite pass, including source/map return flows and archive isolation. See docs/settlement-chronicles.md.
@@ -274,7 +278,8 @@ Implemented slice: all-family name/ID search, category filter, name/year sorting
 - [x] Provide raw/source details behind an expandable inspector.
 - [x] Display unknown birth/death dates and explicitly avoid inferring survival from a missing death record.
 - [x] Add evidence-based supernatural/deity biography panels and overlapping classifications, keeping force markers and worship associations distinct.
-- [ ] Extend specialist deity/religion context and verified supernatural mappings beyond the conservative initial rules.
+- [x] Add specialist deity/religion context with source-qualified worship, membership and temple panels.
+- [ ] Extend verified supernatural mappings beyond the conservative initial rules.
 
 ## 10 — Settlements, organisations, and geography records
 
@@ -418,8 +423,8 @@ This setting is part of v1 implementation but opt-in for users; the flat atlas r
 - [x] Show recorded dates, locations, factions, participant roles, outcomes and separate identified-victim/squad measures in conflict pages; unknown data remains explicit.
 - [x] Deduplicate nested events and identified victims; omit parent squad rollups when more-specific reports exist, withhold overlapping/incomplete aggregates, and never add named deaths to squad totals.
 - [x] Link abductions, theft collections, persecutions, and site conquests.
-- [ ] Build deity pages with spheres, associated organisations, worshippers, and relevant structures.
-- [ ] Separate deities from religious organisations and unexplained supernatural forces.
+- [x] Build deity pages with spheres, associated organisations, worshippers, and relevant structures. Sacred-annals dossiers and figure panels distinguish source snapshots, direct/group-associated temples and dated events; see `docs/deities-and-religions.md`.
+- [x] Separate deities from religious organisations and unexplained supernatural forces. Explicit marker/type rules, separate military/other worshipping entities and unclassified targets avoid ontology inference from names, spheres or affiliation.
 - [x] Build a bestiary using creature definitions and linked historical figures. See `docs/bestiary.md`: searchable individual/definition views, exact or unique-alias species matching, unclassified fallback, source-linked dossiers and bounded worker indexing.
 - [x] Show known attacks, victims, transformations, secrets, and deaths without treating species traits as individual deeds. Bestiary dossiers retain directed roles, unnamed prey, source disagreement and unknown survival; full figure records link existing whereabouts and supernatural evidence.
 - [ ] Build intrigue views for plots, participants, relationships, assumed identities, and recorded outcomes.
@@ -612,7 +617,9 @@ Tests may run locally using optional developer tooling. They must not compile pr
 - [ ] The visitor follows a figure → event → settlement → faction → artifact through working links.
 - [ ] The visitor uses timeline and map controls to inspect dated history without confusing snapshot data with reconstructed data.
 - [x] Family, conflict, culture, discovery and ledger views link their supporting source records.
-- [ ] Complete and verify intrigue, religion and bestiary specialist views.
+- [x] Complete and verify the initial bestiary specialist views within documented compatibility limits.
+- [x] Complete and verify the initial deity/religion specialist views within documented compatibility limits.
+- [ ] Complete and verify intrigue specialist views.
 - [x] Discovery cards, relationship paths, and grudges provide interesting, accurately labelled connections.
 - [x] The visitor browses the Book of Records and follows a ranked entry to evidence explaining its metric and limitations.
 - [x] Verify the complete live supernatural filter → biography → evidence → linked participant journey, retaining filter context and role-specific classifications.

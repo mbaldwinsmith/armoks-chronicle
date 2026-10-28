@@ -1,10 +1,10 @@
-import {explore} from '../data/explorer-client.js?v=0.28.1';
-import {openDatabase,getWorld,getRecord} from '../data/database.js?v=0.28.1';
-import {recordURL} from '../data/exploration.js?v=0.28.1';
-import {readableValue,titleCase} from '../data/language.js?v=0.28.1';
-import {collectionKind,warfareTypes} from '../data/warfare.js?v=0.28.1';
-import {renderTimeline} from './timeline.js?v=0.28.1';
-import {narratives} from './narrative.js?v=0.28.1';
+import {explore} from '../data/explorer-client.js?v=0.29.0';
+import {openDatabase,getWorld,getRecord} from '../data/database.js?v=0.29.0';
+import {recordURL} from '../data/exploration.js?v=0.29.0';
+import {readableValue,titleCase} from '../data/language.js?v=0.29.0';
+import {collectionKind,warfareTypes} from '../data/warfare.js?v=0.29.0';
+import {renderTimeline} from './timeline.js?v=0.29.0';
+import {narratives} from './narrative.js?v=0.29.0';
 const el=(tag,text,cls)=>{const n=document.createElement(tag);if(text!==undefined)n.textContent=text;if(cls)n.className=cls;return n;};
 const link=(text,href,cls)=>{const a=el('a',text,cls);a.href=href;return a;};
 const date=input=>{const row={start:input.start??null,end:input.end??null};return row.start===null&&row.end===null?'Dates Not Recorded':row.start!==null&&row.end!==null?(row.end<row.start?'Inconsistent Source Dates':row.start===row.end?`Year ${row.start}`:`Years ${row.start}–${row.end}`):row.start!==null?`From Year ${row.start} · End Not Recorded`:`Ends in Year ${row.end} · Start Not Recorded`;};

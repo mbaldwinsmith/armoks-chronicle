@@ -31,3 +31,5 @@ The independently authored `supernatural-legends.xml` / `supernatural-legends_pl
 For a normal Cabinet import with terrain, reuse `example-world_map.csv` as `artifacts-world_map.csv` alongside the two authored artifact XML files.
 
 `bestiary-legends.xml` and `bestiary-legends_plus.xml` are independently authored fictional fixtures for exported creature definitions, zero-figure species, exact/unique-alias matching, ordinary citizens with misleading names, unclassified figures, directed attacks/devouring, unnamed prey, changer/changee separation, secret learning and deceased/slayer separation. They contain no supplied-world data.
+
+`religion-legends.xml` and `religion-legends_plus.xml` are independently authored fictional sacred-annals fixtures. They include two marked deities, a force, a disputed marker, misleading names/spheres, a missing worship target, religious organisations and a military order, separate named membership/worship links, direct and group-associated temples, conflicting patrons, repeated local structure IDs across settlements, and historical worship/prayer/profanation context. They contain no supplied-world content.

@@ -1,4 +1,4 @@
-import {titleCase,readableValue,eventLabel} from './language.js?v=0.28.1';
+import {titleCase,readableValue,eventLabel} from './language.js?v=0.29.0';
 // Deterministic export renderings, not inferred motives or generated fiction.
 export const words=value=>String(value??'').replaceAll('_',' ');
 const aliases={'hist figure died':'hf died','hist figure wounded':'hf wounded','created building':'created structure','change creature type':'changed creature type','hist figure new pet':'hf new pet','war peace accepted':'peace accepted','war peace rejected':'peace rejected'};
@@ -24,6 +24,8 @@ function deathStory(d){const victim=hf(d,'hfid','victim_hf'),killer=scalar(d,'sl
 const idPrey=d=>/^\d+$/.test(d.victim||'');
 export const formatters={
  'creature devoured':d=>[hf(d,'eater'),' devoured ',...(idPrey(d)?[hf(d,'victim')]:['an unnamed ',words(scalar(d,'race')||'creature').toLowerCase()]),...where(d)],
+ 'hf prayed inside structure':d=>[hf(d,'hist_fig_id','histfig'),' prayed inside a recorded structure',...where(d)],
+ 'hf profaned structure':d=>[hf(d,'hist_fig_id','histfig'),' profaned a recorded structure',...where(d)],
  'hf died':deathStory,
  'hf simple battle event':d=>[hf(d,'group_1_hfid'),' clashed with ',hf(d,'group_2_hfid'),...where(d)],
  'hf wounded':d=>[hf(d,'wounder_hfid','wounder'),' wounded ',hf(d,'woundee_hfid','woundee'),...where(d)],
@@ -32,8 +34,8 @@ export const formatters={
  'change hf state':stateStory,
  'add hf entity link':d=>affiliationStory(d),
  'remove hf entity link':d=>affiliationStory(d,true),
- 'add hf hf link':d=>text(d,'link_type','link')==='spouse'?[subject(d),' married ',hf(d,'hfid_target','hf_target')]:[subject(d),' formed a ',text(d,'link_type','link'),' relationship with ',hf(d,'hfid_target','hf_target')],
- 'remove hf hf link':d=>text(d,'link_type','link')==='spouse'?[subject(d),' was no longer recorded as married to ',hf(d,'hfid_target','hf_target')]:[subject(d),' ended a ',text(d,'link_type','link'),' relationship with ',hf(d,'hfid_target','hf_target')],
+ 'add hf hf link':d=>words(scalar(d,'link_type','link')).toLowerCase()==='deity'?[subject(d),' began worshipping ',hf(d,'hfid_target','hf_target')]:text(d,'link_type','link')==='spouse'?[subject(d),' married ',hf(d,'hfid_target','hf_target')]:[subject(d),' formed a ',text(d,'link_type','link'),' relationship with ',hf(d,'hfid_target','hf_target')],
+ 'remove hf hf link':d=>words(scalar(d,'link_type','link')).toLowerCase()==='deity'?[subject(d),' was no longer recorded as worshipping ',hf(d,'hfid_target','hf_target')]:text(d,'link_type','link')==='spouse'?[subject(d),' was no longer recorded as married to ',hf(d,'hfid_target','hf_target')]:[subject(d),' ended a ',text(d,'link_type','link'),' relationship with ',hf(d,'hfid_target','hf_target')],
  'created site':d=>scalar(d,'builder_hfid')?[hf(d,'builder_hfid'),' constructed ',site(d),...(scalar(d,'resident_civ_id')?[' for ',entity(d,'resident_civ_id')]:[])]:[entity(d,'site_civ_id','civ_id','civ'),' founded ',site(d)],
  'reclaim site':d=>[entity(d,'civ_id','civ'),' reclaimed ',site(d)],
  'hf attacked site':d=>[hf(d,'attacker_hfid'),' attacked ',site(d)],

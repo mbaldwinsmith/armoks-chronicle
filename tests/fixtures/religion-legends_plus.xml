@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<df_world><historical_figures><historical_figure><id>4</id><deity>false</deity></historical_figure></historical_figures><entities>
+<entity><id>10</id><type>religion</type><worship_id>1</worship_id><worship_id>1</worship_id></entity>
+<entity><id>11</id><type>religion</type><worship_id>2</worship_id></entity>
+<entity><id>12</id><type>militaryunit</type><worship_id>1</worship_id></entity>
+</entities><sites><site><id>20</id><structures>
+<structure><id>0</id><type>temple</type><name>the quiet hearth</name><deity>1</deity><inhabitant>7</inhabitant></structure>
+<structure><id>1</id><type>temple</type><name>the brass assembly</name><religion>10</religion></structure>
+<structure><id>2</id><type>temple</type><name>the disputed shrine</name><deity>1</deity><religion>11</religion></structure>
+<structure><id>3</id><type>temple</type><name>the open door</name></structure>
+</structures></site><site><id>21</id><structures><structure><id>0</id><type>temple</type><name>the hall of patient rain</name><deity>2</deity></structure></structures></site></sites></df_world>

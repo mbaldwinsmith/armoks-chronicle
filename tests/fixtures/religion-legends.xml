@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<df_world><name>The Fictional Annals of Copper and Rain</name><historical_figures>
+<historical_figure><id>1</id><name>eshra the patient flame</name><deity/><sphere>METALS</sphere><sphere>CRAFTS</sphere></historical_figure>
+<historical_figure><id>2</id><name>velin of the returning rain</name><deity/><sphere>RAIN</sphere><sphere>AGRICULTURE</sphere></historical_figure>
+<historical_figure><id>3</id><name>the silence beneath</name><force/><sphere>SILENCE</sphere></historical_figure>
+<historical_figure><id>4</id><name>the disputed name</name><deity/><sphere>STARS</sphere></historical_figure>
+<historical_figure><id>5</id><name>the supposed god of taverns</name><sphere>REVELRY</sphere></historical_figure>
+<historical_figure><id>6</id><name>urist lanternkeeper</name><hf_link><hfid>1</hfid><link_type>deity</link_type><link_strength>0</link_strength></hf_link><hf_link><hfid>2</hfid><link_type>deity</link_type><link_strength>80</link_strength></hf_link><entity_link><entity_id>10</entity_id><link_type>member</link_type></entity_link></historical_figure>
+<historical_figure><id>7</id><name>domas rivetkeeper</name><entity_link><entity_id>10</entity_id><link_type>member</link_type></entity_link></historical_figure>
+<historical_figure><id>8</id><name>mistem farlistener</name><hf_link><hfid>999</hfid><link_type>deity</link_type></hf_link></historical_figure>
+</historical_figures><entities>
+<entity><id>10</id><name>the copper vigil</name></entity><entity><id>11</id><name>the returning seed</name></entity><entity><id>12</id><name>the bronze watch</name></entity>
+</entities><sites><site><id>20</id><name>brassgate</name><coords>1,2</coords></site><site><id>21</id><name>rainward</name><coords>3,4</coords></site></sites><historical_events>
+<historical_event><id>1</id><type>add hf hf link</type><year>10</year><hfid>6</hfid><hfid_target>1</hfid_target><link_type>deity</link_type></historical_event>
+<historical_event><id>2</id><type>remove hf hf link</type><year>14</year><hfid>6</hfid><hfid_target>1</hfid_target><link_type>deity</link_type></historical_event>
+<historical_event><id>3</id><type>hf prayed inside structure</type><year>12</year><histfig>7</histfig><site>20</site><structure>0</structure><action>prayedinside</action></historical_event>
+<historical_event><id>4</id><type>hf profaned structure</type><year>13</year><hist_fig_id>8</hist_fig_id><site_id>21</site_id><structure_id>0</structure_id></historical_event>
+<historical_event><id>5</id><type>entity created</type><year>5</year><entity_id>10</entity_id></historical_event>
+<historical_event><id>6</id><type>add hf entity link</type><year>7</year><hfid>7</hfid><civ_id>10</civ_id><link>member</link></historical_event>
+<historical_event><id>7</id><type>add hf hf link</type><year>-1</year><hfid>8</hfid><hfid_target>4</hfid_target><link_type>deity</link_type></historical_event>
+</historical_events></df_world>

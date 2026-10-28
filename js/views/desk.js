@@ -1,10 +1,10 @@
-import {explore} from '../data/explorer-client.js?v=0.28.1';
-import {openDatabase,getWorld,getRecord} from '../data/database.js?v=0.28.1';
-import {recordURL,kindNames} from '../data/exploration.js?v=0.28.1';
-import {titleCase} from '../data/language.js?v=0.28.1';
-import {cultureLabel} from '../data/culture.js?v=0.28.1';
-import {randomCategories,randomCategory,clippedLabel} from '../data/desk.js?v=0.28.1';
-import {readTrail,clearTrail,trailKey} from '../data/trail.js?v=0.28.1';
+import {explore} from '../data/explorer-client.js?v=0.29.0';
+import {openDatabase,getWorld,getRecord} from '../data/database.js?v=0.29.0';
+import {recordURL,kindNames} from '../data/exploration.js?v=0.29.0';
+import {titleCase} from '../data/language.js?v=0.29.0';
+import {cultureLabel} from '../data/culture.js?v=0.29.0';
+import {randomCategories,randomCategory,clippedLabel} from '../data/desk.js?v=0.29.0';
+import {readTrail,clearTrail,trailKey} from '../data/trail.js?v=0.29.0';
 const el=(tag,text,cls)=>{const n=document.createElement(tag);if(text!==undefined)n.textContent=text;if(cls)n.className=cls;return n;};
 const link=(label,href,cls)=>{const a=el('a',label,cls);a.href=href;return a;};
 let generation=0,cleanup=()=>{};
@@ -25,7 +25,7 @@ export async function renderDesk(worldId,params){const ticket=++generation,contr
  clear.onclick=()=>{if(clearTrail(worldId))void refreshTrail();else trailStatus.textContent='Could not clear this trail. Browser storage may be unavailable.';};
  let db;try{db=await openDatabase();const world=await getWorld(db,worldId);if(!current())return;if(world?.status!=='ready')throw Error('This archive is not available in this browser. Choose a saved world from the bookshelf.');
   worldLabel.textContent=clippedLabel(titleCase(world.name));document.title=`${clippedLabel(titleCase(world.name))} · Chronicler’s Desk · Armok’s Chronicle`;
-  for(const [label,path] of [['Browse All Records',''],['World Atlas','/atlas'],['Book of Records','/records'],['Wars & Battles','/wars'],['Grudge Ledger','/grudges'],['Artifact Explorer','/artifacts'],['Bestiary','/bestiary']])shortcuts.append(link(label,`#/world/${encodeURIComponent(worldId)}${path}`,'button quiet'));
+  for(const [label,path] of [['Browse All Records',''],['World Atlas','/atlas'],['Book of Records','/records'],['Wars & Battles','/wars'],['Grudge Ledger','/grudges'],['Artifact Explorer','/artifacts'],['Bestiary','/bestiary'],['Deities and Religions','/religion']])shortcuts.append(link(label,`#/world/${encodeURIComponent(worldId)}${path}`,'button quiet'));
   for(const [kind,label] of [['historical_figures','Historical Figures'],['sites','Recorded Sites'],['entities','Organisations'],['historical_events','Recorded Events'],['artifacts','Artifacts'],['written_contents','Written Works']]){const count=world.counts?.[kind]||0,a=link('',kind==='artifacts'?`#/world/${encodeURIComponent(worldId)}/artifacts`:`#/world/${encodeURIComponent(worldId)}?kind=${kind}`,'desk-total');a.append(el('strong',count.toLocaleString()),el('span',label));totals.append(a);}
   shortcuts.append(link('Supernatural Figures',`#/world/${encodeURIComponent(worldId)}?kind=historical_figures&superOnly=1&superUncertain=1`,'button quiet'));
   shortcuts.append(link('Personal Chronicles',`#/chronicles?world=${encodeURIComponent(worldId)}`,'button quiet'));

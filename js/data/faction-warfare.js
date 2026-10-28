@@ -1,6 +1,6 @@
-import {collectionKind,warfareTypes,validId,pageOffset} from './warfare.js?v=0.28.1';
-import {recordKey} from './exploration.js?v=0.28.1';
-import {readableValue} from './language.js?v=0.28.1';
+import {collectionKind,warfareTypes,validId,pageOffset} from './warfare.js?v=0.29.0';
+import {recordKey} from './exploration.js?v=0.29.0';
+import {readableValue} from './language.js?v=0.29.0';
 export const factionLimits={collections:20000,memberships:250000,eventScan:250000,roleReferences:250000,claims:100000,pairsPerSource:128,nodes:25,edges:60,page:10,evidence:24,cache:4};
 const numeric=(a,b)=>a.localeCompare(b,'en',{numeric:true})||a.localeCompare(b,'en');
 export const factionPair=(a,b)=>[String(a),String(b)].sort(numeric).join(',');
