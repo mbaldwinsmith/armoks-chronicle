@@ -1,4 +1,4 @@
-import {titleCase} from './language.js?v=0.27.0';
+import {titleCase} from './language.js?v=0.27.1';
 export function mergeData(base, extra) {
   if (base === undefined) return extra;
   if (base && extra && typeof base === 'object' && typeof extra === 'object' && !Array.isArray(base) && !Array.isArray(extra)) {

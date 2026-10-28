@@ -1,25 +1,25 @@
-import {artifactPanel} from './artifacts.js?v=0.27.0';
-import {settlementPanel} from './settlements.js?v=0.27.0';
-import {settlementReferences} from '../data/settlements.js?v=0.27.0';
-import {officesPanel} from './offices.js?v=0.27.0';
-import {journeyPanel} from './journeys.js?v=0.27.0';
-import {supernaturalPanel,supernaturalControls,supernaturalBadges} from './supernatural.js?v=0.27.0';
-import {supernaturalFilters,hasSupernaturalFilters} from '../data/supernatural.js?v=0.27.0';
-import {chronicleCollector} from './chronicles.js?v=0.27.0';
-import {threadPanel} from './threads.js?v=0.27.0';
-import {recordVisit} from '../data/trail.js?v=0.27.0';
-import {timelineParams,timelineKeys} from '../data/timeline.js?v=0.27.0';
-import {timelineFilters,renderTimeline,timelineCount} from './timeline.js?v=0.27.0';
-import {titleCase,eventLabel,readableValue,referenceLabel} from '../data/language.js?v=0.27.0';
-import {researchEditor} from './research.js?v=0.27.0';
-import {culturePanel,associations} from './culture.js?v=0.27.0';
-import {cultureReferences,culturalKinds,cultureLabel} from '../data/culture.js?v=0.27.0';
-import {conflictRecord} from '../data/conflicts.js?v=0.27.0';
-import {sitePosition} from '../data/terrain.js?v=0.27.0';
-import {narratives,biography} from './narrative.js?v=0.27.0';
-import {openDatabase,getWorld,getRecord} from '../data/database.js?v=0.27.0';
-import {explore} from '../data/explorer-client.js?v=0.27.0';
-import {kindNames,recordURL,collectReferences,eventDate} from '../data/exploration.js?v=0.27.0';
+import {artifactPanel} from './artifacts.js?v=0.27.1';
+import {settlementPanel} from './settlements.js?v=0.27.1';
+import {settlementReferences} from '../data/settlements.js?v=0.27.1';
+import {officesPanel} from './offices.js?v=0.27.1';
+import {journeyPanel} from './journeys.js?v=0.27.1';
+import {supernaturalPanel,supernaturalControls,supernaturalBadges} from './supernatural.js?v=0.27.1';
+import {supernaturalFilters,hasSupernaturalFilters} from '../data/supernatural.js?v=0.27.1';
+import {chronicleCollector} from './chronicles.js?v=0.27.1';
+import {threadPanel} from './threads.js?v=0.27.1';
+import {recordVisit} from '../data/trail.js?v=0.27.1';
+import {timelineParams,timelineKeys} from '../data/timeline.js?v=0.27.1';
+import {timelineFilters,renderTimeline,timelineCount} from './timeline.js?v=0.27.1';
+import {titleCase,eventLabel,readableValue,referenceLabel} from '../data/language.js?v=0.27.1';
+import {researchEditor} from './research.js?v=0.27.1';
+import {culturePanel,associations} from './culture.js?v=0.27.1';
+import {cultureReferences,culturalKinds,cultureLabel} from '../data/culture.js?v=0.27.1';
+import {conflictRecord} from '../data/conflicts.js?v=0.27.1';
+import {sitePosition} from '../data/terrain.js?v=0.27.1';
+import {narratives,biography} from './narrative.js?v=0.27.1';
+import {openDatabase,getWorld,getRecord} from '../data/database.js?v=0.27.1';
+import {explore} from '../data/explorer-client.js?v=0.27.1';
+import {kindNames,recordURL,collectReferences,eventDate} from '../data/exploration.js?v=0.27.1';
 let generation=0,timer,disposeConnections,disposeRelationships,disposeConflict,disposeThreads,disposeSupernatural,disposeJourney,disposeOffices,disposeSettlement,disposeArtifact;
 export function cancelExploration(){generation++;disposeArtifact?.();disposeArtifact=null;disposeSettlement?.();disposeSettlement=null;disposeOffices?.();disposeOffices=null;disposeJourney?.();disposeJourney=null;disposeSupernatural?.();disposeSupernatural=null;disposeThreads?.();disposeThreads=null;clearTimeout(timer);disposeConnections?.();disposeConnections=null;disposeRelationships?.();disposeRelationships=null;disposeConflict?.();disposeConflict=null;}
 const element=(tag,text,className)=>{const el=document.createElement(tag);if(text!==undefined)el.textContent=text;if(className)el.className=className;return el;};
@@ -69,7 +69,7 @@ export async function renderRecord(worldId,kind,id,params) {
  const ticket=++generation,title=document.querySelector('#detail-title'),body=document.querySelector('#detail-body'),status=document.querySelector('#detail-status');
  title.textContent='Opening record…';body.replaceChildren();status.textContent='';
  document.querySelector('#detail-desk').href=`#/world/${encodeURIComponent(worldId)}/desk`;
- const suffix=params.size?'?'+params:'';const back=document.querySelector('#back-results');back.href=kind==='artifacts'&&params.get('artifactCabinet')==='1'?`#/world/${encodeURIComponent(worldId)}/artifacts${suffix}`:`#/world/${encodeURIComponent(worldId)}${suffix}`;
+ const suffix=params.size?'?'+params:'';const back=document.querySelector('#back-results');back.textContent=kind==='artifacts'&&params.get('artifactCabinet')==='1'?'← Back to the Artifact Cabinet':'← Back to Search Results';back.href=kind==='artifacts'&&params.get('artifactCabinet')==='1'?`#/world/${encodeURIComponent(worldId)}/artifacts${suffix}`:`#/world/${encodeURIComponent(worldId)}${suffix}`;
  try {
   const {world,record}=await withDB(async db=>({world:await getWorld(db,worldId),record:await getRecord(db,worldId,kind,id)}));
   if(ticket!==generation)return;
@@ -84,8 +84,8 @@ export async function renderRecord(worldId,kind,id,params) {
   if(kind==='historical_events'&&/^\d{1,128}$/.test(params.get('artifactOrigin')||'')){const q=new URLSearchParams(params.get('artifactQuery')||'');q.delete('source');q.delete('artifactOrigin');q.delete('artifactQuery');const back=element('a','← Return to This Artifact Dossier','button quiet');back.href=recordURL(worldId,'artifacts',params.get('artifactOrigin'),q.size?'?'+q:'');body.append(back);}
   if(kind==='historical_events'&&/^\d{1,128}$/.test(params.get('settlementOrigin')||'')){const back=element('a','← Return to This Settlement Chronicle','button quiet'),q=new URLSearchParams(params.get('settlementQuery')||'');q.delete('source');q.delete('settlementOrigin');q.delete('settlementQuery');back.href=recordURL(worldId,'sites',params.get('settlementOrigin'),q.size?'?'+q:'');body.append(back);}
   if(kind==='historical_event_collections'){
-   const {collectionType,warfareTypes}=await import('../data/warfare.js?v=0.27.0');if(ticket!==generation)return;
-   if(warfareTypes.has(collectionType(data))){const {warfarePanel}=await import('./warfare.js?v=0.27.0');if(ticket!==generation)return;const panel=warfarePanel(record,world,params,()=>ticket===generation);disposeConflict=panel.dispose;body.append(panel.element);specialisedConflict=true;}
+   const {collectionType,warfareTypes}=await import('../data/warfare.js?v=0.27.1');if(ticket!==generation)return;
+   if(warfareTypes.has(collectionType(data))){const {warfarePanel}=await import('./warfare.js?v=0.27.1');if(ticket!==generation)return;const panel=warfarePanel(record,world,params,()=>ticket===generation);disposeConflict=panel.dispose;body.append(panel.element);specialisedConflict=true;}
   }
   if(kind==='historical_events'&&/^\d+$/.test(params.get('conflictOrigin')||'')){const origin=new URLSearchParams(params);origin.delete('conflictOrigin');origin.set('warTab','chronicle');body.append(element('p','This event belongs to the conflict history you were reading.'));const backConflict=element('a','← Return to this conflict','button quiet');backConflict.href=recordURL(worldId,'historical_event_collections',params.get('conflictOrigin'),'?'+origin);body.append(backConflict);}
 
@@ -115,9 +115,9 @@ export async function renderRecord(worldId,kind,id,params) {
    body.insertBefore(biography(data,resolved,worldId,suffix),fieldDetails);
    const supernatural=supernaturalPanel(record,worldId,()=>ticket===generation,params);disposeSupernatural=supernatural.dispose;body.insertBefore(supernatural.element,fieldDetails);
    const find=element('button','Find a connection','quiet record-tool');find.type='button';body.insertBefore(find,fieldDetails);
-   find.onclick=async()=>{find.disabled=true;try{const {connectionFinder}=await import('./connections.js?v=0.27.0');if(ticket!==generation)return;const finder=connectionFinder({...record,label:cultureLabel(record)},worldId,()=>{const query=location.hash.split('?')[1]||'';return query?'?'+query:'';},()=>ticket===generation);disposeConnections=finder.dispose;find.replaceWith(finder.element);const heading=finder.element.querySelector('h2');heading.tabIndex=-1;heading.focus();}catch(error){if(ticket===generation){find.disabled=false;status.textContent=error.message;}}};
+   find.onclick=async()=>{find.disabled=true;try{const {connectionFinder}=await import('./connections.js?v=0.27.1');if(ticket!==generation)return;const finder=connectionFinder({...record,label:cultureLabel(record)},worldId,()=>{const query=location.hash.split('?')[1]||'';return query?'?'+query:'';},()=>ticket===generation);disposeConnections=finder.dispose;find.replaceWith(finder.element);const heading=finder.element.querySelector('h2');heading.tabIndex=-1;heading.focus();}catch(error){if(ticket===generation){find.disabled=false;status.textContent=error.message;}}};
    const launchers=element('div',undefined,'relationship-toolbar'),family=element('button','Open family tree','quiet record-tool'),launch=element('button','Explore family and relationships','quiet record-tool');family.type=launch.type='button';launchers.append(family,launch);body.insertBefore(launchers,fieldDetails);
-   const openRelationships=async layout=>{family.disabled=launch.disabled=true;try{const {relationshipPanel}=await import('./relationships.js?v=0.27.0');if(ticket!==generation)return;
+   const openRelationships=async layout=>{family.disabled=launch.disabled=true;try{const {relationshipPanel}=await import('./relationships.js?v=0.27.1');if(ticket!==generation)return;
     const onLayout=value=>{const query=new URLSearchParams(location.hash.split('?')[1]||'');query.set('relationships',value);history.replaceState(null,'',recordURL(worldId,kind,id,'?'+query));};
     const panel=relationshipPanel({...record,label:cultureLabel(record)},worldId,()=>{const query=location.hash.split('?')[1]||'';return query?'?'+query:'';},()=>ticket===generation,{layout,onLayout});disposeRelationships=panel.dispose;onLayout(layout);launchers.replaceWith(panel);panel.querySelector('h2').tabIndex=-1;panel.querySelector('h2').focus();
    }catch(error){if(ticket===generation){family.disabled=launch.disabled=false;status.textContent=error.message;}}};
