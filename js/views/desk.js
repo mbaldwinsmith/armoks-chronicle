@@ -1,10 +1,10 @@
-import {explore} from '../data/explorer-client.js?v=0.19.1';
-import {openDatabase,getWorld,getRecord} from '../data/database.js?v=0.19.1';
-import {recordURL,kindNames} from '../data/exploration.js?v=0.19.1';
-import {titleCase} from '../data/language.js?v=0.19.1';
-import {cultureLabel} from '../data/culture.js?v=0.19.1';
-import {randomCategories,randomCategory,clippedLabel} from '../data/desk.js?v=0.19.1';
-import {readTrail,clearTrail,trailKey} from '../data/trail.js?v=0.19.1';
+import {explore} from '../data/explorer-client.js?v=0.20.0';
+import {openDatabase,getWorld,getRecord} from '../data/database.js?v=0.20.0';
+import {recordURL,kindNames} from '../data/exploration.js?v=0.20.0';
+import {titleCase} from '../data/language.js?v=0.20.0';
+import {cultureLabel} from '../data/culture.js?v=0.20.0';
+import {randomCategories,randomCategory,clippedLabel} from '../data/desk.js?v=0.20.0';
+import {readTrail,clearTrail,trailKey} from '../data/trail.js?v=0.20.0';
 const el=(tag,text,cls)=>{const n=document.createElement(tag);if(text!==undefined)n.textContent=text;if(cls)n.className=cls;return n;};
 const link=(label,href,cls)=>{const a=el('a',label,cls);a.href=href;return a;};
 let generation=0,cleanup=()=>{};

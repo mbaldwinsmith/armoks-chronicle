@@ -1,7 +1,7 @@
-import {eventType} from './narrative.js?v=0.19.1';
-import {collectReferences,recordKey,eventDate,compareEvents,normalise} from './exploration.js?v=0.19.1';
-import {readableValue,titleCase,referenceLabel} from './language.js?v=0.19.1';
-import {sitePosition} from './terrain.js?v=0.19.1';
+import {eventType} from './narrative.js?v=0.20.0';
+import {collectReferences,recordKey,eventDate,compareEvents,normalise} from './exploration.js?v=0.20.0';
+import {readableValue,titleCase,referenceLabel} from './language.js?v=0.20.0';
+import {sitePosition} from './terrain.js?v=0.20.0';
 export const collectionKind='historical_event_collections';
 export const warfareTypes=new Set(['war','battle','duel','beast attack','site conquered','abduction','theft','raid','persecution','purge','insurrection','entity overthrown']);
 export const warfareLimits={references:10000,collections:2000,events:50000,edges:20000,participants:5000,casualtyWork:200000,page:24,eventPage:50,cache:8};

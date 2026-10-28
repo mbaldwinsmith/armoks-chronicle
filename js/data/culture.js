@@ -1,5 +1,5 @@
-import {titleCase,eventLabel,readableValue} from './language.js?v=0.19.1';
-import {eventType} from './narrative.js?v=0.19.1';
+import {titleCase,eventLabel,readableValue} from './language.js?v=0.20.0';
+import {eventType} from './narrative.js?v=0.20.0';
 const valid=value=>typeof value==='string'&&/^\d+$/.test(value);
 const array=value=>value===undefined?[]:Array.isArray(value)?value:[value];
 export const culturalKinds=new Set(['artifacts','written_contents','poetic_forms','musical_forms','dance_forms']);

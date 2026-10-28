@@ -1,5 +1,5 @@
-import {clearTrail} from './trail.js?v=0.19.1';
-import { mergeData, displayName } from './records.js?v=0.19.1';
+import {clearTrail} from './trail.js?v=0.20.0';
+import { mergeData, displayName } from './records.js?v=0.20.0';
 const NAME = 'armoks-chronicle';
 export function openDatabase() {
   return new Promise((resolve, reject) => {

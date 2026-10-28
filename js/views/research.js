@@ -1,7 +1,7 @@
-import {titleCase,eventLabel} from '../data/language.js?v=0.19.1';
-import {openDatabase,listWorlds,getRecord} from '../data/database.js?v=0.19.1';
-import {getResearch,listResearch,saveResearch,restoreResearch,makeBackup,parseBackup,parseTags,BACKUP_LIMIT} from '../data/research.js?v=0.19.1';
-import {recordURL} from '../data/exploration.js?v=0.19.1';
+import {titleCase,eventLabel} from '../data/language.js?v=0.20.0';
+import {openDatabase,listWorlds,getRecord} from '../data/database.js?v=0.20.0';
+import {getResearch,listResearch,saveResearch,restoreResearch,makeBackup,parseBackup,parseTags,BACKUP_LIMIT} from '../data/research.js?v=0.20.0';
+import {recordURL} from '../data/exploration.js?v=0.20.0';
 const worldLabel=world=>`${titleCase(world.name)} · ${world.id.slice(0,8)}${world.importedAt?' · imported '+new Date(world.importedAt).toLocaleDateString():''}`;
 const el=(tag,text,cls)=>{const node=document.createElement(tag);if(text!==undefined)node.textContent=text;if(cls)node.className=cls;return node;};
 let dirty=false,returnHash='',generation=0;

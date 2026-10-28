@@ -374,7 +374,7 @@ Implemented slice: directed source-record networks with family/social/rivalry/af
 - [ ] Define reproducible discovery rules for long lives, prolific authors, contested artifacts, notable beasts, and event-rich sites.
 - [x] Explain each implemented Desk discovery card’s reused ranking criterion and ties, with record and full-ranking evidence links.
 - [x] Qualify Book of Records superlatives as among recorded figures/events; disclose ties, unknown dates and incomplete data in each implemented metric.
-- [ ] Implement Follow the Thread recommendations from the current record.
+- [x] Implement bounded, evidence-linked Follow the Thread recommendations from the current record, with directed relationship wording, natural event context, cultural links, explicit conflict membership, category diversity and progressive disclosure. See docs/follow-the-thread.md.
 - [ ] Keep a navigable thread history and allow users to save an exploration trail.
 - [x] Add category-filtered random previews, an explicit named-record preference/fallback, unbiased bounded sampling and no immediate repeat when alternatives exist.
 - [ ] Build the Grudge Ledger from recorded killings, thefts, abductions, and faction conflicts.

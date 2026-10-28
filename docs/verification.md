@@ -136,3 +136,7 @@ Storage quota exhaustion, blocked upgrades, all multi-tab UI timings, non-Chrome
 Research JSON contains annotations, not source records or terrain. Map/search bookmarks, named collections, ordered chronicles, autosave, automatic world matching, full-world backups and Markdown/print exports remain planned. Preserve original exports and annotation backups.
 
 Source export contents, names, coordinates and export-derived counts are intentionally excluded from public verification notes. Public test fixtures are authored synthetic examples.
+
+## Follow the Thread — 0.20.0
+
+All 133 Node tests pass, including seven recommendation cases covering direction, source roles, natural prose, membership, bounded sampling and exclusions. Browser integration assertions cover worker recommendations, safe cards, evidence links, Show more and cancellation. Live release verification follows deployment.
