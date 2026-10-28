@@ -1,8 +1,8 @@
-import {recordCategories,recordsCategory} from '../data/book-of-records.js?v=0.15.1';
-import {explore} from '../data/explorer-client.js?v=0.15.1';
-import {openDatabase,getWorld} from '../data/database.js?v=0.15.1';
-import {recordURL,kindNames} from '../data/exploration.js?v=0.15.1';
-import {titleCase} from '../data/language.js?v=0.15.1';
+import {recordCategories,recordsCategory} from '../data/book-of-records.js?v=0.15.2';
+import {explore} from '../data/explorer-client.js?v=0.15.2';
+import {openDatabase,getWorld} from '../data/database.js?v=0.15.2';
+import {recordURL,kindNames} from '../data/exploration.js?v=0.15.2';
+import {titleCase} from '../data/language.js?v=0.15.2';
 const el=(tag,text,className)=>{const node=document.createElement(tag);if(text!==undefined)node.textContent=text;if(className)node.className=className;return node;};
 const bookURL=(world,category,offset=0)=>`#/world/${encodeURIComponent(world)}/records?category=${category}${offset?'&offset='+offset:''}`;
 const link=(label,href,className)=>{const a=el('a',label,className);a.href=href;return a;};
@@ -41,6 +41,7 @@ export async function renderRecordBook(worldId,params){
   content.append(el('h2',page.category.title),el('p',page.category.definition));
   content.append(el('p',`${page.total.toLocaleString()} eligible of ${page.candidates.toLocaleString()} recorded ${kindNames[page.category.kind].toLowerCase()}; ${page.excluded.toLocaleString()} excluded for missing, invalid or non-qualifying evidence. ${page.unresolved.toLocaleString()} additional ranking targets were missing. Equal values share a competition rank (1, 1, 3); names order tied rows.`, 'muted'));
   if(page.category.id==='open-lives')content.append(el('p',page.latestYear===null?'No dated event is available as a reference year.':`Reference: Year ${page.latestYear}, the latest dated event in this archive. No survival claim is made.`,'notice'));
+  if(page.category.id==='open-lives'&&page.referenceEvent)content.append(link(`Inspect reference event #${page.referenceEvent.id}`,recordURL(worldId,page.referenceEvent.kind,page.referenceEvent.id),'text-link'));
   if(page.total){content.append(rankingTable(page,worldId));status.textContent=`${page.offset+1}–${Math.min(page.offset+50,page.total)} of ${page.total.toLocaleString()} eligible records.`;}
   else status.textContent='No eligible records for this category. Optional Plus data may add evidence; this does not establish that no such figures, works or events existed.';
   if(page.offset>0)pagination.append(link('← Previous 50',bookURL(worldId,category.id,page.offset-50),'button quiet'));

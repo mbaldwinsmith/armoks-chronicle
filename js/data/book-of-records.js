@@ -1,5 +1,5 @@
-import {eventType} from './narrative.js?v=0.15.1';
-import {recordKey} from './exploration.js?v=0.15.1';
+import {eventType} from './narrative.js?v=0.15.2';
+import {recordKey} from './exploration.js?v=0.15.2';
 export const recordCategories=Object.freeze([
  {id:'kills',title:'Deadliest Figures',unit:'named victims',kind:'historical_figures',definition:'Distinct historical figures explicitly named as victims in death events naming this killer. Repeated deaths for the same victim count once per killer. Self-kills, old-age deaths, missing victims and unnamed squad casualties are excluded. Conflicting killer attributions remain source claims, not a resolved verdict.'},
  {id:'lifespans',title:'Longest Completed Lives',unit:'calendar years',kind:'historical_figures',definition:'Death year minus birth year in the merged figure record. These are differences between calendar years, not exact birthdays. Both years must be recorded, neither may be the -1 sentinel, and death must not precede birth. Negative years other than -1 are retained. Supernatural figures are included.'},
@@ -17,7 +17,7 @@ const year=v=>typeof v==='string'&&/^-?\d+$/.test(v)&&Number.isSafeInteger(Numbe
 export function recordsCategory(value){return recordCategories.find(c=>c.id===value)||recordCategories[0];}
 // One streaming pass, with at most five sample evidence links per ranked entry.
 export function createRecordBook(){
- const metrics=new Map(recordCategories.map(c=>[c.id,new Map()])),lives=[];let latestYear=null;
+ const metrics=new Map(recordCategories.map(c=>[c.id,new Map()])),lives=[];let latestYear=null,referenceEvent=null;
  function add(category,kind,target,distinct,evidence){
   if(!target)return;const map=metrics.get(category),key=recordKey(kind,target);let row=map.get(key);
   if(!row){row={key,kind,id:target,value:0,seen:category==='kills'?new Map():new Set(),evidence:[]};map.set(key,row);}
@@ -32,7 +32,7 @@ export function createRecordBook(){
     if(birth!==null)lives.push({key,kind:record.kind,id:String(record.id),birth,death,open:d.death_year==='-1'});
    }
    if(record.kind==='historical_events'){
-    const dated=year(d.year);if(dated!==null)latestYear=latestYear===null?dated:Math.max(latestYear,dated);
+    const dated=year(d.year);if(dated!==null&&(latestYear===null||dated>latestYear)){latestYear=dated;referenceEvent=evidence;}
     const type=eventType(d);
     if(type==='hf died'){
      const killer=first(d,'slayer_hfid','slayer_hf'),victim=first(d,'hfid','victim_hf');
@@ -70,7 +70,7 @@ export function createRecordBook(){
     const candidates=[...lookup.values()].filter(r=>r.kind===category.kind).length;
     results.set(category.id,{rows,candidates,excluded:candidates-rows.length,unresolved});
    }
-   return {metrics:results,latestYear};
+   return {metrics:results,latestYear,referenceEvent};
   }
  };
 }
@@ -78,6 +78,6 @@ export function recordBookPage(book,category,offset=0){
  const selected=recordsCategory(category),result=book.metrics.get(selected.id);
  const requested=Number.isFinite(Number(offset))?Math.max(0,Math.floor(Number(offset)/50)*50):0;
  const start=Math.min(requested,Math.max(0,Math.ceil(result.rows.length/50)-1)*50);
- return {category:selected,...result,rows:result.rows.slice(start,start+50),total:result.rows.length,offset:start,latestYear:book.latestYear,
+ return {category:selected,...result,rows:result.rows.slice(start,start+50),total:result.rows.length,offset:start,latestYear:book.latestYear,referenceEvent:book.referenceEvent,
   highlights:recordCategories.map(c=>{const data=book.metrics.get(c.id),leader=data.rows[0];return {id:c.id,title:c.title,unit:c.unit,total:data.rows.length,leader:leader?{...leader,evidence:[]}:null,ties:leader?data.rows.filter(r=>r.value===leader.value).length:0};})};
 }

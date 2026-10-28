@@ -21,7 +21,7 @@ All categories use merged records, with standard fields authoritative and supple
 
 Equal values share competition rank (1, 1, 3); alphabetical label and numeric ID provide stable ordering inside ties. Ties spanning pages retain the same rank. Every result includes the number of eligible and excluded records in its family, plus missing referenced targets. Missing evidence and genuine zero activity cannot always be distinguished; zero-count rows are omitted except valid zero-year life spans.
 
-Each row links its source record and at most five sample supporting records. Life rows link the figure containing the dates. Samples are explicitly partial; complete linked histories and raw source fields remain accessible through the ranked record. Highlight cards disclose first-place ties.
+Each row links its source record and at most five sample supporting records. Life rows link the figure containing the dates; the open-ended category also links the event establishing its reference year. Samples are explicitly partial; complete linked histories and raw source fields remain accessible through the ranked record. Highlight cards disclose first-place ties.
 
 ## Implementation and limits
 
