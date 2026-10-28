@@ -1,7 +1,7 @@
-import {cultureReferences,cultureLabel} from './culture.js?v=0.14.0';
-import {eventType,filterEvents} from './narrative.js?v=0.14.0';
-import {openDatabase,getWorld} from './database.js?v=0.14.0';
-import {normalise,recordKey,collectReferences,eventDate,compareEvents,searchEntries} from './exploration.js?v=0.14.0';
+import {cultureReferences,cultureLabel} from './culture.js?v=0.14.1';
+import {eventType,filterEvents} from './narrative.js?v=0.14.1';
+import {openDatabase,getWorld} from './database.js?v=0.14.1';
+import {normalise,recordKey,collectReferences,eventDate,compareEvents,searchEntries} from './exploration.js?v=0.14.1';
 const neighbourhoods=new Map();
 let cachedWorld, entries=[],lookup=new Map(), incoming=new Map();
 async function load(worldId) {
@@ -29,7 +29,7 @@ async function load(worldId) {
 }
 function relationshipNode(key){const row=lookup.get(key),[kind,id]=JSON.parse(key);return {key,kind,id,label:row?.label||`Missing ${kind==='historical_figures'?'Figure':kind==='entities'?'Organisation':'Site'} #${id}`,missing:!row};}
 async function fullNeighbourhood(key,worldId,maxSources=500){
- const {relationshipNeighbourhood,relationshipLimits}=await import('./relationships.js?v=0.14.0');
+ const {relationshipNeighbourhood,relationshipLimits}=await import('./relationships.js?v=0.14.1');
  if(neighbourhoods.has(key))return {...neighbourhoods.get(key),recordsRead:0};
  const [kind]=JSON.parse(key),sources=[...(incoming.get(key)||[])].filter(source=>source!==key&&lookup.get(source)?.kind==='historical_figures').sort(),candidates=kind==='historical_figures'?[key,...sources]:sources;
  const count=Math.max(0,Math.min(relationshipLimits.sourceRecords,maxSources)),selected=candidates.slice(0,count);let records=[];
@@ -39,14 +39,14 @@ async function fullNeighbourhood(key,worldId,maxSources=500){
  return result;
 }
 async function relationshipPage(data){
- const {graphPage}=await import('./relationships.js?v=0.14.0'),key=recordKey(data.kind,data.recordId);
+ const {graphPage}=await import('./relationships.js?v=0.14.1'),key=recordKey(data.kind,data.recordId);
  if(data.kind!=='historical_figures'||!lookup.has(key))throw Error('Choose an available historical figure to expand.');
  const result=graphPage(await fullNeighbourhood(key,data.worldId),data),keys=new Set([key,...result.edges.flatMap(edge=>[edge.source,edge.target])]);
  return {...result,nodes:[...keys].map(relationshipNode)};
 }
 const cancelled=new Set(),scheduled=new Set();
 async function connectionSearch(data){
- const {findConnection}=await import('./connections.js?v=0.14.0');
+ const {findConnection}=await import('./connections.js?v=0.14.1');
  const start=recordKey('historical_figures',data.startId),end=recordKey('historical_figures',data.endId);
  const result=await findConnection({start,end,organisations:data.organisations===true,maxDepth:data.maxDepth,exists:key=>lookup.has(key),getNeighbours:(key,remaining)=>fullNeighbourhood(key,data.worldId,remaining),isCancelled:()=>cancelled.has(data.id),onProgress:count=>postMessage({type:'progress',id:data.id,phase:'connections',count})});
  return {...result,nodes:(result.nodes||[]).map(relationshipNode)};

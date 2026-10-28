@@ -17,3 +17,7 @@ test('world legend contains only present biome codes, with counts and matching p
 test('Biomes is the default layer while explicit alternative links remain restorable',()=>{
  assert.equal(atlasLayer(null),'biomes');assert.equal(atlasLayer('future'),'biomes');for(const layer of ['biomes','elevation','evilness','savagery'])assert.equal(atlasLayer(layer),layer);
 });
+
+test('many unsupported codes cannot produce an unbounded legend or lose tile counts',()=>{
+ const cells=Array.from({length:300},(_,i)=>({biome_type:1000+i}));cells.push({biome_type:0},{biome_type:29},{biome_type:1000});const legend=biomeLegend(cells);assert.equal(legend.length,19);assert.equal(legend.reduce((sum,row)=>sum+row.count,0),303);assert.equal(legend.at(-1).name,'Other Unknown Biome Codes');assert.equal(legend.find(row=>row.code===1000).count,2);assert.equal(legend.find(row=>row.code===29).name,'Arctic Ocean');
+});

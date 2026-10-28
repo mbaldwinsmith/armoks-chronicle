@@ -311,4 +311,9 @@ export const biomes=Object.freeze([
 export function biomeForCode(code){return Number.isInteger(code)&&code>=0&&code<biomes.length?biomes[code]:{code,name:`Unknown Biome (Code ${code})`,colour:'#bf5eac',known:false};}
 export const biomeColour=cell=>biomeForCode(cell.biome_type).colour;
 export const atlasLayer=value=>['biomes','elevation','evilness','savagery'].includes(value)?value:'biomes';
-export function biomeLegend(cells){const counts=new Map();for(const cell of cells)counts.set(cell.biome_type,(counts.get(cell.biome_type)||0)+1);return [...counts].sort(([a],[b])=>a-b).map(([code,count])=>({...biomeForCode(code),count}));}
+// Bound diagnostic legend rows even when malformed/future files contain many unknown codes.
+export function biomeLegend(cells){
+ const counts=new Map();let unknownKinds=0;
+ for(const cell of cells){const code=cell.biome_type,known=biomeForCode(code).known,key=known||counts.has(code)?code:unknownKinds<16?code:null;if(!known&&key!==null&&!counts.has(key))unknownKinds++;counts.set(key,(counts.get(key)||0)+1);}
+ return [...counts].sort(([a],[b])=>a===null?1:b===null?-1:a-b).map(([code,count])=>code===null?{code:null,name:'Other Unknown Biome Codes',colour:'#bf5eac',known:false,count}:{...biomeForCode(code),count});
+}
