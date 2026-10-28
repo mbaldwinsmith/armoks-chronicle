@@ -6,7 +6,7 @@ Status: atlas and isometric relief preview implemented; broader features in prog
 
 ## Current iteration
 
-Deities and Religions: the sacred annals now separate explicit deity markers, religious organisations, forces, other worshipping entities and unclassified worship targets. Spheres, named worship/membership links, direct versus group-associated temples, local structure identity, source disagreement and dated religious events have bounded worker dossiers and figure/entity/site panels. Source inspector links retain gallery return filters; membership and temple visits never imply personal worship. See `docs/deities-and-religions.md`.
+Deities and Religions: the sacred annals now separate explicit deity markers, religious organisations, forces, other worshipping entities and unclassified worship targets. Spheres, named worship/membership links, direct versus group-associated temples, local structure identity, source disagreement and dated religious events have bounded worker dossiers and figure/entity/site panels. Source inspector links retain gallery return filters; membership and temple visits never imply personal worship. All 293 Node tests and the deployed 0.29.1 browser integration suite pass; existing archives need no migration or reimport. See `docs/deities-and-religions.md`.
 
 Bestiary: searchable individual and definition galleries, source-linked directed deeds, exact/unique-alias species matching and explicit unclassified fallback are implemented and verified in 0.28.1 (272 Node tests and the live browser suite). See `docs/bestiary.md`.
 
