@@ -1,8 +1,8 @@
-import {recordKey,normalise,collectReferences} from './exploration.js?v=0.21.0';
-import {eventType,narrateEvent} from './narrative.js?v=0.21.0';
-import {recordRelationships,relationshipWording} from './relationships.js?v=0.21.0';
-import {collectionFacts,warfareTypes,validId,pageOffset} from './warfare.js?v=0.21.0';
-import {clippedLabel,readableValue,referenceLabel} from './language.js?v=0.21.0';
+import {recordKey,normalise,collectReferences} from './exploration.js?v=0.21.1';
+import {eventType,narrateEvent} from './narrative.js?v=0.21.1';
+import {recordRelationships,relationshipWording} from './relationships.js?v=0.21.1';
+import {collectionFacts,warfareTypes,validId,pageOffset} from './warfare.js?v=0.21.1';
+import {clippedLabel,readableValue,referenceLabel} from './language.js?v=0.21.1';
 export const grudgeLimits={scanned:500000,rows:100000,references:24,page:24};
 export const grudgeCategories={killings:'Recorded Killings',thefts:'Thefts',abductions:'Abductions',factions:'Faction Conflict Sources',grudges:'Explicit Grudge Links'};
 const grudgeTypes=new Set(['grudge','grudge bearer','grudge holder']);
@@ -38,10 +38,10 @@ export function grudgeFacts(record){
  // Additional explicit references are retained as mentions, never promoted to victim/owner roles.
  const generic=collectReferences(d).map(r=>({...r,role:referenceLabel(r.role,type==='hf died')}));
  refs.push(ref(d,'sites','Recorded Site','site_id','site'));for(const item of generic)if(!refs.some(r=>r&&r.kind===item.kind&&r.id===item.id))refs.push(item);
- return [{...base,category,type,label:readableValue(type),start,end:start,refs:compact(refs),tokens,paths:['type',...(d.cause!==undefined?['cause']:[]),...(d.death_cause!==undefined?['death_cause']:[])],partial:false}];
+ return [{...base,category,type,label:readableValue(type),start,end:start,refs:compact(refs),tokens,paths:['type',...(d.cause!==undefined?['cause']:[]),...(d.death_cause!==undefined?['death_cause']:[]),...refs.filter(Boolean).map(r=>r.path).filter(Boolean)],partial:false}];
 }
 export function createGrudgeLedger(limits=grudgeLimits){let scanned=0,rowLimited=false,scanLimited=false,partial=0;const rows=[],seen=new Set();return {
- accept(record){if(scanned>=limits.scanned){scanLimited=true;return false;}scanned++;const facts=grudgeFacts(record);partial+=Number(Boolean(facts.truncated));for(const fact of facts){if(seen.has(fact.key))continue;if(rows.length>=limits.rows){rowLimited=true;continue;}seen.add(fact.key);const refs=fact.refs.slice(0,limits.references),isPartial=fact.partial||refs.length<fact.refs.length;partial+=Number(isPartial);rows.push({...fact,refs,partial:isPartial});}return true;},
+ accept(record){if(scanned>=limits.scanned){scanLimited=true;return false;}scanned++;const facts=grudgeFacts(record);partial+=Number(Boolean(facts.truncated));for(const fact of facts){if(seen.has(fact.key))continue;if(rows.length>=limits.rows){rowLimited=true;continue;}seen.add(fact.key);const refs=fact.refs.slice(0,limits.references),isPartial=fact.partial||refs.length<fact.refs.length;partial+=Number(isPartial);rows.push({...fact,refs,paths:fact.paths.slice(0,limits.references),partial:isPartial});}return true;},
  finish(){return {rows,stats:{scanned,rowLimited,scanLimited,partial}};}
 };}
 export function grudgeFilters(options={}){const clean=k=>String(options[k]??'').trim().slice(0,160),from=clean('from'),to=clean('to'),lo=from===''?null:Number(from),hi=to===''?null:Number(to),valid=v=>v===''||/^-?\d+$/.test(v)&&Number.isSafeInteger(Number(v));return {q:clean('q'),person:clean('person'),faction:clean('faction'),site:clean('site'),category:Object.hasOwn(grudgeCategories,options.category)?options.category:'',from,to,lo,hi,sort:options.sort==='latest'?'latest':'earliest',invalid:!valid(from)||!valid(to)||(lo!==null&&hi!==null&&lo>hi)};}
@@ -55,7 +55,7 @@ export async function grudgePage(index,lookup,options={}, {isCancelled=()=>false
   const dates=[row.start,row.end].filter(y=>y!==null),dated=dates.length&&!(row.start!==null&&row.end!==null&&row.start>row.end);
   if((!filters.category||row.category===filters.category)&&((filters.lo===null&&filters.hi===null)||(dated&&Math.max(...dates)>=(filters.lo??-Infinity)&&Math.min(...dates)<=(filters.hi??Infinity)))){
    const refs=row.refs.map(resolve),selected=[['historical_figures',filters.person],['entities',filters.faction],['sites',filters.site]].every(([kind,query])=>!query||refs.some(ref=>ref.kind===kind&&searchNode(ref,query)));
-   if(selected&&(!filters.q||(filters.q.startsWith('#')?row.id===filters.q.slice(1):normalise([row.label,row.type,reason(row),...refs.map(r=>r.label)].join(' ')).includes(normalise(filters.q))))){matches.push(row);counts[row.category]++;}
+   if(selected&&(!filters.q||(filters.q.startsWith('#')?row.id===filters.q.slice(1):normalise([resolve({kind:row.kind,id:row.id}).label,row.label,row.type,reason(row),...refs.map(r=>r.label)].join(' ')).includes(normalise(filters.q))))){matches.push(row);counts[row.category]++;}
   }
   if(++work%1000===0){onProgress(work);await new Promise(resolve=>setTimeout(resolve,0));}
  }
