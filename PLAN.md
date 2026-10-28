@@ -6,7 +6,7 @@ Status: atlas and isometric relief preview implemented; broader features in prog
 
 ## Current iteration
 
-Supernatural History: figure directories now compose vampire/werebeast/necromancer/deity evidence filters with optional uncertain matches, linked badges and biography evidence/context panels. Exact supported markers and learned-secret evidence are separated from identifier/form-name clues, species, known interactions and forces. Versioned bounded worker profiles retain source roles, missing records and uncertainty; aliases feed Follow the Thread without inferred infection lineages. 170 Node tests pass; deployed browser checks follow publication. See docs/supernatural-history.md.
+Supernatural History: figure directories now compose vampire/werebeast/necromancer/deity evidence filters with optional uncertain matches, linked badges and biography evidence/context panels. Exact supported markers and learned-secret evidence are separated from identifier/form-name clues, species, known interactions and forces. Versioned bounded worker profiles retain source roles, missing records and uncertainty; aliases feed Follow the Thread without inferred infection lineages. 170 Node tests and the deployed 0.23.1 browser integration suite pass. Live checks cover composed filters, uncertainty opt-in, reload, evidence strength/source inspection and participant links with retained filter state. See docs/supernatural-history.md.
 
 Personal Chronicles: named world-scoped collections now support record-page collection, bookmarked records, the bounded recent trail, keyboard reordering, per-entry commentary, saved source summaries, reversible archiving, Markdown/JSON export, explicit new-copy backup restore and a print reading layout. IndexedDB v3 retains both annotations and chronicles when source archives are removed. Explicit saves and stale-tab checks protect drafts. 156 Node tests and the deployed browser integration suite pass. Live checks cover record collection, recent-trail capture, bookmark/note collection, reordering/commentary, save/reload, Markdown/JSON downloads, new-copy restore, archive filtering and reading view. See docs/personal-chronicles.md.
 
@@ -596,7 +596,7 @@ Tests may run locally using optional developer tooling. They must not compile pr
 - [ ] Complete and verify intrigue, religion and bestiary specialist views.
 - [x] Discovery cards, relationship paths, and grudges provide interesting, accurately labelled connections.
 - [x] The visitor browses the Book of Records and follows a ranked entry to evidence explaining its metric and limitations.
-- [ ] Verify the complete live supernatural filter → biography → evidence → linked participant journey after deployment.
+- [x] Verify the complete live supernatural filter → biography → evidence → linked participant journey, retaining filter context and role-specific classifications.
 - [x] The visitor selects a faction on the political map, explores a war overlay and warfare network, and returns through working record links.
 - [x] The visitor hides routine events, sees matching list/hidden totals and restores all events with one control.
 - [ ] Verify matching charts once shared timeline charts are implemented.
