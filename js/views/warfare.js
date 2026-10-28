@@ -1,10 +1,10 @@
-import {explore} from '../data/explorer-client.js?v=0.17.0';
-import {openDatabase,getWorld,getRecord} from '../data/database.js?v=0.17.0';
-import {recordURL} from '../data/exploration.js?v=0.17.0';
-import {readableValue,titleCase} from '../data/language.js?v=0.17.0';
-import {collectionKind,warfareTypes} from '../data/warfare.js?v=0.17.0';
-import {renderTimeline} from './timeline.js?v=0.17.0';
-import {narratives} from './narrative.js?v=0.17.0';
+import {explore} from '../data/explorer-client.js?v=0.17.1';
+import {openDatabase,getWorld,getRecord} from '../data/database.js?v=0.17.1';
+import {recordURL} from '../data/exploration.js?v=0.17.1';
+import {readableValue,titleCase} from '../data/language.js?v=0.17.1';
+import {collectionKind,warfareTypes} from '../data/warfare.js?v=0.17.1';
+import {renderTimeline} from './timeline.js?v=0.17.1';
+import {narratives} from './narrative.js?v=0.17.1';
 const el=(tag,text,cls)=>{const n=document.createElement(tag);if(text!==undefined)n.textContent=text;if(cls)n.className=cls;return n;};
 const link=(text,href,cls)=>{const a=el('a',text,cls);a.href=href;return a;};
 const date=input=>{const row={start:input.start??null,end:input.end??null};return row.start===null&&row.end===null?'Dates Not Recorded':row.start!==null&&row.end!==null?(row.end<row.start?'Inconsistent Source Dates':row.start===row.end?`Year ${row.start}`:`Years ${row.start}–${row.end}`):row.start!==null?`From Year ${row.start} · End Not Recorded`:`Ends in Year ${row.end} · Start Not Recorded`;};
@@ -24,6 +24,7 @@ export function cancelWarfare(){directoryGeneration++;directoryController?.abort
 export async function renderWarfare(worldId,params){const ticket=++directoryGeneration;directoryController=new AbortController();const signal=directoryController.signal,content=document.querySelector('#war-directory'),status=document.querySelector('#war-status'),pages=document.querySelector('#war-pages');let request=0,offset=params.get('offset')||0,timer;
  content.replaceChildren();pages.replaceChildren();status.textContent='Opening the campaign ledger…';document.querySelector('#war-back').href=`#/world/${encodeURIComponent(worldId)}`;
  const search=document.querySelector('#war-search'),type=document.querySelector('#war-type'),from=document.querySelector('#war-from'),to=document.querySelector('#war-to'),form=document.querySelector('#war-filters');search.value=params.get('q')||'';from.value=params.get('from')||'';to.value=params.get('to')||'';type.replaceChildren(new Option('All Conflict Collections',''));for(const value of warfareTypes)type.add(new Option(readableValue(value),value));type.value=params.get('type')||'';if(type.selectedIndex<0)type.value='';
+ form.onsubmit=e=>{e.preventDefault();offset=0;void load();};search.oninput=()=>{clearTimeout(timer);request++;timer=setTimeout(()=>{offset=0;void load();},200);};type.onchange=()=>{offset=0;void load();};document.querySelector('#war-clear').onclick=()=>{search.value=type.value=from.value=to.value='';offset=0;void load();};signal.addEventListener('abort',()=>clearTimeout(timer),{once:true});
  let db;try{db=await openDatabase();const world=await getWorld(db,worldId);if(ticket!==directoryGeneration)return;if(world?.status!=='ready')throw Error('This world is not available in this browser. Choose an archive from the bookshelf.');document.querySelector('#war-world').textContent=titleCase(world.name);await load();}catch(error){if(ticket===directoryGeneration)status.textContent=error.message;}finally{db?.close();}
  async function load(){clearTimeout(timer);const token=++request;if(ticket!==directoryGeneration)return;content.replaceChildren();pages.replaceChildren();status.textContent='Reading recorded conflicts…';
   const options={q:search.value.trim(),type:type.value,from:from.value,to:to.value,offset};const q=new URLSearchParams();for(const [k,v] of Object.entries(options))if(v!==''&&v!==0)q.set(k,v);history.replaceState(null,'',directoryURL(worldId,q.toString()));
@@ -32,7 +33,6 @@ export async function renderWarfare(worldId,params){const ticket=++directoryGene
    for(const row of result.rows)content.append(conflictCard(row,worldId));status.textContent=result.invalid?'Enter whole years with From no later than To.':result.total?`${result.offset+1}–${Math.min(result.offset+result.rows.length,result.total)} of ${result.total.toLocaleString()} matching conflicts · ${result.all.toLocaleString()} recorded conflict collections.`:'No matching conflict collections. Try clearing the filters. Missing collections do not establish that this world had no wars.';if(result.total)pages.append(pager(result.total,result.offset,24,next=>{offset=next;void load();}));
   }catch(error){if(ticket===directoryGeneration&&token===request)status.textContent=error.message;}
  }
- form.onsubmit=e=>{e.preventDefault();offset=0;void load();};search.oninput=()=>{clearTimeout(timer);request++;timer=setTimeout(()=>{offset=0;void load();},200);};type.onchange=()=>{offset=0;void load();};document.querySelector('#war-clear').onclick=()=>{search.value=type.value=from.value=to.value='';offset=0;void load();};signal.addEventListener('abort',()=>clearTimeout(timer),{once:true});
 }
 export function warfarePanel(record,world,params,isCurrent=()=>true){
  const section=el('section',undefined,'warfare-panel'),overview=el('div'),nav=el('nav',undefined,'culture-shortcuts warfare-tabs'),content=el('div'),status=el('p','Opening this conflict…'),pages=el('div');status.setAttribute('role','status');nav.setAttribute('aria-label','Conflict sections');section.append(overview,nav,status,content,pages);

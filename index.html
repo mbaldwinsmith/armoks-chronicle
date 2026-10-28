@@ -7,8 +7,8 @@
   <meta name="description" content="Armok’s Chronicle: a local-first explorer for the histories of Dwarf Fortress worlds.">
   <title>Armok’s Chronicle</title>
   <link rel="icon" href="./assets/mark.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="./css/app.css?v=0.17.0">
-  <script type="module" src="./js/app.js?v=0.17.0"></script>
+  <link rel="stylesheet" href="./css/app.css?v=0.17.1">
+  <script type="module" src="./js/app.js?v=0.17.1"></script>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -79,7 +79,7 @@
       <p class="notice">Follow the conflicts recorded in this archive, from wars to battles, duels and raids. Collections group explicit source events; missing histories and unknown outcomes remain unknown.</p>
       <form id="war-filters" class="search-controls"><div><label for="war-search">Find a conflict</label><input id="war-search" type="search" maxlength="200" placeholder="Name or #ID"></div><div><label for="war-type">Conflict collection type</label><select id="war-type"></select></div><div><label for="war-from">From year</label><input id="war-from" type="number" step="1"></div><div><label for="war-to">To year</label><input id="war-to" type="number" step="1"></div><button type="submit" class="quiet">Apply years</button><button type="button" id="war-clear" class="quiet">Clear filters</button></form>
       <p class="muted">Year filters intersect recorded start/end dates. With only one recorded date, that date is used; an unknown end is not assumed to mean an ongoing war. Undated collections are excluded only when years are filtered.</p>
-      <p id="war-status" role="status"></p><div id="war-directory" class="conflict-grid"></div><div id="war-pages"></div>
+      <h2>Recorded Conflicts</h2><p id="war-status" role="status"></p><div id="war-directory" class="conflict-grid"></div><div id="war-pages"></div>
     </section>
     <section id="view-book" hidden aria-labelledby="book-title">
       <div class="eyebrow">NOTABLE AMONG THE RECORDED</div><h1 id="book-title">Book of Records</h1>
