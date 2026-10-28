@@ -117,3 +117,7 @@ The relationship panel shares its bounded neighbourhood worker, expansion state 
 ## Conflict chronicles
 
 `data/warfare.js` owns collection facts, iterative containment, conservative casualty analysis and bounded pages. The explorer worker lazily indexes compact collection/event/site records with world-kind cursors, clears them with the selected world and caches eight derived summaries. `views/warfare.js` renders a paginated ledger and one detail section at a time. Record disposal aborts requests; raw collection JSON remains lazy. The atlas worker can scope its existing event overlay by the same explicit membership traversal using `collection=ID`. See [warfare.md](warfare.md) for supported fields, limits and source provenance.
+
+## Faction warfare networks
+
+`data/faction-warfare.js` derives explicit opposing-side claims and conservative connected-family groups from the conflict index. The explorer worker lazily caches that derivation plus four filtered adjacency indexes. Requests return bounded neighbour pages or selected-edge evidence pages. `views/faction-warfare.js` provides a dedicated organisation route, safe SVG and an equivalent HTML connection table; graph layout code loads only when that view opens. World changes and navigation dispose caches/requests through the existing worker client. See [faction-warfare.md](faction-warfare.md).

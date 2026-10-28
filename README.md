@@ -128,3 +128,7 @@ On a figure page, choose **Open family tree** to explore parents, children and r
 ### Wars & Battles
 
 Choose **Wars & Battles** in a saved world to browse the campaign ledger. Open a war, battle or duel for its nested conflicts, chronological events, linked people/factions, recorded outcomes and separately explained death measures. The selected-conflict atlas shows only its member conflict events; chronology links provide a return to the conflict. Results are paginated and calculated in a worker. See [counting rules, source definitions and limits](docs/warfare.md).
+
+### Faction warfare networks
+
+On an organisation page, choose **Explore warfare network**. Expand recorded opponents, filter years and source conflict types, and inspect an accessible table with links to supporting wars/battles and their maps. Arrows distinguish recorded war aggressors from battle/raid attack sides. Nested and overlapping collection sources contribute once per conflict group, with uncertainty kept explicit. See [counting rules and bounds](docs/faction-warfare.md).

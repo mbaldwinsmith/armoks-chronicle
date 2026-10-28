@@ -8,6 +8,8 @@ The fictional example includes six figures with directed family, friendship, riv
 
 The authored 8 × 8 map now includes named forest, grassland, savanna, desert, mountain, lake and ocean biome codes for palette/legend checks. It is a fictional demonstration, not copied game terrain.
 
-The `warfare-legends.xml` and `warfare-legends_plus.xml` pair is an independently authored fictional campaign fixture under the same MIT licence. It includes two battles, a nested duel, a duplicated death membership, named and squad deaths, explicit factions/non-combatant roles, missing membership, an unrelated ceremony and conflicting Plus outcome/count fields. The existing authored map can be reused with it. No original game-world data was copied.
+The `warfare-legends.xml` and `warfare-legends_plus.xml` pair is an independently authored fictional campaign fixture under the same MIT licence. Its central campaign includes two battles, a nested duel, a duplicated death membership, named and squad deaths, explicit factions/non-combatant roles, missing membership, an unrelated ceremony and conflicting Plus outcome/count fields. The existing authored map can be reused with it. No original game-world data was copied.
 
 For a normal UI import of the campaign, name the reused authored map `warfare-world_map.csv` so that all three selected filenames share the `warfare-` prefix.
+
+The faction-network extension adds the fictional Silver Compact, a second connected war, a separate raid and a standalone battle event. Explicit opposing fields and a counterattack exercise distinct-group weights and source-role directions. The added history remains entirely authored test data.
