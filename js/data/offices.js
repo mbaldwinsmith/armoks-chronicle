@@ -1,6 +1,6 @@
-import {eventType} from './narrative.js?v=0.25.0';
-import {recordKey} from './exploration.js?v=0.25.0';
-import {titleCase,clippedLabel} from './language.js?v=0.25.0';
+import {eventType} from './narrative.js?v=0.25.1';
+import {recordKey} from './exploration.js?v=0.25.1';
+import {titleCase,clippedLabel} from './language.js?v=0.25.1';
 export const officeLimits={records:500000,facts:100000,nested:512,definitions:50000,assignments:50000,page:12};
 const array=v=>v===undefined?[]:Array.isArray(v)?v:[v];
 const id=v=>typeof v==='string'&&/^\d{1,128}$/.test(v)?v:null;
@@ -44,11 +44,11 @@ export function createOfficeIndex(limits=officeLimits){
  },finish(){
   const terms=[],contexts=[],groups=new Map(),snapshots=[];
   for(const fact of facts){const office=resolveOffice(fact.entity,fact.position,fact.title,definitions),f={...fact,office};if(f.action==='creation'){contexts.push(f);continue;}const key=JSON.stringify([office.key,f.holder]);if(!groups.has(key))groups.set(key,[]);groups.get(key).push(f);}
-  const make=(start,end,issues=[])=>{const source=start||end,term={key:JSON.stringify([source.office.key,source.holder,start?.id||null,end?.id||null]),office:source.office,holder:source.holder,start,end,issues:[...issues]};if(!term.office.entity||!term.holder)term.issues.push('Missing organisation or holder ID');if(term.office.uncertain)term.issues.push('Ambiguous office definition');if(start?.conflict||end?.conflict)term.issues.push('Conflicting event fields');term.duration=start&&end&&before(start,end)&&Number.isSafeInteger(end.year-start.year)?end.year-start.year:null;terms.push(term);return term;};
+  const make=(start,end,issues=[])=>{const source=start||end,term={key:JSON.stringify([source.office.key,source.holder,start?.id||null,end?.id||null]),office:source.office,holder:source.holder,start,end,issues:[...issues]};if(!term.office.entity||!term.holder)term.issues.push('The organisation or officeholder is not identified');if(term.office.uncertain)term.issues.push('The source does not identify a unique office');if(start?.conflict||end?.conflict)term.issues.push('The source records disagree');term.duration=start&&end&&before(start,end)&&Number.isSafeInteger(end.year-start.year)?end.year-start.year:null;terms.push(term);return term;};
   for(const events of groups.values()){
    events.sort((a,b)=>compare(a,b)||a.id.localeCompare(b.id,'en',{numeric:true}));const years=new Map();for(const e of events){if(!years.has(e.year))years.set(e.year,[]);years.get(e.year).push(e);}const ambiguous=events.some(e=>e.year===null)||[...years.values()].some(group=>group.length>1&&(group.some(e=>e.seconds===null)||new Set(group.map(e=>e.seconds)).size!==group.length));
-   if(ambiguous){for(const e of events)make(e.action==='appointment'?e:null,e.action==='removal'?e:null,['Undated or ambiguously ordered appointment/removal records']);continue;}
-   let pending=[];for(const e of events){if(e.action==='appointment'){pending.push(e);continue;}if(pending.length===1)make(pending[0],e);else{for(const start of pending)make(start,null,['Multiple appointments before a removal']);make(null,e,[pending.length?'Removal cannot be paired uniquely':'No matching appointment recorded']);}pending=[];}for(const start of pending)make(start,null,pending.length>1?['Multiple appointments without a unique removal']:[]);
+   if(ambiguous){for(const e of events)make(e.action==='appointment'?e:null,e.action==='removal'?e:null,['The dates do not establish a clear order for these appointments and removals']);continue;}
+   let pending=[];for(const e of events){if(e.action==='appointment'){pending.push(e);continue;}if(pending.length===1)make(pending[0],e);else{for(const start of pending)make(start,null,['Several appointments precede this removal, so a term cannot be paired uniquely']);make(null,e,[pending.length?'This removal cannot be matched to one appointment':'No matching appointment is recorded']);}pending=[];}for(const start of pending)make(start,null,pending.length>1?['Several appointments have no uniquely matching removal']:[]);
   }
   const offices=new Map();for(const term of terms){if(!offices.has(term.office.key))offices.set(term.office.key,[]);offices.get(term.office.key).push(term);}
   for(const rows of offices.values()){

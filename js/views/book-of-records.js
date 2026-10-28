@@ -1,8 +1,8 @@
-import {recordCategories,recordsCategory} from '../data/book-of-records.js?v=0.25.0';
-import {explore} from '../data/explorer-client.js?v=0.25.0';
-import {openDatabase,getWorld} from '../data/database.js?v=0.25.0';
-import {recordURL,kindNames} from '../data/exploration.js?v=0.25.0';
-import {titleCase} from '../data/language.js?v=0.25.0';
+import {recordCategories,recordsCategory} from '../data/book-of-records.js?v=0.25.1';
+import {explore} from '../data/explorer-client.js?v=0.25.1';
+import {openDatabase,getWorld} from '../data/database.js?v=0.25.1';
+import {recordURL,kindNames} from '../data/exploration.js?v=0.25.1';
+import {titleCase} from '../data/language.js?v=0.25.1';
 const el=(tag,text,className)=>{const node=document.createElement(tag);if(text!==undefined)node.textContent=text;if(className)node.className=className;return node;};
 const bookURL=(world,category,offset=0)=>`#/world/${encodeURIComponent(world)}/records?category=${category}${offset?'&offset='+offset:''}`;
 const link=(label,href,className)=>{const a=el('a',label,className);a.href=href;return a;};
@@ -39,7 +39,7 @@ export async function renderRecordBook(worldId,params){
    article.append(el('p',card.leader?`${card.leader.label} · ${card.leader.value.toLocaleString()} ${card.unit}${card.ties>1?` · ${card.ties} tied for first`:''}`:'No eligible records in this archive.'));highlights.append(article);
   }
   content.append(el('h2',page.category.title),el('p',page.category.definition));
-  content.append(el('p',`${page.total.toLocaleString()} eligible of ${page.candidates.toLocaleString()} ${page.category.population||'recorded '+kindNames[page.category.kind].toLowerCase()}; ${page.excluded.toLocaleString()} excluded for missing, invalid or non-qualifying evidence. ${page.unresolved.toLocaleString()} ${page.category.population?'of these entries reference missing holders or organisations':'additional ranking targets were missing'}. Equal values share a competition rank (1, 1, 3); names order tied rows.`, 'muted'));
+  content.append(el('p',`${page.total.toLocaleString()} eligible of ${page.candidates.toLocaleString()} ${page.category.population||'recorded '+kindNames[page.category.kind].toLowerCase()}; ${page.excluded.toLocaleString()} excluded for missing, invalid or non-qualifying evidence. ${page.category.population?'Missing holders or organisations affect '+page.unresolved.toLocaleString()+' of these entries.':page.unresolved.toLocaleString()+' additional ranking targets were missing.'} Equal values share a competition rank (1, 1, 3); names order tied rows.`, 'muted'));
   if(page.partial)content.append(el('p','The office source index reached a limit; this is a partial comparison of examined evidence.','notice'));
   if(page.category.id==='open-lives')content.append(el('p',page.latestYear===null?'No dated event is available as a reference year.':`Reference: Year ${page.latestYear}, the latest dated event in this archive. No survival claim is made.`,'notice'));
   if(page.category.id==='open-lives'&&page.referenceEvent)content.append(link(`Inspect reference event #${page.referenceEvent.id}`,recordURL(worldId,page.referenceEvent.kind,page.referenceEvent.id),'text-link'));
