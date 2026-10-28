@@ -11,8 +11,8 @@ test('kill ranks count distinct available victims, retain supporting deaths and 
  const result=page(records,'kills');assert.equal(result.total,1);assert.equal(result.rows[0].value,1);assert.equal(result.rows[0].evidence[0].id,'1');assert.equal(result.unresolved,1);assert.equal(result.excluded,3);
 });
 test('lifespans keep negative prehistory years and zero-year lives but exclude sentinels, missing dates and inverted ranges',()=>{
- const records=[hf(1,{birth_year:'-10',death_year:'20'}),hf(2,{birth_year:'0',death_year:'30'}),hf(3,{birth_year:'10',death_year:'5'}),hf(4,{birth_year:'-1',death_year:'20'}),hf(5,{birth_year:'10',death_year:'10'}),hf(6,{death_year:'50'})];const result=page(records,'lifespans');
- assert.deepEqual(result.rows.map(r=>[r.id,r.value,r.rank]),[['1',30,1],['2',30,1],['5',0,3]]);assert.equal(result.excluded,3);assert.match(result.rows[0].detail,/Year -10/);
+ const records=[hf(1,{birth_year:'-10',death_year:'20'}),hf(2,{birth_year:'0',death_year:'30'}),hf(3,{birth_year:'10',death_year:'5'}),hf(4,{birth_year:'-1',death_year:'20'}),hf(5,{birth_year:'10',death_year:'10'}),hf(6,{death_year:'50'}),hf(7,{birth_year:'-9007199254740991',death_year:'9007199254740991'})];const result=page(records,'lifespans');
+ assert.deepEqual(result.rows.map(r=>[r.id,r.value,r.rank]),[['1',30,1],['2',30,1],['5',0,3]]);assert.equal(result.excluded,4);assert.match(result.rows[0].detail,/Year -10/);
 });
 test('open-ended spans use latest dated event, require explicit sentinel and never claim survival',()=>{
  const records=[hf(1,{birth_year:'1',death_year:'-1'}),hf(2,{birth_year:'1'}),hf(3,{birth_year:'30',death_year:'-1'}),hf(4,{birth_year:'1',death_year:'nonsense'}),event(1,{year:'20'}),event(2,{year:'-1'})];const result=page(records,'open-lives');assert.equal(result.latestYear,20);assert.equal(result.total,1);assert.equal(result.rows[0].value,19);assert.match(result.rows[0].detail,/survival unconfirmed/);assert.equal(page([records[0]],'open-lives').total,0);

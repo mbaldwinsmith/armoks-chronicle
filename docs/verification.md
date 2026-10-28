@@ -1,3 +1,13 @@
+# Book of Records verification
+
+28 October 2026
+
+- 85 Node tests pass, including eight ranking tests covering distinct victims, source aliases, old-age/self/missing exclusions, negative and sentinel life dates, unsafe date ranges, explicitly open-ended records, author/work/artifact counts, repeated references, knowledge events, competition ranks, bounded evidence, empty states, independent worlds and 55-entry pagination.
+- The full deployed Chrome integration suite passes. New checks exercise a genuine imported standard/Plus fixture, the ranking worker and cache, resolved source links, completed/open-ended date separation, one physical artifact per written work despite repeated references, safe semantic table construction and world-switch cache isolation.
+- Live UI checks confirm the archive entry link, all eight categories, 50-row pagination, page restoration after reload, supporting-work navigation and browser-back restoration. Explicit open-ended-date wording and reference year are visible. Existing saved archives work without reimport.
+- Additional integration checks use the supplied export locally. Original contents, names, counts, rankings, derived findings and screenshots are not included in these public verification notes.
+- Rankings are limited to the definitions in [book-of-records.md](book-of-records.md). Supernatural filters, reigns and nested battle-casualty metrics remain planned.
+
 # Biome-atlas verification
 
 28 October 2026

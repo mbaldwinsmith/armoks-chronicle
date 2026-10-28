@@ -1,15 +1,15 @@
-import {biomeForCode,biomeColour,biomeLegend,atlasLayer} from '../data/biomes.js?v=0.15.0';
-import {titleCase,eventLabel,readableValue} from '../data/language.js?v=0.15.0';
-import {filterConflicts,conflictClusters,mapConnections} from '../data/conflicts.js?v=0.15.0';
-import {factionFor,factionColour,filterSites,factionGroups} from '../data/politics.js?v=0.15.0';
-import {elevationColour,reliefPoint,oceanSurface} from '../data/terrain.js?v=0.15.0';
-import {recordURL} from '../data/exploration.js?v=0.15.0';
+import {biomeForCode,biomeColour,biomeLegend,atlasLayer} from '../data/biomes.js?v=0.15.1';
+import {titleCase,eventLabel,readableValue} from '../data/language.js?v=0.15.1';
+import {filterConflicts,conflictClusters,mapConnections} from '../data/conflicts.js?v=0.15.1';
+import {factionFor,factionColour,filterSites,factionGroups} from '../data/politics.js?v=0.15.1';
+import {elevationColour,reliefPoint,oceanSurface} from '../data/terrain.js?v=0.15.1';
+import {recordURL} from '../data/exploration.js?v=0.15.1';
 let worker,observer,cleanup=()=>{},generation=0;
 export function stopAtlas(){generation++;worker?.terminate();worker=null;observer?.disconnect();cleanup();cleanup=()=>{};}
 export function renderAtlas(worldId,params){
  stopAtlas();const ticket=generation,canvas=document.querySelector('#atlas-canvas'),status=document.querySelector('#atlas-status'),panel=document.querySelector('#atlas-controls'),readout=document.querySelector('#tile-details'),siteList=document.querySelector('#tile-sites');
  panel.hidden=true;canvas.hidden=true;document.querySelector('#biome-key').hidden=true;document.querySelector('#biome-legend').replaceChildren();document.querySelector('#atlas-hover').textContent='Hover over the flat map to inspect its biome and elevation.';readout.textContent='';siteList.replaceChildren();status.textContent='Reading saved terrain…';document.querySelector('#atlas-back').href=`#/world/${encodeURIComponent(worldId)}`;
- worker=new Worker(new URL('../data/atlas-worker.js?v=0.15.0',import.meta.url),{type:'module'});worker.onerror=()=>{status.textContent='Could not start the atlas worker.';};worker.onmessage=({data})=>{if(ticket!==generation)return;worker.terminate();worker=null;if(data.error){status.textContent=data.error;return;}document.querySelector('#atlas-title').textContent=data.world.name+' · Atlas';if(data.missing){status.textContent='No terrain file was saved with this world. Import your matching world_map.csv together with the XML exports to create an atlas archive.';return;}mount(data);};worker.postMessage({worldId});
+ worker=new Worker(new URL('../data/atlas-worker.js?v=0.15.1',import.meta.url),{type:'module'});worker.onerror=()=>{status.textContent='Could not start the atlas worker.';};worker.onmessage=({data})=>{if(ticket!==generation)return;worker.terminate();worker=null;if(data.error){status.textContent=data.error;return;}document.querySelector('#atlas-title').textContent=data.world.name+' · Atlas';if(data.missing){status.textContent='No terrain file was saved with this world. Import your matching world_map.csv together with the XML exports to create an atlas archive.';return;}mount(data);};worker.postMessage({worldId});
  function mount({terrain,sites,unmapped,entities,conflicts}){
  const {width,height,cells}=terrain;panel.hidden=false;canvas.hidden=false;document.title='Atlas · Armok’s Chronicle';
  status.textContent=`${width} × ${height} world tiles · elevation ${terrain.min}–${terrain.max} · ${sites.length} mapped ${sites.length===1?'site':'sites'} · ${unmapped} sites without usable coordinates.`;
