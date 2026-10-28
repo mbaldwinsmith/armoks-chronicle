@@ -30,3 +30,6 @@ test('source sampling is bounded and interleaves incoming families without a ful
 test('missing references, unknown event types, anonymous records and markup are retained as text',()=>{
  const root=record('sites',1,{name:'<img src=x>'}),event=record('historical_events',2,{type:'<script>',site_id:'1',hfid:'999'}),map=lookup([root,event]),result=followThreads(root,[event],map);assert.equal(result.rows.length,1);assert.match(result.rows[0].reason,/<script>|<Script>/);assert(result.missing>0);assert.equal(followThreads(record('sites',5),[],map).rows.length,0);
 });
+test('an explicit home role outranks earlier shared-event context and keeps matching primary evidence',()=>{
+ const site=record('sites',1,{name:'Hall'}),figure=record('historical_figures',2,{name:'Resident',site_link:{site_id:'1',link_type:'home'}}),event=record('historical_events',3,{type:'change hf state',state:'settled',hfid:'2',site_id:'1'}),map=lookup([site,figure,event]);const card=followThreads(site,[event,figure],map).rows.find(r=>r.kind===figure.kind);assert.equal(card.reason,'Resident lists Hall as a home.');assert.equal(card.priority,0);assert.equal(card.evidence[0].id,'2');assert.equal(card.evidence[1].id,'3');
+});

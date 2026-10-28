@@ -1,9 +1,9 @@
-import {collectReferences,recordKey} from './exploration.js?v=0.20.0';
-import {cultureReferences} from './culture.js?v=0.20.0';
-import {recordRelationships,relationshipWording} from './relationships.js?v=0.20.0';
-import {narrateEvent} from './narrative.js?v=0.20.0';
-import {collectionFacts} from './warfare.js?v=0.20.0';
-import {referenceLabel,clippedLabel} from './language.js?v=0.20.0';
+import {collectReferences,recordKey} from './exploration.js?v=0.20.1';
+import {cultureReferences} from './culture.js?v=0.20.1';
+import {recordRelationships,relationshipWording} from './relationships.js?v=0.20.1';
+import {narrateEvent} from './narrative.js?v=0.20.1';
+import {collectionFacts} from './warfare.js?v=0.20.1';
+import {referenceLabel,clippedLabel} from './language.js?v=0.20.1';
 export const threadLimits={sources:60,references:500,candidates:36,page:6};
 export function threadReferences(record){
  const refs=[...collectReferences({merged:record.data,plus:record.supplement}),...cultureReferences(record)];
@@ -24,7 +24,7 @@ export function followThreads(root,sources,lookup,{truncated=false}={}){
  const rootKey=recordKey(root.kind,root.id),cards=new Map();let clipped=truncated,missing=0;
  const node=ref=>{const row=lookup.get(recordKey(ref.kind,ref.id));return row?{kind:row.kind,id:row.id,label:clippedLabel(row.label)}:null;};
  const rootNode=node(root)||{kind:root.kind,id:root.id,label:clippedLabel(root.label)};
- const add=(ref,reason,source,path,priority=4)=>{const target=node(ref);if(!target){missing++;return;}const key=recordKey(target.kind,target.id);if(key===rootKey)return;const evidence={...node(source),kind:source.kind,id:String(source.id),path:clippedLabel(path||'Recorded fields')};const existing=cards.get(key);if(existing){if(existing.evidence.length<3&&!existing.evidence.some(e=>e.kind===evidence.kind&&e.id===evidence.id&&e.path===evidence.path))existing.evidence.push(evidence);return;}if(cards.size>=threadLimits.candidates){clipped=true;return;}cards.set(key,{...target,reason,evidence:[evidence],priority});};
+ const add=(ref,reason,source,path,priority=4)=>{const target=node(ref);if(!target){missing++;return;}const key=recordKey(target.kind,target.id);if(key===rootKey)return;const evidence={...node(source),kind:source.kind,id:String(source.id),path:clippedLabel(path||'Recorded fields')};const existing=cards.get(key);if(existing){const same=existing.evidence.some(e=>e.kind===evidence.kind&&e.id===evidence.id&&e.path===evidence.path);if(priority<existing.priority){existing.priority=priority;existing.reason=reason;existing.evidence=[evidence,...existing.evidence.filter(e=>!(e.kind===evidence.kind&&e.id===evidence.id&&e.path===evidence.path))].slice(0,3);}else if(existing.evidence.length<3&&!same)existing.evidence.push(evidence);return;}if(cards.size>=threadLimits.candidates){clipped=true;return;}cards.set(key,{...target,reason,evidence:[evidence],priority});};
  const labelTokens=tokens=>tokens.map(t=>typeof t==='string'?clippedLabel(t):node(t)?.label||t.unknown||'an unavailable record').join('');
  const consume=source=>{
   const isRoot=recordKey(source.kind,source.id)===rootKey,refs=threadReferences(source);clipped ||= refs.length>threadLimits.references;

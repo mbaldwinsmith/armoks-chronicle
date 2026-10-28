@@ -137,6 +137,6 @@ Research JSON contains annotations, not source records or terrain. Map/search bo
 
 Source export contents, names, coordinates and export-derived counts are intentionally excluded from public verification notes. Public test fixtures are authored synthetic examples.
 
-## Follow the Thread — 0.20.0
+## Follow the Thread — 0.20.1
 
-All 133 Node tests pass, including seven recommendation cases covering direction, source roles, natural prose, membership, bounded sampling and exclusions. Browser integration assertions cover worker recommendations, safe cards, evidence links, Show more and cancellation. Live release verification follows deployment.
+All 134 Node tests pass, including eight recommendation cases covering direction, source roles, natural prose, membership, bounded sampling and exclusions. Browser integration assertions cover worker recommendations, safe cards, evidence links, Show more and cancellation. The deployed browser integration suite passed on 0.20.0. Live site navigation confirmed natural event prose and linked cards on a previously imported authored world. Final 0.20.1 verification also checks explicit relationship roles retain priority over earlier event context.
