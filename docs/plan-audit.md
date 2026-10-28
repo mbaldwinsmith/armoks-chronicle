@@ -19,3 +19,5 @@ Combined tasks were split wherever only part was complete. For example, record b
 | Tests and documentation | Dependency-free unit suite, live project-subpath browser integration, feature docs and README | Firefox/Safari, screen readers, reference-device targets, broad release journey and consolidated release docs |
 
 Text reports remain stored source files; population parsing and a report reader remain open. Unknown source markers do not become negative supernatural classifications. Faction snapshots do not become dated borders. War/battle/event source entries do not become independent incident totals. Original exports remain excluded from public fixtures and audit evidence.
+
+The reconciliation reviewed 171 previously unchecked checklist entries, closing completed work and splitting compound tasks into completed scope plus explicit remainders. This includes the newly implemented personal-chronicle acceptance journey. Counts are checklist bookkeeping, not a percentage estimate of v1 completion.

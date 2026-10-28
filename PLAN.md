@@ -6,7 +6,7 @@ Status: atlas and isometric relief preview implemented; broader features in prog
 
 ## Current iteration
 
-Personal Chronicles: named world-scoped collections now support record-page collection, bookmarked records, the bounded recent trail, keyboard reordering, per-entry commentary, saved source summaries, reversible archiving, Markdown/JSON export, explicit new-copy backup restore and a print reading layout. IndexedDB v3 retains both annotations and chronicles when source archives are removed. Explicit saves and stale-tab checks protect drafts. 156 Node tests pass; live browser qualification is recorded after deployment. See docs/personal-chronicles.md.
+Personal Chronicles: named world-scoped collections now support record-page collection, bookmarked records, the bounded recent trail, keyboard reordering, per-entry commentary, saved source summaries, reversible archiving, Markdown/JSON export, explicit new-copy backup restore and a print reading layout. IndexedDB v3 retains both annotations and chronicles when source archives are removed. Explicit saves and stale-tab checks protect drafts. 156 Node tests and the deployed browser integration suite pass. Live checks cover record collection, recent-trail capture, bookmark/note collection, reordering/commentary, save/reload, Markdown/JSON downloads, new-copy restore, archive filtering and reading view. See docs/personal-chronicles.md.
 
 Checklist reconciliation (see docs/plan-audit.md): completed items below were checked against committed modules, authored fixtures and recorded live checks. Combined tasks were split where only part is implemented. An unchecked release/audit item still requires its stated evidence; this reconciliation is not a WCAG, cross-browser, offline or performance certification.
 
@@ -594,7 +594,7 @@ Tests may run locally using optional developer tooling. They must not compile pr
 - [x] The visitor hides routine events, sees matching list/hidden totals and restores all events with one control.
 - [ ] Verify matching charts once shared timeline charts are implemented.
 - [ ] The visitor chooses a dated snapshot from a world bookshelf card without merging its history or notes into another snapshot.
-- [ ] The visitor saves and exports a chronicle, restores notes from backup, and resumes after reload.
+- [x] The visitor saves and exports a chronicle, restores notes from backup, and resumes after reload.
 - [ ] The imported world works offline after setup; app updates preserve user data.
 - [x] A second world can be imported and removed without contaminating the first world.
 - [ ] Core flows remain usable with a keyboard, on a narrow screen, and with optional exports absent.
