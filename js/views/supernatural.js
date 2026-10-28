@@ -1,6 +1,6 @@
-import {explore} from '../data/explorer-client.js?v=0.28.0';
-import {recordURL} from '../data/exploration.js?v=0.28.0';
-import {supernaturalTraits,supernaturalFilters,supernaturalParams} from '../data/supernatural.js?v=0.28.0';
+import {explore} from '../data/explorer-client.js?v=0.28.1';
+import {recordURL} from '../data/exploration.js?v=0.28.1';
+import {supernaturalTraits,supernaturalFilters,supernaturalParams} from '../data/supernatural.js?v=0.28.1';
 const el=(tag,text,cls)=>{const n=document.createElement(tag);if(text!==undefined)n.textContent=text;if(cls)n.className=cls;return n;};
 const labels={present:'Evidence Found',possible:'Possible',unknown:'Unknown'};
 export function supernaturalBadges(states={}){const list=el('div',undefined,'supernatural-badges');for(const [key,label] of Object.entries(supernaturalTraits))if(['present','possible'].includes(states[key])){const badge=el('span',states[key]==='present'?`${label} Evidence`:`Possible ${label}`,'supernatural-badge '+states[key]);badge.title='Derived from recorded fields/events. Open the figure to inspect evidence; this is not a current-status or survival claim.';list.append(badge);}if(!list.children.length)list.append(el('span','Supernatural Status Unknown','supernatural-unknown'));return list;}

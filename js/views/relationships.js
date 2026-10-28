@@ -1,8 +1,8 @@
-import {layoutFamilyTree} from '../data/family-tree.js?v=0.28.0';
-import {drawFamilyTree} from './family-tree.js?v=0.28.0';
-import {explore} from '../data/explorer-client.js?v=0.28.0';
-import {recordKey,recordURL} from '../data/exploration.js?v=0.28.0';
-import {relationshipCategories,relationshipLimits,addGraphPage,layoutRelationships,relationshipWording,relationshipCurve} from '../data/relationships.js?v=0.28.0';
+import {layoutFamilyTree} from '../data/family-tree.js?v=0.28.1';
+import {drawFamilyTree} from './family-tree.js?v=0.28.1';
+import {explore} from '../data/explorer-client.js?v=0.28.1';
+import {recordKey,recordURL} from '../data/exploration.js?v=0.28.1';
+import {relationshipCategories,relationshipLimits,addGraphPage,layoutRelationships,relationshipWording,relationshipCurve} from '../data/relationships.js?v=0.28.1';
 const el=(tag,text,cls)=>{const node=document.createElement(tag);if(text!==undefined)node.textContent=text;if(cls)node.className=cls;return node;};
 const svgEl=(tag,attrs={},text)=>{const node=document.createElementNS('http://www.w3.org/2000/svg',tag);for(const [key,value] of Object.entries(attrs))node.setAttribute(key,value);if(text!==undefined)node.textContent=text;return node;};
 const colours={family:'#a96692',social:'#497fa3',rivalry:'#bd6845',affiliation:'#658957',worship:'#9472bd',other:'#8a8b87'};
