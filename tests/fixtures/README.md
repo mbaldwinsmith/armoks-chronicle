@@ -29,3 +29,5 @@ The independently authored `supernatural-legends.xml` / `supernatural-legends_pl
 `artifacts-legends.xml` / `artifacts-legends_plus.xml` are independently authored Cabinet of Loose Claims fixtures under the same MIT licence. They cover a secret-source slab, a memorial with a misleading name, description-only evidence, teacher ambiguity, conflicting holder/site snapshots, figure/organisation claims, possession distinct from holding, writing aliases/missing works and destruction. Names, descriptions and humour are invented test content, not original world exports or claims about normal world generation.
 
 For a normal Cabinet import with terrain, reuse `example-world_map.csv` as `artifacts-world_map.csv` alongside the two authored artifact XML files.
+
+`bestiary-legends.xml` and `bestiary-legends_plus.xml` are independently authored fictional fixtures for exported creature definitions, zero-figure species, exact/unique-alias matching, ordinary citizens with misleading names, unclassified figures, directed attacks/devouring, unnamed prey, changer/changee separation, secret learning and deceased/slayer separation. They contain no supplied-world data.

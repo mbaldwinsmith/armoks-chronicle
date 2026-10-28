@@ -1,8 +1,8 @@
-import {recordCategories,recordsCategory} from '../data/book-of-records.js?v=0.27.1';
-import {explore} from '../data/explorer-client.js?v=0.27.1';
-import {openDatabase,getWorld} from '../data/database.js?v=0.27.1';
-import {recordURL,kindNames} from '../data/exploration.js?v=0.27.1';
-import {titleCase} from '../data/language.js?v=0.27.1';
+import {recordCategories,recordsCategory} from '../data/book-of-records.js?v=0.28.0';
+import {explore} from '../data/explorer-client.js?v=0.28.0';
+import {openDatabase,getWorld} from '../data/database.js?v=0.28.0';
+import {recordURL,kindNames} from '../data/exploration.js?v=0.28.0';
+import {titleCase} from '../data/language.js?v=0.28.0';
 const el=(tag,text,className)=>{const node=document.createElement(tag);if(text!==undefined)node.textContent=text;if(className)node.className=className;return node;};
 const bookURL=(world,category,offset=0)=>`#/world/${encodeURIComponent(world)}/records?category=${category}${offset?'&offset='+offset:''}`;
 const link=(label,href,className)=>{const a=el('a',label,className);a.href=href;return a;};

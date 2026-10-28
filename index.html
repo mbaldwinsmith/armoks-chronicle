@@ -7,8 +7,8 @@
   <meta name="description" content="Armok’s Chronicle: a local-first explorer for the histories of Dwarf Fortress worlds.">
   <title>Armok’s Chronicle</title>
   <link rel="icon" href="./assets/mark.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="./css/app.css?v=0.27.1">
-  <script type="module" src="./js/app.js?v=0.27.1"></script>
+  <link rel="stylesheet" href="./css/app.css?v=0.28.0">
+  <script type="module" src="./js/app.js?v=0.28.0"></script>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -106,6 +106,10 @@
       <form id="war-filters" class="search-controls"><div><label for="war-search">Find a conflict</label><input id="war-search" type="search" maxlength="200" placeholder="Name or #ID"></div><div><label for="war-type">Conflict collection type</label><select id="war-type"></select></div><div><label for="war-from">From year</label><input id="war-from" type="number" step="1"></div><div><label for="war-to">To year</label><input id="war-to" type="number" step="1"></div><button type="submit" class="quiet">Apply years</button><button type="button" id="war-clear" class="quiet">Clear filters</button></form>
       <p class="muted">Year filters intersect recorded start/end dates. With only one recorded date, that date is used; an unknown end is not assumed to mean an ongoing war. Undated collections are excluded only when years are filtered.</p>
       <h2>Recorded Conflicts</h2><p id="war-status" role="status"></p><div id="war-directory" class="conflict-grid"></div><div id="war-pages"></div>
+    </section>
+    <section id="view-bestiary" hidden aria-labelledby="bestiary-title">
+      <a id="bestiary-back" class="text-link">← Chronicler’s Desk</a><p class="eyebrow">TEETH, TALONS AND TESTIMONY</p><h1 id="bestiary-title">The Bestiary</h1><p id="bestiary-world" class="intro"></p><p>A field journal for creatures great, small and regrettably well documented. Meet the species, then follow the individuals whose deeds reached the annals.</p><p class="beast-aside">The chronicler recommends observing megabeasts from a respectful number of mountains away.</p>
+      <form id="bestiary-filters" class="timeline-filters"><div><label for="bestiary-search">Name, Species or #ID</label><input id="bestiary-search" type="search" maxlength="200" placeholder="Find a creature…"></div><div><label for="bestiary-mode">Pages</label><select id="bestiary-mode"><option value="individuals">Recorded Individuals</option><option value="species">Creature Definitions</option></select></div><div><label for="bestiary-scope">Scope</label><select id="bestiary-scope"><option value="notable">Notable Beasts and Wildlife</option><option value="all">All Recorded Creatures</option><option value="unclassified">Unclassified Figures</option></select></div><button class="quiet">Explore the Bestiary</button><button id="bestiary-reset" type="button" class="quiet">Clear Bestiary Filters</button></form><p id="bestiary-status" role="status"></p><div id="bestiary-dossier"></div><div id="bestiary-cards" class="bestiary-grid"></div><div id="bestiary-pages" class="record-pagination"></div>
     </section>
     <section id="view-artifacts" hidden aria-labelledby="artifact-title">
       <a id="artifact-back" class="text-link">← Chronicler’s Desk</a><p class="eyebrow">RELICS, RUMOURS AND READABLE STONE</p><h1 id="artifact-title">The Artifact Cabinet</h1><p id="artifact-world" class="intro"></p><p>Some treasures are carried. Others are claimed from a comfortable distance. Browse the objects, follow their recorded hands and places, and read what their inscriptions reveal.</p>

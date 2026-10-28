@@ -1,8 +1,8 @@
-import {explore} from '../data/explorer-client.js?v=0.27.1';
-import {openDatabase,getWorld,getRecord} from '../data/database.js?v=0.27.1';
-import {recordURL,recordKey} from '../data/exploration.js?v=0.27.1';
-import {titleCase} from '../data/language.js?v=0.27.1';
-import {addFactionPage,factionLimits} from '../data/faction-warfare.js?v=0.27.1';
+import {explore} from '../data/explorer-client.js?v=0.28.0';
+import {openDatabase,getWorld,getRecord} from '../data/database.js?v=0.28.0';
+import {recordURL,recordKey} from '../data/exploration.js?v=0.28.0';
+import {titleCase} from '../data/language.js?v=0.28.0';
+import {addFactionPage,factionLimits} from '../data/faction-warfare.js?v=0.28.0';
 const counted=(n,word)=>`${n.toLocaleString()} ${word}${n===1?'':'s'}`;
 const el=(tag,text,cls)=>{const n=document.createElement(tag);if(text!==undefined)n.textContent=text;if(cls)n.className=cls;return n;};
 const svgEl=(tag,attrs={},text)=>{const n=document.createElementNS('http://www.w3.org/2000/svg',tag);for(const [k,v] of Object.entries(attrs))n.setAttribute(k,v);if(text!==undefined)n.textContent=text;return n;};
@@ -24,7 +24,7 @@ export async function renderFactionWarfare(worldId,factionId,params){const ticke
  dispose=()=>{serial++;sourceSerial++;controller?.abort();sourceController?.abort();};const current=()=>ticket===generation;
  const status=el('p','Opening organisation…','notice');status.setAttribute('role','status');target.append(status);let db;
  try{db=await openDatabase();const [world,record]=await Promise.all([getWorld(db,worldId),getRecord(db,worldId,'entities',factionId)]);if(!current())return;if(world?.status!=='ready'||!record)throw Error('This organisation is not available in this browser. Choose a locally saved organisation.');root={id:String(factionId),key:recordKey('entities',factionId),kind:'entities',label:titleCase(record.label),missing:false};state={nodes:[root],edges:[]};document.title=`${root.label} · Warfare Network · Armok’s Chronicle`;
-  ({layoutRelationships,relationshipCurve}=await import('../data/relationships.js?v=0.27.1'));if(!current())return;
+  ({layoutRelationships,relationshipCurve}=await import('../data/relationships.js?v=0.28.0'));if(!current())return;
   mount(world);
  }catch(error){if(current())status.textContent=error.message;}finally{db?.close();}
  function mount(world){

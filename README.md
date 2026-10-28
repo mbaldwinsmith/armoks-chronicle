@@ -168,3 +168,7 @@ Site pages now offer a **Settlement Chronicle** with founding, reclamation, atta
 ## The Artifact Cabinet
 
 Choose **Artifact Explorer** on the Desk for a gallery of relics, slabs and written objects. Filter by type, secret evidence, named holders/places or recorded claims. Each dossier asks **Who Owns It?**, **Who Has It?**, **Where Is It?** and **Who Claims It?**, keeping those relationships distinct. Slab inscriptions and secret-learning sources are prominent; description hints and unknowns remain qualified. Native relic marks and dry editorial asides add some dwarven character without inventing history. Existing archives need no reimport. See [evidence rules and bounds](docs/artifact-cabinet.md).
+
+### The Bestiary
+
+Open **Bestiary** from the Chronicler’s Desk to browse creature definitions and linked historical figures. Search species or individuals, inspect recorded attacks, victims, transformations, secret-learning and deaths, and follow each source. Unclassified/all-creature scopes support archives with missing definitions; species traits never become invented individual deeds. See [Bestiary evidence and limits](docs/bestiary.md).

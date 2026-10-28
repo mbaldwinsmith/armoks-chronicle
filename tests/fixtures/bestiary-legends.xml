@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<df_world><name>The Field Journal of Brass</name><historical_figures>
+<historical_figure><id>1</id><name>Ember the Uninvited</name><race>DRAGON</race></historical_figure>
+<historical_figure><id>2</id><name>Urist Lanternkeeper</name><race>DWARF</race></historical_figure>
+<historical_figure><id>3</id><name>The Mountain's Footnote</name><race>titan</race></historical_figure>
+<historical_figure><id>4</id><name>A Wolf Called Dragon</name><race>wolf</race></historical_figure>
+<historical_figure><id>5</id><name>The Vampire Bat</name><race>dwarf</race></historical_figure>
+<historical_figure><id>6</id><name>The Unfiled Visitor</name><race>unknown_token</race></historical_figure>
+</historical_figures><sites><site><id>10</id><name>Brassgate</name><type>town</type></site></sites><historical_events>
+<historical_event><id>1</id><type>hf attacked site</type><year>12</year><attacker_hfid>1</attacker_hfid><site_id>10</site_id></historical_event>
+<historical_event><id>2</id><type>creature devoured</type><year>13</year><eater>1</eater><victim>2</victim><site>10</site></historical_event>
+<historical_event><id>3</id><type>creature devoured</type><year>14</year><eater>1</eater><victim>-1</victim><race>goat</race><site>10</site></historical_event>
+<historical_event><id>4</id><type>changed creature type</type><year>15</year><changer_hfid>3</changer_hfid><changee_hfid>4</changee_hfid><old_race>wolf</old_race><new_race>giant wolf</new_race></historical_event>
+<historical_event><id>5</id><type>hf died</type><year>17</year><hfid>1</hfid><slayer_hfid>3</slayer_hfid><cause>struck down</cause><site_id>10</site_id></historical_event>
+<historical_event><id>6</id><type>hf learns secret</type><year>11</year><student_hfid>3</student_hfid><teacher_hfid>-1</teacher_hfid><secret_text>[IS_NAME:the secrets of life and death]</secret_text></historical_event>
+</historical_events></df_world>

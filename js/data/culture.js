@@ -1,9 +1,9 @@
-import {titleCase,eventLabel,readableValue} from './language.js?v=0.27.1';
-import {eventType} from './narrative.js?v=0.27.1';
+import {titleCase,eventLabel,readableValue} from './language.js?v=0.28.0';
+import {eventType} from './narrative.js?v=0.28.0';
 const valid=value=>typeof value==='string'&&/^\d+$/.test(value);
 const array=value=>value===undefined?[]:Array.isArray(value)?value:[value];
 export const culturalKinds=new Set(['artifacts','written_contents','poetic_forms','musical_forms','dance_forms']);
-export function cultureLabel(record){const name=record.data?.item?.name_string;return record.kind==='historical_events'?eventLabel(eventType(record.data)):titleCase(record.kind==='artifacts'&&(!record.data.name)&&typeof name==='string'?name:record.label);}
+export function cultureLabel(record){const name=record.data?.item?.name_string;return record.kind==='creature_raw'?readableValue(record.data?.name_singular||record.data?.creature_id||'Unnamed Creature Definition'):record.kind==='historical_events'?eventLabel(eventType(record.data)):titleCase(record.kind==='artifacts'&&(!record.data.name)&&typeof name==='string'?name:record.label);}
 export function cultureReferences(record){const refs=[];const add=(kind,id,path,role)=>{if(valid(id))refs.push({kind,id,path,role});};
  for(const [source,d] of [['merged',record.data],['plus',record.supplement]]){if(!d)continue;
  if(record.kind==='artifacts'){for(const value of array(d.writing))add('written_contents',value,source+'.writing','Written content');for(const value of [...array(d.item?.page_written_content_id),...array(d.item?.writing_written_content_id)])add('written_contents',value,source+'.item.page_written_content_id','Written content');add('historical_figures',d.holder_hfid,source+'.holder_hfid','Recorded physical holder');add('sites',d.site_id,source+'.site_id','Recorded site');add('regions',d.subregion_id,source+'.subregion_id','Recorded region');}

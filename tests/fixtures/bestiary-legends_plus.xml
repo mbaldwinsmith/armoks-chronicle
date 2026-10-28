@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<df_world><creature_raw>
+<creature><creature_id>DRAGON</creature_id><name_singular>dragon</name_singular><name_plural>dragons</name_plural><has_any_megabeast/></creature>
+<creature><creature_id>TITAN</creature_id><name_singular>titan</name_singular><name_plural>titans</name_plural><has_any_titan/><generated/></creature>
+<creature><creature_id>WOLF</creature_id><name_singular>wolf</name_singular><name_plural>wolves</name_plural><large_roaming/></creature>
+<creature><creature_id>DWARF</creature_id><name_singular>dwarf</name_singular><name_plural>dwarves</name_plural></creature>
+<creature><creature_id>HYDRA</creature_id><name_singular>hydra</name_singular><name_plural>hydras</name_plural><has_any_semimegabeast/></creature>
+</creature_raw></df_world>

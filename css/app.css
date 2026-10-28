@@ -202,3 +202,8 @@
 .artifact-inscription blockquote {font-family:Georgia,serif;line-height:1.75;border-left:3px solid #be9660;margin:1rem 0;padding:.4rem 1.2rem;background:rgba(128,128,128,.06);white-space:pre-wrap;overflow-wrap:anywhere;}
 .artifact-evidence {border-left:2px solid #82745f;padding:.7rem 1rem;margin-block:.7rem;background:rgba(128,128,128,.05);overflow-wrap:anywhere;}.artifact-evidence p {margin:.4rem 0;}
 .artifact-claims {margin-block:2rem;}
+
+/* The field journal keeps its illustrations ornamental and its evidence readable. */
+.bestiary-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,270px),1fr));gap:1.1rem}.beast-card{padding:1.4rem;border:1px solid var(--line);border-radius:12px;background:var(--panel);position:relative;overflow:hidden}.beast-card h2{font-size:1.4rem;margin:.7rem 0}.beast-sigil{float:right;font-size:3.2rem;color:var(--accent);opacity:.6;line-height:1}.beast-traits{font-size:.85rem;letter-spacing:.04em}.beast-aside{font-style:italic;opacity:.8}.beast-dossier{margin:1.5rem 0;padding:clamp(1rem,3vw,2rem)}.beast-dossier> a{display:inline-block;margin:1rem 1rem 0 0}.beast-dossier .artifact-evidence{margin:.8rem 0}
+
+.beast-sigil{width:58px;height:58px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}.beast-card h2,.beast-dossier{overflow-wrap:anywhere}

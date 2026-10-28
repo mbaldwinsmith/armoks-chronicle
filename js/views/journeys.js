@@ -1,5 +1,5 @@
-import {explore} from '../data/explorer-client.js?v=0.27.1';
-import {recordURL} from '../data/exploration.js?v=0.27.1';
+import {explore} from '../data/explorer-client.js?v=0.28.0';
+import {recordURL} from '../data/exploration.js?v=0.28.0';
 const el=(tag,text,cls)=>{const n=document.createElement(tag);if(text!==undefined)n.textContent=text;if(cls)n.className=cls;return n;};
 const date=row=>row.year===null?'Date Not Recorded':`Year ${row.year}`;
 function linked(ref,world,query){if(!ref)return el('span','Location Not Recorded','muted');if(ref.missing)return el('span',ref.label,'muted');const a=el('a',ref.label);a.href=recordURL(world,ref.kind,ref.id,query);return a;}

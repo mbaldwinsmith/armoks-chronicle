@@ -1,4 +1,4 @@
-import {titleCase,readableValue,eventLabel} from './language.js?v=0.27.1';
+import {titleCase,readableValue,eventLabel} from './language.js?v=0.28.0';
 // Deterministic export renderings, not inferred motives or generated fiction.
 export const words=value=>String(value??'').replaceAll('_',' ');
 const aliases={'hist figure died':'hf died','hist figure wounded':'hf wounded','created building':'created structure','change creature type':'changed creature type','hist figure new pet':'hf new pet','war peace accepted':'peace accepted','war peace rejected':'peace rejected'};
@@ -21,7 +21,9 @@ function deathStory(d){const victim=hf(d,'hfid','victim_hf'),killer=scalar(d,'sl
  if(killer)return [victim,cause==='shot'?' was shot by ':cause==='murder'?' was murdered by ':' was killed by ',killer,...where(d)];
  if(scalar(d,'slayer_race'))return [victim,' was killed by an unnamed ',words(d.slayer_race).toLowerCase(),...(scalar(d,'slayer_caste')?[' (',words(d.slayer_caste).toLowerCase(),')']:[]),...where(d)];
  const endings={drown:' drowned',drowned:' drowned','drown self':' drowned',starvation:' died of starvation',thirst:' died of thirst',suffocation:' suffocated','leapt from height':' died after a fall',shot:' was shot',murder:' was murdered','execution generic':' was executed','struck down':' was struck down',struck:' was struck down'};return [victim,endings[cause]||' died',...where(d),...(!endings[cause]&&cause!=='not recorded'?['; cause: ',cause]:[])];}
+const idPrey=d=>/^\d+$/.test(d.victim||'');
 export const formatters={
+ 'creature devoured':d=>[hf(d,'eater'),' devoured ',...(idPrey(d)?[hf(d,'victim')]:['an unnamed ',words(scalar(d,'race')||'creature').toLowerCase()]),...where(d)],
  'hf died':deathStory,
  'hf simple battle event':d=>[hf(d,'group_1_hfid'),' clashed with ',hf(d,'group_2_hfid'),...where(d)],
  'hf wounded':d=>[hf(d,'wounder_hfid','wounder'),' wounded ',hf(d,'woundee_hfid','woundee'),...where(d)],
@@ -90,7 +92,7 @@ export const routineGroups={
 export const routineTypes=new Set(Object.values(routineGroups).flatMap(group=>group.types));
 // Explicit categories: unknown types remain visible in All/Major, without a guessed classification.
 export const warfareTypes=new Set(['hf died','hf wounded','hf abducted','hf simple battle event','hf attacked site','hf destroyed site','attacked site','destroyed site','field battle','site taken over','war field battle','war attacked site','peace accepted','peace rejected','war peace accepted','war peace rejected','war declared','plundered site','razed structure']);
-export const personalTypes=new Set(['hf died','hf wounded','hf abducted','change hf job','change hf state','add hf entity link','remove hf entity link','add hf site link','remove hf site link','add hf hf link','remove hf hf link','hf new pet','hf learns secret','hf gains secret goal','changed creature type','artifact created','artifact possessed','artifact found','artifact given','written content composed','knowledge discovered']);
+export const personalTypes=new Set(['creature devoured','hf died','hf wounded','hf abducted','change hf job','change hf state','add hf entity link','remove hf entity link','add hf site link','remove hf site link','add hf hf link','remove hf hf link','hf new pet','hf learns secret','hf gains secret goal','changed creature type','artifact created','artifact possessed','artifact found','artifact given','written content composed','knowledge discovered']);
 export const readingPresets={all:'All Events',major:'Major Events',warfare:'Warfare',personal:'Personal History'};
 export function filterEvents(rows,{type='',from='',to='',preset='all',exclude=[]}={}){
  const lower=from!==''&&Number.isFinite(Number(from))?Number(from):null,upper=to!==''&&Number.isFinite(Number(to))?Number(to):null;

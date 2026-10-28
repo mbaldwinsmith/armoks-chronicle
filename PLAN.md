@@ -420,8 +420,8 @@ This setting is part of v1 implementation but opt-in for users; the flat atlas r
 - [x] Link abductions, theft collections, persecutions, and site conquests.
 - [ ] Build deity pages with spheres, associated organisations, worshippers, and relevant structures.
 - [ ] Separate deities from religious organisations and unexplained supernatural forces.
-- [ ] Build a bestiary using creature definitions and linked historical figures.
-- [ ] Show known attacks, victims, transformations, secrets, and deaths without treating species traits as individual deeds.
+- [x] Build a bestiary using creature definitions and linked historical figures. See `docs/bestiary.md`: searchable individual/definition views, exact or unique-alias species matching, unclassified fallback, source-linked dossiers and bounded worker indexing.
+- [x] Show known attacks, victims, transformations, secrets, and deaths without treating species traits as individual deeds. Bestiary dossiers retain directed roles, unnamed prey, source disagreement and unknown survival; full figure records link existing whereabouts and supernatural evidence.
 - [ ] Build intrigue views for plots, participants, relationships, assumed identities, and recorded outcomes.
 - [x] Implement conservative supernatural evidence derivation from inspected fields and documented example mappings, with versioned rules and compatibility limits. Broader/localised/modded mappings remain explicitly unverified.
 - [x] Keep species, deity status, learned secrets, transformations, and supernatural abilities distinct; absence of a known marker does not prove a figure is ordinary.
