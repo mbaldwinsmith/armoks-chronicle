@@ -1,8 +1,8 @@
-import {recordKey,normalise,collectReferences} from './exploration.js?v=0.24.0';
-import {eventType,narrateEvent} from './narrative.js?v=0.24.0';
-import {recordRelationships,relationshipWording} from './relationships.js?v=0.24.0';
-import {collectionFacts,warfareTypes,validId,pageOffset} from './warfare.js?v=0.24.0';
-import {clippedLabel,readableValue,referenceLabel} from './language.js?v=0.24.0';
+import {recordKey,normalise,collectReferences} from './exploration.js?v=0.24.1';
+import {eventType,narrateEvent} from './narrative.js?v=0.24.1';
+import {recordRelationships,relationshipWording} from './relationships.js?v=0.24.1';
+import {collectionFacts,warfareTypes,validId,pageOffset} from './warfare.js?v=0.24.1';
+import {clippedLabel,readableValue,referenceLabel} from './language.js?v=0.24.1';
 export const grudgeLimits={scanned:500000,rows:100000,references:24,page:24};
 export const grudgeCategories={killings:'Recorded Killings',thefts:'Thefts',abductions:'Abductions',factions:'Faction Conflict Sources',grudges:'Explicit Grudge Links'};
 const grudgeTypes=new Set(['grudge','grudge bearer','grudge holder']);

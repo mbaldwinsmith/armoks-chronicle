@@ -22,7 +22,7 @@ export function collectReferences(data,path=[],result=[]) {
 }
 export function eventDate(data) {
  const year=Number(data?.year),seconds=Number(data?.seconds72);
- return {year:typeof data?.year==='string' && data.year.trim()!=='' && Number.isFinite(year)?year:null,seconds:data?.seconds72!==undefined&&Number.isFinite(seconds)&&seconds>=0?seconds:null};
+ return {year:typeof data?.year==='string' && data.year.trim()!=='' && Number.isSafeInteger(year)&&year!==-1?year:null,seconds:data?.seconds72!==undefined&&Number.isFinite(seconds)&&seconds>=0?seconds:null};
 }
 export function compareEvents(a,b) {
  return (a.year??Infinity)-(b.year??Infinity) || (a.seconds??Infinity)-(b.seconds??Infinity) || String(a.id).localeCompare(String(b.id),'en',{numeric:true});

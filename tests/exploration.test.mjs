@@ -20,3 +20,5 @@ test('chronology retains negative years, unknown dates last, stable IDs for ties
  assert.equal(eventDate({year:'bad',seconds72:'-1'}).year,null);assert.equal(eventDate({year:''}).year,null);
 });
 test('record routes encode source IDs and preserve search context',()=>{assert.equal(recordURL('world','sites','a/b','?q=Urist'),'#/world/world/record/sites/a%2Fb?q=Urist');});
+
+test('unknown year sentinel stays undated while earlier prehistory remains valid',()=>{assert.equal(eventDate({year:'-1'}).year,null);assert.equal(eventDate({year:'-5'}).year,-5);assert.equal(eventDate({year:'1.5'}).year,null);assert.equal(eventDate({year:'9007199254740992'}).year,null);});

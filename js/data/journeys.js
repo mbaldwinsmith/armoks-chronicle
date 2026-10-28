@@ -1,6 +1,6 @@
-import {eventType} from './narrative.js?v=0.24.0';
-import {recordKey} from './exploration.js?v=0.24.0';
-import {eventLabel,clippedLabel} from './language.js?v=0.24.0';
+import {eventType} from './narrative.js?v=0.24.1';
+import {recordKey} from './exploration.js?v=0.24.1';
+import {eventLabel,clippedLabel} from './language.js?v=0.24.1';
 export const journeyLimits={records:500000,dated:200,undated:40,page:12,cache:8};
 const valid=v=>typeof v==='string'&&v.length<=128&&/^\d+$/.test(v);
 const id=(d,...keys)=>keys.map(k=>d[k]).find(valid)||null;
