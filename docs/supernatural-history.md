@@ -41,7 +41,7 @@ Original supplied exports were checked locally for field shapes using the existi
 
 ## Biography and navigation
 
-The panel displays each subtype’s state and expandable counting/rule evidence, with source origins/paths and direct source-inspector links. **How Did They Become This?** offers dated secrets/interactions/transformations and undated snapshot fields. Roles link teachers, learners, actors, targets, changers, changed figures, sites and artifacts directly to their records. Missing referenced records stay labelled and unlinked. Event-specific aliases also feed the reverse-reference index and Follow the Thread, so these records can lead onward without inventing personal relationships.
+The panel displays each subtype’s state and expandable counting/rule evidence, with per-item evidence strength, source origins/paths and direct source-inspector links. Source and participant links retain the directory/timeline filter context. **How Did They Become This?** offers dated secrets/interactions/transformations and undated snapshot fields. Roles link teachers, learners, actors, targets, changers, changed figures, sites and artifacts directly to their records. Missing referenced records stay labelled and unlinked. Event-specific aliases also feed the reverse-reference index and Follow the Thread, so these records can lead onward without inventing personal relationships.
 
 Context sorts known years first, including negative years other than the unknown sentinel `-1`. Equal dates use stable source keys and do not establish exact temporal order. Pagination is reloadable through `superOffset`. This is a bounded evidence sample; the ordinary timeline and source inspector remain available for other history.
 
