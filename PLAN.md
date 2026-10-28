@@ -6,7 +6,7 @@ Status: atlas and isometric relief preview implemented; broader features in prog
 
 ## Current iteration
 
-Faction warfare networks: organisation pages link to a dedicated bounded SVG/table view with year/source-type filters, paginated neighbour expansion, evidence cards, source-role direction and conflict/map links. War aggressors remain distinct from battle/event attack roles. Connected collection families, including shared-event memberships, contribute once per faction pair; missing grouping context and shared/non-unique roots are explicit. Existing worker indexes are reused with four filtered-network caches and cancellation. 117 Node tests pass, including a generated 50,000-claim case and uncertainty for truncated membership. The deployed browser integration suite verifies worker expansion, source evidence, deduplicated group weights, role directions, filters, accessible tables and archive isolation. See docs/faction-warfare.md.
+Faction warfare networks: organisation pages link to a dedicated bounded SVG/table view with year/source-type filters, paginated neighbour expansion, evidence cards, source-role direction and conflict/map links. War aggressors remain distinct from battle/event attack roles. Connected collection families, including shared-event memberships, contribute once per faction pair; missing grouping context and shared/non-unique roots are explicit. Existing worker indexes are reused with four filtered-network caches and cancellation. 117 Node tests pass, including a generated 50,000-claim case and uncertainty for truncated membership. The deployed browser integration suite verifies worker expansion, source evidence, deduplicated group weights, role directions, filters, accessible tables and archive isolation. Live checks also cover neighbour expansion, attack-only arrows, source inspection, applied-versus-draft filters, empty states, reload restoration, zoom/fit and an existing supplied archive. See docs/faction-warfare.md.
 
 Conflict chronicles: a Wars & Battles ledger and specialised collection record pages expose explicit war/battle/duel hierarchies, dated event chronicles, participant-role evidence, outcomes and separate identified-victim/squad measures. Shared events and victims deduplicate; parent rollups are omitted from more-specific subtotals, and overlapping or incomplete reports suppress combined squad totals. Selected-conflict atlas overlays use explicit nested event membership, retain their scope in URLs and return to the source history. Lazy worker indexes, eight-summary caches, iterative traversal and bounded section pages keep heavy work off the UI thread. 105 Node tests and the deployed browser integration suite pass. Live checks cover search during initial indexing, nested sections and reload, Chronicle year filters, event return links, selected-war atlas scope and scope persistence. A generated 50,000-event stress case keeps participant and response bounds explicit. See docs/warfare.md.
 
@@ -361,10 +361,10 @@ Implemented slice: directed source-record networks with family/social/rivalry/af
 - [x] Report no path, truncated search, and missing data distinctly.
 - [x] Support cancellation, maximum path depth, and deterministic results.
 - [ ] Add graph zoom/reset controls and dispose of graph instances when leaving the view.
-- [ ] Add a faction-centred warfare network showing opponents, dated conflicts, and links to the underlying wars/battles.
-- [ ] Let users filter warfare networks by years and conflict type and expand neighbours within bounded node/edge limits.
-- [ ] Define edge counts/weights explicitly, deduplicate nested collections, and distinguish aggression from undirected opposition when source roles are known.
-- [ ] Link selected graph factions/conflicts to their political/war map views and provide an equivalent accessible conflict table.
+- [x] Add a faction-centred warfare network showing explicit opponents, dated source evidence, and links to the underlying wars/battles.
+- [x] Let users filter warfare networks by applied years and source conflict type, expand paginated neighbours, and retain bounded node/edge limits and reloadable filters.
+- [x] Define edge weights as connected conflict groups, deduplicate nested/shared memberships, and distinguish recorded war aggression from opposing attack/defence roles. Incomplete grouping is qualified explicitly.
+- [x] Link the focused faction to its recorded-settlement atlas, displayed factions to records with existing political-map actions, and source conflicts directly to scoped maps; provide an equivalent accessible conflict table.
 
 ## 16 — Discovery and story exploration
 

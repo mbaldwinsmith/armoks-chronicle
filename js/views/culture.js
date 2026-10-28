@@ -1,6 +1,6 @@
-import {cultureFacts,descriptionParagraphs,culturalKinds,cultureLabel} from '../data/culture.js?v=0.18.1';
-import {recordKey,recordURL} from '../data/exploration.js?v=0.18.1';
-import {explore} from '../data/explorer-client.js?v=0.18.1';
+import {cultureFacts,descriptionParagraphs,culturalKinds,cultureLabel} from '../data/culture.js?v=0.18.2';
+import {recordKey,recordURL} from '../data/exploration.js?v=0.18.2';
+import {explore} from '../data/explorer-client.js?v=0.18.2';
 const el=(tag,text,cls)=>{const node=document.createElement(tag);if(text!==undefined)node.textContent=text;if(cls)node.className=cls;return node;};
 export function culturePanel(record,refs,world,query){if(!culturalKinds.has(record.kind))return null;const section=el('section',undefined,'culture-panel');section.append(el('h2',record.kind==='artifacts'?'The recorded object':record.kind==='written_contents'?'The written work':'The artistic form'));
  const facts=el('dl',undefined,'record-facts');for(const [label,value] of cultureFacts(record))facts.append(el('dt',label),el('dd',value));section.append(facts);

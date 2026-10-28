@@ -1,3 +1,16 @@
+# Faction warfare-network verification
+
+28 October 2026
+
+- 117 Node tests pass. New cases cover nested war/battle/event grouping, counterattacks without reversed war aggression, coalitions without same-side links, one-sided/self/sentinel exclusions, independent/shared/cyclic families, year/type filters, standalone events, uncertain missing/truncated membership, canonical ID ordering, pagination, display/source budgets, cancellation and archive isolation.
+- A generated 50,000-pair-role-claim case produces bounded ten-connection neighbour pages and 24-claim source pages. One observed Node 24.22.1 run built and filtered it in roughly 0.5 seconds. This excludes browser storage/rendering and is not a browser latency guarantee.
+- The deployed Chrome integration suite passes. Authored standard/Plus fixtures verify that a war and its nested battle/event evidence contribute one group for a faction pair, while record counts and separate source roles remain inspectable. Tests cover neighbour expansion, evidence labels, counterattacks, source-type/year filters, safe semantic HTML tables and cache isolation after changing worlds.
+- Live UI on the fictional campaign: the organisation entry opens the dedicated view; expanding the neighbouring faction reveals the third side of a triangle; the table and diagram agree. Inspection exposes four nested source claims behind one group, with collection-history, inspector and selected-conflict atlas links.
+- Attack-event and battle-only filters remove war-aggressor arrows while keeping explicit attack-side roles. The selected source type is restored after reload. Applying later years yields the expected empty state without claiming the organisation had no conflicts.
+- Draft year edits leave the graph, evidence and URL at their last applied filter values; Apply updates all of them together. Reset and clear retain their stated scope. Zoom in changes SVG size and Fit restores it.
+- Additional local checks use the supplied archive through war → organisation → warfare network. Its original names, counts, connections, source contents, derived findings and screenshots are not committed.
+- [Faction warfare definitions](faction-warfare.md) explain group weights, non-unique context, missing/truncated grouping, source-role direction, budgets and source compatibility. Graph positions do not claim geography or chronology, and recorded settlements are a separate ownership snapshot.
+
 # Conflict-chronicle verification
 
 28 October 2026
