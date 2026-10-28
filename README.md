@@ -148,3 +148,7 @@ Collect records while browsing, add bookmarks or the recent reading trail, arran
 PLAN.md has also been [reconciled against implementation and verification evidence](docs/plan-audit.md): completed work is checked off, and partially completed tasks are split so remaining v1 requirements stay visible.
 
 Feature planning was informed by [LegendsViewer-Next](https://github.com/Kromtec/LegendsViewer-Next). Runtime dependency notices are recorded under `vendor/`; the explorer uses native SVG/Canvas and application-specific source adapters.
+
+## Supernatural History
+
+Choose **Supernatural Figures** on a world’s Desk or filter the Historical Figures directory. Combine vampire, werebeast, necromancer and deity evidence, optionally include possible matches, then inspect the supporting fields and events in each biography. Secrets link learners, teachers and artifacts; interactions and transformations retain their actual source roles. Unknown evidence never labels a figure ordinary. Existing archives work without reimporting. See [rules, sources and limits](docs/supernatural-history.md).

@@ -1,12 +1,13 @@
-import {collectReferences,recordKey} from './exploration.js?v=0.22.0';
-import {cultureReferences} from './culture.js?v=0.22.0';
-import {recordRelationships,relationshipWording} from './relationships.js?v=0.22.0';
-import {narrateEvent} from './narrative.js?v=0.22.0';
-import {collectionFacts} from './warfare.js?v=0.22.0';
-import {referenceLabel,clippedLabel} from './language.js?v=0.22.0';
+import {supernaturalReferences} from './supernatural.js?v=0.23.0';
+import {collectReferences,recordKey} from './exploration.js?v=0.23.0';
+import {cultureReferences} from './culture.js?v=0.23.0';
+import {recordRelationships,relationshipWording} from './relationships.js?v=0.23.0';
+import {narrateEvent} from './narrative.js?v=0.23.0';
+import {collectionFacts} from './warfare.js?v=0.23.0';
+import {referenceLabel,clippedLabel} from './language.js?v=0.23.0';
 export const threadLimits={sources:60,references:500,candidates:36,page:6};
 export function threadReferences(record){
- const refs=[...collectReferences({merged:record.data,plus:record.supplement}),...cultureReferences(record)];
+ const refs=[...collectReferences({merged:record.data,plus:record.supplement}),...cultureReferences(record),...supernaturalReferences(record)];
  if(record.kind==='historical_event_collections'){
   const fact=collectionFacts(record);
   refs.push(...fact.refs.map(r=>({...r,path:r.field})),...fact.events.map(id=>({kind:'historical_events',id,path:'event',role:'Recorded event'})),...fact.children.map(id=>({kind:record.kind,id,path:'eventcol',role:'Nested conflict'})),...fact.parents.map(id=>({kind:record.kind,id,path:'parent_eventcol / war_eventcol',role:'Wider conflict'})));

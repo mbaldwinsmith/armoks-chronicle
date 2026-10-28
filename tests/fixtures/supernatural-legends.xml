@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<df_world><name>The Fictional Midnight Archive</name>
+<sites><site><id>1</id><name>example moonhall</name></site></sites>
+<artifacts><artifact><id>55</id><name>the imaginary night ledger</name></artifact></artifacts>
+<historical_figures>
+<historical_figure><id>1</id><name>urist nightreader</name><race>DWARF</race><active_interaction>VAMPIRE_CURSE</active_interaction><interaction_knowledge>SECRET_17</interaction_knowledge></historical_figure>
+<historical_figure><id>2</id><name>domas lanternteacher</name><race>DWARF</race><interaction_knowledge>SECRET_17</interaction_knowledge><active_interaction>DEITY_MAJOR_CURSE_3</active_interaction></historical_figure>
+<historical_figure><id>3</id><name>mistem moonwalker</name><race>DWARF</race><active_interaction>WEREBEAST_CURSE</active_interaction></historical_figure>
+<historical_figure><id>4</id><name>the enduring lantern</name><deity/><sphere>DEATH</sphere></historical_figure>
+<historical_figure><id>5</id><name>kogan vampire hunter</name><race>VAMPIRE_BAT</race><hf_link><hfid>4</hfid><link_type>deity</link_type></hf_link></historical_figure>
+<historical_figure><id>6</id><name>the silent force</name><force/><sphere>NIGHT</sphere></historical_figure>
+<historical_figure><id>7</id><name>erith mixedmarker</name><deity/></historical_figure>
+<historical_figure><id>8</id><name>lokum curiousreader</name><race>DWARF</race></historical_figure>
+<historical_figure><id>9</id><name>stukos livingarchive</name><active_interaction>VAMPIRE_CURSE</active_interaction><interaction_knowledge>EXAMPLE SECRET</interaction_knowledge></historical_figure>
+<historical_figure><id>10</id><name>ilral bookbound</name></historical_figure>
+</historical_figures>
+<historical_events>
+<historical_event><id>1</id><type>hf learns secret</type><year>12</year><student_hfid>1</student_hfid><teacher_hfid>2</teacher_hfid><interaction>SECRET_17</interaction><site_id>1</site_id></historical_event>
+<historical_event><id>2</id><type>hf does interaction</type><year>10</year><doer_hfid>4</doer_hfid><target_hfid>3</target_hfid><interaction>WEREBEAST_CURSE</interaction><site_id>1</site_id></historical_event>
+<historical_event><id>3</id><type>change creature type</type><year>11</year><changee_hfid>3</changee_hfid><changer_hfid>4</changer_hfid><old_race>dwarf</old_race><new_race>werewolf</new_race></historical_event>
+<historical_event><id>4</id><type>hf learns secret</type><year>15</year><student_hfid>8</student_hfid><teacher_hfid>2</teacher_hfid><interaction>BREWING</interaction><secret_text>how to brew beer</secret_text></historical_event>
+<historical_event><id>5</id><type>hf does interaction</type><year>16</year><doer>4</doer><target>5</target><interaction>DEITY_MAJOR_CURSE_9</interaction></historical_event>
+<historical_event><id>6</id><type>hf learns secret</type><year>-1</year><student_hfid>10</student_hfid><teacher_hfid>-1</teacher_hfid><artifact_id>55</artifact_id><interaction>SECRET_999</interaction></historical_event>
+<historical_event><id>7</id><type>hf does interaction</type><year>20</year><doer_hfid>999</doer_hfid><target_hfid>1</target_hfid><interaction>VAMPIRE_CURSE</interaction></historical_event>
+</historical_events></df_world>

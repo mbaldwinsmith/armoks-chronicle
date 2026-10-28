@@ -1,4 +1,4 @@
-import {clippedLabel} from './language.js?v=0.22.0';
+import {clippedLabel} from './language.js?v=0.23.0';
 export const trailLimit=12;
 export const trailKey=worldId=>'armoks-chronicle:trail:v1:'+encodeURIComponent(worldId);
 const fallbackStorage=()=>{try{return globalThis.localStorage||null;}catch{return null;}};

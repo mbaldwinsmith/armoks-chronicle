@@ -1,22 +1,24 @@
-import {chronicleCollector} from './chronicles.js?v=0.22.0';
-import {threadPanel} from './threads.js?v=0.22.0';
-import {recordVisit} from '../data/trail.js?v=0.22.0';
-import {timelineParams,timelineKeys} from '../data/timeline.js?v=0.22.0';
-import {timelineFilters,renderTimeline,timelineCount} from './timeline.js?v=0.22.0';
-import {titleCase,eventLabel,readableValue,referenceLabel} from '../data/language.js?v=0.22.0';
-import {researchEditor} from './research.js?v=0.22.0';
-import {culturePanel,associations} from './culture.js?v=0.22.0';
-import {cultureReferences,culturalKinds,cultureLabel} from '../data/culture.js?v=0.22.0';
-import {conflictRecord} from '../data/conflicts.js?v=0.22.0';
-import {sitePosition} from '../data/terrain.js?v=0.22.0';
-import {narratives,biography} from './narrative.js?v=0.22.0';
-import {openDatabase,getWorld,getRecord} from '../data/database.js?v=0.22.0';
-import {explore} from '../data/explorer-client.js?v=0.22.0';
-import {kindNames,recordURL,collectReferences,eventDate} from '../data/exploration.js?v=0.22.0';
-let generation=0,timer,disposeConnections,disposeRelationships,disposeConflict,disposeThreads;
-export function cancelExploration(){generation++;disposeThreads?.();disposeThreads=null;clearTimeout(timer);disposeConnections?.();disposeConnections=null;disposeRelationships?.();disposeRelationships=null;disposeConflict?.();disposeConflict=null;}
+import {supernaturalPanel,supernaturalControls,supernaturalBadges} from './supernatural.js?v=0.23.0';
+import {supernaturalFilters,hasSupernaturalFilters} from '../data/supernatural.js?v=0.23.0';
+import {chronicleCollector} from './chronicles.js?v=0.23.0';
+import {threadPanel} from './threads.js?v=0.23.0';
+import {recordVisit} from '../data/trail.js?v=0.23.0';
+import {timelineParams,timelineKeys} from '../data/timeline.js?v=0.23.0';
+import {timelineFilters,renderTimeline,timelineCount} from './timeline.js?v=0.23.0';
+import {titleCase,eventLabel,readableValue,referenceLabel} from '../data/language.js?v=0.23.0';
+import {researchEditor} from './research.js?v=0.23.0';
+import {culturePanel,associations} from './culture.js?v=0.23.0';
+import {cultureReferences,culturalKinds,cultureLabel} from '../data/culture.js?v=0.23.0';
+import {conflictRecord} from '../data/conflicts.js?v=0.23.0';
+import {sitePosition} from '../data/terrain.js?v=0.23.0';
+import {narratives,biography} from './narrative.js?v=0.23.0';
+import {openDatabase,getWorld,getRecord} from '../data/database.js?v=0.23.0';
+import {explore} from '../data/explorer-client.js?v=0.23.0';
+import {kindNames,recordURL,collectReferences,eventDate} from '../data/exploration.js?v=0.23.0';
+let generation=0,timer,disposeConnections,disposeRelationships,disposeConflict,disposeThreads,disposeSupernatural;
+export function cancelExploration(){generation++;disposeSupernatural?.();disposeSupernatural=null;disposeThreads?.();disposeThreads=null;clearTimeout(timer);disposeConnections?.();disposeConnections=null;disposeRelationships?.();disposeRelationships=null;disposeConflict?.();disposeConflict=null;}
 const element=(tag,text,className)=>{const el=document.createElement(tag);if(text!==undefined)el.textContent=text;if(className)el.className=className;return el;};
-function rowLink(row,world,query){const li=element('li'),a=element('a',row.label);a.href=recordURL(world,row.kind,row.id,query);li.append(a,element('span',`${kindNames[row.kind]||titleCase(row.kind.replaceAll('_',' '))} · #${row.id}${row.year!==null&&row.year!==undefined?` · Year ${row.year}`:''}`,'muted'));return li;}
+function rowLink(row,world,query){const li=element('li'),a=element('a',row.label);a.href=recordURL(world,row.kind,row.id,query);li.append(a,element('span',`${kindNames[row.kind]||titleCase(row.kind.replaceAll('_',' '))} · #${row.id}${row.year!==null&&row.year!==undefined?` · Year ${row.year}`:''}`,'muted'));if(row.supernatural)li.append(supernaturalBadges(row.supernatural));return li;}
 export async function renderDirectory(id,params) {
  const ticket=++generation;let request=0;
  const list=document.querySelector('#records'),status=document.querySelector('#record-status'),input=document.querySelector('#record-search'),select=document.querySelector('#record-kind'),sort=document.querySelector('#record-sort');
@@ -25,31 +27,35 @@ export async function renderDirectory(id,params) {
  const world=await withDB(db=>getWorld(db,id));if(ticket!==generation||world?.status!=='ready')return;
  select.replaceChildren(new Option('All record categories',''));
  for(const [kind,count] of Object.entries(world.counts).sort(([a],[b])=>a.localeCompare(b)))select.add(new Option(`${kindNames[kind]||titleCase(kind.replaceAll('_',' '))} (${count.toLocaleString()})`,kind));
- select.value=params.get('kind')||'';if(select.selectedIndex<0)select.value='';
+ if(!Object.hasOwn(world.counts,'historical_figures'))select.add(new Option('Historical Figures (0)','historical_figures'));
+ select.value=params.get('kind')||'';if(select.selectedIndex<0)select.value='';if(hasSupernaturalFilters(supernaturalFilters(params)))select.value='historical_figures';
  const previous=document.querySelector('#previous-records'),next=document.querySelector('#next-records');
  document.querySelector('#directory-timeline-filters')?.remove();
  const reader=timelineFilters(params,()=>{offset=0;void search();},'directory-event');reader.form.id='directory-timeline-filters';list.before(reader.form,status);
  reader.form.hidden=select.value!=='historical_events';
+ document.querySelector('#directory-supernatural-filters')?.remove();const superControls=supernaturalControls(params,()=>{offset=0;void search();});list.before(superControls.element,status);superControls.element.hidden=select.value!=='historical_figures';
  async function search(){
   const token=++request;previous.disabled=true;next.disabled=true;list.replaceChildren();status.textContent='Preparing search…';
   const query=timelineParams(new URLSearchParams(),reader.selection());query.delete('eventOffset');if(input.value)query.set('q',input.value);if(select.value)query.set('kind',select.value);if(sort.value!=='name'||select.value==='historical_events')query.set('sort',sort.value);if(offset)query.set('offset',offset);
-  const suffix=query.size?'?'+query:'';reader.form.hidden=select.value!=='historical_events';
+  if(select.value==='historical_figures'){const q=superControls.params(query);for(const [key,value] of q)query.set(key,value);}let suffix=query.size?'?'+query:'';reader.form.hidden=select.value!=='historical_events';superControls.element.hidden=select.value!=='historical_figures';
   history.replaceState(null,'',`#/world/${encodeURIComponent(id)}${suffix}`);
   try{
-   const result=await explore(id,{type:'search',options:{q:input.value,kind:select.value,sort:sort.value,offset},filters:select.value==='historical_events'?reader.selection():null},count=>{if(ticket===generation&&token===request)status.textContent=`Preparing search: ${count.toLocaleString()} records indexed…`;});
+   const result=await explore(id,{type:'search',options:{q:input.value,kind:select.value,sort:sort.value,offset},filters:select.value==='historical_events'?reader.selection():null,supernatural:superControls.selection()},count=>{if(ticket===generation&&token===request)status.textContent=`Preparing search: ${count.toLocaleString()} records indexed…`;});
    if(ticket!==generation||token!==request)return;
+   if(result.offset!==undefined&&offset!==result.offset){offset=result.offset;if(offset)query.set('offset',offset);else query.delete('offset');suffix=query.size?'?'+query:'';history.replaceState(null,'',`#/world/${encodeURIComponent(id)}${suffix}`);}
    const eventRows=result.rows.filter(row=>row.kind==='historical_events'),storiesById=new Map();
    if(eventRows.length){const records=await withDB(db=>Promise.all(eventRows.map(row=>getRecord(db,id,row.kind,row.id))));const present=records.filter(Boolean),stories=await narratives(present,id,suffix);if(ticket!==generation||token!==request)return;present.forEach((record,i)=>storiesById.set(record.id,stories[i]));}
    const makeRow=row=>{const li=rowLink(row,id,suffix);if(storiesById.has(row.id)&&row.kind==='historical_events')li.append(storiesById.get(row.id));return li;};
    if(select.value==='historical_events'&&sort.value==='year')renderTimeline(list,result.rows,makeRow);else list.replaceChildren(...result.rows.map(makeRow));
    if(select.value==='historical_events'){reader.setTypes(result.types);status.textContent=timelineCount(result.total,result.unfiltered,offset);}
    else status.textContent=result.total?`${(offset+1).toLocaleString()}–${Math.min(offset+50,result.total).toLocaleString()} of ${result.total.toLocaleString()} matching records`:'No matching records. Try a shorter name, # followed by an ID, or clear the category filter.';
+   if(result.ruleVersion)status.textContent+=` · Supernatural evidence rules v${result.ruleVersion}.`+(result.supernaturalStats?.figureLimited||result.supernaturalStats?.scanLimited||result.supernaturalStats?.partialSources?' Source index limits reached; unknown results can include unexamined evidence.':'');
    previous.disabled=offset===0;next.disabled=offset+50>=result.total;
   }catch(error){if(ticket===generation&&token===request)status.textContent=`Search unavailable: ${error.message}`;}
  }
  input.oninput=()=>{clearTimeout(timer);request++;timer=setTimeout(()=>{offset=0;void search();},200);};
  select.onchange=()=>{clearTimeout(timer);offset=0;if(select.value==='historical_events')sort.value='year';void search();};sort.onchange=()=>{clearTimeout(timer);offset=0;void search();};
- document.querySelector('#clear-search').onclick=()=>{clearTimeout(timer);reader.reset(false);input.value='';select.value='';sort.value='name';offset=0;void search();input.focus();};
+ document.querySelector('#clear-search').onclick=()=>{clearTimeout(timer);reader.reset(false);superControls.reset();input.value='';select.value='';sort.value='name';offset=0;void search();input.focus();};
  previous.onclick=()=>{offset=Math.max(0,offset-50);void search();};next.onclick=()=>{offset+=50;void search();};
  await search();
 }
@@ -71,8 +77,8 @@ export async function renderRecord(worldId,kind,id,params) {
   const collector=await chronicleCollector(world,record);if(ticket!==generation)return;body.append(collector);
   const data=record.data;let specialisedConflict=false;
   if(kind==='historical_event_collections'){
-   const {collectionType,warfareTypes}=await import('../data/warfare.js?v=0.22.0');if(ticket!==generation)return;
-   if(warfareTypes.has(collectionType(data))){const {warfarePanel}=await import('./warfare.js?v=0.22.0');if(ticket!==generation)return;const panel=warfarePanel(record,world,params,()=>ticket===generation);disposeConflict=panel.dispose;body.append(panel.element);specialisedConflict=true;}
+   const {collectionType,warfareTypes}=await import('../data/warfare.js?v=0.23.0');if(ticket!==generation)return;
+   if(warfareTypes.has(collectionType(data))){const {warfarePanel}=await import('./warfare.js?v=0.23.0');if(ticket!==generation)return;const panel=warfarePanel(record,world,params,()=>ticket===generation);disposeConflict=panel.dispose;body.append(panel.element);specialisedConflict=true;}
   }
   if(kind==='historical_events'&&/^\d+$/.test(params.get('conflictOrigin')||'')){const origin=new URLSearchParams(params);origin.delete('conflictOrigin');origin.set('warTab','chronicle');body.append(element('p','This event belongs to the conflict history you were reading.'));const backConflict=element('a','← Return to this conflict','button quiet');backConflict.href=recordURL(worldId,'historical_event_collections',params.get('conflictOrigin'),'?'+origin);body.append(backConflict);}
 
@@ -101,10 +107,11 @@ export async function renderRecord(worldId,kind,id,params) {
   if(!resolved.length)links.append(element('li','No supported explicit references in this record. Other fields remain available in the source inspector.'));
   if(kind==='historical_figures'){
    body.insertBefore(biography(data,resolved,worldId,suffix),fieldDetails);
+   const supernatural=supernaturalPanel(record,worldId,()=>ticket===generation,params);disposeSupernatural=supernatural.dispose;body.insertBefore(supernatural.element,fieldDetails);
    const find=element('button','Find a connection','quiet record-tool');find.type='button';body.insertBefore(find,fieldDetails);
-   find.onclick=async()=>{find.disabled=true;try{const {connectionFinder}=await import('./connections.js?v=0.22.0');if(ticket!==generation)return;const finder=connectionFinder({...record,label:cultureLabel(record)},worldId,()=>{const query=location.hash.split('?')[1]||'';return query?'?'+query:'';},()=>ticket===generation);disposeConnections=finder.dispose;find.replaceWith(finder.element);const heading=finder.element.querySelector('h2');heading.tabIndex=-1;heading.focus();}catch(error){if(ticket===generation){find.disabled=false;status.textContent=error.message;}}};
+   find.onclick=async()=>{find.disabled=true;try{const {connectionFinder}=await import('./connections.js?v=0.23.0');if(ticket!==generation)return;const finder=connectionFinder({...record,label:cultureLabel(record)},worldId,()=>{const query=location.hash.split('?')[1]||'';return query?'?'+query:'';},()=>ticket===generation);disposeConnections=finder.dispose;find.replaceWith(finder.element);const heading=finder.element.querySelector('h2');heading.tabIndex=-1;heading.focus();}catch(error){if(ticket===generation){find.disabled=false;status.textContent=error.message;}}};
    const launchers=element('div',undefined,'relationship-toolbar'),family=element('button','Open family tree','quiet record-tool'),launch=element('button','Explore family and relationships','quiet record-tool');family.type=launch.type='button';launchers.append(family,launch);body.insertBefore(launchers,fieldDetails);
-   const openRelationships=async layout=>{family.disabled=launch.disabled=true;try{const {relationshipPanel}=await import('./relationships.js?v=0.22.0');if(ticket!==generation)return;
+   const openRelationships=async layout=>{family.disabled=launch.disabled=true;try{const {relationshipPanel}=await import('./relationships.js?v=0.23.0');if(ticket!==generation)return;
     const onLayout=value=>{const query=new URLSearchParams(location.hash.split('?')[1]||'');query.set('relationships',value);history.replaceState(null,'',recordURL(worldId,kind,id,'?'+query));};
     const panel=relationshipPanel({...record,label:cultureLabel(record)},worldId,()=>{const query=location.hash.split('?')[1]||'';return query?'?'+query:'';},()=>ticket===generation,{layout,onLayout});disposeRelationships=panel.dispose;onLayout(layout);launchers.replaceWith(panel);panel.querySelector('h2').tabIndex=-1;panel.querySelector('h2').focus();
    }catch(error){if(ticket===generation){family.disabled=launch.disabled=false;status.textContent=error.message;}}};

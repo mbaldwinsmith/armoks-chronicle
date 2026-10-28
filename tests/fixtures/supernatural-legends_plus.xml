@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<df_world><name>The Fictional Midnight Archive</name><historical_figures>
+<historical_figure><id>1</id><active_interaction>VAMPIRE_CURSE</active_interaction></historical_figure>
+<historical_figure><id>7</id><deity>false</deity></historical_figure>
+</historical_figures><historical_events>
+<historical_event><id>1</id><student_hfid>1</student_hfid><teacher_hfid>2</teacher_hfid><secret_text>the secrets of life and death</secret_text></historical_event>
+</historical_events></df_world>

@@ -133,3 +133,7 @@ The Grudge Ledger uses a lazy world-scoped compact worker cache built from index
 ## Personal chronicles and IndexedDB v3
 
 The native storage adapter upgrades v1/v2 databases by adding a `chronicles` store keyed by collection ID, with a world index. Source records and annotations are retained. The pure chronicle adapter validates ordered entries, reference uniqueness, field/backup limits and Markdown escaping; transactional revisions prevent stale-tab overwrites. World deletion never touches the chronicle store. Views collect record snapshots, bookmarks and a bounded recent trail, keep explicit draft/save state, and provide a source-qualified reading/print layout. Separate versioned JSON backups restore only as new copies with explicit archive association. See [Personal Chronicles](personal-chronicles.md).
+
+## Supernatural evidence profiles
+
+The exploration worker lazily builds one bounded, versioned supernatural evidence index for the active immutable archive. Figure snapshot markers and active/known interactions are processed before event roles; only event subjects receive classification evidence. Search and biography panels share the same states and rules. Generic targets become figure references only in supported interaction/learning/transformation event schemas, and these aliases also feed Follow the Thread. Source events and notes are unchanged. No schema migration is required. See [Supernatural History](supernatural-history.md).

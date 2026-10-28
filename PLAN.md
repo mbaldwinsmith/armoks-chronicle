@@ -6,6 +6,8 @@ Status: atlas and isometric relief preview implemented; broader features in prog
 
 ## Current iteration
 
+Supernatural History: figure directories now compose vampire/werebeast/necromancer/deity evidence filters with optional uncertain matches, linked badges and biography evidence/context panels. Exact supported markers and learned-secret evidence are separated from identifier/form-name clues, species, known interactions and forces. Versioned bounded worker profiles retain source roles, missing records and uncertainty; aliases feed Follow the Thread without inferred infection lineages. 170 Node tests pass; deployed browser checks follow publication. See docs/supernatural-history.md.
+
 Personal Chronicles: named world-scoped collections now support record-page collection, bookmarked records, the bounded recent trail, keyboard reordering, per-entry commentary, saved source summaries, reversible archiving, Markdown/JSON export, explicit new-copy backup restore and a print reading layout. IndexedDB v3 retains both annotations and chronicles when source archives are removed. Explicit saves and stale-tab checks protect drafts. 156 Node tests and the deployed browser integration suite pass. Live checks cover record collection, recent-trail capture, bookmark/note collection, reordering/commentary, save/reload, Markdown/JSON downloads, new-copy restore, archive filtering and reading view. See docs/personal-chronicles.md.
 
 Checklist reconciliation (see docs/plan-audit.md): completed items below were checked against committed modules, authored fixtures and recorded live checks. Combined tasks were split where only part is implemented. An unchecked release/audit item still requires its stated evidence; this reconciliation is not a WCAG, cross-browser, offline or performance certification.
@@ -97,7 +99,8 @@ A feature-complete v1 includes every required phase below, including specialist 
 - [x] Reconcile local integration imports against reference totals without publishing export-derived details.
 - [x] Record supplied-export baseline verification privately; keep original game-world-derived reference values out of public documentation.
 - [ ] Define expected optional-data capabilities separately from required standard-XML capabilities.
-- [ ] Add fixtures for supernatural evidence, absent/ambiguous status, vague relationships, dedicated structures, and competing sources for ownership.
+- [x] Add authored supernatural fixtures covering supported/unknown/possible states, overlapping evidence, role direction, merged/Plus conflicts and false positives.
+- [ ] Add dedicated-structure and competing-ownership fixtures; verify any future recorded-absence mapping before treating it as a negative state.
 - [x] Test tied ranks, copied works versus physical artifacts and nested/overlapping casualty totals with authored fixtures.
 - [ ] Add incomplete/ongoing reign and contested-ownership ranking fixtures when those metrics are implemented.
 - [x] Cover unknown/sentinel ownership, missing battle coordinates and date-filtered conflict events in politics/conflict fixtures.
@@ -190,7 +193,7 @@ A feature-complete v1 includes every required phase below, including specialist 
 - [x] Support multiple stored worlds, world switching, storage usage, and explicit world deletion.
 - [ ] Store cached map thumbnails, dimensions, export date, import date, and last-opened time for the world bookshelf.
 - [ ] Support explicitly validated world-family grouping and a snapshot selector; keep every snapshot’s records, annotations, indexes, and cache keys independent.
-- [ ] Store supernatural classifications with evidence and derivation version, retaining unknown/ambiguous states rather than defaulting to false.
+- [x] Cache world-scoped supernatural profiles with bounded source evidence, derivation rule version and Unknown/Possible states; recompute from immutable source records rather than defaulting to false.
 - [x] Keep exploration history, caches, bookmarks, and notes isolated by world.
 - [x] Coordinate multiple tabs and database upgrades; handle blocked connections and conflicting edits.
 - [ ] Provide an in-memory session mode when durable storage is unavailable, with a clear persistence notice.
@@ -229,8 +232,9 @@ Implemented slice: all-family name/ID search, category filter, name/year sorting
 - [x] Support ID lookup, exact matches, partial matches, and deterministic result ordering.
 - [x] Filter universal search by record family, timelines by type/date and atlas sites by name/type/faction.
 - [ ] Add remaining directory-specific race, status and affiliation filters.
-- [ ] Add composable vampire, werebeast, necromancer, and deity filters; support overlapping classifications rather than a mutually exclusive creature type.
-- [ ] Provide explicit present/absent/unknown classification filters, with evidence links and the option to include uncertain matches.
+- [x] Add composable vampire, werebeast, necromancer, and deity filters; support overlapping classifications rather than a mutually exclusive creature type.
+- [x] Provide Evidence Found/Possible/Unknown filters, supporting source links and explicit uncertainty opt-in; unknown never means ordinary.
+- [ ] Add a recorded-absence filter only if a verified export schema can establish negative supernatural evidence.
 - [x] Provide sorting, result counts, pagination, and clear-all controls.
 - [x] Debounce directory input, compute searches in a worker and suppress stale replies after query/navigation changes.
 - [ ] Abort superseded same-world directory worker queries rather than only discarding their replies.
@@ -250,7 +254,7 @@ Implemented slice: all-family name/ID search, category filter, name/year sorting
 - [ ] Add dedicated linked panels for notable kills, abducted figures, and structures dedicated to the figure; show counts and source evidence.
 - [x] Preserve abductor, victim and killer roles in event prose, evidence and the Grudge Ledger.
 - [ ] Interpret dedication references separately from building/ownership when dedicated-structure panels are added.
-- [ ] Show supernatural badges with explanations and supporting secrets, transformations, interactions, or other verified evidence; show uncertainty when classification is inconclusive.
+- [x] Show supernatural badges with explanations and supporting secrets, transformations, interactions, or other verified evidence; show uncertainty when classification is inconclusive.
 - [x] Add a chronological life timeline with category and date filters.
 - [x] Summarise major recorded events using deterministic templates.
 - [x] Show death cause, killer when identified, and location; retain unnamed killer race/caste details.
@@ -259,7 +263,8 @@ Implemented slice: all-family name/ID search, category filter, name/year sorting
 - [ ] Add recorded journeys and a link to the map; mark gaps and avoid implying continuous travel.
 - [x] Provide raw/source details behind an expandable inspector.
 - [x] Display unknown birth/death dates and explicitly avoid inferring survival from a missing death record.
-- [ ] Add evidence-based supernatural/deity-specific biography handling and overlapping classifications.
+- [x] Add evidence-based supernatural/deity biography panels and overlapping classifications, keeping force markers and worship associations distinct.
+- [ ] Extend specialist deity/religion context and verified supernatural mappings beyond the conservative initial rules.
 
 ## 10 — Settlements, organisations, and geography records
 
@@ -400,8 +405,8 @@ This setting is part of v1 implementation but opt-in for users; the flat atlas r
 - [ ] Build a bestiary using creature definitions and linked historical figures.
 - [ ] Show known attacks, victims, transformations, secrets, and deaths without treating species traits as individual deeds.
 - [ ] Build intrigue views for plots, participants, relationships, assumed identities, and recorded outcomes.
-- [ ] Implement supernatural-status derivation from verified export fields and mappings, documenting evidence rules and their compatibility limits.
-- [ ] Keep species, deity status, learned secrets, transformations, and supernatural abilities distinct; absence of a known marker does not prove a figure is ordinary.
+- [x] Implement conservative supernatural evidence derivation from inspected fields and documented example mappings, with versioned rules and compatibility limits. Broader/localised/modded mappings remain explicitly unverified.
+- [x] Keep species, deity status, learned secrets, transformations, and supernatural abilities distinct; absence of a known marker does not prove a figure is ordinary.
 - [x] Explain source limits and avoid inferring hidden motives or guilt from membership alone.
 - [ ] Add “last recorded whereabouts” panels for figures, beasts, and artifacts, with source date/event.
 - [ ] Handle conflicting or undated location evidence as uncertainty rather than a definitive current position.
@@ -519,7 +524,8 @@ Tests may run locally using optional developer tooling. They must not compile pr
 - [ ] Automate quota exhaustion, interrupted transactions and failed/blocked migration recovery cases.
 - [x] Add map tests for dimensions, coordinate alignment, unknown codes, and absent optional data.
 - [x] Add graph tests for cycles, relationship direction, path bounds, and misleading shared-event shortcuts.
-- [ ] Test supernatural classifications with overlapping traits, missing evidence, unknown versions, and false-positive cases; verify badges and filters agree.
+- [x] Test overlapping supernatural traits, missing/unsupported markers, generated identifiers, false-positive exclusions and badge/filter agreement with authored standard/Plus fixtures.
+- [ ] Expand the compatibility matrix to additional known DF/DFHack versions, translations and mod definitions.
 - [x] Test directed family/social/vague relationship categories, source-role wording and graph/list evidence, including shared-event non-friendship.
 - [ ] Test future dedicated biography kill/abduction/dedication panels.
 - [x] Test tied ranks, physical-copy deduplication, knowledge counts and nested casualty overlap.
@@ -567,7 +573,8 @@ Tests may run locally using optional developer tooling. They must not compile pr
 - [x] Document uncertainty, incomplete event/relationship histories and the distinction between recorded summaries and personal commentary.
 - [ ] Document population snapshot/reconstruction semantics when report interpretation is implemented.
 - [x] Document implemented ranking metrics, political/conflict map semantics, event-noise presets and independent archive identity.
-- [ ] Document supernatural evidence rules and snapshot grouping when those features are implemented.
+- [x] Document supernatural evidence rules, primary-source references, conservative compatibility scope and uncertainty.
+- [ ] Document snapshot grouping when that feature is implemented.
 - [x] Record LegendsViewer-Next as feature research inspiration with upstream links; retain applicable notices for any code or assets actually reused.
 - [ ] Document the opt-in Raised Relief setting, controls, graphics requirements, performance limits, and regional/export-time resolution.
 - [x] Document authored-fixture provenance rules and dependency-free Node/browser test commands.
@@ -589,7 +596,7 @@ Tests may run locally using optional developer tooling. They must not compile pr
 - [ ] Complete and verify intrigue, religion and bestiary specialist views.
 - [x] Discovery cards, relationship paths, and grudges provide interesting, accurately labelled connections.
 - [x] The visitor browses the Book of Records and follows a ranked entry to evidence explaining its metric and limitations.
-- [ ] The visitor filters supernatural figures, inspects classification evidence, and distinguishes vague associations from explicit personal relationships.
+- [ ] Verify the complete live supernatural filter → biography → evidence → linked participant journey after deployment.
 - [x] The visitor selects a faction on the political map, explores a war overlay and warfare network, and returns through working record links.
 - [x] The visitor hides routine events, sees matching list/hidden totals and restores all events with one control.
 - [ ] Verify matching charts once shared timeline charts are implemented.

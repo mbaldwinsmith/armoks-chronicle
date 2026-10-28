@@ -1,4 +1,4 @@
-import {titleCase,readableValue,eventLabel} from './language.js?v=0.22.0';
+import {titleCase,readableValue,eventLabel} from './language.js?v=0.23.0';
 // Deterministic export renderings, not inferred motives or generated fiction.
 export const words=value=>String(value??'').replaceAll('_',' ');
 const aliases={'hist figure died':'hf died','hist figure wounded':'hf wounded','created building':'created structure','change creature type':'changed creature type','hist figure new pet':'hf new pet','war peace accepted':'peace accepted','war peace rejected':'peace rejected'};
@@ -48,6 +48,7 @@ export const formatters={
  'artifact given':d=>[scalar(d,'giver_hist_figure_id')?hf(d,'giver_hist_figure_id'):entity(d,'giver_entity_id'),' gave ',artifact(d),' to ',scalar(d,'receiver_hist_figure_id')?hf(d,'receiver_hist_figure_id'):entity(d,'receiver_entity_id')],
  'written content composed':d=>[hf(d,'hist_figure_id'),' composed ',ref(d,'written_contents',['wc_id','written_content_id'],'an unidentified written work'),...where(d)],
  'knowledge discovered':d=>[subject(d),' discovered knowledge recorded as “',text(d,'knowledge'),'”'],
+ 'hf does interaction':d=>[hf(d,'doer_hfid','doer'),' performed the recorded interaction “',scalar(d,'interaction_action','interaction')||'not recorded','” on ',hf(d,'target_hfid','target')],
  'hf learns secret':d=>[hf(d,'student_hfid','student'),' learned a secret',...(scalar(d,'teacher_hfid','teacher')?[' from ',hf(d,'teacher_hfid','teacher')]:[]),...(scalar(d,'secret_text')?[': ',text(d,'secret_text')]:[])],
  'changed creature type':d=>[hf(d,'changee_hfid','changee'),' changed from ',text(d,'old_race'),' to ',text(d,'new_race')],
  'item stolen':d=>[hf(d,'histfig'),' stole an item',...(scalar(d,'item_type')?[' recorded as ',text(d,'item_type')]:[]),...where(d)],
