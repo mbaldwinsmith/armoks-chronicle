@@ -6,6 +6,8 @@ Status: atlas and isometric relief preview implemented; broader features in prog
 
 ## Current iteration
 
+Offices and Succession: figure/organisation panels now distinguish dated appointment/removal terms from export-time holder assignments and office-creation context. Source-linked appointer/promise roles, organisation-scoped office definitions, neighbouring recorded holders, uncertain handovers and overlapping/open terms remain explicit. Longest and Shortest Completed Office Terms rank eligible calendar-year spans separately, with ties, both endpoints and exclusions. Existing archives require no reimport. See docs/offices-and-succession.md.
+
 Supernatural History: figure directories now compose vampire/werebeast/necromancer/deity evidence filters with optional uncertain matches, linked badges and biography evidence/context panels. Exact supported markers and learned-secret evidence are separated from identifier/form-name clues, species, known interactions and forces. Versioned bounded worker profiles retain source roles, missing records and uncertainty; aliases feed Follow the Thread without inferred infection lineages. 170 Node tests and the deployed 0.23.1 browser integration suite pass. Live checks cover composed filters, uncertainty opt-in, reload, evidence strength/source inspection and participant links with retained filter state. See docs/supernatural-history.md.
 
 Personal Chronicles: named world-scoped collections now support record-page collection, bookmarked records, the bounded recent trail, keyboard reordering, per-entry commentary, saved source summaries, reversible archiving, Markdown/JSON export, explicit new-copy backup restore and a print reading layout. IndexedDB v3 retains both annotations and chronicles when source archives are removed. Explicit saves and stale-tab checks protect drafts. 156 Node tests and the deployed browser integration suite pass. Live checks cover record collection, recent-trail capture, bookmark/note collection, reordering/commentary, save/reload, Markdown/JSON downloads, new-copy restore, archive filtering and reading view. See docs/personal-chronicles.md.
@@ -102,7 +104,8 @@ A feature-complete v1 includes every required phase below, including specialist 
 - [x] Add authored supernatural fixtures covering supported/unknown/possible states, overlapping evidence, role direction, merged/Plus conflicts and false positives.
 - [ ] Add dedicated-structure and competing-ownership fixtures; verify any future recorded-absence mapping before treating it as a negative state.
 - [x] Test tied ranks, copied works versus physical artifacts and nested/overlapping casualty totals with authored fixtures.
-- [ ] Add incomplete/ongoing reign and contested-ownership ranking fixtures when those metrics are implemented.
+- [x] Add completed/open/unknown/overlapping office-term fixtures and fair-comparison exclusions.
+- [ ] Add contested-ownership ranking fixtures when that metric is implemented.
 - [x] Cover unknown/sentinel ownership, missing battle coordinates and date-filtered conflict events in politics/conflict fixtures.
 - [ ] Add a dedicated same-tile settlement fixture and automate chooser behaviour across overlapping site markers.
 
@@ -162,7 +165,9 @@ A feature-complete v1 includes every required phase below, including specialist 
 - [x] Supplement standard events with Plus fields rather than counting both exports as separate event streams.
 - [x] Preserve unknown fields/types for inspection and future compatibility.
 - [x] Retain nested/repeated source structures and interpret supported written-work and cultural references.
-- [ ] Add typed interpretation and dedicated views for site structures/properties, entity positions/assignments and assumed identities.
+- [x] Add typed entity office definitions and snapshot assignment views with organisation-scoped IDs.
+- [ ] Add typed interpretation and dedicated views for site structures/properties and assumed identities.
+- [ ] Verify figure-level position-link and squad-leadership structures before deriving additional office terms from them.
 - [x] Parse event collections and nested child collections without recursion loops.
 - [x] Validate map CSV v3 columns, dimensions, coordinate bounds/uniqueness, field ranges and complete tile coverage in a worker.
 - [ ] Stream map CSV incrementally; the current bounded-size parser reads one complete map text.
@@ -248,7 +253,7 @@ Implemented slice: all-family name/ID search, category filter, name/year sorting
 - [x] Show names, race/caste/sex as recorded, birth, appearance, death, and qualified age calculations.
 - [ ] Show skills and goals with verified labels; preserve raw labels when a mapping is unknown.
 - [x] Show recorded current/former affiliation labels as snapshot claims, separately from dated affiliation events.
-- [ ] Add typed office/appointment panels and succession interpretation.
+- [x] Add typed office/appointment panels and qualified neighbouring-holder interpretation, without inferred inheritance or missing endpoints.
 - [x] Link relatives, spouses, companions, rivals, pets, worship, and other recorded relationships.
 - [x] Separate close/explicit relationships from vaguely recorded associations, preserving the original relationship label and supporting record.
 - [ ] Add dedicated linked panels for notable kills, abducted figures, and structures dedicated to the figure; show counts and source evidence.
@@ -276,8 +281,9 @@ Implemented slice: all-family name/ID search, category filter, name/year sorting
 - [ ] Display population reports as export-date snapshots, including untracked inhabitants.
 - [ ] Keep named historical figures separate from total population estimates.
 - [ ] Create entity pages distinguishing civilisations, governments, religions, military groups, and criminal organisations.
-- [ ] Show parent/child organisations, memberships, positions, and appointments.
-- [ ] Add leadership succession timelines where dates can be established.
+- [x] Show recorded office definitions, assignments and dated appointments on organisation pages.
+- [ ] Add dedicated parent/child organisation and membership panels beyond raw references.
+- [x] Add chronological organisation office terms and source-linked earlier/next recorded holders where dates establish order; do not infer exclusive rulership or hereditary succession.
 - [x] Link associated settlements, conflicts, worship, and artifacts.
 - [x] Create region and underground-region pages, retaining depth and coordinate information.
 - [ ] Create pages/details for rivers, peaks, landmasses, and constructions when supplied.
@@ -453,7 +459,8 @@ Implemented slice: directed source-record networks with family/social/rivalry/af
 - [x] Build a dedicated Book of Records with category links, ranked tables, highlight cards, source links, and preserved category/page route state. Additional metric and supernatural filters remain below.
 - [x] Rank figures by distinct recorded notable kills and show separate named/squad casualty evidence in conflict histories.
 - [ ] Add bloodiest-battle rankings and creature-specific ranking controls, preserving overlap/incompleteness rules.
-- [ ] Include longest and shortest reigns, defining treatment of incomplete dates, concurrent offices, ongoing terms, and tied durations.
+- [x] Include longest and shortest completed office terms (including supported reigns), defining treatment of incomplete dates, concurrent offices, open terms and tied durations. Ruler-only classification is not inferred.
+- [ ] Add ruler-specific office/reign controls only when export definitions can support that classification.
 - [ ] Include most contested settlements using a documented metric such as recorded ownership changes; distinguish this from attack count.
 - [x] Include most copied written works, most prolific authors, and greatest scholars by recorded knowledge discoveries, with separate work/artifact/copy counts.
 - [x] Rank completed/open-ended recorded lives and artifact event histories using shared discovery metrics.
@@ -529,7 +536,7 @@ Tests may run locally using optional developer tooling. They must not compile pr
 - [x] Test directed family/social/vague relationship categories, source-role wording and graph/list evidence, including shared-event non-friendship.
 - [ ] Test future dedicated biography kill/abduction/dedication panels.
 - [x] Test tied ranks, physical-copy deduplication, knowledge counts and nested casualty overlap.
-- [ ] Add incomplete/ongoing reign ranking tests with the corresponding metrics.
+- [x] Test completed/open/unknown office terms, repeated appointments, concurrency, source conflicts, tied durations, zero-year spans and both ranking orders.
 - [x] Test faction filters/unknown owners, date-filtered/scoped conflicts, missing coordinates and source graph/map routes.
 - [ ] Automate same-tile settlement chooser and touch marker selection, beyond the existing conflict tile chooser.
 - [x] Test event-noise presets/exclusions across lists, counts, reset and navigation state.

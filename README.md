@@ -119,7 +119,7 @@ Names follow the DFHack `biome_type` definitions documented in the architecture 
 
 ### Book of Records
 
-Open a world and choose **Book of Records** to find notable figures, settlements, artifacts and written works. Eight evidence-linked rankings cover named kills, completed lives, open-ended life records, prolific authors, eventful sites, knowledge discoveries, artifact histories and recorded physical copies. Highlights disclose ties; category and page choices survive reloads. Every table explains its metric and exclusions. Open-ended life records do not prove survival, and all categories currently include supernatural figures. See [counting definitions and limits](docs/book-of-records.md).
+Open a world and choose **Book of Records** to find notable figures, settlements, artifacts and written works. Ten evidence-linked rankings cover named kills, completed lives, open-ended life records, prolific authors, eventful sites, knowledge discoveries, artifact histories, recorded physical copies, and longest/shortest completed office terms. Highlights disclose ties; category and page choices survive reloads. Every table explains its metric and exclusions. Open-ended life records do not prove survival, and all categories currently include supernatural figures. See [counting definitions and limits](docs/book-of-records.md).
 
 ### Family trees
 
@@ -156,3 +156,7 @@ Choose **Supernatural Figures** on a world’s Desk or filter the Historical Fig
 ## Recorded Whereabouts and Journeys
 
 Figure and artifact pages now show **Recorded Whereabouts**: source-linked appearances, qualified latest-location evidence and an atlas link. Repeated visits get numbered markers in the flat atlas and Raised Relief. Optional dashed lines connect ordered observations; they are not actual travelled paths. Missing places, uncertain dates and conflicting records remain visible. Artifact claims, recorded possession, transfers and undated holder/site snapshots stay distinct. Existing archives work without reimporting. See [supported events and limits](docs/recorded-journeys.md).
+
+## Offices and Succession
+
+Historical figure and organisation pages now show **Offices and Succession**: dated appointment/removal terms, explicit appointers, neighbouring recorded holders and separate export-time assignment snapshots. Missing ends, uncertain handovers and overlapping holders stay visible. Book of Records adds **Longest** and **Shortest Completed Office Terms**, comparing separate eligible calendar-year spans with both source events. Office definitions do not automatically identify rulers or hereditary successors. Existing archives need no reimport. See [evidence rules, pairing and bounds](docs/offices-and-succession.md).

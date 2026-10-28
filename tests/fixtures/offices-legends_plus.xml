@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<df_world><name>The Fictional Crown and Ledger</name>
+<entities><entity><id>5</id>
+<entity_position><id>1</id><name>monarch</name><name_male>king</name_male><name_female>queen</name_female></entity_position>
+<entity_position><id>2</id><name>bookkeeper</name></entity_position>
+<entity_position><id>3</id><name>emergency clerk</name></entity_position>
+<entity_position><id>4</id><name>marshal</name></entity_position>
+<entity_position><id>5</id><name>speaker</name></entity_position>
+<entity_position><id>6</id><name>gatewarden</name></entity_position>
+<entity_position><id>7</id><name>archivist</name></entity_position>
+<entity_position_assignment><id>90</id><histfig>4</histfig><position_id>1</position_id></entity_position_assignment>
+<entity_position_assignment><id>91</id><histfig>6</histfig><position_id>7</position_id></entity_position_assignment>
+</entity><entity><id>6</id><entity_position><id>1</id><name>speaker</name></entity_position></entity></entities>
+<historical_events><historical_event><id>1</id><position>monarch</position><appointer_hfid>3</appointer_hfid><promise_to_hfid>6</promise_to_hfid></historical_event></historical_events>
+</df_world>

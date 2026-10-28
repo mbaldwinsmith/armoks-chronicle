@@ -34,5 +34,5 @@ test('pagination is deterministic across ties, clamps invalid offsets and preser
  assert.equal(first.total,55);assert.equal(first.rows.length,50);assert.equal(second.rows.length,5);assert(second.rows.every(row=>row.rank===1));assert.equal(new Set([...first.rows,...second.rows].map(r=>r.key)).size,55);assert.equal(second.highlights.find(c=>c.id==='authors').ties,55);assert.equal(invalid.offset,0);assert.equal(beyond.offset,50);assert.equal(recordsCategory('bad').id,'kills');
 });
 test('independent world calculations have empty-state categories and do not retain source mutations',()=>{
- const source=[hf(1),r('written_contents',1,{author_hfid:'1'})],before=JSON.stringify(source),one=book(source),two=book([hf(1)]);assert.equal(recordBookPage(one,'authors').total,1);assert.equal(recordBookPage(two,'authors').total,0);assert.equal(recordBookPage(two,'authors').highlights.length,8);assert.equal(JSON.stringify(source),before);
+ const source=[hf(1),r('written_contents',1,{author_hfid:'1'})],before=JSON.stringify(source),one=book(source),two=book([hf(1)]);assert.equal(recordBookPage(one,'authors').total,1);assert.equal(recordBookPage(two,'authors').total,0);assert.equal(recordBookPage(two,'authors').highlights.length,10);assert.equal(JSON.stringify(source),before);
 });

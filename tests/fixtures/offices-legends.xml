@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<df_world><name>The Fictional Crown and Ledger</name>
+<entities><entity><id>5</id><name>the copper commonwealth</name><type>civilization</type></entity><entity><id>6</id><name>the winter assembly</name></entity></entities>
+<historical_figures>
+<historical_figure><id>1</id><name>urist ledgercrown</name><race>DWARF</race></historical_figure>
+<historical_figure><id>2</id><name>domas inkwarden</name></historical_figure>
+<historical_figure><id>3</id><name>mistem wintervoice</name></historical_figure>
+<historical_figure><id>4</id><name>kogan sealkeeper</name><death_year>90</death_year></historical_figure>
+<historical_figure><id>5</id><name>erith briefquill</name></historical_figure>
+<historical_figure><id>6</id><name>lokum promisedvoice</name></historical_figure>
+</historical_figures>
+<historical_events>
+<historical_event><id>1</id><type>add hf entity link</type><hfid>1</hfid><civ_id>5</civ_id><link>position</link><position_id>1</position_id><year>2</year></historical_event>
+<historical_event><id>2</id><type>remove hf entity link</type><hfid>1</hfid><civ_id>5</civ_id><link>position</link><position_id>1</position_id><year>22</year></historical_event>
+<historical_event><id>3</id><type>add hf entity link</type><hfid>2</hfid><civ_id>5</civ_id><link>position</link><position_id>1</position_id><year>24</year></historical_event>
+<historical_event><id>4</id><type>remove hf entity link</type><hfid>2</hfid><civ_id>5</civ_id><link>position</link><position_id>1</position_id><year>31</year></historical_event>
+<historical_event><id>5</id><type>add hf entity link</type><hfid>3</hfid><civ_id>5</civ_id><link>position</link><position_id>1</position_id><year>34</year></historical_event>
+<historical_event><id>6</id><type>remove hf entity link</type><hfid>3</hfid><civ_id>5</civ_id><link>position</link><position_id>1</position_id><year>54</year></historical_event>
+<historical_event><id>7</id><type>add hf entity link</type><hfid>4</hfid><civ_id>5</civ_id><link>position</link><position_id>1</position_id><year>57</year></historical_event>
+<historical_event><id>8</id><type>add hf entity link</type><hfid>1</hfid><civ_id>5</civ_id><link>position</link><position_id>2</position_id><year>8</year></historical_event>
+<historical_event><id>9</id><type>remove hf entity link</type><hfid>1</hfid><civ_id>5</civ_id><link>position</link><position_id>2</position_id><year>13</year></historical_event>
+<historical_event><id>10</id><type>add hf entity link</type><hfid>5</hfid><civ_id>5</civ_id><link>position</link><position_id>3</position_id><year>16</year><seconds72>100</seconds72></historical_event>
+<historical_event><id>11</id><type>remove hf entity link</type><hfid>5</hfid><civ_id>5</civ_id><link>position</link><position_id>3</position_id><year>16</year><seconds72>200</seconds72></historical_event>
+<historical_event><id>12</id><type>add hf entity link</type><hfid>2</hfid><civ_id>6</civ_id><link>position</link><position_id>1</position_id><year>2</year></historical_event>
+<historical_event><id>13</id><type>remove hf entity link</type><hfid>2</hfid><civ_id>6</civ_id><link>position</link><position_id>1</position_id><year>4</year></historical_event>
+<historical_event><id>14</id><type>add hf entity link</type><hfid>2</hfid><civ_id>5</civ_id><link>position</link><position_id>4</position_id><year>10</year></historical_event>
+<historical_event><id>15</id><type>add hf entity link</type><hfid>3</hfid><civ_id>5</civ_id><link>position</link><position_id>4</position_id><year>15</year></historical_event>
+<historical_event><id>16</id><type>remove hf entity link</type><hfid>2</hfid><civ_id>5</civ_id><link>position</link><position_id>4</position_id><year>25</year></historical_event>
+<historical_event><id>17</id><type>remove hf entity link</type><hfid>3</hfid><civ_id>5</civ_id><link>position</link><position_id>4</position_id><year>30</year></historical_event>
+<historical_event><id>18</id><type>add hf entity link</type><hfid>6</hfid><civ_id>5</civ_id><link>position</link><position_id>5</position_id><year>-1</year></historical_event>
+<historical_event><id>19</id><type>remove hf entity link</type><hfid>6</hfid><civ_id>5</civ_id><link>position</link><position_id>5</position_id><year>40</year></historical_event>
+<historical_event><id>20</id><type>add hf entity link</type><hfid>999</hfid><civ_id>5</civ_id><link>position</link><position_id>6</position_id><year>2</year></historical_event>
+<historical_event><id>21</id><type>remove hf entity link</type><hfid>999</hfid><civ_id>5</civ_id><link>position</link><position_id>6</position_id><year>10</year></historical_event>
+<historical_event><id>22</id><type>create entity position</type><histfig>6</histfig><site_civ>5</site_civ><civ>5</civ><position>archivist</position><year>1</year></historical_event>
+</historical_events></df_world>

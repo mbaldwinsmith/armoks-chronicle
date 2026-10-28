@@ -173,3 +173,8 @@
 .journey-card {border-left:3px solid #be9660;padding:.8rem 1rem;background:rgba(128,128,128,.07);overflow-wrap:anywhere;}
 .journey-card h3 {margin:.3rem 0;}.journey-card p {margin:.4rem 0;}
 .journey-atlas {width:100%;}.journey-atlas label {display:block;margin-block:1rem;}
+
+.offices-panel {margin-block:2rem;}
+.office-list {display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,22rem),1fr));gap:1rem;margin-block:1rem;}
+.office-card {padding:1rem 1.2rem;border:1px solid #71634b;border-top:3px solid #be9660;border-radius:.5rem;overflow-wrap:anywhere;background:rgba(192,145,79,.05);}
+.office-card h3 {margin:.35rem 0;}.office-card p {margin:.65rem 0;}

@@ -1,5 +1,6 @@
-import {eventType} from './narrative.js?v=0.24.1';
-import {recordKey} from './exploration.js?v=0.24.1';
+import {createOfficeIndex,officeRankings} from './offices.js?v=0.25.0';
+import {eventType} from './narrative.js?v=0.25.0';
+import {recordKey} from './exploration.js?v=0.25.0';
 export const recordCategories=Object.freeze([
  {id:'kills',title:'Deadliest Figures',unit:'named victims',kind:'historical_figures',definition:'Distinct historical figures explicitly named as victims in death events naming this killer. Repeated deaths for the same victim count once per killer. Self-kills, old-age deaths, missing victims and unnamed squad casualties are excluded. Conflicting killer attributions remain source claims, not a resolved verdict.'},
  {id:'lifespans',title:'Longest Completed Lives',unit:'calendar years',kind:'historical_figures',definition:'Death year minus birth year in the merged figure record. These are differences between calendar years, not exact birthdays. Both years must be recorded, neither may be the -1 sentinel, and death must not precede birth. Negative years other than -1 are retained. Supernatural figures are included.'},
@@ -8,6 +9,8 @@ export const recordCategories=Object.freeze([
  {id:'sites',title:'Most Eventful Settlements',unit:'recorded events',kind:'sites',definition:'Distinct event records explicitly referencing the site through a recognised site-ID field. Multiple references in one event count once per site. Source and destination sites may both count. This measures recorded activity, including routine events, not population, importance, ownership changes or battles.'},
  {id:'scholars',title:'Most Recorded Knowledge Discoveries',unit:'discovery events',kind:'historical_figures',definition:'Distinct knowledge-discovered event records naming the figure (hfid, then hist_figure_id, histfig or hf). This counts recorded discovery events, not unique topics, learned secrets, books or overall intelligence.'},
  {id:'artifacts',title:'Most Chronicled Artifacts',unit:'recorded events',kind:'artifacts',definition:'Distinct event records explicitly referencing the artifact through recognised artifact-ID fields. Several references in one event count once. This measures the recorded history, not age, value, number of owners or physical copies.'},
+ {id:'longest-terms',title:'Longest Completed Office Terms',unit:'calendar years',kind:'historical_figures',population:'recorded office term/endpoint entries',definition:'Each explicitly paired appointment/removal term is ranked separately, by removal year minus appointment year. Missing or ongoing endpoints, ambiguous event order, unresolved holders/organisations, conflicting office definitions and potentially overlapping terms in the same office are excluded. Concurrent different offices remain separate. Zero-year terms require ordered within-year timestamps. No death, next appointment or export date supplies a missing endpoint. All office types and supernatural figures are included; these are not exclusively royal reigns.'},
+ {id:'shortest-terms',title:'Shortest Completed Office Terms',unit:'calendar years',kind:'historical_figures',population:'recorded office term/endpoint entries',definition:'The same eligible completed office terms as Longest Completed Office Terms, ordered shortest first. Year differences are not exact anniversaries. Repeated terms are not summed; distinct offices are not merged. Equal durations share competition ranks, including qualifying zero-year terms. Scan limits and missing export coverage can exclude further evidence.'},
  {id:'copies',title:'Works With the Most Recorded Copies',unit:'recorded physical artifacts',kind:'written_contents',definition:'Distinct artifact records explicitly referencing written content through writing or item.page_written_content_id. Repeated page references in one artifact count once. This counts recorded physical artifacts, not copying events, pages, surviving copies or all copies ever made.'}
 ]);
 const array=v=>v===undefined?[]:Array.isArray(v)?v:[v];
@@ -16,7 +19,8 @@ const first=(d,...keys)=>keys.map(k=>id(d[k])).find(Boolean);
 const year=v=>typeof v==='string'&&/^-?\d+$/.test(v)&&Number.isSafeInteger(Number(v))&&v!=='-1'?Number(v):null;
 export function recordsCategory(value){return recordCategories.find(c=>c.id===value)||recordCategories[0];}
 // One streaming pass, with at most five sample evidence links per ranked entry.
-export function createRecordBook(){
+export function createRecordBook(existingOffices=null){
+ const offices=existingOffices?null:createOfficeIndex();
  const metrics=new Map(recordCategories.map(c=>[c.id,new Map()])),lives=[];let latestYear=null,referenceEvent=null;
  function add(category,kind,target,distinct,evidence){
   if(!target)return;const map=metrics.get(category),key=recordKey(kind,target);let row=map.get(key);
@@ -26,6 +30,7 @@ export function createRecordBook(){
  }
  return {
   accept(record,refs=[]){
+   offices?.accept(record);
    const d=record.data||{},key=recordKey(record.kind,record.id),evidence={kind:record.kind,id:String(record.id)};
    if(record.kind==='historical_figures'){
     const birth=year(d.birth_year),death=year(d.death_year);
@@ -53,8 +58,8 @@ export function createRecordBook(){
     if(!category||end<life.birth||!Number.isSafeInteger(end-life.birth))continue;
     metrics.get(category).set(life.key,{key:life.key,kind:life.kind,id:life.id,value:end-life.birth,evidence:[{kind:life.kind,id:life.id}],detail:`Year ${life.birth} → Year ${end}${category==='open-lives'?' (latest dated event; survival unconfirmed)':''}`});
    }
-   const results=new Map();
-   for(const category of recordCategories){let unresolved=0;const rows=[];
+   const results=new Map(),officeIndex=existingOffices||offices.finish();
+   for(const category of recordCategories){if(category.population){results.set(category.id,officeRankings(officeIndex,lookup,category.id==='shortest-terms'));continue;}let unresolved=0;const rows=[];
     for(const raw of metrics.get(category.id).values()){
      if(!lookup.has(raw.key)){unresolved++;continue;}
      let value=raw.value,evidence=raw.evidence;
@@ -70,7 +75,7 @@ export function createRecordBook(){
     const candidates=[...lookup.values()].filter(r=>r.kind===category.kind).length;
     results.set(category.id,{rows,candidates,excluded:candidates-rows.length,unresolved});
    }
-   return {metrics:results,latestYear,referenceEvent};
+   return {metrics:results,latestYear,referenceEvent,offices:officeIndex};
   }
  };
 }

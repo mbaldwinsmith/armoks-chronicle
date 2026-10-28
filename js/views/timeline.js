@@ -1,6 +1,6 @@
-import {readingPresets,routineGroups} from '../data/narrative.js?v=0.24.1';
-import {eventLabel} from '../data/language.js?v=0.24.1';
-import {timelineSelection,timelineGroups} from '../data/timeline.js?v=0.24.1';
+import {readingPresets,routineGroups} from '../data/narrative.js?v=0.25.0';
+import {eventLabel} from '../data/language.js?v=0.25.0';
+import {timelineSelection,timelineGroups} from '../data/timeline.js?v=0.25.0';
 const el=(tag,text)=>{const node=document.createElement(tag);if(text!==undefined)node.textContent=text;return node;};
 export function timelineFilters(params,onApply,idPrefix='event'){
  const initial=timelineSelection(params),form=el('form');form.className='timeline-filters';
