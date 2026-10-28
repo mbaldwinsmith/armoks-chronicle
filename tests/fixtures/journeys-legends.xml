@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<df_world><name>The Fictional Wayfarer World</name>
+<sites><site><id>1</id><name>copperhall</name><coords>1,2</coords></site><site><id>2</id><name>ash ford</name><coords>4,5</coords></site><site><id>3</id><name>winterhome</name><coords>6,1</coords></site></sites>
+<historical_figures><historical_figure><id>1</id><name>urist wayfarer</name><race>DWARF</race></historical_figure><historical_figure><id>2</id><name>domas claimkeeper</name></historical_figure></historical_figures>
+<artifacts><artifact><id>5</id><name>the copper compass</name><site_id>3</site_id><holder_hfid>2</holder_hfid></artifact></artifacts>
+<historical_events>
+<historical_event><id>1</id><type>change hf state</type><hfid>1</hfid><state>settled</state><year>2</year><site_id>1</site_id></historical_event>
+<historical_event><id>2</id><type>change hf state</type><hfid>1</hfid><state>visiting</state><year>5</year><site_id>2</site_id></historical_event>
+<historical_event><id>3</id><type>change hf state</type><hfid>1</hfid><state>settled</state><year>8</year><site_id>1</site_id></historical_event>
+<historical_event><id>4</id><type>change hf state</type><hfid>1</hfid><state>visiting</state><year>10</year><site_id>2</site_id></historical_event>
+<historical_event><id>5</id><type>change hf state</type><hfid>1</hfid><state>visiting</state><year>10</year><site_id>3</site_id></historical_event>
+<historical_event><id>6</id><type>change hf state</type><hfid>1</hfid><state>wandering</state><year>12</year></historical_event>
+<historical_event><id>7</id><type>change hf state</type><hfid>1</hfid><state>visiting</state><year>-1</year><site_id>3</site_id></historical_event>
+<historical_event><id>8</id><type>hf died</type><hfid>2</hfid><slayer_hfid>1</slayer_hfid><year>15</year><site_id>3</site_id></historical_event>
+<historical_event><id>10</id><type>artifact created</type><artifact_id>5</artifact_id><hist_figure_id>1</hist_figure_id><year>1</year><site_id>1</site_id></historical_event>
+<historical_event><id>11</id><type>artifact stored</type><artifact_id>5</artifact_id><hist_figure_id>2</hist_figure_id><year>4</year><site_id>2</site_id></historical_event>
+<historical_event><id>12</id><type>artifact claim formed</type><artifact_id>5</artifact_id><hist_figure_id>2</hist_figure_id><year>7</year><circumstance>from afar</circumstance><claim>heirloom</claim></historical_event>
+<historical_event><id>13</id><type>artifact possessed</type><artifact_id>5</artifact_id><hist_figure_id>2</hist_figure_id><year>9</year><site_id>2</site_id></historical_event>
+<historical_event><id>14</id><type>artifact lost</type><artifact_id>5</artifact_id><year>11</year><site_id>999</site_id></historical_event>
+<historical_event><id>15</id><type>artifact found</type><artifact_id>5</artifact_id><hist_figure_id>1</hist_figure_id><year>13</year><site_id>3</site_id></historical_event>
+<historical_event><id>16</id><type>artifact given</type><artifact_id>5</artifact_id><giver_hist_figure_id>1</giver_hist_figure_id><receiver_hist_figure_id>2</receiver_hist_figure_id><year>14</year></historical_event>
+</historical_events></df_world>

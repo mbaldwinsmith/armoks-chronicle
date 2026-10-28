@@ -260,7 +260,7 @@ Implemented slice: all-family name/ID search, category filter, name/year sorting
 - [x] Show death cause, killer when identified, and location; retain unnamed killer race/caste details.
 - [x] Link artifacts held/created, authored works, relevant sites, and event collections.
 - [ ] Show identities and aliases with a clear distinction between assumed identities and historical figures.
-- [ ] Add recorded journeys and a link to the map; mark gaps and avoid implying continuous travel.
+- [x] Add recorded journeys and a link to the map; mark gaps and avoid implying continuous travel. Initial verified subject schemas cover state changes, deaths and abductions; other source families remain in the general event timeline.
 - [x] Provide raw/source details behind an expandable inspector.
 - [x] Display unknown birth/death dates and explicitly avoid inferring survival from a missing death record.
 - [x] Add evidence-based supernatural/deity biography panels and overlapping classifications, keeping force markers and worship associations distinct.
@@ -329,7 +329,7 @@ Implemented slice: all-family name/ID search, category filter, name/year sorting
 - [x] Link selected map sites to their record history and centre the atlas from site/event/organisation pages.
 - [ ] Link region map selections to region histories when region overlays are implemented.
 - [ ] Provide a coordinate/site-list map fallback when CSV is absent; do not fabricate terrain.
-- [ ] Draw recorded figure journeys, labelling inferred straight-line connections rather than actual travelled paths.
+- [x] Draw recorded figure journeys, labelling inferred straight-line connections rather than actual travelled paths.
 - [ ] Add a year slider for dated events, founding/destruction, and supported ownership transitions.
 - [x] Label implemented terrain/settlement affiliations as export-time snapshots; year filters affect recorded conflict events, not reconstructed terrain or ownership.
 - [ ] Add population snapshot dates and historical-reconstruction limitations when population layers are implemented.
@@ -365,7 +365,7 @@ This setting is part of v1 implementation but opt-in for users; the flat atlas r
 - [x] Project site markers above Canvas relief terrain and retain site-selector/linked-list alternatives when markers overlap.
 - [ ] Qualify terrain/marker occlusion and picking in any future full 3D renderer.
 - [x] Project political settlement colours and scoped conflict-event overlays at Canvas relief terrain height using shared source labels.
-- [ ] Add recorded journey lines with the same evidence limits in both projections.
+- [x] Add recorded journey lines with the same evidence limits in both projections.
 - [ ] Label terrain as an export-time regional snapshot; the year slider changes supported historical overlays, not past terrain.
 - [ ] Disable relief with a useful explanation when elevation data or graphics support is unavailable; retain the accessible location list and flat atlas.
 - [ ] Handle graphics-context loss and excessive resource demands by offering a flat-map fallback without losing exploration state.
@@ -381,9 +381,9 @@ This setting is part of v1 implementation but opt-in for users; the flat atlas r
 ## 13 — Artifacts, books, and culture
 
 - [x] Show artifact material/type/description metadata, recorded holder/site references and related creation/history events.
-- [ ] Add a dedicated evidence-qualified artifact creator/ownership timeline panel.
+- [x] Add a dedicated evidence-qualified artifact creator/ownership timeline panel for creation, possession, storage, loss, finding, claims and gifts; keep undated holder/site snapshots separate.
 - [x] Link creation, theft, gift, claim, storage, loss, finding, possession, and copying events.
-- [ ] Distinguish claimed ownership, physical possession, and last recorded location.
+- [x] Distinguish claimed ownership, physical possession, and last recorded location.
 - [x] Connect physical books/scrolls to their written contents.
 - [x] Build written-work pages with title, author, form, style, page metadata, and references.
 - [x] Do not imply full book text exists when only metadata is exported.
@@ -408,8 +408,8 @@ This setting is part of v1 implementation but opt-in for users; the flat atlas r
 - [x] Implement conservative supernatural evidence derivation from inspected fields and documented example mappings, with versioned rules and compatibility limits. Broader/localised/modded mappings remain explicitly unverified.
 - [x] Keep species, deity status, learned secrets, transformations, and supernatural abilities distinct; absence of a known marker does not prove a figure is ordinary.
 - [x] Explain source limits and avoid inferring hidden motives or guilt from membership alone.
-- [ ] Add “last recorded whereabouts” panels for figures, beasts, and artifacts, with source date/event.
-- [ ] Handle conflicting or undated location evidence as uncertainty rather than a definitive current position.
+- [x] Add “last recorded whereabouts” panels for historical figures (including individually recorded beasts) and artifacts, with source date/event; creature-definition and population whereabouts remain unsupported.
+- [x] Handle conflicting or undated location evidence as uncertainty rather than a definitive current position; retain competing latest-year evidence, later unknown locations and missing source records.
 
 ## 15 — Relationships and Threads of Fate
 

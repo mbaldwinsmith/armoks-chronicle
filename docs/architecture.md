@@ -137,3 +137,9 @@ The native storage adapter upgrades v1/v2 databases by adding a `chronicles` sto
 ## Supernatural evidence profiles
 
 The exploration worker lazily builds one bounded, versioned supernatural evidence index for the active immutable archive. Figure snapshot markers and active/known interactions are processed before event roles; only event subjects receive classification evidence. Search and biography panels share the same states and rules. Generic targets become figure references only in supported interaction/learning/transformation event schemas, and these aliases also feed Follow the Thread. Source events and notes are unchanged. No schema migration is required. See [Supernatural History](supernatural-history.md).
+
+## Recorded whereabouts
+
+`data/journeys.js` derives bounded subject-specific observations from a conservative event whitelist. The explorer worker scans at most 500,000 events lazily per requested figure/artifact and caches eight profiles for the current immutable archive. It retains the latest 200 dated and first 40 undated facts, with separate scan/sample disclosures; navigation cancellation prevents incomplete cache insertion. World switches clear the cache. No stored records, annotations, database version or indexes change.
+
+`views/journeys.js` renders safe source-linked panels and a paged atlas evidence list. `views/atlas.js` requests the same profile, resolves recorded site IDs against the terrain worker’s validated mapped sites, and paints at most 240 appearance markers and inferred connections in either projection. Repeated tile visits share a marker label and retain every numbered source in the list/tile readout. Unknown/ambiguous observations break connections. Missing terrain still offers the evidence list. All new scope/line settings survive atlas URL changes; the return link retains the originating reader filters.

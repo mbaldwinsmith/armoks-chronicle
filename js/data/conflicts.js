@@ -1,6 +1,6 @@
-import {eventType} from './narrative.js?v=0.23.1';
-import {eventDate,compareEvents} from './exploration.js?v=0.23.1';
-import {sitePosition} from './terrain.js?v=0.23.1';
+import {eventType} from './narrative.js?v=0.24.0';
+import {eventDate,compareEvents} from './exploration.js?v=0.24.0';
+import {sitePosition} from './terrain.js?v=0.24.0';
 export const conflictTypes=new Set(['field battle','attacked site','hf attacked site','destroyed site','hf destroyed site','plundered site','hf simple battle event','hf wounded','hf died','hf abducted']);
 export function conflictRecord(record,sites,width,height){const d=record.data,type=eventType(d);if(!conflictTypes.has(type))return null;
  const siteId=[d.site_id,d.site].find(value=>typeof value==='string'&&/^\d+$/.test(value));const site=sites.find(site=>site.id===siteId);

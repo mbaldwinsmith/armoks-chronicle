@@ -152,3 +152,7 @@ Feature planning was informed by [LegendsViewer-Next](https://github.com/Kromtec
 ## Supernatural History
 
 Choose **Supernatural Figures** on a world’s Desk or filter the Historical Figures directory. Combine vampire, werebeast, necromancer and deity evidence, optionally include possible matches, then inspect the supporting fields and events in each biography. Secrets link learners, teachers and artifacts; interactions and transformations retain their actual source roles. Unknown evidence never labels a figure ordinary. Existing archives work without reimporting. See [rules, sources and limits](docs/supernatural-history.md).
+
+## Recorded Whereabouts and Journeys
+
+Figure and artifact pages now show **Recorded Whereabouts**: source-linked appearances, qualified latest-location evidence and an atlas link. Repeated visits get numbered markers in the flat atlas and Raised Relief. Optional dashed lines connect ordered observations; they are not actual travelled paths. Missing places, uncertain dates and conflicting records remain visible. Artifact claims, recorded possession, transfers and undated holder/site snapshots stay distinct. Existing archives work without reimporting. See [supported events and limits](docs/recorded-journeys.md).
