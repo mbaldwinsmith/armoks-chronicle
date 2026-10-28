@@ -13,3 +13,5 @@ The `warfare-legends.xml` and `warfare-legends_plus.xml` pair is an independentl
 For a normal UI import of the campaign, name the reused authored map `warfare-world_map.csv` so that all three selected filenames share the `warfare-` prefix.
 
 The faction-network extension adds the fictional Silver Compact, a second connected war, a separate raid and a standalone battle event. Explicit opposing fields and a counterattack exercise distinct-group weights and source-role directions. The added history remains entirely authored test data.
+
+The base fictional example includes two authored era records with start years and no end years or IDs. This tests parser-assigned era addresses and explicitly unknown end dates; no intervening end year is inferred.

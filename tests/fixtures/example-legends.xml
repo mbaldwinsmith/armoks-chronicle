@@ -14,4 +14,5 @@
 <artifacts><artifact><id>55</id><name>The Fictional Copper Book</name><item><name_string>copper book</name_string></item><holder_hfid>2</holder_hfid></artifact></artifacts>
 <written_contents><written_content><id>30</id><title>A Completely Fictional Poem</title><author_hfid>1</author_hfid><form>poem</form><form_id>78</form_id></written_content></written_contents>
 <poetic_forms><poetic_form><id>78</id><name>The Example Quatrain</name><description>A fictional four-line form.[B]This is a test description.</description></poetic_form></poetic_forms>
+<historical_eras><historical_era><name>the age of examples</name><start_year>1</start_year></historical_era><historical_era><name>the age of imagined chronicles</name><start_year>20</start_year></historical_era></historical_eras>
 </df_world>

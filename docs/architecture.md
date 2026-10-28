@@ -121,3 +121,7 @@ The relationship panel shares its bounded neighbourhood worker, expansion state 
 ## Faction warfare networks
 
 `data/faction-warfare.js` derives explicit opposing-side claims and conservative connected-family groups from the conflict index. The explorer worker lazily caches that derivation plus four filtered adjacency indexes. Requests return bounded neighbour pages or selected-edge evidence pages. `views/faction-warfare.js` provides a dedicated organisation route, safe SVG and an equivalent HTML connection table; graph layout code loads only when that view opens. World changes and navigation dispose caches/requests through the existing worker client. See [faction-warfare.md](faction-warfare.md).
+
+## The Chronicler’s Desk
+
+The `/world/ID/desk` route displays metadata immediately, then requests bounded discovery/era summaries from the existing explorer worker. Discovery cards reuse the Book of Records cache. Compact index rows add explicit-name and era metadata for random selection and era paging. `data/desk.js` implements pure selection rules; `data/trail.js` provides a capped, world-scoped localStorage history cache independent of IndexedDB annotations. Source deletion attempts to clear only its trail key. Desk disposal aborts pending requests and removes its storage listener. See [chroniclers-desk.md](chroniclers-desk.md).

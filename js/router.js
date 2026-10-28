@@ -4,13 +4,14 @@ export function startRouter(onNavigate,beforeNavigate=()=>true) {
     if(focus&&!beforeNavigate())return;
     const raw = location.hash === '#main' ? 'library' : location.hash.replace(/^#\/?/, '') || 'library';
     const [route, query = ''] = raw.split('?');
+    const deskMatch=route.match(/^world\/([^/]+)\/desk$/);
     const factionMatch=route.match(/^world\/([^/]+)\/factions\/([^/]+)\/warfare$/);
     const warfareMatch=route.match(/^world\/([^/]+)\/wars$/);
     const bookMatch=route.match(/^world\/([^/]+)\/records$/);
     const atlasMatch=route.match(/^world\/([^/]+)\/atlas$/);
     const recordMatch = route.match(/^world\/([^/]+)\/record\/([^/]+)\/([^/]+)$/);
     const worldMatch = route.match(/^world\/([^/]+)$/);
-    const view = factionMatch ? 'faction' : warfareMatch ? 'warfare' : bookMatch ? 'book' : atlasMatch ? 'atlas' : recordMatch ? 'record' : worldMatch ? 'world' : routes.has(route) ? route : 'not-found';
+    const view = deskMatch ? 'desk' : factionMatch ? 'faction' : warfareMatch ? 'warfare' : bookMatch ? 'book' : atlasMatch ? 'atlas' : recordMatch ? 'record' : worldMatch ? 'world' : routes.has(route) ? route : 'not-found';
     document.querySelectorAll('main > section').forEach(section => {
       section.hidden = section.id !== `view-${view}`;
     });
@@ -21,7 +22,7 @@ export function startRouter(onNavigate,beforeNavigate=()=>true) {
     const title = document.querySelector(`#view-${view} h1`).textContent;
     document.title = `${title} · Armok’s Chronicle`;
     if (focus) document.querySelector('#main').focus();
-    let parts;try{parts=(factionMatch||warfareMatch||bookMatch||atlasMatch||recordMatch||worldMatch)?.slice(1).map(decodeURIComponent)||[];}catch{parts=[];}
+    let parts;try{parts=(deskMatch||factionMatch||warfareMatch||bookMatch||atlasMatch||recordMatch||worldMatch)?.slice(1).map(decodeURIComponent)||[];}catch{parts=[];}
     onNavigate(view, parts, new URLSearchParams(query));
   }
   window.addEventListener('hashchange', () => navigate(true));

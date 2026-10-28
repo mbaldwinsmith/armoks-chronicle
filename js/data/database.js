@@ -1,4 +1,5 @@
-import { mergeData, displayName } from './records.js?v=0.18.2';
+import {clearTrail} from './trail.js?v=0.19.0';
+import { mergeData, displayName } from './records.js?v=0.19.0';
 const NAME = 'armoks-chronicle';
 export function openDatabase() {
   return new Promise((resolve, reject) => {
@@ -53,6 +54,6 @@ export async function deleteWorld(db,worldId) {
   const tx=db.transaction(['worlds','records','files'],'readwrite');const done=finished(tx);
   tx.objectStore('worlds').delete(worldId);
   for(const name of ['records','files']){const req=tx.objectStore(name).index('world').openCursor(IDBKeyRange.only(worldId));req.onsuccess=()=>{const cursor=req.result;if(cursor){cursor.delete();cursor.continue();}};}
-  await done;
+  await done;clearTrail(worldId);
 }
 export function getRecord(db,worldId,kind,id) {return new Promise((resolve,reject)=>{const req=db.transaction('records').objectStore('records').get([worldId,kind,id]);req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error);});}

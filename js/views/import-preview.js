@@ -1,5 +1,5 @@
-import { validateFiles } from '../import/manifest.js?v=0.18.2';
-import { openDatabase, deleteWorld } from '../data/database.js?v=0.18.2';
+import { validateFiles } from '../import/manifest.js?v=0.19.0';
+import { openDatabase, deleteWorld } from '../data/database.js?v=0.19.0';
 export function setupImportPreview() {
   const input = document.querySelector('#export-files');
   const zone = document.querySelector('#drop-zone');
@@ -20,7 +20,7 @@ export function setupImportPreview() {
     status.textContent='Selected files ready for import.';
     const worldId=crypto.randomUUID();
     try {
-      importWorker=new Worker(new URL('../import/import-worker.js?v=0.18.2',import.meta.url),{type:'module'});
+      importWorker=new Worker(new URL('../import/import-worker.js?v=0.19.0',import.meta.url),{type:'module'});
       setBusy(true);progress.removeAttribute('value');importStatus.textContent='Starting local import…';
       const cleanup=async message=>{importWorker?.terminate();importWorker=null;let db;try{db=await openDatabase();await deleteWorld(db,worldId);importStatus.textContent=message;}catch(error){importStatus.textContent=message+' Cleanup failed: '+error.message+' Use unfinished-import recovery on your next visit.';}finally{db?.close();setBusy(false);}};
       cancel.onclick=()=>void cleanup('Import cancelled. Existing worlds were not changed.');
@@ -29,7 +29,7 @@ export function setupImportPreview() {
         if(data.worldId!==worldId)return;
         if(data.type==='progress'){importStatus.textContent=data.stage+(data.records?` · ${data.records.toLocaleString()} records`:'');if(data.percent===null)progress.removeAttribute('value');else progress.value=data.percent;}
         if(data.type==='error'){importWorker.terminate();importWorker=null;setBusy(false);importStatus.textContent='Import failed: '+data.message;}
-        if(data.type==='complete'){importWorker.terminate();importWorker=null;setBusy(false);importStatus.textContent='World imported and saved on this device.';location.hash=`#/world/${data.world.id}`;}
+        if(data.type==='complete'){importWorker.terminate();importWorker=null;setBusy(false);importStatus.textContent='World imported and saved on this device.';location.hash=`#/world/${data.world.id}/desk`;}
       };
       importWorker.postMessage({type:'import',worldId,files:selectedFiles});
     }catch(error){importWorker?.terminate();importWorker=null;setBusy(false);importStatus.textContent='Unable to start import: '+error.message;}
@@ -44,7 +44,7 @@ export function setupImportPreview() {
     clear.disabled = false;
     status.textContent = `Checking ${files.length} file headers…`;
     try {
-      worker = new Worker(new URL('../import/preview-worker.js?v=0.18.2', import.meta.url), { type: 'module' });
+      worker = new Worker(new URL('../import/preview-worker.js?v=0.19.0', import.meta.url), { type: 'module' });
       worker.addEventListener('message', ({ data }) => {
         if (data.requestId !== requestId) return;
         if (data.type === 'complete') {

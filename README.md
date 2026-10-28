@@ -132,3 +132,7 @@ Choose **Wars & Battles** in a saved world to browse the campaign ledger. Open a
 ### Faction warfare networks
 
 On an organisation page, choose **Explore warfare network**. Expand recorded opponents, filter years and source conflict types, and inspect an accessible table with links to supporting wars/battles and their maps. Arrows distinguish recorded war aggressors from battle/raid attack sides. Nested and overlapping collection sources contribute once per conflict group, with uncertainty kept explicit. See [counting rules and bounds](docs/faction-warfare.md).
+
+### The Chronicler’s Desk
+
+Opening an archive now starts at the **Chronicler’s Desk**: linked record totals, recorded eras, evidence-based starting points, a category-aware random picker and your recent twelve-record trail. Browse All Records preserves the existing directory and search flow. Discovery cards reuse Book of Records rules; unknown era ends stay unknown, and random previews do not write reading history. The trail is local, world-scoped and separate from saved research. See [rules and limits](docs/chroniclers-desk.md).

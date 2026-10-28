@@ -1,6 +1,6 @@
-import {titleCase} from '../data/language.js?v=0.18.2';
-import {renderDirectory} from './explore.js?v=0.18.2';
-import {openDatabase,listWorlds,getWorld,deleteWorld} from '../data/database.js?v=0.18.2';
+import {titleCase} from '../data/language.js?v=0.19.0';
+import {renderDirectory} from './explore.js?v=0.19.0';
+import {openDatabase,listWorlds,getWorld,deleteWorld} from '../data/database.js?v=0.19.0';
 let generation=0;
 export function cancelWorldView(){generation++;}
 export async function renderBookshelf() {
@@ -16,7 +16,7 @@ export async function renderBookshelf() {
       row.querySelector('h3').textContent=titleCase(world.name);
       row.querySelector('.world-subtitle').textContent=titleCase(world.alternativeName) || 'A world awaiting exploration';
       row.querySelector('.world-stats').textContent=`${(world.counts.historical_figures||0).toLocaleString()} figures · ${(world.counts.historical_events||0).toLocaleString()} event${world.counts.historical_events===1?'':'s'}`;
-      row.querySelector('a').href=`#/world/${encodeURIComponent(world.id)}`;
+      row.querySelector('a').href=`#/world/${encodeURIComponent(world.id)}/desk`;
       row.querySelector('.world-date').textContent=`Imported ${new Date(world.importedAt).toLocaleDateString()}`;
       target.append(row);
     }
@@ -33,6 +33,7 @@ export async function renderWorld(id, params) {
     db=await openDatabase();const world=await getWorld(db,id);
     if(ticket!==generation)return;
     if(!world || world.status!=='ready'){title.textContent='World not available';status.textContent='This world may have been deleted, or it belongs to another browser.';return;}
+    document.querySelector('#open-desk').href=`#/world/${encodeURIComponent(id)}/desk`;
     document.querySelector('#open-warfare').href=`#/world/${encodeURIComponent(id)}/wars`;
     document.querySelector('#open-record-book').href=`#/world/${encodeURIComponent(id)}/records`;
     document.querySelector('#open-atlas').href=`#/world/${encodeURIComponent(id)}/atlas`;
