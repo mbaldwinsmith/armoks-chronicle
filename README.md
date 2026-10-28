@@ -124,3 +124,7 @@ Open a world and choose **Book of Records** to find notable figures, settlements
 ### Family trees
 
 On a figure page, choose **Open family tree** to explore parents, children and recorded spouses by relative generation. Expand branches on demand, inspect the same directed claims in a readable evidence list, or switch to the relationship network. Missing relatives and conflicting generation claims remain explicit. Layout choice survives reloads and linked figure navigation; existing imports work immediately. See [placement rules and limits](docs/family-trees.md).
+
+### Wars & Battles
+
+Choose **Wars & Battles** in a saved world to browse the campaign ledger. Open a war, battle or duel for its nested conflicts, chronological events, linked people/factions, recorded outcomes and separately explained death measures. The selected-conflict atlas shows only its member conflict events; chronology links provide a return to the conflict. Results are paginated and calculated in a worker. See [counting rules, source definitions and limits](docs/warfare.md).

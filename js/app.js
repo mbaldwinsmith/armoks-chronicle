@@ -1,12 +1,13 @@
-import {renderRecordBook,cancelRecordBook} from './views/book-of-records.js?v=0.16.2';
-import {renderResearch,cancelResearchView,allowResearchNavigation} from './views/research.js?v=0.16.2';
-import {renderAtlas,stopAtlas} from './views/atlas.js?v=0.16.2';
-import {renderRecord,cancelExploration} from './views/explore.js?v=0.16.2';
-import {stopExplorer} from './data/explorer-client.js?v=0.16.2';
-import { startRouter } from './router.js?v=0.16.2';
-import { state, readTheme, setTheme } from './state.js?v=0.16.2';
-import { setupImportPreview } from './views/import-preview.js?v=0.16.2';
-import { renderBookshelf, renderWorld, renderRecovery, cancelWorldView } from './views/worlds.js?v=0.16.2';
+import {renderWarfare,cancelWarfare} from './views/warfare.js?v=0.17.0';
+import {renderRecordBook,cancelRecordBook} from './views/book-of-records.js?v=0.17.0';
+import {renderResearch,cancelResearchView,allowResearchNavigation} from './views/research.js?v=0.17.0';
+import {renderAtlas,stopAtlas} from './views/atlas.js?v=0.17.0';
+import {renderRecord,cancelExploration} from './views/explore.js?v=0.17.0';
+import {stopExplorer} from './data/explorer-client.js?v=0.17.0';
+import { startRouter } from './router.js?v=0.17.0';
+import { state, readTheme, setTheme } from './state.js?v=0.17.0';
+import { setupImportPreview } from './views/import-preview.js?v=0.17.0';
+import { renderBookshelf, renderWorld, renderRecovery, cancelWorldView } from './views/worlds.js?v=0.17.0';
 const toggle = document.querySelector('#theme-toggle');
 function applyTheme(theme) {
   setTheme(theme);
@@ -15,12 +16,13 @@ function applyTheme(theme) {
 applyTheme(readTheme());
 toggle.addEventListener('click', () => applyTheme(state.theme === 'dark' ? 'parchment' : 'dark'));
 startRouter((route, parts, params) => {
-  cancelRecordBook();cancelResearchView();cancelWorldView();cancelExploration();stopAtlas();
-  if(!['world','record','book'].includes(route))stopExplorer();
+  cancelWarfare();cancelRecordBook();cancelResearchView();cancelWorldView();cancelExploration();stopAtlas();
+  if(!['world','record','book','warfare'].includes(route))stopExplorer();
   const [id,kind,recordId]=parts;
   state.route = route;
   if(route === 'research') void renderResearch();
   if(route === 'library') void renderBookshelf();
+  if(route === 'warfare') void renderWarfare(id,params);
   if(route === 'book') void renderRecordBook(id,params);
   if(route === 'world') void renderWorld(id,params);
   if(route === 'atlas') renderAtlas(id,params);

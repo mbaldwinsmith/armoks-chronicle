@@ -1,6 +1,6 @@
-import {titleCase} from '../data/language.js?v=0.16.2';
-import {renderDirectory} from './explore.js?v=0.16.2';
-import {openDatabase,listWorlds,getWorld,deleteWorld} from '../data/database.js?v=0.16.2';
+import {titleCase} from '../data/language.js?v=0.17.0';
+import {renderDirectory} from './explore.js?v=0.17.0';
+import {openDatabase,listWorlds,getWorld,deleteWorld} from '../data/database.js?v=0.17.0';
 let generation=0;
 export function cancelWorldView(){generation++;}
 export async function renderBookshelf() {
@@ -33,6 +33,7 @@ export async function renderWorld(id, params) {
     db=await openDatabase();const world=await getWorld(db,id);
     if(ticket!==generation)return;
     if(!world || world.status!=='ready'){title.textContent='World not available';status.textContent='This world may have been deleted, or it belongs to another browser.';return;}
+    document.querySelector('#open-warfare').href=`#/world/${encodeURIComponent(id)}/wars`;
     document.querySelector('#open-record-book').href=`#/world/${encodeURIComponent(id)}/records`;
     document.querySelector('#open-atlas').href=`#/world/${encodeURIComponent(id)}/atlas`;
     const shortcuts=document.querySelector('#culture-shortcuts');shortcuts.replaceChildren();for(const [kind,label] of [['artifacts','Artifacts'],['written_contents','Written works'],['poetic_forms','Poetic forms'],['musical_forms','Musical forms'],['dance_forms','Dance forms']]){const link=document.createElement('a');link.className='button quiet';link.textContent=`${label} (${world.counts[kind]||0})`;link.href=`#/world/${encodeURIComponent(id)}?kind=${kind}`;shortcuts.append(link);}

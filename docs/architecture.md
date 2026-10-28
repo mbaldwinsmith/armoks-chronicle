@@ -113,3 +113,7 @@ A lazy `records` explorer-worker request scans the selected archive once with `c
 ## Generational family layout
 
 The relationship panel shares its bounded neighbourhood worker, expansion state and accessible evidence list between network and family layouts. `data/family-tree.js` creates diagram-only canonical constraints and marks conflicts without altering directed source edges; `views/family-tree.js` draws native SVG. Record routes retain `relationships=family|network`; record disposal aborts outstanding panel requests. See [family-trees.md](family-trees.md).
+
+## Conflict chronicles
+
+`data/warfare.js` owns collection facts, iterative containment, conservative casualty analysis and bounded pages. The explorer worker lazily indexes compact collection/event/site records with world-kind cursors, clears them with the selected world and caches eight derived summaries. `views/warfare.js` renders a paginated ledger and one detail section at a time. Record disposal aborts requests; raw collection JSON remains lazy. The atlas worker can scope its existing event overlay by the same explicit membership traversal using `collection=ID`. See [warfare.md](warfare.md) for supported fields, limits and source provenance.

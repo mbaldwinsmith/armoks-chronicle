@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<df_world><name>The Example Campaign</name>
+<sites><site><id>1</id><name>copperhall</name><type>fortress</type><coords>4,7</coords></site><site><id>2</id><name>ash ford</name><type>hamlet</type><coords>2,3</coords></site></sites>
+<entities><entity><id>5</id><name>the copper league</name></entity><entity><id>6</id><name>the ashen host</name></entity></entities>
+<historical_figures><historical_figure><id>1</id><name>urist copperwarden</name></historical_figure><historical_figure><id>2</id><name>domas ashkeeper</name></historical_figure><historical_figure><id>3</id><name>mistem exampleguard</name></historical_figure><historical_figure><id>4</id><name>kogan examplemessenger</name></historical_figure></historical_figures>
+<historical_events>
+<historical_event><id>0</id><type>hf died</type><year>10</year><hfid>3</hfid><slayer_hfid>1</slayer_hfid><site_id>1</site_id></historical_event>
+<historical_event><id>1</id><type>attacked site</type><year>10</year><attacker_civ_id>5</attacker_civ_id><defender_civ_id>6</defender_civ_id><site_id>1</site_id></historical_event>
+<historical_event><id>2</id><type>hf wounded</type><year>10</year><wounder_hfid>1</wounder_hfid><woundee_hfid>2</woundee_hfid><site_id>1</site_id></historical_event>
+<historical_event><id>3</id><type>hf died</type><year>12</year><hfid>4</hfid><slayer_hfid>2</slayer_hfid><site_id>2</site_id></historical_event>
+<historical_event><id>4</id><type>peace accepted</type><year>12</year><entity_id>5</entity_id></historical_event>
+</historical_events>
+<historical_event_collections>
+<historical_event_collection><id>100</id><name>the war of copper and ash</name><type>war</type><start_year>10</start_year><end_year>12</end_year><aggressor_ent_id>5</aggressor_ent_id><defender_ent_id>6</defender_ent_id><eventcol>101</eventcol><eventcol>102</eventcol><event>0</event></historical_event_collection>
+<historical_event_collection><id>101</id><name>the battle of copperhall</name><type>battle</type><start_year>10</start_year><end_year>10</end_year><war_eventcol>100</war_eventcol><site_id>1</site_id><attacking_hfid>1</attacking_hfid><defending_hfid>2</defending_hfid><noncom_hfid>4</noncom_hfid><attacking_squad_deaths>2</attacking_squad_deaths><attacking_squad_deaths>3</attacking_squad_deaths><defending_squad_deaths>1</defending_squad_deaths><outcome>attacker won</outcome><event>0</event><event>1</event><eventcol>103</eventcol></historical_event_collection>
+<historical_event_collection><id>102</id><name>the battle of ash ford</name><type>battle</type><start_year>12</start_year><end_year>12</end_year><war_eventcol>100</war_eventcol><site_id>2</site_id><attacking_squad_deaths>4</attacking_squad_deaths><defending_squad_deaths>2</defending_squad_deaths><outcome>defender won</outcome><event>3</event><event>4</event></historical_event_collection>
+<historical_event_collection><id>103</id><type>duel</type><start_year>10</start_year><end_year>10</end_year><parent_eventcol>101</parent_eventcol><attacking_hfid>1</attacking_hfid><defending_hfid>2</defending_hfid><event>0</event><event>2</event></historical_event_collection>
+<historical_event_collection><id>200</id><name>the incomplete war</name><type>war</type><start_year>20</start_year><end_year>-1</end_year><eventcol>999</eventcol><event>999</event></historical_event_collection>
+<historical_event_collection><id>900</id><type>ceremony</type><start_year>10</start_year><end_year>10</end_year><event>1</event></historical_event_collection>
+</historical_event_collections></df_world>

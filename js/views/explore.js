@@ -1,17 +1,17 @@
-import {timelineParams,timelineKeys} from '../data/timeline.js?v=0.16.2';
-import {timelineFilters,renderTimeline,timelineCount} from './timeline.js?v=0.16.2';
-import {titleCase,eventLabel,readableValue,referenceLabel} from '../data/language.js?v=0.16.2';
-import {researchEditor} from './research.js?v=0.16.2';
-import {culturePanel,associations} from './culture.js?v=0.16.2';
-import {cultureReferences,culturalKinds,cultureLabel} from '../data/culture.js?v=0.16.2';
-import {conflictRecord} from '../data/conflicts.js?v=0.16.2';
-import {sitePosition} from '../data/terrain.js?v=0.16.2';
-import {narratives,biography} from './narrative.js?v=0.16.2';
-import {openDatabase,getWorld,getRecord} from '../data/database.js?v=0.16.2';
-import {explore} from '../data/explorer-client.js?v=0.16.2';
-import {kindNames,recordURL,collectReferences,eventDate} from '../data/exploration.js?v=0.16.2';
-let generation=0,timer,disposeConnections,disposeRelationships;
-export function cancelExploration(){generation++;clearTimeout(timer);disposeConnections?.();disposeConnections=null;disposeRelationships?.();disposeRelationships=null;}
+import {timelineParams,timelineKeys} from '../data/timeline.js?v=0.17.0';
+import {timelineFilters,renderTimeline,timelineCount} from './timeline.js?v=0.17.0';
+import {titleCase,eventLabel,readableValue,referenceLabel} from '../data/language.js?v=0.17.0';
+import {researchEditor} from './research.js?v=0.17.0';
+import {culturePanel,associations} from './culture.js?v=0.17.0';
+import {cultureReferences,culturalKinds,cultureLabel} from '../data/culture.js?v=0.17.0';
+import {conflictRecord} from '../data/conflicts.js?v=0.17.0';
+import {sitePosition} from '../data/terrain.js?v=0.17.0';
+import {narratives,biography} from './narrative.js?v=0.17.0';
+import {openDatabase,getWorld,getRecord} from '../data/database.js?v=0.17.0';
+import {explore} from '../data/explorer-client.js?v=0.17.0';
+import {kindNames,recordURL,collectReferences,eventDate} from '../data/exploration.js?v=0.17.0';
+let generation=0,timer,disposeConnections,disposeRelationships,disposeConflict;
+export function cancelExploration(){generation++;clearTimeout(timer);disposeConnections?.();disposeConnections=null;disposeRelationships?.();disposeRelationships=null;disposeConflict?.();disposeConflict=null;}
 const element=(tag,text,className)=>{const el=document.createElement(tag);if(text!==undefined)el.textContent=text;if(className)el.className=className;return el;};
 function rowLink(row,world,query){const li=element('li'),a=element('a',row.label);a.href=recordURL(world,row.kind,row.id,query);li.append(a,element('span',`${kindNames[row.kind]||titleCase(row.kind.replaceAll('_',' '))} · #${row.id}${row.year!==null&&row.year!==undefined?` · Year ${row.year}`:''}`,'muted'));return li;}
 export async function renderDirectory(id,params) {
@@ -62,7 +62,13 @@ export async function renderRecord(worldId,kind,id,params) {
   title.textContent=cultureLabel(record);document.title=`${cultureLabel(record)} · Armok’s Chronicle`;
   body.append(element('p',`${titleCase(world.name)} · ${kindNames[kind]||titleCase(kind.replaceAll('_',' '))} · #${id}`,'intro'));
   const editor=await researchEditor(world,{...record,label:cultureLabel(record)});if(ticket!==generation)return;body.append(editor);
-  const data=record.data;
+  const data=record.data;let specialisedConflict=false;
+  if(kind==='historical_event_collections'){
+   const {collectionType,warfareTypes}=await import('../data/warfare.js?v=0.17.0');if(ticket!==generation)return;
+   if(warfareTypes.has(collectionType(data))){const {warfarePanel}=await import('./warfare.js?v=0.17.0');if(ticket!==generation)return;const panel=warfarePanel(record,world,params,()=>ticket===generation);disposeConflict=panel.dispose;body.append(panel.element);specialisedConflict=true;}
+  }
+  if(kind==='historical_events'&&/^\d+$/.test(params.get('conflictOrigin')||'')){const origin=new URLSearchParams(params);origin.delete('conflictOrigin');origin.set('warTab','chronicle');body.append(element('p','This event belongs to the conflict history you were reading.'));const backConflict=element('a','← Return to this conflict','button quiet');backConflict.href=recordURL(worldId,'historical_event_collections',params.get('conflictOrigin'),'?'+origin);body.append(backConflict);}
+
   if(kind==='entities'){for(const [basis,label] of [['owner','Show settlements owned by this organisation'],['civilisation','Show settlements with this recorded civilisation']]){const link=element('a',label,'button quiet');link.href=`#/world/${encodeURIComponent(worldId)}/atlas?basis=${basis}&faction=${encodeURIComponent(id)}`;body.append(link);}}
 
   if(kind==='historical_events'){
@@ -76,11 +82,11 @@ export async function renderRecord(worldId,kind,id,params) {
    fields.append(element('dt',key.replaceAll('_',' ')),element('dd',value==='-1'?'Unknown / not recorded (−1)':key==='type'&&kind==='historical_events'?eventLabel(value):['type','race','caste','associated_type'].includes(key)?readableValue(value):value));
   }
   const fieldDetails=element('details',undefined,'guide-card');fieldDetails.append(element('summary','Recorded fields'),fields);
-  if(kind==='historical_figures'||kind==='historical_events'||culturalKinds.has(kind))body.append(fieldDetails);else body.append(fields);
+  if(kind==='historical_figures'||kind==='historical_events'||kind==='historical_event_collections'||culturalKinds.has(kind))body.append(fieldDetails);else body.append(fields);
   if(kind==='historical_events'){const [story]=await narratives([record],worldId,suffix);if(ticket!==generation)return;const date=eventDate(data);story.prepend(element('p',date.year===null?'Year not recorded':`Year ${date.year}`,'small-label'));body.insertBefore(story,fieldDetails);}
   const extraRefs=cultureReferences(record);const refs=[...collectReferences({merged:data,plus:record.supplement}),...extraRefs];
   const section=element('details',undefined,'guide-card'),heading=element('summary',`Linked references (${refs.length})`),links=element('ul',undefined,'reference-list');section.open=refs.length<=10;section.append(heading,element('p','Roles follow the export. The source inspector retains the original fields and IDs.','muted'),links);body.append(section);
-  const raw=element('details',undefined,'guide-card'),pre=element('pre',JSON.stringify({fields:data,sources:record.sources,supplementaryFields:record.supplement},null,2));raw.append(element('summary','Source fields and provenance'),pre);raw.open=params.get('source')==='1';body.append(raw);
+  const raw=element('details',undefined,'guide-card'),pre=element('pre');const fillSource=()=>{if(!pre.textContent)pre.textContent=JSON.stringify({fields:data,sources:record.sources,supplementaryFields:record.supplement},null,2);};raw.append(element('summary','Source fields and provenance'),pre);raw.open=params.get('source')==='1';if(kind!=='historical_event_collections'||raw.open)fillSource();raw.ontoggle=()=>{if(raw.open)fillSource();};body.append(raw);
   const resolved=await explore(worldId,{type:'resolve',refs});if(ticket!==generation)return;
   const shown=new Set();for(const ref of resolved){const label=referenceLabel(ref.role,kind==='historical_events'&&/died$/.test(String(data.type).replaceAll('_',' '))),key=JSON.stringify([ref.kind,ref.id,label]);if(shown.has(key))continue;shown.add(key);const li=element('li');li.title=ref.path;li.append(element('span',label+': ','muted'));if(ref.label){const a=element('a',`${ref.label} · #${ref.id}`);a.href=recordURL(worldId,ref.kind,ref.id,suffix);li.append(a);}else li.append(element('span',`Unresolved ${kindNames[ref.kind]||ref.kind} #${ref.id}`));links.append(li);}
   heading.textContent=`Linked references (${shown.size})`;section.open=shown.size<=10;
@@ -89,9 +95,9 @@ export async function renderRecord(worldId,kind,id,params) {
   if(kind==='historical_figures'){
    body.insertBefore(biography(data,resolved,worldId,suffix),fieldDetails);
    const find=element('button','Find a connection','quiet record-tool');find.type='button';body.insertBefore(find,fieldDetails);
-   find.onclick=async()=>{find.disabled=true;try{const {connectionFinder}=await import('./connections.js?v=0.16.2');if(ticket!==generation)return;const finder=connectionFinder({...record,label:cultureLabel(record)},worldId,()=>{const query=location.hash.split('?')[1]||'';return query?'?'+query:'';},()=>ticket===generation);disposeConnections=finder.dispose;find.replaceWith(finder.element);const heading=finder.element.querySelector('h2');heading.tabIndex=-1;heading.focus();}catch(error){if(ticket===generation){find.disabled=false;status.textContent=error.message;}}};
+   find.onclick=async()=>{find.disabled=true;try{const {connectionFinder}=await import('./connections.js?v=0.17.0');if(ticket!==generation)return;const finder=connectionFinder({...record,label:cultureLabel(record)},worldId,()=>{const query=location.hash.split('?')[1]||'';return query?'?'+query:'';},()=>ticket===generation);disposeConnections=finder.dispose;find.replaceWith(finder.element);const heading=finder.element.querySelector('h2');heading.tabIndex=-1;heading.focus();}catch(error){if(ticket===generation){find.disabled=false;status.textContent=error.message;}}};
    const launchers=element('div',undefined,'relationship-toolbar'),family=element('button','Open family tree','quiet record-tool'),launch=element('button','Explore family and relationships','quiet record-tool');family.type=launch.type='button';launchers.append(family,launch);body.insertBefore(launchers,fieldDetails);
-   const openRelationships=async layout=>{family.disabled=launch.disabled=true;try{const {relationshipPanel}=await import('./relationships.js?v=0.16.2');if(ticket!==generation)return;
+   const openRelationships=async layout=>{family.disabled=launch.disabled=true;try{const {relationshipPanel}=await import('./relationships.js?v=0.17.0');if(ticket!==generation)return;
     const onLayout=value=>{const query=new URLSearchParams(location.hash.split('?')[1]||'');query.set('relationships',value);history.replaceState(null,'',recordURL(worldId,kind,id,'?'+query));};
     const panel=relationshipPanel({...record,label:cultureLabel(record)},worldId,()=>{const query=location.hash.split('?')[1]||'';return query?'?'+query:'';},()=>ticket===generation,{layout,onLayout});disposeRelationships=panel.dispose;onLayout(layout);launchers.replaceWith(panel);panel.querySelector('h2').tabIndex=-1;panel.querySelector('h2').focus();
    }catch(error){if(ticket===generation){family.disabled=launch.disabled=false;status.textContent=error.message;}}};
@@ -100,7 +106,7 @@ export async function renderRecord(worldId,kind,id,params) {
   }
   if(culturalKinds.has(kind)){const resolvedCulture=await explore(worldId,{type:'resolve',refs:extraRefs});if(ticket!==generation)return;body.insertBefore(culturePanel(record,resolvedCulture,worldId,suffix),fieldDetails);}
   const connected=await associations(record,worldId,suffix,()=>ticket===generation);if(ticket!==generation)return;for(const section of connected)body.insertBefore(section,raw);
-  if(kind==='historical_events')return;
+  if(kind==='historical_events'||specialisedConflict)return;
   const timeline=element('section'),events=element('ul',undefined,'record-results'),note=element('p','Loading related events…'),controls=element('div',undefined,'record-pagination'),prev=element('button','Previous events','quiet'),next=element('button','Next events','quiet');prev.type=next.type='button';controls.append(prev,next);note.setAttribute('role','status');timeline.append(element('h2','Recorded events'),element('p','Events that explicitly reference this record, earliest first. Missing dates are placed last; equal or missing timestamps do not establish an exact sequence.','muted'),events,note,controls);body.insertBefore(timeline,raw);
   let offset=Math.max(0,Math.floor((Number(params.get('eventOffset'))||0)/50)*50),request=0;
   const reader=timelineFilters(params,()=>{offset=0;void load();});timeline.insertBefore(reader.form,events);timeline.insertBefore(note,events);

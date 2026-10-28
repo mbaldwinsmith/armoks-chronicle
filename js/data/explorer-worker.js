@@ -1,13 +1,13 @@
-import {cultureReferences,cultureLabel} from './culture.js?v=0.16.2';
-import {eventType,filterEvents} from './narrative.js?v=0.16.2';
-import {openDatabase,getWorld} from './database.js?v=0.16.2';
-import {normalise,recordKey,collectReferences,eventDate,compareEvents,searchEntries} from './exploration.js?v=0.16.2';
+import {cultureReferences,cultureLabel} from './culture.js?v=0.17.0';
+import {eventType,filterEvents} from './narrative.js?v=0.17.0';
+import {openDatabase,getWorld} from './database.js?v=0.17.0';
+import {normalise,recordKey,collectReferences,eventDate,compareEvents,searchEntries} from './exploration.js?v=0.17.0';
 const neighbourhoods=new Map();
-let bookCache;
+let bookCache,warIndex;const warDetails=new Map();
 let cachedWorld, entries=[],lookup=new Map(), incoming=new Map();
 async function load(worldId) {
  if(cachedWorld===worldId)return;
- const db=await openDatabase();entries=[];lookup.clear();incoming.clear();neighbourhoods.clear();bookCache=null;cachedWorld=null;
+ const db=await openDatabase();entries=[];lookup.clear();incoming.clear();neighbourhoods.clear();bookCache=null;warIndex=null;warDetails.clear();cachedWorld=null;
  try {
   const world=await getWorld(db,worldId);if(world?.status!=='ready')throw Error('This world is not available in this browser.');
   await new Promise((resolve,reject)=>{
@@ -28,8 +28,23 @@ async function load(worldId) {
   });cachedWorld=worldId;
  }finally{db.close();}
 }
+async function warfareQuery(data){
+ const {createWarfareIndex,warfareDirectory,conflictDetails,warfarePage,warfareLimits,collectionKind}=await import('./warfare.js?v=0.17.0');
+ if(!warIndex){const builder=createWarfareIndex(),db=await openDatabase();let count=0;
+  try{await Promise.all([collectionKind,'historical_events','sites'].map(kind=>new Promise((resolve,reject)=>{
+   const tx=db.transaction('records'),request=tx.objectStore('records').index('worldKind').openCursor(IDBKeyRange.only([data.worldId,kind]));
+   tx.onabort=()=>reject(tx.error||Error('Conflict indexing cancelled.'));request.onerror=()=>reject(request.error);
+   request.onsuccess=()=>{if(cancelled.has(data.id)){tx.abort();return;}const cursor=request.result;if(!cursor){resolve();return;}builder.accept(cursor.value);if(++count%5000===0)postMessage({type:'progress',id:data.id,phase:'conflicts',count});cursor.continue();};
+  })));warIndex=builder.finish();}finally{db.close();}
+ }
+ const resolve=ref=>({...ref,label:lookup.get(recordKey(ref.kind,ref.id))?.label||`Missing ${ref.kind==='historical_figures'?'Figure':'Organisation'} #${ref.id}`,missing:!lookup.has(recordKey(ref.kind,ref.id))});
+ const collection=row=>row?{...row,site:row.siteId?{id:row.siteId,kind:'sites',label:warIndex.sites.get(row.siteId)?.label||`Missing Site #${row.siteId}`,missing:!warIndex.sites.has(row.siteId)}:null,position:warIndex.sites.get(row.siteId)?.position||row.position,factions:row.factions?.map(resolve)||[]}:null;
+ if(data.type==='warfare-directory'){const result=warfareDirectory(warIndex,data.options);return {...result,rows:result.rows.map(collection)};}
+ const id=String(data.recordId);if(!warDetails.has(id)){const result=await conflictDetails(warIndex,id,{isCancelled:()=>cancelled.has(data.id),onProgress:count=>postMessage({type:'progress',id:data.id,phase:'conflict',count})});if(warDetails.size>=warfareLimits.cache)warDetails.delete(warDetails.keys().next().value);warDetails.set(id,result);}
+ const page=warfarePage(warIndex,warDetails.get(id),data.options);return {...page,root:collection(page.root),parents:page.parents.map(collection),rows:page.rows.map(row=>page.tab==='conflicts'?collection(row):page.tab==='participants'?{...resolve(row),evidence:row.evidence}:page.tab==='chronicle'?{...row,label:lookup.get(recordKey(row.kind,row.id))?.label||`Event #${row.id}`}:{...row,label:warIndex.collections.get(row.id)?.label||`Battle #${row.id}`})};
+}
 async function bookOfRecords(data){
- const {createRecordBook,recordBookPage}=await import('./book-of-records.js?v=0.16.2');
+ const {createRecordBook,recordBookPage}=await import('./book-of-records.js?v=0.17.0');
  if(!bookCache){
   const builder=createRecordBook(),db=await openDatabase();let count=0;
   try{await new Promise((resolve,reject)=>{
@@ -46,7 +61,7 @@ async function bookOfRecords(data){
 }
 function relationshipNode(key){const row=lookup.get(key),[kind,id]=JSON.parse(key);return {key,kind,id,label:row?.label||`Missing ${kind==='historical_figures'?'Figure':kind==='entities'?'Organisation':'Site'} #${id}`,missing:!row};}
 async function fullNeighbourhood(key,worldId,maxSources=500){
- const {relationshipNeighbourhood,relationshipLimits}=await import('./relationships.js?v=0.16.2');
+ const {relationshipNeighbourhood,relationshipLimits}=await import('./relationships.js?v=0.17.0');
  if(neighbourhoods.has(key))return {...neighbourhoods.get(key),recordsRead:0};
  const [kind]=JSON.parse(key),sources=[...(incoming.get(key)||[])].filter(source=>source!==key&&lookup.get(source)?.kind==='historical_figures').sort(),candidates=kind==='historical_figures'?[key,...sources]:sources;
  const count=Math.max(0,Math.min(relationshipLimits.sourceRecords,maxSources)),selected=candidates.slice(0,count);let records=[];
@@ -56,14 +71,14 @@ async function fullNeighbourhood(key,worldId,maxSources=500){
  return result;
 }
 async function relationshipPage(data){
- const {graphPage}=await import('./relationships.js?v=0.16.2'),key=recordKey(data.kind,data.recordId);
+ const {graphPage}=await import('./relationships.js?v=0.17.0'),key=recordKey(data.kind,data.recordId);
  if(data.kind!=='historical_figures'||!lookup.has(key))throw Error('Choose an available historical figure to expand.');
  const result=graphPage(await fullNeighbourhood(key,data.worldId),data),keys=new Set([key,...result.edges.flatMap(edge=>[edge.source,edge.target])]);
  return {...result,nodes:[...keys].map(relationshipNode)};
 }
 const cancelled=new Set(),scheduled=new Set();
 async function connectionSearch(data){
- const {findConnection}=await import('./connections.js?v=0.16.2');
+ const {findConnection}=await import('./connections.js?v=0.17.0');
  const start=recordKey('historical_figures',data.startId),end=recordKey('historical_figures',data.endId);
  const result=await findConnection({start,end,organisations:data.organisations===true,maxDepth:data.maxDepth,exists:key=>lookup.has(key),getNeighbours:(key,remaining)=>fullNeighbourhood(key,data.worldId,remaining),isCancelled:()=>cancelled.has(data.id),onProgress:count=>postMessage({type:'progress',id:data.id,phase:'connections',count})});
  return {...result,nodes:(result.nodes||[]).map(relationshipNode)};
@@ -84,7 +99,8 @@ self.onmessage=({data})=>{if(data.type==='cancel'){if(scheduled.has(data.cancelI
    const filtered=filterEvents(rows,data.filters);result={total:filtered.length,unfiltered:rows.length,types:[...new Set(rows.map(row=>row.eventType))].sort(),rows:filtered.slice(data.offset||0,(data.offset||0)+50)};
   }else if(data.type==='associations'){
    const rows=[...(incoming.get(recordKey(data.kind,data.recordId))||[])].map(key=>lookup.get(key)).filter(row=>data.kinds.includes(row.kind)).sort((a,b)=>a.label.localeCompare(b.label)||a.key.localeCompare(b.key));result={total:rows.length,rows:rows.slice(data.offset||0,(data.offset||0)+50)};
-  }else if(data.type==='records')result=await bookOfRecords(data);
+  }else if(data.type==='warfare'||data.type==='warfare-directory')result=await warfareQuery(data);
+  else if(data.type==='records')result=await bookOfRecords(data);
   else if(data.type==='relationships')result=await relationshipPage(data);
   else if(data.type==='connection')result=await connectionSearch(data);
   else if(data.type==='resolve')result=data.refs.map(ref=>({ ...ref,label:lookup.get(recordKey(ref.kind,ref.id))?.label||null }));
