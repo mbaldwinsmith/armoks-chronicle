@@ -1,10 +1,10 @@
-import {explore} from '../data/explorer-client.js?v=0.19.0';
-import {openDatabase,getWorld,getRecord} from '../data/database.js?v=0.19.0';
-import {recordURL,kindNames} from '../data/exploration.js?v=0.19.0';
-import {titleCase} from '../data/language.js?v=0.19.0';
-import {cultureLabel} from '../data/culture.js?v=0.19.0';
-import {randomCategories,randomCategory,clippedLabel} from '../data/desk.js?v=0.19.0';
-import {readTrail,clearTrail,trailKey} from '../data/trail.js?v=0.19.0';
+import {explore} from '../data/explorer-client.js?v=0.19.1';
+import {openDatabase,getWorld,getRecord} from '../data/database.js?v=0.19.1';
+import {recordURL,kindNames} from '../data/exploration.js?v=0.19.1';
+import {titleCase} from '../data/language.js?v=0.19.1';
+import {cultureLabel} from '../data/culture.js?v=0.19.1';
+import {randomCategories,randomCategory,clippedLabel} from '../data/desk.js?v=0.19.1';
+import {readTrail,clearTrail,trailKey} from '../data/trail.js?v=0.19.1';
 const el=(tag,text,cls)=>{const n=document.createElement(tag);if(text!==undefined)n.textContent=text;if(cls)n.className=cls;return n;};
 const link=(label,href,cls)=>{const a=el('a',label,cls);a.href=href;return a;};
 let generation=0,cleanup=()=>{};
@@ -12,6 +12,7 @@ export function cancelDesk(){generation++;cleanup();cleanup=()=>{};}
 export function discoveryCard(card,world){const article=el('article',undefined,'conflict-card desk-discovery');article.append(el('p',card.title,'eyebrow'));const heading=el('h3');heading.append(link(card.leader.label,recordURL(world,card.leader.kind,card.leader.id)));article.append(heading,el('p',card.description));
  const details=el('details');details.append(el('summary','Why this record?'),el('p',`Selected from “${card.metricTitle}” among this archive’s recorded data. `+(card.ties>1?`${card.ties.toLocaleString()} entries share first place; this is the first in the ranking’s stable name/ID order.`:'This entry leads the eligible recorded results.')),el('p',card.definition));article.append(details,link('View ranking and evidence →',`#/world/${encodeURIComponent(world)}/records?category=${card.category}`,'text-link'));return article;}
 export async function renderDesk(worldId,params){const ticket=++generation,controller=new AbortController(),signal=controller.signal;let eraOffset=params.get('eraOffset')||0,request=0,trailRequest=0,lastRandom='',randomBusy=false,randomSerial=0;
+ document.querySelector('#view-desk').scrollIntoView({block:'start'});
  const status=document.querySelector('#desk-status'),worldLabel=document.querySelector('#desk-world'),totals=document.querySelector('#desk-totals'),shortcuts=document.querySelector('#desk-links'),discoveries=document.querySelector('#desk-discoveries'),eras=document.querySelector('#desk-eras'),eraStatus=document.querySelector('#desk-era-status'),eraPages=document.querySelector('#desk-era-pages'),trail=document.querySelector('#desk-trail'),trailStatus=document.querySelector('#desk-trail-status'),clear=document.querySelector('#desk-trail-clear'),picker=document.querySelector('#desk-random-kind'),randomStatus=document.querySelector('#desk-random-status'),randomResult=document.querySelector('#desk-random-result'),randomButton=document.querySelector('#desk-random-button');
  status.textContent='Opening the desk…';worldLabel.textContent='';for(const node of [totals,shortcuts,discoveries,eras,eraPages,trail,randomResult])node.replaceChildren();randomStatus.textContent=eraStatus.textContent=trailStatus.textContent='';randomButton.disabled=picker.disabled=true;clear.disabled=true;picker.replaceChildren();for(const [kind,label] of randomCategories)picker.add(new Option(label,kind));picker.value=randomCategory(params.get('randomKind'));
  const current=()=>ticket===generation;const storageChanged=event=>{if(event.key===trailKey(worldId))void refreshTrail();};window.addEventListener('storage',storageChanged);cleanup=()=>{controller.abort();window.removeEventListener('storage',storageChanged);};
@@ -32,7 +33,7 @@ export async function renderDesk(worldId,params){const ticket=++generation,contr
   try{const result=await explore(worldId,{type:'desk',offset:eraOffset},(count,phase)=>{if(current()&&token===request)status.textContent=`${phase==='rankings'?'Counting discovery evidence':'Opening archive'}: ${count.toLocaleString()} records examined…`;},signal);if(!current()||token!==request)return;
    discoveries.replaceChildren(...result.discoveries.map(c=>discoveryCard(c,worldId)));if(!result.discoveries.length)discoveries.append(el('p','No eligible ranking discoveries are available yet. Browse the source records or try the random picker; an empty result does not establish that the world lacks interesting history.'));
    eras.replaceChildren();for(const row of result.eras.rows){const item=el('li');item.append(link(row.label,recordURL(worldId,row.kind,row.id)));const date=row.inconsistent?'Inconsistent source dates; inspect the era record.':row.start===null&&row.end===null?'Dates not recorded.':row.start!==null&&row.end!==null?`Years ${row.start}–${row.end}.`:row.start!==null?`From Year ${row.start}; end not recorded.`:`End Year ${row.end}; start not recorded.`;item.append(el('span',date,'muted'));eras.append(item);}
-   eraOffset=result.eras.offset;save();eraStatus.textContent=result.eras.total?`${eraOffset+1}–${Math.min(eraOffset+12,result.eras.total)} of ${result.eras.total.toLocaleString()} recorded ${result.eras.total===1?'era':'eras'}.`:'No era records were exported for this archive.';
+   eraOffset=result.eras.offset;save();eraStatus.textContent=result.eras.total?`${eraOffset+1}–${Math.min(eraOffset+12,result.eras.total)} of ${result.eras.total.toLocaleString()} recorded ${result.eras.total===1?'era':'eras'}.`:'No supported era records are available in this archive.';
    for(const [label,next,disabled] of [['← Earlier eras',Math.max(0,eraOffset-12),eraOffset===0],['Later eras →',eraOffset+12,eraOffset+12>=result.eras.total]]){if(result.eras.total<=12)break;const b=el('button',label,'quiet');b.type='button';b.disabled=disabled;b.onclick=()=>{eraOffset=next;void load();};eraPages.append(b);}
    status.textContent='Ready to explore. Totals count archived records, not the world’s complete population or history.';
   }catch(error){if(current()&&token===request){status.textContent=`Discoveries unavailable: ${error.message} Browse the archive using the links above.`;eraStatus.textContent='Era summaries could not be loaded.';}}

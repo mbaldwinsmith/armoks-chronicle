@@ -6,7 +6,7 @@ Status: atlas and isometric relief preview implemented; broader features in prog
 
 ## Current iteration
 
-Chronicler’s Desk: saved archives and completed imports now open a dedicated world starting page with six linked record totals, explicit dated era records, up to four evidence-linked ranking discoveries, category-aware random previews and a twelve-record recent trail. The old world-root directory remains available. Discoveries reuse the Book of Records cache/definitions; random selection prefers explicit names, avoids repeats where alternatives exist and uses unbiased bounded sampling. Era ends are never inferred. Reading history is a separate bounded world-scoped localStorage cache, with storage failure recovery and exact-key cleanup on source deletion; annotations are unchanged. 126 Node tests pass; live browser verification follows. See docs/chroniclers-desk.md.
+Chronicler’s Desk: saved archives and completed imports now open a dedicated world starting page with six linked record totals, explicit dated era records, up to four evidence-linked ranking discoveries, category-aware random previews and a twelve-record recent trail. The old world-root directory remains available. Discoveries reuse the Book of Records cache/definitions; random selection prefers explicit names, avoids repeats where alternatives exist and uses unbiased bounded sampling. Era ends are never inferred. Reading history is a separate bounded world-scoped localStorage cache, with storage failure recovery and exact-key cleanup on source deletion; annotations are unchanged. 126 Node tests and the deployed browser integration suite pass. Live checks cover import/bookshelf landing, discovery-to-ranking navigation, random singleton previews without visits, record-to-Desk trail updates, trail/category reload and explicit unknown era ends. See docs/chroniclers-desk.md.
 
 Faction warfare networks: organisation pages link to a dedicated bounded SVG/table view with year/source-type filters, paginated neighbour expansion, evidence cards, source-role direction and conflict/map links. War aggressors remain distinct from battle/event attack roles. Connected collection families, including shared-event memberships, contribute once per faction pair; missing grouping context and shared/non-unique roots are explicit. Existing worker indexes are reused with four filtered-network caches and cancellation. 117 Node tests pass, including a generated 50,000-claim case and uncertainty for truncated membership. The deployed browser integration suite verifies worker expansion, source evidence, deduplicated group weights, role directions, filters, accessible tables and archive isolation. Live checks also cover neighbour expansion, attack-only arrows, source inspection, applied-versus-draft filters, empty states, reload restoration, zoom/fit and an existing supplied archive. See docs/faction-warfare.md.
 
@@ -370,13 +370,13 @@ Implemented slice: directed source-record networks with family/social/rivalry/af
 
 ## 16 — Discovery and story exploration
 
-- [ ] Build the Chronicler’s Desk with useful world totals, eras, recent discoveries, and suggested records.
+- [x] Build the Chronicler’s Desk with linked archive totals, recorded eras, reproducible discovery suggestions and a recent record trail; it is the default saved/imported-world landing page.
 - [ ] Define reproducible discovery rules for long lives, prolific authors, contested artifacts, notable beasts, and event-rich sites.
-- [ ] Explain each discovery card’s selection criterion and link to supporting records.
+- [x] Explain each implemented Desk discovery card’s reused ranking criterion and ties, with record and full-ranking evidence links.
 - [x] Qualify Book of Records superlatives as among recorded figures/events; disclose ties, unknown dates and incomplete data in each implemented metric.
 - [ ] Implement Follow the Thread recommendations from the current record.
 - [ ] Keep a navigable thread history and allow users to save an exploration trail.
-- [ ] Add a random-record option with category filters and preference for usable records.
+- [x] Add category-filtered random previews, an explicit named-record preference/fallback, unbiased bounded sampling and no immediate repeat when alternatives exist.
 - [ ] Build the Grudge Ledger from recorded killings, thefts, abductions, and faction conflicts.
 - [ ] Add family/faction context without presenting a later attack as proven revenge.
 - [ ] Add comparative statistics by year, race, faction, site, and event category with transparent counting definitions.

@@ -1,3 +1,15 @@
+# Chronicler’s Desk verification
+
+28 October 2026
+
+- 126 Node tests pass. Nine new cases cover named random pools, category/sentinel exclusion, anonymous fallback, immediate-repeat avoidance, singleton/empty results, unbiased bounded sampling, explicit name eligibility, bounded Unicode labels, era dates and pagination, discovery criteria/ties, recent-visit bounds, exact world/family identity, blocked/corrupt storage and exact-key cleanup.
+- The deployed Chrome integration suite passes. It imports the updated authored example, checks cached discovery leaders/definitions and explicitly open-ended era records, exercises worker random selection/no-repeat/singletons/empty categories, and verifies that previews do not enter the trail.
+- Browser integration also checks safe discovery-card DOM and ranking/evidence links, persisted local trail order/world isolation, and removal of the disposable trail on archive deletion while saved research remains available.
+- Live UI checks confirm that successful imports and saved-world cards open the Desk. Six linked total tiles, discovery cards and source era labels render without reimporting existing records. Unknown era ends are never filled from the next start year.
+- A singleton random-site preview leaves the trail empty; opening it and returning through the record’s Desk shortcut adds a visit. Category choice and the trail survive reload. Following a life-span discovery through its ranking to a figure adds that figure ahead of the earlier site visit.
+- Existing directories and ranking routes remain available. The source record data is unchanged; personal annotation persistence and stale-tab protections continue to pass the existing integration checks.
+- Original exports, names, counts, source contents, discoveries and screenshots are not committed. Public fixture results are authored examples. See [chroniclers-desk.md](chroniclers-desk.md) for selection rules, storage boundaries and cache limits.
+
 # Faction warfare-network verification
 
 28 October 2026
