@@ -1,3 +1,14 @@
+# Biome-atlas verification
+
+28 October 2026
+
+- 77 Node tests pass. Biome cases cover the verified 0–50 mapping, distinct valid colours, independence from elevation/alignment, explicit unsupported-code labels, present-only legend totals, bounded aggregation of many unknown codes, and default/explicit layer selection.
+- The full live Chrome integration suite passes, including authored map biome codes, named ocean/lake tiles, matching map/legend colours and total counts. Existing import, atlas, graph, connection, timeline, research and isolation checks also pass. Path evidence assertions are scoped to path steps alongside the independent Search Details panel.
+- Live UI on the fictional map: a bare atlas opens in Biomes; tile (3,3) reports Temperate Freshwater Lake with code 36; switching to Elevation hides the biome legend; reload restores Elevation and the selected tile; Biomes restores the legend and works in Raised Relief.
+- Additional local UI verification with the supplied export confirms default colours, named inspection, flat/relief rendering and translucent oceans. Export-derived names, counts, locations and screenshots are not committed here.
+- Zooming and then changing colour layers retains the camera instead of refitting the world. Explicit layer choices are included in atlas hash URLs. Existing stored map data is read without migration or rewriting source values.
+- [Biome palette provenance](biomes.md) pins the primary structure definitions and exporter. Colours are application choices; unknown codes are never guessed from other terrain fields.
+
 # Connection-finder verification
 
 27 October 2026
