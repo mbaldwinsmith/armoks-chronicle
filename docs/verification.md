@@ -1,3 +1,16 @@
+# Conflict-chronicle verification
+
+28 October 2026
+
+- 105 Node tests pass. New cases cover repeated membership and parent aliases, nested deaths, separate squad reports, rollup exclusion, shared events/victims, cycles/missing data, malformed/zero/unsafe counts, date semantics, stable pagination, role evidence, cancellation, work limits and archive isolation.
+- A generated 50,000-event campaign with five battle reports reaches the supported event bound without truncating membership. Participant roles cap explicitly at 5,000 and response pages at 50 events. One observed Node 24.22.1 run indexed and analysed it in approximately 0.6 seconds; this excludes IndexedDB, browser rendering and device-specific costs and is not a browser latency guarantee.
+- The deployed Chrome integration suite passes. It imports authored standard/Plus campaign fixtures, verifies that conflicting Plus counts/outcomes do not replace authoritative standard values, and checks nested event/victim deduplication, separate squad subtotals, missing references, safe cards, chronological DOM, contextual event links and world isolation.
+- The atlas worker is checked with an explicitly selected battle: only its direct/nested events appear, and unrelated world events are excluded. Collection scope is deduplicated and missing events remain explicit.
+- Live UI checks cover the ledger, search during initial index preparation, conflict type filters, nested conflicts, squad reports and section restoration after reload. Chronicle year filtering leaves overview totals unchanged; following an event and returning restores its year context.
+- Live atlas checks confirm selected-war scope, source-history return links and scope retention after colour changes and reloads. Existing stored archives work without reimport. Original integration-world names, source records, counts, rankings, derived findings and screenshots are not committed.
+- The event-row integration assertion uses the nested chronological event list, keeping year-group headings out of event counts. The campaign ledger also has a proper section heading above its cards.
+- See [warfare.md](warfare.md) for primary format definitions, conservative casualty rules, traversal budgets and performance boundaries. Bloodiest-battle rankings and faction warfare networks remain planned.
+
 # Family-tree verification
 
 28 October 2026

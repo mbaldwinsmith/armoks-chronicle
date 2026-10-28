@@ -6,7 +6,7 @@ Status: atlas and isometric relief preview implemented; broader features in prog
 
 ## Current iteration
 
-Conflict chronicles: a Wars & Battles ledger and specialised collection record pages expose explicit war/battle/duel hierarchies, dated event chronicles, participant-role evidence, outcomes and separate identified-victim/squad measures. Shared events and victims deduplicate; parent rollups are omitted from more-specific subtotals, and overlapping or incomplete reports suppress combined squad totals. Selected-conflict atlas overlays use explicit nested event membership, retain their scope in URLs and return to the source history. Lazy worker indexes, eight-summary caches, iterative traversal and bounded section pages keep heavy work off the UI thread. 104 Node tests pass; browser verification follows. See docs/warfare.md.
+Conflict chronicles: a Wars & Battles ledger and specialised collection record pages expose explicit war/battle/duel hierarchies, dated event chronicles, participant-role evidence, outcomes and separate identified-victim/squad measures. Shared events and victims deduplicate; parent rollups are omitted from more-specific subtotals, and overlapping or incomplete reports suppress combined squad totals. Selected-conflict atlas overlays use explicit nested event membership, retain their scope in URLs and return to the source history. Lazy worker indexes, eight-summary caches, iterative traversal and bounded section pages keep heavy work off the UI thread. 105 Node tests and the deployed browser integration suite pass. Live checks cover search during initial indexing, nested sections and reload, Chronicle year filters, event return links, selected-war atlas scope and scope persistence. A generated 50,000-event stress case keeps participant and response bounds explicit. See docs/warfare.md.
 
 Family trees: figure pages offer a dedicated entry button and a switchable generational layout inside the bounded relationship explorer. Explicit parent/child roles determine rows, spouses and siblings share relative generations, reciprocal diagram connectors combine without removing directed source claims, and distant relatives remain unplaced unless a direct generational chain exists. Multiple spouses, missing records and shared ancestors remain distinct; cyclic or contradictory constraints are retained as placement conflicts with source evidence and equivalent list warnings. Layout links restore after reload; expansion remains bounded and requests are disposed on navigation. 93 Node tests and the full deployed Chrome integration suite pass, including matching SVG/list conflict warnings. Live checks verify expansion, layout reload/restoration, linked relatives, zoom and fit. See docs/family-trees.md.
 
@@ -279,6 +279,7 @@ Implemented slice: all-family name/ID search, category filter, name/year sorting
 - [ ] Mark export-time terrain/population and incomplete historical reconstruction in the legend.
 - [ ] Add heatmaps of recorded events with explicit counting rules.
 - [ ] Add battle markers and selected-war overlays with dates, participants, outcomes, and separate named/squad casualty details where available.
+- [x] Scope the existing conflict-event atlas by explicit nested collection membership, retain selected-conflict URLs, and link the atlas back to its conflict history; collection-level marker/pop-up enrichment remains above.
 - [ ] Link map markers/popups to battle and war pages, and add reciprocal “view on map” actions from those pages.
 - [ ] Filter warfare overlays by date, faction, and selected conflict using the shared map/timeline state.
 - [x] Show location-unknown conflicts in a linked list rather than inventing coordinates; provide a chooser for multiple records on the same tile.
@@ -327,9 +328,9 @@ This setting is part of v1 implementation but opt-in for users; the flat atlas r
 
 ## 14 — Conflicts, religion, beasts, and intrigue
 
-- [ ] Build nested war/battle/attack/duel pages from event collections.
-- [ ] Show dates, locations, factions, participants, recorded outcomes, and casualties.
-- [ ] Avoid double-counting casualties across nested collections; distinguish named deaths from squad totals.
+- [x] Build bounded nested war/battle/attack/duel histories from explicit event collections, including missing/cyclic-link diagnostics.
+- [x] Show recorded dates, locations, factions, participant roles, outcomes and separate identified-victim/squad measures in conflict pages; unknown data remains explicit.
+- [x] Deduplicate nested events and identified victims; omit parent squad rollups when more-specific reports exist, withhold overlapping/incomplete aggregates, and never add named deaths to squad totals.
 - [ ] Link abductions, theft collections, persecutions, and site conquests.
 - [ ] Build deity pages with spheres, associated organisations, worshippers, and relevant structures.
 - [ ] Separate deities from religious organisations and unexplained supernatural forces.

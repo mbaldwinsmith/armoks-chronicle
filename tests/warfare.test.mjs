@@ -40,3 +40,9 @@ test('analysis work limits are disclosed and cancellation stops expensive traver
 test('independent archives never share indexed collection membership or calculated conflict results',async()=>{
  const first=index([c(1,{type:'war',event:'0'}),e(0,{type:'hf died',hfid:'2'})]),second=index([c(1,{type:'war'})]);assert.equal((await conflictDetails(first,'1')).victims,1);assert.equal((await conflictDetails(second,'1')).victims,0);
 });
+
+test('a fifty-thousand-event campaign stays within member bounds and explicitly caps participant roles',async t=>{
+ const started=performance.now(),builder=createWarfareIndex();builder.accept(c(1,{type:'war',eventcol:['2','3','4','5','6']}));
+ for(let b=0;b<5;b++){const eventIds=[];for(let i=0;i<10000;i++){const id=b*10000+i;eventIds.push(String(id));builder.accept(e(id,{type:'hf died',year:String(Math.floor(id/1000)),hfid:String(id+1)}));}builder.accept(battle(b+2,{event:eventIds,attacking_squad_deaths:'100',defending_squad_deaths:'0'}));}
+ const idx=builder.finish(),result=await conflictDetails(idx,'1');assert.equal(result.events.length,50000);assert.equal(result.victims,50000);assert.equal(result.membership.truncated,false);assert.equal(result.participantLimited,true);assert.equal(result.participants.length,5000);assert.equal(warfarePage(idx,result).rows.length,50);assert.deepEqual(result.squads.totals,{attacker:500,defender:0});t.diagnostic(`Synthetic 50,000-event index and analysis: ${Math.round(performance.now()-started)} ms (Node; not a browser latency guarantee).`);
+});
