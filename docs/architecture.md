@@ -109,3 +109,7 @@ The search bounds depth, discovered nodes, examined links and fresh source reads
 ## Book of Records
 
 A lazy `records` explorer-worker request scans the selected archive once with `createRecordBook`, using merged records and recognised explicit references. It retains ranked summaries, counts and up to five evidence links per entry, not full source records. Category/page queries use the same world-scoped worker cache. View disposal aborts requests and cursor aggregation; world switches clear the cache. Definitions, evidence rules and remaining metrics are documented in [book-of-records.md](book-of-records.md).
+
+## Generational family layout
+
+The relationship panel shares its bounded neighbourhood worker, expansion state and accessible evidence list between network and family layouts. `data/family-tree.js` creates diagram-only canonical constraints and marks conflicts without altering directed source edges; `views/family-tree.js` draws native SVG. Record routes retain `relationships=family|network`; record disposal aborts outstanding panel requests. See [family-trees.md](family-trees.md).

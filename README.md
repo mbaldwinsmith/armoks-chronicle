@@ -120,3 +120,7 @@ Names follow the DFHack `biome_type` definitions documented in the architecture 
 ### Book of Records
 
 Open a world and choose **Book of Records** to find notable figures, settlements, artifacts and written works. Eight evidence-linked rankings cover named kills, completed lives, open-ended life records, prolific authors, eventful sites, knowledge discoveries, artifact histories and recorded physical copies. Highlights disclose ties; category and page choices survive reloads. Every table explains its metric and exclusions. Open-ended life records do not prove survival, and all categories currently include supernatural figures. See [counting definitions and limits](docs/book-of-records.md).
+
+### Family trees
+
+On a figure page, choose **Open family tree** to explore parents, children and recorded spouses by relative generation. Expand branches on demand, inspect the same directed claims in a readable evidence list, or switch to the relationship network. Missing relatives and conflicting generation claims remain explicit. Layout choice survives reloads and linked figure navigation; existing imports work immediately. See [placement rules and limits](docs/family-trees.md).
