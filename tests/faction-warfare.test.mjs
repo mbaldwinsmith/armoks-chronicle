@@ -42,3 +42,7 @@ test('padded ID strings have canonical pair order and independent archives do no
 test('fifty-thousand faction role claims remain worker-page sized and deduplicate by their thousand separate groups',async t=>{
  const started=performance.now(),records=Array.from({length:1000},(_,i)=>c(i,{type:'war',aggressor_ent_id:['1','2','3','4','5'],defender_ent_id:Array.from({length:10},(_,j)=>String(j+10))})),net=await network(records);assert.equal(net.edges.size,50);assert.equal(factionNetworkPage(net,'1').edges.length,10);assert.equal(factionNetworkPage(net,'1').edges[0].count,1000);assert.equal(factionEvidencePage(net,'1,10').rows.length,24);t.diagnostic(`Synthetic 50,000-claim build/filter: ${Math.round(performance.now()-started)} ms (Node; excludes browser storage/rendering).`);
 });
+
+test('truncated membership never presents an apparent orphan event as a confidently separate conflict group',async()=>{
+ const net=await network([war(1,1,2,{event:Array.from({length:10001},(_,i)=>String(i))}),e(10000,{type:'field battle',attacker_civ_id:'1',defender_civ_id:'2'})]);const edge=factionNetworkPage(net,'1').edges[0];assert.equal(edge.count,2);assert.equal(edge.countIncomplete,true);assert(net.stats.incompleteSources>0);
+});

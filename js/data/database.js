@@ -1,4 +1,4 @@
-import { mergeData, displayName } from './records.js?v=0.18.0';
+import { mergeData, displayName } from './records.js?v=0.18.1';
 const NAME = 'armoks-chronicle';
 export function openDatabase() {
   return new Promise((resolve, reject) => {

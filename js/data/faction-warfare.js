@@ -1,6 +1,6 @@
-import {collectionKind,warfareTypes,validId,pageOffset} from './warfare.js?v=0.18.0';
-import {recordKey} from './exploration.js?v=0.18.0';
-import {readableValue} from './language.js?v=0.18.0';
+import {collectionKind,warfareTypes,validId,pageOffset} from './warfare.js?v=0.18.1';
+import {recordKey} from './exploration.js?v=0.18.1';
+import {readableValue} from './language.js?v=0.18.1';
 export const factionLimits={collections:20000,memberships:250000,eventScan:250000,roleReferences:250000,claims:100000,pairsPerSource:128,nodes:25,edges:60,page:10,evidence:24,cache:4};
 const numeric=(a,b)=>a.localeCompare(b,'en',{numeric:true})||a.localeCompare(b,'en');
 export const factionPair=(a,b)=>[String(a),String(b)].sort(numeric).join(',');
@@ -51,7 +51,7 @@ export async function filterFactionNetwork(base,options={}, {isCancelled=()=>fal
  for(const list of adjacency.values())list.sort((a,b)=>b.groups.size-a.groups.size||numeric(a.key,b.key));
  return {edges,adjacency,filters,stats:base.stats,types:base.types,groups:base.groups};
 }
-export function compactFactionEdge(edge,groups,stats={}){return {key:edge.key,a:edge.a,b:edge.b,count:edge.groups.size,countIncomplete:Boolean(stats.collectionLimited||stats.membershipLimited||[...edge.groups].some(k=>groups.get(k)?.incomplete)),sourceCount:edge.recordKeys.size,claimCount:edge.claims.length,sharedGroups:[...edge.groups].filter(k=>groups.get(k)?.shared).length,directions:[...edge.directions.values()].map(({role,from,to,groups})=>({role,from,to,count:groups.size})).sort((a,b)=>a.role.localeCompare(b.role)||numeric(a.from,b.from)||numeric(a.to,b.to)),types:[...edge.types].sort()};}
+export function compactFactionEdge(edge,groups,stats={}){return {key:edge.key,a:edge.a,b:edge.b,count:edge.groups.size,countIncomplete:Boolean(stats.collectionLimited||stats.membershipLimited||stats.incompleteSources||[...edge.groups].some(k=>groups.get(k)?.incomplete)),sourceCount:edge.recordKeys.size,claimCount:edge.claims.length,sharedGroups:[...edge.groups].filter(k=>groups.get(k)?.shared).length,directions:[...edge.directions.values()].map(({role,from,to,groups})=>({role,from,to,count:groups.size})).sort((a,b)=>a.role.localeCompare(b.role)||numeric(a.from,b.from)||numeric(a.to,b.to)),types:[...edge.types].sort()};}
 export function factionNetworkPage(network,id,offset=0){const all=network.adjacency.get(String(id))||[],start=pageOffset(offset,all.length,factionLimits.page);return {edges:all.slice(start,start+factionLimits.page).map(e=>compactFactionEdge(e,network.groups,network.stats)),total:all.length,offset:start,next:Math.min(start+factionLimits.page,all.length),stats:network.stats,types:network.types,invalid:network.filters.invalid};}
 export function factionEvidencePage(network,pair,offset=0){const edge=network.edges.get(pair);if(!edge)return {rows:[],total:0,offset:0,size:factionLimits.evidence};const rows=[...edge.claims].sort((a,b)=>(a.start??Infinity)-(b.start??Infinity)||a.key.localeCompare(b.key,'en',{numeric:true})||a.role.localeCompare(b.role)||numeric(a.from,b.from));const start=pageOffset(offset,rows.length,factionLimits.evidence);return {rows:rows.slice(start,start+factionLimits.evidence).map(row=>({...row,group:network.groups.get(row.group)})),total:rows.length,offset:start,size:factionLimits.evidence,edge:compactFactionEdge(edge,network.groups,network.stats)};}
 export function addFactionPage(state,page,root){const nodes=new Map(state.nodes.map(n=>[n.id,n])),edges=new Map(state.edges.map(e=>[e.key,e]));let capped=false;

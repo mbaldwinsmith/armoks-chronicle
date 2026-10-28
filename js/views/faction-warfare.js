@@ -1,8 +1,8 @@
-import {explore} from '../data/explorer-client.js?v=0.18.0';
-import {openDatabase,getWorld,getRecord} from '../data/database.js?v=0.18.0';
-import {recordURL,recordKey} from '../data/exploration.js?v=0.18.0';
-import {titleCase} from '../data/language.js?v=0.18.0';
-import {addFactionPage,factionLimits} from '../data/faction-warfare.js?v=0.18.0';
+import {explore} from '../data/explorer-client.js?v=0.18.1';
+import {openDatabase,getWorld,getRecord} from '../data/database.js?v=0.18.1';
+import {recordURL,recordKey} from '../data/exploration.js?v=0.18.1';
+import {titleCase} from '../data/language.js?v=0.18.1';
+import {addFactionPage,factionLimits} from '../data/faction-warfare.js?v=0.18.1';
 const el=(tag,text,cls)=>{const n=document.createElement(tag);if(text!==undefined)n.textContent=text;if(cls)n.className=cls;return n;};
 const svgEl=(tag,attrs={},text)=>{const n=document.createElementNS('http://www.w3.org/2000/svg',tag);for(const [k,v] of Object.entries(attrs))n.setAttribute(k,v);if(text!==undefined)n.textContent=text;return n;};
 const link=(label,href,cls)=>{const a=el('a',label,cls);a.href=href;return a;};
@@ -23,20 +23,20 @@ export async function renderFactionWarfare(worldId,factionId,params){const ticke
  dispose=()=>{serial++;sourceSerial++;controller?.abort();sourceController?.abort();};const current=()=>ticket===generation;
  const status=el('p','Opening organisation…','notice');status.setAttribute('role','status');target.append(status);let db;
  try{db=await openDatabase();const [world,record]=await Promise.all([getWorld(db,worldId),getRecord(db,worldId,'entities',factionId)]);if(!current())return;if(world?.status!=='ready'||!record)throw Error('This organisation is not available in this browser. Choose a locally saved organisation.');root={id:String(factionId),key:recordKey('entities',factionId),kind:'entities',label:titleCase(record.label),missing:false};state={nodes:[root],edges:[]};document.title=`${root.label} · Warfare Network · Armok’s Chronicle`;
-  ({layoutRelationships,relationshipCurve}=await import('../data/relationships.js?v=0.18.0'));if(!current())return;
+  ({layoutRelationships,relationshipCurve}=await import('../data/relationships.js?v=0.18.1'));if(!current())return;
   mount(world);
  }catch(error){if(current())status.textContent=error.message;}finally{db?.close();}
  function mount(world){
  const header=el('header',undefined,'war-overview'),identity=el('div');identity.append(el('p',titleCase(world.name),'eyebrow'),el('h2',root.label),el('p','Explore explicitly recorded opposing sides. Positions show connections, not geography.'));header.append(identity,link('Open organisation record',recordURL(worldId,'entities',root.id),'button quiet'));target.prepend(header);
  const shortcuts=el('div',undefined,'culture-shortcuts');shortcuts.append(link('Wars & Battles ledger',`#/world/${encodeURIComponent(worldId)}/wars`,'button quiet'),link('View recorded settlements',`#/world/${encodeURIComponent(worldId)}/atlas?basis=owner&faction=${root.id}`,'button quiet'));header.after(shortcuts);
  const explanation=el('details',undefined,'guide-card');explanation.append(el('summary','What a connection means'),el('p','A pair of factions must be explicitly named on opposite sides. Arrows show recorded war aggressors only; a battle or raid attacker is not automatically the war aggressor. Co-membership, shared events without opposing roles and missing sides create no connection.'),el('p','One connected collection family counts once per faction pair, including collections sharing an event. Nested battles do not multiply a war’s weight. Families overlapping several wars or lacking a unique root are marked as having non-unique grouping context; their conservative group count is not a count of distinct wars. Sources are filtered before counting; grouping context can lie outside the chosen years/type. An unknown end is not assumed to mean an ongoing conflict.'));shortcuts.after(explanation);
- const form=el('form',undefined,'war-year-filter'),from=el('input'),to=el('input'),type=el('select');from.type=to.type='number';from.step=to.step='1';from.value=params.get('netFrom')||'';to.value=params.get('netTo')||'';type.add(new Option('All Recorded Conflict Types',''));let selectedType=params.get('netType')||'';
+ const form=el('form',undefined,'war-year-filter'),from=el('input'),to=el('input'),type=el('select');from.type=to.type='number';from.step=to.step='1';from.value=params.get('netFrom')||'';to.value=params.get('netTo')||'';type.add(new Option('All Recorded Conflict Types',''));let selectedType=params.get('netType')||'',appliedFrom=from.value,appliedTo=to.value;
  for(const [node,label,id] of [[from,'Warfare from year','faction-from'],[to,'Warfare to year','faction-to'],[type,'Warfare conflict type','faction-type']]){const group=el('div'),caption=el('label',label);node.id=id;caption.htmlFor=id;group.append(caption,node);form.append(group);}const apply=el('button','Apply filters','quiet'),clear=el('button','All years & types','quiet');apply.type='submit';clear.type='button';form.append(apply,clear);explanation.after(form);
  const toolbar=el('div',undefined,'relationship-toolbar'),choose=el('select'),label=el('label','Expand faction'),group=el('div'),expand=el('button','Expand opponents','quiet'),reset=el('button','Reset network','quiet');choose.id='faction-expand';label.htmlFor=choose.id;group.append(label,choose);toolbar.append(group,expand,reset);expand.type=reset.type='button';form.after(toolbar,status);
  const limits=el('p',undefined,'muted'),zoom=el('div',undefined,'relationship-toolbar'),minus=el('button','Zoom out','quiet'),plus=el('button','Zoom in','quiet'),fit=el('button','Fit warfare network','quiet');for(const button of [minus,plus,fit])button.type='button';zoom.append(minus,plus,fit,el('span','Lines: recorded opposition. Arrows: recorded war aggressors. Labels: distinct conflict groups.','muted'));
  const viewport=el('div',undefined,'relationship-viewport faction-viewport');viewport.tabIndex=0;viewport.setAttribute('role','region');viewport.setAttribute('aria-label','Faction warfare diagram; scroll or use arrow keys to pan');const svg=svgEl('svg',{role:'img','aria-label':`Recorded warfare around ${root.label}`});viewport.append(svg);const table=el('div'),evidence=el('section',undefined,'faction-evidence');status.after(limits,zoom,viewport,el('h2','Recorded Connections'),table,evidence);
- const options=()=>({from:from.value,to:to.value,type:selectedType});
- function save(){const q=new URLSearchParams();for(const [key,value] of [['netFrom',from.value],['netTo',to.value],['netType',selectedType],['netPair',selectedPair],['netOffset',sourceOffset||'']])if(value!=='')q.set(key,value);history.replaceState(null,'',factionURL(worldId,root.id,q.toString()));}
+ const options=()=>({from:appliedFrom,to:appliedTo,type:selectedType});
+ function save(){const q=new URLSearchParams();for(const [key,value] of [['netFrom',appliedFrom],['netTo',appliedTo],['netType',selectedType],['netPair',selectedPair],['netOffset',sourceOffset||'']])if(value!=='')q.set(key,value);history.replaceState(null,'',factionURL(worldId,root.id,q.toString()));}
  function size(){svg.setAttribute('width',width*scale);svg.setAttribute('height',height*scale);}function fitGraph(){scale=Math.max(.15,Math.min(1,(viewport.clientWidth||900)/width,(viewport.clientHeight||540)/height));size();}plus.onclick=()=>{scale=Math.min(2.5,scale*1.25);size();};minus.onclick=()=>{scale=Math.max(.15,scale/1.25);size();};fit.onclick=fitGraph;
  const canExpand=id=>!busy&&!capped&&!state.nodes.find(n=>n.id===id)?.missing&&!(pages.has(id)&&pages.get(id).next>=pages.get(id).total);
  function render(stats={}){const selected=choose.value||root.id;choose.replaceChildren();for(const node of state.nodes)if(!node.missing)choose.add(new Option(node.label,node.id));choose.value=state.nodes.some(n=>n.id===selected)?selected:root.id;expand.disabled=!canExpand(choose.value);reset.disabled=apply.disabled=clear.disabled=busy;type.disabled=busy;
@@ -61,6 +61,6 @@ export async function renderFactionWarfare(worldId,factionId,params){const ticke
   }catch(error){if(current()&&token===sourceSerial)note.textContent=error.message;}
  }
  function restart(){controller?.abort();sourceController?.abort();serial++;sourceSerial++;busy=false;capped=false;pages.clear();state={nodes:[root],edges:[]};selectedPair='';sourceOffset=0;evidence.replaceChildren();save();void load(root.id);}
- choose.onchange=()=>render(lastStats);expand.onclick=()=>void load(choose.value);reset.onclick=restart;form.onsubmit=e=>{e.preventDefault();selectedType=type.value;restart();};clear.onclick=()=>{from.value=to.value='';selectedType=type.value='';restart();};void load(root.id);
+ choose.onchange=()=>render(lastStats);expand.onclick=()=>void load(choose.value);reset.onclick=restart;form.onsubmit=e=>{e.preventDefault();appliedFrom=from.value;appliedTo=to.value;selectedType=type.value;restart();};clear.onclick=()=>{appliedFrom=appliedTo=from.value=to.value='';selectedType=type.value='';restart();};void load(root.id);
  }
 }
