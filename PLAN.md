@@ -6,6 +6,8 @@ Status: atlas and isometric relief preview implemented; broader features in prog
 
 ## Current iteration
 
+Settlement Chronicles: source-linked site histories now combine founding/reclamation, attacks/destruction, diplomacy, local-government changes and structure construction/rebuilding. Export-time owners/civilisations remain separate from dated governments. Category/year controls, paging, source returns and flat/relief map returns retain reader context. Most Contested Settlements compares conservative dated government-change groups, excluding attacks, tribute, surrender, undated/missing/conflicting government claims and unchanged owners. Related sources are grouped with timing limits disclosed. See docs/settlement-chronicles.md.
+
 Offices and Succession: figure/organisation panels now distinguish dated appointment/removal terms from export-time holder assignments and office-creation context. Source-linked appointer/promise roles, organisation-scoped office definitions, neighbouring recorded holders, uncertain handovers and overlapping/open terms remain explicit. Longest and Shortest Completed Office Terms rank eligible calendar-year spans separately, with ties, both endpoints and exclusions. Existing archives require no reimport. All 209 Node tests and the deployed 0.25.1 browser integration suite pass; live checks verify organisation/figure panels, assignment snapshots, tied rankings, reload and source inspection. See docs/offices-and-succession.md.
 
 Supernatural History: figure directories now compose vampire/werebeast/necromancer/deity evidence filters with optional uncertain matches, linked badges and biography evidence/context panels. Exact supported markers and learned-secret evidence are separated from identifier/form-name clues, species, known interactions and forces. Versioned bounded worker profiles retain source roles, missing records and uncertainty; aliases feed Follow the Thread without inferred infection lineages. 170 Node tests and the deployed 0.23.1 browser integration suite pass. Live checks cover composed filters, uncertainty opt-in, reload, evidence strength/source inspection and participant links with retained filter state. See docs/supernatural-history.md.
@@ -102,10 +104,11 @@ A feature-complete v1 includes every required phase below, including specialist 
 - [x] Record supplied-export baseline verification privately; keep original game-world-derived reference values out of public documentation.
 - [ ] Define expected optional-data capabilities separately from required standard-XML capabilities.
 - [x] Add authored supernatural fixtures covering supported/unknown/possible states, overlapping evidence, role direction, merged/Plus conflicts and false positives.
-- [ ] Add dedicated-structure and competing-ownership fixtures; verify any future recorded-absence mapping before treating it as a negative state.
+- [x] Add competing-government/source-conflict fixtures with conservative ownership-change exclusions.
+- [ ] Add dedicated-structure fixtures; verify any future recorded-absence mapping before treating it as a negative state.
 - [x] Test tied ranks, copied works versus physical artifacts and nested/overlapping casualty totals with authored fixtures.
 - [x] Add completed/open/unknown/overlapping office-term fixtures and fair-comparison exclusions.
-- [ ] Add contested-ownership ranking fixtures when that metric is implemented.
+- [x] Add authored competing-government fixtures for contested-settlement comparisons, including duplicate takeover/leader sources, same-year timing uncertainty, missing targets and conflicting supplementary fields.
 - [x] Cover unknown/sentinel ownership, missing battle coordinates and date-filtered conflict events in politics/conflict fixtures.
 - [ ] Add a dedicated same-tile settlement fixture and automate chooser behaviour across overlapping site markers.
 
@@ -277,7 +280,9 @@ Implemented slice: all-family name/ID search, category filter, name/year sorting
 - [ ] Add dedicated site structure/property panels instead of source-inspector-only nested fields.
 - [x] Show founding, attacks, destruction, reclamation, disputes, and other recorded site events.
 - [x] Separate recorded civilisation and current owner in atlas filters, legends and organisation actions.
-- [ ] Reconstruct dated ownership transitions from supported events without treating export-time owners as historical borders.
+- [x] Show explicit dated previous/new local-government transitions from supported takeover/leader events, separately from export-time owners and parent civilisations.
+- [x] Add curated settlement founding, reclamation, attack, destruction, diplomacy and construction/rebuilding histories with source links, filters and paging.
+- [ ] Reconstruct continuous ownership periods only where additional verified evidence can establish continuity; do not fill historical gaps or draw inferred borders.
 - [ ] Display population reports as export-date snapshots, including untracked inhabitants.
 - [ ] Keep named historical figures separate from total population estimates.
 - [ ] Create entity pages distinguishing civilisations, governments, religions, military groups, and criminal organisations.
@@ -461,7 +466,7 @@ Implemented slice: directed source-record networks with family/social/rivalry/af
 - [ ] Add bloodiest-battle rankings and creature-specific ranking controls, preserving overlap/incompleteness rules.
 - [x] Include longest and shortest completed office terms (including supported reigns), defining treatment of incomplete dates, concurrent offices, open terms and tied durations. Ruler-only classification is not inferred.
 - [ ] Add ruler-specific office/reign controls only when export definitions can support that classification.
-- [ ] Include most contested settlements using a documented metric such as recorded ownership changes; distinguish this from attack count.
+- [x] Include Most Contested Settlements using documented, conservatively grouped dated local-government changes; distinguish this from attacks, tribute, surrender and parent-civilisation control.
 - [x] Include most copied written works, most prolific authors, and greatest scholars by recorded knowledge discoveries, with separate work/artifact/copy counts.
 - [x] Rank completed/open-ended recorded lives and artifact event histories using shared discovery metrics.
 - [ ] Add supported travel and geographical rankings with verified definitions.

@@ -1,4 +1,4 @@
-import {titleCase,readableValue,eventLabel} from './language.js?v=0.25.1';
+import {titleCase,readableValue,eventLabel} from './language.js?v=0.26.0';
 // Deterministic export renderings, not inferred motives or generated fiction.
 export const words=value=>String(value??'').replaceAll('_',' ');
 const aliases={'hist figure died':'hf died','hist figure wounded':'hf wounded','created building':'created structure','change creature type':'changed creature type','hist figure new pet':'hf new pet','war peace accepted':'peace accepted','war peace rejected':'peace rejected'};
@@ -32,7 +32,7 @@ export const formatters={
  'remove hf entity link':d=>affiliationStory(d,true),
  'add hf hf link':d=>text(d,'link_type','link')==='spouse'?[subject(d),' married ',hf(d,'hfid_target','hf_target')]:[subject(d),' formed a ',text(d,'link_type','link'),' relationship with ',hf(d,'hfid_target','hf_target')],
  'remove hf hf link':d=>text(d,'link_type','link')==='spouse'?[subject(d),' was no longer recorded as married to ',hf(d,'hfid_target','hf_target')]:[subject(d),' ended a ',text(d,'link_type','link'),' relationship with ',hf(d,'hfid_target','hf_target')],
- 'created site':d=>[entity(d,'civ_id','civ'),' founded ',site(d)],
+ 'created site':d=>scalar(d,'builder_hfid')?[hf(d,'builder_hfid'),' constructed ',site(d),...(scalar(d,'resident_civ_id')?[' for ',entity(d,'resident_civ_id')]:[])]:[entity(d,'site_civ_id','civ_id','civ'),' founded ',site(d)],
  'reclaim site':d=>[entity(d,'civ_id','civ'),' reclaimed ',site(d)],
  'hf attacked site':d=>[hf(d,'attacker_hfid'),' attacked ',site(d)],
  'hf destroyed site':d=>[hf(d,'attacker_hfid'),' destroyed ',site(d)],
@@ -56,7 +56,19 @@ export const formatters={
  'peace rejected':d=>['A peace proposal was rejected',...where(d)],
  'add hf site link':d=>[subject(d),' became associated with ',site(d),...(scalar(d,'link_type','link')?[' as ',article(text(d,'link_type','link')),text(d,'link_type','link')]:[])],
  'remove hf site link':d=>[subject(d),' was no longer recorded as ',article(text(d,'link_type','link')),text(d,'link_type','link'),' at ',site(d)],
- 'created structure':d=>[hf(d,'builder_hfid','builder_hf'),' built a structure',...where(d)],
+ 'created structure':d=>[scalar(d,'builder_hfid','builder_hf')?hf(d,'builder_hfid','builder_hf'):entity(d,'site_civ_id','site_civ','civ_id','civ'),...(['rebuild','rebuilt'].some(k=>typeof d[k]==='string'&&['','true','1'].includes(d[k].trim().toLowerCase()))?[' rebuilt a structure']:[' built a structure']),...where(d)],
+ 'replaced structure':d=>[entity(d,'site_civ_id','site_civ','civ_id','civ'),' replaced a structure',...where(d)],
+ 'razed structure':d=>[entity(d,'civ_id'),' razed a structure',...where(d)],
+ 'site taken over':d=>[entity(d,'attacker_civ_id'),' took over ',site(d),...(scalar(d,'site_civ_id')?['; the previous local government was ',entity(d,'site_civ_id')]:[]),...(scalar(d,'new_site_civ_id')?['; the new local government was ',entity(d,'new_site_civ_id')]:[])],
+ 'new site leader':d=>[entity(d,'attacker_civ_id'),' placed ',hf(d,'new_leader_hfid'),' in charge of ',site(d),...(scalar(d,'new_site_civ_id')?['; the new local government was ',entity(d,'new_site_civ_id')]:[])],
+ 'site surrendered':d=>[entity(d,'site_civ_id'),' surrendered ',site(d),' to ',entity(d,'attacker_civ_id')],
+ 'site tribute forced':d=>[entity(d,'attacker_civ_id'),' secured tribute from ',entity(d,'site_civ_id'),' at ',site(d)],
+ 'site abandoned':d=>[entity(d,'site_civ_id','civ_id'),' abandoned ',site(d)],
+ 'site died':d=>[site(d),Object.hasOwn(d,'abandoned')?' was recorded as abandoned':' was recorded as withered'],
+ 'site retired':d=>[site(d),' was recorded as retired'],
+ 'site dispute':d=>[entity(d,'entity_id_1'),' of ',ref(d,'sites',['site_id_1'],'an unidentified site'),' disputed ',text(d,'dispute'),' with ',entity(d,'entity_id_2'),' of ',ref(d,'sites',['site_id_2'],'an unidentified site')],
+ 'destroyed site':d=>[entity(d,'attacker_civ_id'),' destroyed ',site(d)],
+ 'plundered site':d=>[entity(d,'attacker_civ_id'),' plundered ',site(d)],
  'hf new pet':d=>[subject(d),' acquired a new pet',...where(d)],
  'entity created':d=>[entity(d,'entity_id','entity'),' was established',...where(d)],
  'entity dissolved':d=>[entity(d,'entity_id','entity'),' was dissolved',...(scalar(d,'reason')?['; recorded reason: ',text(d,'reason')]:[])],

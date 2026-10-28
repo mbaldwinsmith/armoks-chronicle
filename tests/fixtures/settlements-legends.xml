@@ -1,0 +1,287 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<df_world>
+  <name>The Fictional Stone and Standard</name>
+  <sites>
+    <site>
+      <id>1</id>
+      <name>copperhall</name>
+      <coords>1,2</coords>
+      <cur_owner_id>5</cur_owner_id>
+      <civ_id>5</civ_id>
+    </site>
+    <site>
+      <id>2</id>
+      <name>ash ford</name>
+      <coords>4,5</coords>
+      <cur_owner_id>-1</cur_owner_id>
+      <civ_id>5</civ_id>
+    </site>
+    <site>
+      <id>3</id>
+      <name>quiet reach</name>
+      <coords>6,1</coords>
+      <cur_owner_id>999</cur_owner_id>
+      <civ_id>5</civ_id>
+    </site>
+    <site>
+      <id>4</id>
+      <name>council ruin</name>
+      <cur_owner_id>-1</cur_owner_id>
+    </site>
+  </sites>
+  <entities>
+    <entity>
+      <id>5</id>
+      <name>the copper league</name>
+    </entity>
+    <entity>
+      <id>6</id>
+      <name>the ashen host</name>
+    </entity>
+    <entity>
+      <id>7</id>
+      <name>the copper council</name>
+    </entity>
+    <entity>
+      <id>8</id>
+      <name>the ash stewards</name>
+    </entity>
+    <entity>
+      <id>9</id>
+      <name>the renewed council</name>
+    </entity>
+  </entities>
+  <historical_figures>
+    <historical_figure>
+      <id>1</id>
+      <name>urist stonebinder</name>
+    </historical_figure>
+    <historical_figure>
+      <id>2</id>
+      <name>domas standardbearer</name>
+    </historical_figure>
+  </historical_figures>
+  <historical_events>
+    <historical_event>
+      <id>0</id>
+      <type>created site</type>
+      <site_id>1</site_id>
+      <year>1</year>
+      <civ_id>5</civ_id>
+      <site_civ_id>7</site_civ_id>
+    </historical_event>
+    <historical_event>
+      <id>1</id>
+      <type>attacked site</type>
+      <site_id>1</site_id>
+      <year>3</year>
+      <attacker_civ_id>6</attacker_civ_id>
+      <defender_civ_id>5</defender_civ_id>
+      <site_civ_id>7</site_civ_id>
+    </historical_event>
+    <historical_event>
+      <id>2</id>
+      <type>site taken over</type>
+      <site_id>1</site_id>
+      <year>5</year>
+      <seconds72>100</seconds72>
+      <attacker_civ_id>6</attacker_civ_id>
+      <defender_civ_id>5</defender_civ_id>
+      <site_civ_id>7</site_civ_id>
+      <new_site_civ_id>8</new_site_civ_id>
+    </historical_event>
+    <historical_event>
+      <id>3</id>
+      <type>new site leader</type>
+      <site_id>1</site_id>
+      <year>5</year>
+      <seconds72>100</seconds72>
+      <attacker_civ_id>6</attacker_civ_id>
+      <defender_civ_id>5</defender_civ_id>
+      <site_civ_id>7</site_civ_id>
+      <new_site_civ_id>8</new_site_civ_id>
+      <new_leader_hfid>2</new_leader_hfid>
+    </historical_event>
+    <historical_event>
+      <id>4</id>
+      <type>site tribute forced</type>
+      <site_id>1</site_id>
+      <year>6</year>
+      <attacker_civ_id>5</attacker_civ_id>
+      <site_civ_id>8</site_civ_id>
+    </historical_event>
+    <historical_event>
+      <id>5</id>
+      <type>site surrendered</type>
+      <site_id>1</site_id>
+      <year>7</year>
+      <attacker_civ_id>5</attacker_civ_id>
+      <defender_civ_id>6</defender_civ_id>
+      <site_civ_id>8</site_civ_id>
+    </historical_event>
+    <historical_event>
+      <id>6</id>
+      <type>destroyed site</type>
+      <site_id>1</site_id>
+      <year>9</year>
+      <attacker_civ_id>5</attacker_civ_id>
+      <defender_civ_id>6</defender_civ_id>
+      <site_civ_id>8</site_civ_id>
+    </historical_event>
+    <historical_event>
+      <id>7</id>
+      <type>reclaim site</type>
+      <site_id>1</site_id>
+      <year>12</year>
+      <civ_id>5</civ_id>
+      <site_civ_id>9</site_civ_id>
+    </historical_event>
+    <historical_event>
+      <id>8</id>
+      <type>created structure</type>
+      <site_id>1</site_id>
+      <year>13</year>
+      <civ_id>5</civ_id>
+      <site_civ_id>9</site_civ_id>
+      <builder_hfid>1</builder_hfid>
+      <structure_id>2</structure_id>
+      <rebuilt />
+    </historical_event>
+    <historical_event>
+      <id>9</id>
+      <type>site taken over</type>
+      <site_id>1</site_id>
+      <year>15</year>
+      <site_civ_id>8</site_civ_id>
+      <new_site_civ_id>9</new_site_civ_id>
+    </historical_event>
+    <historical_event>
+      <id>10</id>
+      <type>new site leader</type>
+      <site_id>1</site_id>
+      <year>15</year>
+      <seconds72>200</seconds72>
+      <site_civ_id>8</site_civ_id>
+      <new_site_civ_id>9</new_site_civ_id>
+      <new_leader_hfid>2</new_leader_hfid>
+    </historical_event>
+    <historical_event>
+      <id>11</id>
+      <type>site taken over</type>
+      <site_id>1</site_id>
+      <year>20</year>
+      <site_civ_id>9</site_civ_id>
+      <new_site_civ_id>9</new_site_civ_id>
+    </historical_event>
+    <historical_event>
+      <id>12</id>
+      <type>site taken over</type>
+      <site_id>1</site_id>
+      <year>-1</year>
+      <site_civ_id>9</site_civ_id>
+      <new_site_civ_id>7</new_site_civ_id>
+    </historical_event>
+    <historical_event>
+      <id>13</id>
+      <type>site taken over</type>
+      <site_id>1</site_id>
+      <year>25</year>
+      <site_civ_id>9</site_civ_id>
+      <new_site_civ_id>999</new_site_civ_id>
+    </historical_event>
+    <historical_event>
+      <id>14</id>
+      <type>site dispute</type>
+      <year>16</year>
+      <site_id_1>1</site_id_1>
+      <site_id_2>2</site_id_2>
+      <entity_id_1>9</entity_id_1>
+      <entity_id_2>8</entity_id_2>
+      <dispute>water rights</dispute>
+    </historical_event>
+    <historical_event>
+      <id>15</id>
+      <type>created site</type>
+      <site_id>2</site_id>
+      <year>1</year>
+      <civ_id>5</civ_id>
+      <site_civ_id>7</site_civ_id>
+    </historical_event>
+    <historical_event>
+      <id>16</id>
+      <type>site taken over</type>
+      <site_id>2</site_id>
+      <year>5</year>
+      <seconds72>100</seconds72>
+      <site_civ_id>7</site_civ_id>
+      <new_site_civ_id>8</new_site_civ_id>
+    </historical_event>
+    <historical_event>
+      <id>17</id>
+      <type>site taken over</type>
+      <site_id>2</site_id>
+      <year>15</year>
+      <seconds72>100</seconds72>
+      <site_civ_id>8</site_civ_id>
+      <new_site_civ_id>9</new_site_civ_id>
+    </historical_event>
+    <historical_event>
+      <id>18</id>
+      <type>attacked site</type>
+      <site_id>3</site_id>
+      <year>2</year>
+      <attacker_civ_id>6</attacker_civ_id>
+      <defender_civ_id>5</defender_civ_id>
+    </historical_event>
+    <historical_event>
+      <id>19</id>
+      <type>site abandoned</type>
+      <site_id>3</site_id>
+      <year>3</year>
+      <civ_id>5</civ_id>
+      <site_civ_id>7</site_civ_id>
+    </historical_event>
+    <historical_event>
+      <id>20</id>
+      <type>new site leader</type>
+      <site_id>4</site_id>
+      <year>30</year>
+      <site_civ_id>7</site_civ_id>
+      <new_site_civ_id>8</new_site_civ_id>
+      <new_leader_hfid>2</new_leader_hfid>
+    </historical_event>
+    <historical_event>
+      <id>21</id>
+      <type>site taken over</type>
+      <site_id>99</site_id>
+      <year>30</year>
+      <site_civ_id>7</site_civ_id>
+      <new_site_civ_id>8</new_site_civ_id>
+    </historical_event>
+    <historical_event>
+      <id>22</id>
+      <type>replaced structure</type>
+      <site_id>1</site_id>
+      <year>14</year>
+      <civ_id>5</civ_id>
+      <site_civ_id>9</site_civ_id>
+      <old_structure>2</old_structure>
+      <new_structure>3</new_structure>
+    </historical_event>
+    <historical_event>
+      <id>23</id>
+      <type>site died</type>
+      <site_id>3</site_id>
+      <year>4</year>
+      <abandoned />
+    </historical_event>
+    <historical_event>
+      <id>24</id>
+      <type>site retired</type>
+      <site_id>1</site_id>
+      <year>13</year>
+      <civ_id>5</civ_id>
+      <site_civ_id>9</site_civ_id>
+    </historical_event>
+  </historical_events>
+</df_world>

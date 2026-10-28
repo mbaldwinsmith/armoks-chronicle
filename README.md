@@ -119,7 +119,7 @@ Names follow the DFHack `biome_type` definitions documented in the architecture 
 
 ### Book of Records
 
-Open a world and choose **Book of Records** to find notable figures, settlements, artifacts and written works. Ten evidence-linked rankings cover named kills, completed lives, open-ended life records, prolific authors, eventful sites, knowledge discoveries, artifact histories, recorded physical copies, and longest/shortest completed office terms. Highlights disclose ties; category and page choices survive reloads. Every table explains its metric and exclusions. Open-ended life records do not prove survival, and all categories currently include supernatural figures. See [counting definitions and limits](docs/book-of-records.md).
+Open a world and choose **Book of Records** to find notable figures, settlements, artifacts and written works. Eleven evidence-linked rankings cover named kills, completed lives, open-ended life records, prolific authors, eventful sites, knowledge discoveries, artifact histories, recorded physical copies, and longest/shortest completed office terms, and recorded changes of settlement government. Highlights disclose ties; category and page choices survive reloads. Every table explains its metric and exclusions. Open-ended life records do not prove survival, and all categories currently include supernatural figures. See [counting definitions and limits](docs/book-of-records.md).
 
 ### Family trees
 
@@ -160,3 +160,7 @@ Figure and artifact pages now show **Recorded Whereabouts**: source-linked appea
 ## Offices and Succession
 
 Historical figure and organisation pages now show **Offices and Succession**: dated appointment/removal terms, explicit appointers, neighbouring recorded holders and separate export-time assignment snapshots. Missing ends, uncertain handovers and overlapping holders stay visible. Book of Records adds **Longest** and **Shortest Completed Office Terms**, comparing separate eligible calendar-year spans with both source events. Office definitions do not automatically identify rulers or hereditary successors. Existing archives need no reimport. See [evidence rules, pairing and bounds](docs/offices-and-succession.md).
+
+## Settlement Chronicles
+
+Site pages now offer a **Settlement Chronicle** with founding, reclamation, attacks, destruction, government/diplomacy and structure construction/rebuilding records. Category/year filters and source/map return links preserve your reading context. **Most Contested Settlements** ranks conservatively grouped dated changes of local government, with supporting events and clear exclusions. Export-time owners remain separate; an attack does not automatically change ownership. Existing archives need no reimport. See [sources, counting rules and limits](docs/settlement-chronicles.md).

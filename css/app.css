@@ -178,3 +178,10 @@
 .office-list {display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,22rem),1fr));gap:1rem;margin-block:1rem;}
 .office-card {padding:1rem 1.2rem;border:1px solid #71634b;border-top:3px solid #be9660;border-radius:.5rem;overflow-wrap:anywhere;background:rgba(192,145,79,.05);}
 .office-card h3 {margin:.35rem 0;}.office-card p {margin:.65rem 0;}
+
+.settlement-panel {margin-block:2rem;}
+.settlement-snapshot {padding:1rem 1.2rem;background:rgba(192,145,79,.06);border:1px solid #71634b;border-radius:.5rem;}
+.settlement-list {display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,23rem),1fr));gap:1rem;margin-block:1rem;}
+.settlement-card {padding:1rem 1.2rem;border-left:3px solid #be9660;background:rgba(128,128,128,.06);overflow-wrap:anywhere;}
+.settlement-card h3 {margin:.4rem 0;}.settlement-counting {font-size:.9rem;color:var(--muted,#c2baaa);}
+.settlement-panel .button {margin:.3rem .5rem .7rem 0;}

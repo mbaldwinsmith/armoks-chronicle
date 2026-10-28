@@ -1,6 +1,6 @@
 # Book of Records
 
-Open a stored world, then choose **Book of Records**. Ten category links and a collapsible set of highlight cards lead into ranked, paginated evidence tables. Rankings apply only to that locally imported archive. No reimport, remote service or new dependency is needed.
+Open a stored world, then choose **Book of Records**. Eleven category links and a collapsible set of highlight cards lead into ranked, paginated evidence tables. Rankings apply only to that locally imported archive. No reimport, remote service or new dependency is needed.
 
 ## Counting contract (derivation version 1)
 
@@ -29,7 +29,7 @@ Each row links its source record and at most five sample supporting records. Lif
 
 The category and page offset live in the hash URL; back, forward, reload and copied links restore them. Links still require the same local archive. Data does not leave the device.
 
-This is the first Book of Records slice. Battle casualty rankings, ruler-only reign classification, contested ownership, travel records, supernatural inclusion controls, metric-specific full evidence directories and comparative charts remain planned. No battle ranking is inferred from named kills or nested collection totals.
+This is the first Book of Records slice. Battle casualty rankings, ruler-only reign classification, continuous ownership periods, travel records, supernatural inclusion controls, metric-specific full evidence directories and comparative charts remain planned. No battle ranking is inferred from named kills or nested collection totals.
 
 ## Verification
 
@@ -38,3 +38,7 @@ Authored Node fixtures cover aliases, distinct kills, missing victims and target
 ## Completed office terms
 
 Longest and Shortest Completed Office Terms use the shared office index and rank each eligible paired appointment/removal separately. Both endpoints are linked, not sampled away. Candidates/exclusions count term/endpoint entries rather than figures. Calendar-year differences, open terms, unknown dates, concurrency, source conflicts and same-year handover boundaries follow [Offices and Succession](offices-and-succession.md). These categories compare all supported offices, not only rulers, and disclose partial-index limits.
+
+## Most Contested Settlements
+
+The eleventh category compares conservatively grouped, dated changes between explicitly named old/new local governments. It excludes attack/tribute/surrender/founding/reclamation counts, undated or unchanged government claims, conflicting sources and missing targets. Related records are grouped by site/year/government pair, with complete timestamps distinguishing separate changes; an incomplete timestamp collapses that same-year pair to one count. This can undercount repeated changes. See [Settlement Chronicles](settlement-chronicles.md) for role distinctions, evidence links, ties, partial-index limits and exclusions.

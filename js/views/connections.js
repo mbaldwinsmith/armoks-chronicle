@@ -1,6 +1,6 @@
-import {explore} from '../data/explorer-client.js?v=0.25.1';
-import {recordURL} from '../data/exploration.js?v=0.25.1';
-import {relationshipWording} from '../data/relationships.js?v=0.25.1';
+import {explore} from '../data/explorer-client.js?v=0.26.0';
+import {recordURL} from '../data/exploration.js?v=0.26.0';
+import {relationshipWording} from '../data/relationships.js?v=0.26.0';
 const el=(tag,text,cls)=>{const node=document.createElement(tag);if(text!==undefined)node.textContent=text;if(cls)node.className=cls;return node;};
 const reasonNames={depth_limit:'maximum path length',node_limit:'record limit',edge_limit:'link limit',source_record_limit:'source-reading budget',neighbourhood_limit:'incomplete neighbourhood scan'};
 export function connectionSummary(result){

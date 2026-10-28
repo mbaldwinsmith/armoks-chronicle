@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<df_world><name>The Fictional Stone and Standard</name><historical_events>
+<historical_event><id>2</id><new_site_civ_id>8</new_site_civ_id></historical_event>
+<historical_event><id>20</id><new_site_civ_id>9</new_site_civ_id></historical_event>
+</historical_events></df_world>
