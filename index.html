@@ -7,8 +7,8 @@
   <meta name="description" content="Armok’s Chronicle: a local-first explorer for the histories of Dwarf Fortress worlds.">
   <title>Armok’s Chronicle</title>
   <link rel="icon" href="./assets/mark.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="./css/app.css?v=0.21.1">
-  <script type="module" src="./js/app.js?v=0.21.1"></script>
+  <link rel="stylesheet" href="./css/app.css?v=0.22.0">
+  <script type="module" src="./js/app.js?v=0.22.0"></script>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -23,6 +23,7 @@
     <nav aria-label="Primary">
       <a href="#/library" data-route="library"><span aria-hidden="true">▤</span> World bookshelf</a>
       <a href="#/import" data-route="import"><span aria-hidden="true">＋</span> Import a world</a>
+      <a href="#/chronicles" data-route="chronicles"><span aria-hidden="true">▧</span> Personal chronicles</a>
       <a href="#/research" data-route="research"><span aria-hidden="true">☆</span> Your research</a>
       <a href="#/guide" data-route="guide"><span aria-hidden="true">◇</span> Field guide</a>
     </nav>
@@ -80,6 +81,8 @@
       <section class="guide-card"><h2>Recorded Eras</h2><p class="muted">Names and dates come from era records. A following era’s start is not used to invent the previous era’s end.</p><p id="desk-era-status" role="status"></p><ol id="desk-eras" class="desk-eras"></ol><div id="desk-era-pages" class="record-pagination"></div></section>
       <section class="guide-card"><h2>Your Recent Trail</h2><p class="muted">Your last twelve distinct record visits in this archive, most recent first. This is a disposable reading history, separate from your saved research.</p><p id="desk-trail-status" role="status"></p><ol id="desk-trail" class="desk-trail"></ol><button id="desk-trail-clear" class="quiet" type="button">Clear this world’s recent trail</button></section>
     </section>
+    <section id="view-chronicles" hidden aria-labelledby="chronicles-title"><div class="eyebrow">STORIES WORTH KEEPING</div><h1 id="chronicles-title">Personal Chronicles</h1><p class="intro">Collect discoveries into your own account of a world. Order the records, add commentary and keep a copy to read or share.</p><div id="chronicles-content"></div></section>
+    <section id="view-chronicle" hidden aria-labelledby="chronicle-title"><a href="#/chronicles" class="text-link no-print">← Personal Chronicles</a><div class="eyebrow no-print">YOUR SELECTION, YOUR STORY</div><h1 id="chronicle-title">Your Chronicle</h1><div id="chronicle-content"></div></section>
     <section id="view-faction" hidden aria-labelledby="faction-title"><div class="eyebrow">FACTIONS IN CONFLICT</div><h1 id="faction-title">Warfare Network</h1><div id="faction-content"></div></section>
     <section id="view-grudges" hidden aria-labelledby="grudge-title">
       <a id="grudge-back" class="text-link">← Chronicler’s Desk</a><div class="eyebrow">WRONGS RECORDED, MOTIVES UNASSUMED</div><h1 id="grudge-title">Grudge Ledger</h1><p id="grudge-world" class="intro"></p>
@@ -120,7 +123,7 @@
     </section>
     <section id="view-atlas" hidden aria-labelledby="atlas-title">
       <a id="atlas-back" class="text-link">← Back to world records</a><h1 id="atlas-title">World atlas</h1>
-      <p id="atlas-scope" class="notice" hidden></p><p id="atlas-status" role="status"></p>
+      <p id="atlas-scope" class="notice" hidden></p><p class="muted">Terrain and settlement affiliations describe this export’s snapshot. Year filters affect recorded conflict events; they do not reconstruct past terrain or ownership.</p><p id="atlas-status" role="status"></p>
       <div id="atlas-controls" hidden>
         <div class="atlas-toolbar"><div><label for="atlas-mode">View</label><select id="atlas-mode"><option value="flat">Flat atlas</option><option value="relief">Raised Relief</option></select></div><div><label for="atlas-layer">Colour layer</label><select id="atlas-layer"><option value="biomes">Biomes</option><option value="elevation">Elevation</option><option value="evilness">Evilness</option><option value="savagery">Savagery</option></select></div><label><input id="atlas-rivers" type="checkbox" checked> Rivers</label><label><input id="atlas-roads" type="checkbox"> Roads</label><div><label for="atlas-height">Relief height</label><input id="atlas-height" type="range" min="0.5" max="3" step="0.5" value="1"><output id="height-value">1×</output></div><label><input id="atlas-sites" type="checkbox" checked> Site markers</label><button id="atlas-in" class="quiet" aria-label="Zoom in">+</button><button id="atlas-out" class="quiet" aria-label="Zoom out">−</button><button id="atlas-fit" class="quiet">Fit world</button></div>
         <details class="atlas-help"><summary>Map controls and legend</summary><p id="relief-note" class="muted"></p><p class="muted">Drag to pan; use the wheel or +/− to zoom. Focus the map and use arrow keys to pan. Click a tile to inspect it. North is up on the flat atlas; X increases east, Y south.</p>

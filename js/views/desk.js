@@ -1,10 +1,10 @@
-import {explore} from '../data/explorer-client.js?v=0.21.1';
-import {openDatabase,getWorld,getRecord} from '../data/database.js?v=0.21.1';
-import {recordURL,kindNames} from '../data/exploration.js?v=0.21.1';
-import {titleCase} from '../data/language.js?v=0.21.1';
-import {cultureLabel} from '../data/culture.js?v=0.21.1';
-import {randomCategories,randomCategory,clippedLabel} from '../data/desk.js?v=0.21.1';
-import {readTrail,clearTrail,trailKey} from '../data/trail.js?v=0.21.1';
+import {explore} from '../data/explorer-client.js?v=0.22.0';
+import {openDatabase,getWorld,getRecord} from '../data/database.js?v=0.22.0';
+import {recordURL,kindNames} from '../data/exploration.js?v=0.22.0';
+import {titleCase} from '../data/language.js?v=0.22.0';
+import {cultureLabel} from '../data/culture.js?v=0.22.0';
+import {randomCategories,randomCategory,clippedLabel} from '../data/desk.js?v=0.22.0';
+import {readTrail,clearTrail,trailKey} from '../data/trail.js?v=0.22.0';
 const el=(tag,text,cls)=>{const n=document.createElement(tag);if(text!==undefined)n.textContent=text;if(cls)n.className=cls;return n;};
 const link=(label,href,cls)=>{const a=el('a',label,cls);a.href=href;return a;};
 let generation=0,cleanup=()=>{};
@@ -27,6 +27,7 @@ export async function renderDesk(worldId,params){const ticket=++generation,contr
   worldLabel.textContent=clippedLabel(titleCase(world.name));document.title=`${clippedLabel(titleCase(world.name))} · Chronicler’s Desk · Armok’s Chronicle`;
   for(const [label,path] of [['Browse All Records',''],['World Atlas','/atlas'],['Book of Records','/records'],['Wars & Battles','/wars'],['Grudge Ledger','/grudges']])shortcuts.append(link(label,`#/world/${encodeURIComponent(worldId)}${path}`,'button quiet'));
   for(const [kind,label] of [['historical_figures','Historical Figures'],['sites','Recorded Sites'],['entities','Organisations'],['historical_events','Recorded Events'],['artifacts','Artifacts'],['written_contents','Written Works']]){const count=world.counts?.[kind]||0,a=link('',`#/world/${encodeURIComponent(worldId)}?kind=${kind}`,'desk-total');a.append(el('strong',count.toLocaleString()),el('span',label));totals.append(a);}
+  shortcuts.append(link('Personal Chronicles',`#/chronicles?world=${encodeURIComponent(worldId)}`,'button quiet'));
   randomButton.disabled=picker.disabled=false;void refreshTrail();await load();
  }catch(error){if(current()){status.textContent=error.message;worldLabel.textContent='World unavailable';}}finally{db?.close();}
  async function load(){const token=++request;status.textContent='Finding recorded starting points…';eraStatus.textContent='Reading eras…';eraPages.replaceChildren();

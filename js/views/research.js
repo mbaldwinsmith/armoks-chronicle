@@ -1,11 +1,12 @@
-import {titleCase,eventLabel} from '../data/language.js?v=0.21.1';
-import {openDatabase,listWorlds,getRecord} from '../data/database.js?v=0.21.1';
-import {getResearch,listResearch,saveResearch,restoreResearch,makeBackup,parseBackup,parseTags,BACKUP_LIMIT} from '../data/research.js?v=0.21.1';
-import {recordURL} from '../data/exploration.js?v=0.21.1';
+import {titleCase,eventLabel} from '../data/language.js?v=0.22.0';
+import {openDatabase,listWorlds,getRecord} from '../data/database.js?v=0.22.0';
+import {getResearch,listResearch,saveResearch,restoreResearch,makeBackup,parseBackup,parseTags,BACKUP_LIMIT} from '../data/research.js?v=0.22.0';
+import {recordURL} from '../data/exploration.js?v=0.22.0';
 const worldLabel=world=>`${titleCase(world.name)} · ${world.id.slice(0,8)}${world.importedAt?' · imported '+new Date(world.importedAt).toLocaleDateString():''}`;
 const el=(tag,text,cls)=>{const node=document.createElement(tag);if(text!==undefined)node.textContent=text;if(cls)node.className=cls;return node;};
 let dirty=false,returnHash='',generation=0;
-export function allowResearchNavigation(){if(!dirty)return true;if(confirm('Leave this record without saving your research changes?')){dirty=false;return true;}history.replaceState(null,'',returnHash);return false;}
+export function setResearchDirty(value,hash=location.hash){dirty=value;if(value)returnHash=hash;}
+export function allowResearchNavigation(){if(!dirty)return true;if(confirm('Leave without saving your research or chronicle changes?')){dirty=false;return true;}history.replaceState(null,'',returnHash);return false;}
 window.addEventListener('beforeunload',event=>{if(dirty){event.preventDefault();event.returnValue='';}});
 export function cancelResearchView(){generation++;}
 async function withDB(fn){const db=await openDatabase();try{return await fn(db);}finally{db.close();}}

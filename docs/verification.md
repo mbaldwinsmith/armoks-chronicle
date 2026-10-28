@@ -133,7 +133,7 @@
 
 Storage quota exhaustion, blocked upgrades, all multi-tab UI timings, non-Chrome/mobile/screen-reader qualification, and large-world performance budgets remain open. The transactional stale-save case is tested.
 
-Research JSON contains annotations, not source records or terrain. Map/search bookmarks, named collections, ordered chronicles, autosave, automatic world matching, full-world backups and Markdown/print exports remain planned. Preserve original exports and annotation backups.
+Research JSON contains annotations, not source records or terrain. At that iteration, map/search bookmarks, collections/chronicles, autosave and Markdown/print were still planned. Ordered named chronicles and Markdown/print export are now implemented as described in the later Personal Chronicles section; map/search bookmarks, autosave, automatic world matching and full-world backups remain open. Preserve original exports and annotation backups.
 
 Source export contents, names, coordinates and export-derived counts are intentionally excluded from public verification notes. Public test fixtures are authored synthetic examples.
 
@@ -146,3 +146,9 @@ All 134 Node tests pass, including eight recommendation cases covering direction
 All 146 Node tests pass, including twelve ledger cases for explicit-versus-harm eligibility, source roles, filters, date ambiguity, pagination, unknown records, limits, cancellation and a generated 50,000-entry filter. The new authored fixture and browser assertions cover import, category/source counts, direct filters, safe source/evidence DOM and archive isolation. The deployed 0.21.0 browser integration suite passes. Live UI checks confirm the Desk entry point, a normal authored-fixture import, applied-versus-draft filters, combined person/place selection, reload restoration, source-inspector opening with a return to the same selection, separate explicit undated grudge links, year-filter empty states, invalid ranges, faction source roles and latest-first ordering. Final visual inspection also corrected inherited margins so role labels align with linked names.
 
 The 0.21.1 polish also includes displayed source titles in ledger searches (so Death matches the visible heading) and lists explicit participant fields in bounded evidence paths. The regression is covered by both Node and real-import browser assertions. The final deployed 0.21.1 browser integration suite also passes; live checks confirm the visible-title search, explicit participant evidence paths and aligned role labels.
+
+## Personal Chronicles and checklist audit — 0.22.0
+
+All 156 Node tests pass. Ten new chronicle cases cover validation, deduplication/order, atomic collection bounds, reordering, backup identity/archived state, malformed input, source/commentary separation, Markdown escaping and empty collections. Browser assertions cover IndexedDB v3, persistent collections, world indexes, stale revisions, explicit new-copy transfer, reversible archiving, safe missing-source reading and source-deletion preservation. Live release verification follows deployment.
+
+The checklist audit uses the evidence matrix in [plan-audit.md](plan-audit.md). Compound tasks retain explicit open remainder items; the audit does not claim offline support, WCAG certification, cross-browser qualification or measured reference-device targets.

@@ -4,11 +4,11 @@
 
 A local-first Dwarf Fortress Legends explorer, built with semantic HTML, CSS, and native JavaScript modules. An unofficial fan project, independent of Bay 12 Games and DFHack.
 
-## Current edition: recorded lives and histories
+## Current edition: recorded lives, histories and personal chronicles
 
 Import standard Legends XML and matching Legends Plus XML in a background worker, save worlds in IndexedDB, reopen them from the bookshelf, browse categories with pagination, and inspect raw fields and supplementary provenance. Imports support progress, cancellation, malformed-file rollback, and unfinished-import recovery.
 
-The parser supports CP437 and UTF-8, reports removed XML control characters, preserves repeated/nested fields, and supplements records by family and ID. Standard values remain authoritative; conflicting Plus values remain inspectable. An in-memory background index supports name/ID search and reverse event references. Semantic event aliases and broader relationship interpretation are planned.
+The parser supports CP437 and UTF-8, reports removed XML control characters, preserves repeated/nested fields, and supplements records by family and ID. Standard values remain authoritative; conflicting Plus values remain inspectable. An in-memory background index supports name/ID search and reverse event references. Implemented event aliases and directed relationship adapters preserve source roles; remaining specialist interpretation is tracked in PLAN.md.
 
 Search any saved world by name, event type, or `#ID`; select a category and sort by name or event year. Open results for recorded facts, explicit references, related events, and source provenance. Search state is retained in the hash URL when following record links. Links identify a local archive and are not shareable hosted records. Existing saved worlds work without reimporting.
 
@@ -140,3 +140,11 @@ Opening an archive now starts at the **Chronicler’s Desk**: linked record tota
 Record pages include **Follow the Thread**: bounded suggestions across family, places, works, events and conflict membership, each with a recorded reason and supporting source. See [Follow the Thread](docs/follow-the-thread.md).
 
 The **Grudge Ledger** separates recorded killings, thefts, abductions and faction conflict sources from explicit grudge links. Applied people, faction, place and year filters retain evidence and uncertainty. See [Grudge Ledger](docs/grudge-ledger.md).
+
+## Personal Chronicles
+
+Collect records while browsing, add bookmarks or the recent reading trail, arrange their order and write your own commentary. Chronicles have a clean reading/print view, Markdown export and a versioned JSON backup that restores as an explicit new copy. Existing source archives and notes survive the IndexedDB v3 upgrade; deleting source data retains your collected story. Save edits explicitly, and export a backup to keep a separate copy. See [Personal Chronicles](docs/personal-chronicles.md).
+
+PLAN.md has also been [reconciled against implementation and verification evidence](docs/plan-audit.md): completed work is checked off, and partially completed tasks are split so remaining v1 requirements stay visible.
+
+Feature planning was informed by [LegendsViewer-Next](https://github.com/Kromtec/LegendsViewer-Next). Runtime dependency notices are recorded under `vendor/`; the explorer uses native SVG/Canvas and application-specific source adapters.

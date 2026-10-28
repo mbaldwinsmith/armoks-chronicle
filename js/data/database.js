@@ -1,9 +1,9 @@
-import {clearTrail} from './trail.js?v=0.21.1';
-import { mergeData, displayName } from './records.js?v=0.21.1';
+import {clearTrail} from './trail.js?v=0.22.0';
+import { mergeData, displayName } from './records.js?v=0.22.0';
 const NAME = 'armoks-chronicle';
 export function openDatabase() {
   return new Promise((resolve, reject) => {
-    const request = indexedDB.open(NAME, 2);
+    const request = indexedDB.open(NAME, 3);
     request.onupgradeneeded = event => {
       const db = request.result;
       if(event.oldVersion<1){
@@ -16,6 +16,7 @@ export function openDatabase() {
       files.createIndex('world','worldId');
       }
       if(event.oldVersion<2){const annotations=db.createObjectStore('annotations',{keyPath:['worldId','kind','id']});annotations.createIndex('world','worldId');}
+      if(event.oldVersion<3){const chronicles=db.createObjectStore('chronicles',{keyPath:'id'});chronicles.createIndex('world','worldId');}
     };
     let blocked=false;
     request.onerror = () => reject(request.error);

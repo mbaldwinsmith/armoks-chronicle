@@ -1,11 +1,11 @@
-import {recordCategories} from './book-of-records.js?v=0.21.1';
-import {warfareTypes} from './warfare.js?v=0.21.1';
+import {recordCategories} from './book-of-records.js?v=0.22.0';
+import {warfareTypes} from './warfare.js?v=0.22.0';
 export const randomCategories=[['historical_figures','Historical Figures'],['sites','Sites'],['entities','Organisations'],['artifacts','Artifacts'],['written_contents','Written Works'],['historical_events','Events'],['conflicts','Conflicts'],['all','All These Categories']];
 const kinds=new Set(randomCategories.map(([kind])=>kind).filter(k=>!['conflicts','all'].includes(k)));
 export function randomCategory(value){return randomCategories.some(([kind])=>kind===value)?value:'historical_figures';}
 export function namedRecord(record){const d=record.data||{};return [d.name,d.title,record.kind==='artifacts'?d.item?.name_string:undefined].some(v=>typeof v==='string'&&v.trim()!=='');}
-export {clippedLabel} from './language.js?v=0.21.1';
-import {clippedLabel,titleCase} from './language.js?v=0.21.1';
+export {clippedLabel} from './language.js?v=0.22.0';
+import {clippedLabel,titleCase} from './language.js?v=0.22.0';
 export function uniformIndex(length,readUint32){if(!Number.isSafeInteger(length)||length<1||length>0x100000000)throw Error('No eligible record is available.');const ceiling=Math.floor(0x100000000/length)*length;
  for(let tries=0;tries<128;tries++){const value=readUint32();if(!Number.isInteger(value)||value<0||value>=0x100000000)throw Error('Random source returned an invalid value.');if(value<ceiling)return value%length;}throw Error('Could not choose a random record. Try again.');}
 export function randomRecord(entries,{category='historical_figures',exclude=''}={},readUint32=()=>crypto.getRandomValues(new Uint32Array(1))[0]){

@@ -1,5 +1,5 @@
-import {recordKey} from './exploration.js?v=0.21.1';
-import {readableValue} from './language.js?v=0.21.1';
+import {recordKey} from './exploration.js?v=0.22.0';
+import {readableValue} from './language.js?v=0.22.0';
 export const relationshipCategories={family:'Family',social:'Friends and Other Social Ties',rivalry:'Rivalries',affiliation:'Organisations and Sites',worship:'Worship',other:'Other Recorded Links'};
 const family=new Set(['mother','father','parent','child','son','daughter','spouse','sibling','brother','sister','grandparent','grandchild','aunt','uncle','niece','nephew','cousin']);
 const social=new Set(['friend','companion','lover','master','apprentice','teacher','student']);
