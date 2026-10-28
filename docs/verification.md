@@ -1,3 +1,14 @@
+# Family-tree verification
+
+28 October 2026
+
+- 93 Node tests pass. Eight new layout tests cover target-role direction, reciprocal diagram grouping, several recorded spouses and parents, shared ancestors, missing/unplaced relatives, sibling generations, parent cycles, conflicting roles and self links, merged/Plus evidence, empty families, determinism and forty-node non-overlap.
+- The complete deployed Chrome integration suite passes. New worker-backed DOM cases check family-only filtering, parent/spouse rows, missing figures without invented links, safe labels, retained timeline query context, expanding a child to reveal both parents, and returning to the network filter controls.
+- A separate authored conflict fixture checks a parent cycle plus incompatible spouse/child claims. Red dashed diagram connectors and equivalent list warnings agree, every source claim remains inspectable, and the display explicitly declines to choose a historical truth.
+- Live UI checks cover the dedicated figure-page entry button, layout restored after reload, a linked relative becoming the new family focus, branch expansion, zoom and fit. Original supplied-world checks are local; no original names, counts, source contents, derived findings or screenshots are committed.
+- Conflict-line contrast is 3.74:1 against the dark panel and 3.26:1 against the parchment panel. Labels, dashed styles and list warnings provide additional distinctions. SVG bounds reserve room for side-routed conflict labels.
+- Limits and uncertainty are documented in [family-trees.md](family-trees.md). Snapshot spouses do not establish marriage chronology, and distant family does not invent intermediate ancestors.
+
 # Book of Records verification
 
 28 October 2026

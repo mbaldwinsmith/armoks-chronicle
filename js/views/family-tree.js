@@ -1,9 +1,11 @@
-import {recordURL} from '../data/exploration.js?v=0.16.1';
-import {relationshipWording} from '../data/relationships.js?v=0.16.1';
+import {recordURL} from '../data/exploration.js?v=0.16.2';
+import {relationshipWording} from '../data/relationships.js?v=0.16.2';
 const svgEl=(tag,attrs={},text)=>{const node=document.createElementNS('http://www.w3.org/2000/svg',tag);for(const [key,value] of Object.entries(attrs))node.setAttribute(key,value);if(text!==undefined)node.textContent=text;return node;};
 export function drawFamilyTree(svg,layout,root,worldId,query){
- const points=layout.nodes,byKey=new Map(points.map(n=>[n.key,n])),minX=Math.min(...points.map(n=>n.x))-170,minY=Math.min(...points.map(n=>n.y))-110;
- const width=Math.max(500,Math.max(...points.map(n=>n.x))-minX+170),height=Math.max(280,Math.max(...points.map(n=>n.y))-minY+150);
+ const pairs=new Map();for(const link of layout.links){const key=[link.a,link.b].sort().join('|');pairs.set(key,(pairs.get(key)||0)+1);}const lanes=Math.max(1,...pairs.values());
+ const points=layout.nodes,byKey=new Map(points.map(n=>[n.key,n])),minX=Math.min(...points.map(n=>n.x))-170,minY=Math.min(...points.map(n=>n.y))-Math.max(110,100+lanes*14);
+ // Reserve room for side-routed conflicts and their labels, including several claims on one pair.
+ const width=Math.max(500,Math.max(...points.map(n=>n.x))-minX+Math.max(200,250+lanes*18)),height=Math.max(280,Math.max(...points.map(n=>n.y))-minY+150);
  svg.setAttribute('viewBox',`${minX} ${minY} ${width} ${height}`);svg.setAttribute('aria-label',`Recorded family tree around ${root.label}`);svg.replaceChildren(svgEl('title',{},`Recorded family tree around ${root.label}`),svgEl('desc',{},'Parents are placed above children; spouses share a row. Red dashed links disagree with the chosen generation layout. Other relatives have dashed connectors. Each source claim is also available in the recorded connections list.'));
  const defs=svgEl('defs'),marker=svgEl('marker',{id:'family-child-arrow',viewBox:'0 0 10 10',refX:'9',refY:'5',markerWidth:'7',markerHeight:'7',orient:'auto'});marker.append(svgEl('path',{d:'M 0 0 L 10 5 L 0 10 z',class:'family-arrow'}));defs.append(marker);svg.append(defs);
  for(const band of layout.bands){svg.append(svgEl('text',{x:minX+12,y:band.y-82,class:'family-generation'},band.label),svgEl('line',{x1:minX+12,x2:minX+width-12,y1:band.y-66,y2:band.y-66,class:'family-generation-rule'}));}

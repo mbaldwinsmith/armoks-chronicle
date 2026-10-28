@@ -1,15 +1,15 @@
-import {timelineParams,timelineKeys} from '../data/timeline.js?v=0.16.1';
-import {timelineFilters,renderTimeline,timelineCount} from './timeline.js?v=0.16.1';
-import {titleCase,eventLabel,readableValue,referenceLabel} from '../data/language.js?v=0.16.1';
-import {researchEditor} from './research.js?v=0.16.1';
-import {culturePanel,associations} from './culture.js?v=0.16.1';
-import {cultureReferences,culturalKinds,cultureLabel} from '../data/culture.js?v=0.16.1';
-import {conflictRecord} from '../data/conflicts.js?v=0.16.1';
-import {sitePosition} from '../data/terrain.js?v=0.16.1';
-import {narratives,biography} from './narrative.js?v=0.16.1';
-import {openDatabase,getWorld,getRecord} from '../data/database.js?v=0.16.1';
-import {explore} from '../data/explorer-client.js?v=0.16.1';
-import {kindNames,recordURL,collectReferences,eventDate} from '../data/exploration.js?v=0.16.1';
+import {timelineParams,timelineKeys} from '../data/timeline.js?v=0.16.2';
+import {timelineFilters,renderTimeline,timelineCount} from './timeline.js?v=0.16.2';
+import {titleCase,eventLabel,readableValue,referenceLabel} from '../data/language.js?v=0.16.2';
+import {researchEditor} from './research.js?v=0.16.2';
+import {culturePanel,associations} from './culture.js?v=0.16.2';
+import {cultureReferences,culturalKinds,cultureLabel} from '../data/culture.js?v=0.16.2';
+import {conflictRecord} from '../data/conflicts.js?v=0.16.2';
+import {sitePosition} from '../data/terrain.js?v=0.16.2';
+import {narratives,biography} from './narrative.js?v=0.16.2';
+import {openDatabase,getWorld,getRecord} from '../data/database.js?v=0.16.2';
+import {explore} from '../data/explorer-client.js?v=0.16.2';
+import {kindNames,recordURL,collectReferences,eventDate} from '../data/exploration.js?v=0.16.2';
 let generation=0,timer,disposeConnections,disposeRelationships;
 export function cancelExploration(){generation++;clearTimeout(timer);disposeConnections?.();disposeConnections=null;disposeRelationships?.();disposeRelationships=null;}
 const element=(tag,text,className)=>{const el=document.createElement(tag);if(text!==undefined)el.textContent=text;if(className)el.className=className;return el;};
@@ -89,9 +89,9 @@ export async function renderRecord(worldId,kind,id,params) {
   if(kind==='historical_figures'){
    body.insertBefore(biography(data,resolved,worldId,suffix),fieldDetails);
    const find=element('button','Find a connection','quiet record-tool');find.type='button';body.insertBefore(find,fieldDetails);
-   find.onclick=async()=>{find.disabled=true;try{const {connectionFinder}=await import('./connections.js?v=0.16.1');if(ticket!==generation)return;const finder=connectionFinder({...record,label:cultureLabel(record)},worldId,()=>{const query=location.hash.split('?')[1]||'';return query?'?'+query:'';},()=>ticket===generation);disposeConnections=finder.dispose;find.replaceWith(finder.element);const heading=finder.element.querySelector('h2');heading.tabIndex=-1;heading.focus();}catch(error){if(ticket===generation){find.disabled=false;status.textContent=error.message;}}};
+   find.onclick=async()=>{find.disabled=true;try{const {connectionFinder}=await import('./connections.js?v=0.16.2');if(ticket!==generation)return;const finder=connectionFinder({...record,label:cultureLabel(record)},worldId,()=>{const query=location.hash.split('?')[1]||'';return query?'?'+query:'';},()=>ticket===generation);disposeConnections=finder.dispose;find.replaceWith(finder.element);const heading=finder.element.querySelector('h2');heading.tabIndex=-1;heading.focus();}catch(error){if(ticket===generation){find.disabled=false;status.textContent=error.message;}}};
    const launchers=element('div',undefined,'relationship-toolbar'),family=element('button','Open family tree','quiet record-tool'),launch=element('button','Explore family and relationships','quiet record-tool');family.type=launch.type='button';launchers.append(family,launch);body.insertBefore(launchers,fieldDetails);
-   const openRelationships=async layout=>{family.disabled=launch.disabled=true;try{const {relationshipPanel}=await import('./relationships.js?v=0.16.1');if(ticket!==generation)return;
+   const openRelationships=async layout=>{family.disabled=launch.disabled=true;try{const {relationshipPanel}=await import('./relationships.js?v=0.16.2');if(ticket!==generation)return;
     const onLayout=value=>{const query=new URLSearchParams(location.hash.split('?')[1]||'');query.set('relationships',value);history.replaceState(null,'',recordURL(worldId,kind,id,'?'+query));};
     const panel=relationshipPanel({...record,label:cultureLabel(record)},worldId,()=>{const query=location.hash.split('?')[1]||'';return query?'?'+query:'';},()=>ticket===generation,{layout,onLayout});disposeRelationships=panel.dispose;onLayout(layout);launchers.replaceWith(panel);panel.querySelector('h2').tabIndex=-1;panel.querySelector('h2').focus();
    }catch(error){if(ticket===generation){family.disabled=launch.disabled=false;status.textContent=error.message;}}};
