@@ -1,8 +1,8 @@
-import {explore} from '../data/explorer-client.js?v=0.34.0';
-import {intrigueFilters,intrigueParams,intrigueCategories,intrigueOutcomes} from '../data/intrigue.js?v=0.34.0';
-import {recordURL} from '../data/exploration.js?v=0.34.0';
-import {openDatabase,getWorld} from '../data/database.js?v=0.34.0';
-import {titleCase} from '../data/language.js?v=0.34.0';
+import {explore} from '../data/explorer-client.js?v=0.35.0';
+import {intrigueFilters,intrigueParams,intrigueCategories,intrigueOutcomes} from '../data/intrigue.js?v=0.35.0';
+import {recordURL} from '../data/exploration.js?v=0.35.0';
+import {openDatabase,getWorld} from '../data/database.js?v=0.35.0';
+import {titleCase} from '../data/language.js?v=0.35.0';
 const el=(tag,text,cls)=>{const n=document.createElement(tag);if(text!==undefined)n.textContent=text;if(cls)n.className=cls;return n;};
 export const intrigueURL=(world,q=new URLSearchParams())=>`#/world/${encodeURIComponent(world)}/intrigue${q.size?'?'+q:''}`;
 const linked=(r,world)=>{if(!r||r.missing)return el('span',r?.label||'Not Recorded','muted');const a=el('a',r.label);a.href=recordURL(world,r.kind,r.id);return a;};

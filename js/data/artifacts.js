@@ -1,8 +1,8 @@
-import {eventType,narrateEvent} from './narrative.js?v=0.34.0';
-import {recordKey,normalise} from './exploration.js?v=0.34.0';
-import {cultureLabel} from './culture.js?v=0.34.0';
-import {titleCase,readableValue,clippedLabel} from './language.js?v=0.34.0';
-import {journeyFact,latestJourneyLocations} from './journeys.js?v=0.34.0';
+import {eventType,narrateEvent} from './narrative.js?v=0.35.0';
+import {recordKey,normalise} from './exploration.js?v=0.35.0';
+import {cultureLabel} from './culture.js?v=0.35.0';
+import {titleCase,readableValue,clippedLabel} from './language.js?v=0.35.0';
+import {journeyFact,latestJourneyLocations} from './journeys.js?v=0.35.0';
 export const artifactLimits={artifacts:50000,records:500000,facts:100000,evidence:6,claims:12,locations:12,writing:64,description:24000,page:12};
 const id=v=>typeof v==='string'&&/^\d{1,128}$/.test(v)?v:null;
 const first=(d,...keys)=>keys.map(k=>id(d?.[k])).find(Boolean)||null;

@@ -1,4 +1,4 @@
-import {trackTransaction} from '../offline/activity.js?v=0.34.0';
+import {trackTransaction} from '../offline/activity.js?v=0.35.0';
 export const BACKUP_LIMIT=5*1024*1024;
 export function parseTags(text){return [...new Set(String(text).split(',').map(tag=>tag.trim()).filter(Boolean))].slice(0,20).map(tag=>tag.slice(0,40));}
 export function validateEntry(value){

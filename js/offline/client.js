@@ -1,4 +1,4 @@
-import {canReload,reloadBlockers} from './activity.js?v=0.34.0';
+import {canReload,reloadBlockers} from './activity.js?v=0.35.0';
 const base=new URL('../../',import.meta.url);
 export function workerMessage(worker,type,timeout=15000){return new Promise((resolve,reject)=>{const channel=new MessageChannel(),timer=setTimeout(()=>{channel.port1.close();reject(Error('The offline worker did not reply. Reconnect and try again.'));},timeout);channel.port1.onmessage=({data})=>{clearTimeout(timer);channel.port1.close();data?.error?reject(Error(data.error)):resolve(data);};worker.postMessage({type},[channel.port2]);});}
 export function setupOffline(){

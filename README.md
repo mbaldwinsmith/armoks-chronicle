@@ -196,3 +196,7 @@ The app adapts to narrow screens with larger controls, wrapping text and tables,
 ### Offline Use and Installation
 
 Open **On This Device · Installation and Storage** and wait for **Offline Copy Ready**. Imported worlds, maps, saved reports, research and chronicles can then be read locally without a connection. Install through the browser where supported. Updates wait for saved edits, completed imports and closed extra Chronicle tabs. The same panel shows storage information, an optional persistent-storage request and backup links. Keep original exports and separate research/chronicle backups; offline preparation is not a data backup. See [setup, safe updates, recovery and maintenance](docs/offline-and-updates.md).
+
+### Historical Maps, Comparisons and Rotatable Terrain
+
+The atlas now has a historical year slider, recorded-event heatmaps, source-linked comparative charts/tables, explicit region/construction tile overlays and battle map dossiers. Choose **Rotatable Terrain (WebGL)** for optional native 3D rotation/tilt on maps up to 129 × 129 tiles, with translucent oceans, depth-aware picking and flat-map fallback. Statistics remain available without terrain. Dates filter recorded history; terrain, footprints and current affiliations remain snapshots. See [counting rules, source evidence, controls and bounds](docs/maps-statistics-webgl.md).

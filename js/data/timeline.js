@@ -1,4 +1,4 @@
-import {readingPresets,routineGroups} from './narrative.js?v=0.34.0';
+import {readingPresets,routineGroups} from './narrative.js?v=0.35.0';
 export const timelineKeys=['eventType','eventFrom','eventTo','eventPreset','eventExclude','eventOffset'];
 export function timelineSelection(params){
  return {type:params.get('eventType')||'',from:params.get('eventFrom')||'',to:params.get('eventTo')||'',preset:Object.hasOwn(readingPresets,params.get('eventPreset'))?params.get('eventPreset'):'all',exclude:(params.get('eventExclude')||'').split(',').filter(key=>Object.hasOwn(routineGroups,key))};

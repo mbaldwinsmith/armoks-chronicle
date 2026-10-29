@@ -1,5 +1,5 @@
-import {recordKey,normalise,eventDate} from './exploration.js?v=0.34.0';
-import {clippedLabel,readableValue} from './language.js?v=0.34.0';
+import {recordKey,normalise,eventDate} from './exploration.js?v=0.35.0';
+import {clippedLabel,readableValue} from './language.js?v=0.35.0';
 export const structureLimits={records:500000,structures:50000,events:100000,fields:256,refs:128,evidence:12,page:12,associations:200000};
 export const structureKey=(site,id)=>JSON.stringify([String(site),String(id)]);
 const array=v=>v===undefined?[]:Array.isArray(v)?v:[v];

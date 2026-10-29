@@ -338,13 +338,13 @@ Implemented slice: all-family name/ID search, category filter, name/year sorting
 - [x] Render named biome colours, elevation shading, oceans and recorded river connections, including translucent relief ocean surfaces.
 - [ ] Add verified peak/volcano markers and complete their source semantics.
 - [x] Overlay selectable site markers and linked settlement lists from explicit world-tile coordinates.
-- [ ] Add supported region and construction map overlays.
+- [x] Draw source-verified region/construction coordinate tiles with named selection, source/history links and explicit invalid/disputed/partial coverage; see `docs/maps-statistics-webgl.md`.
 - [x] Test flat/relief coordinate orientation, tile bounds and explicit site coordinates; do not guess rectangle conversion.
 - [ ] Verify and implement site-rectangle interpretation against matching source definitions.
 - [x] Implement pointer pan, wheel zoom, zoom/fit controls and keyboard map navigation.
 - [ ] Implement and qualify multi-pointer pinch zoom.
 - [x] Provide biome, elevation, evilness and savagery map layers with named biome legend and raw tile inspection.
-- [ ] Add a volcanism layer and complete numeric colour legends for non-biome layers.
+- [x] Add a raw-index volcanism layer and numeric legend captions for elevation/evilness/savagery/volcanism.
 - [x] Display unknown biome/flag codes explicitly instead of assigning guessed terrain.
 - [x] Add site-type filters, name search, marker clustering or scale-dependent labels, and selected-site emphasis.
 - [x] Add a political settlement layer with stable faction colours, owner legend, individual faction toggles, and show-all/hide-all controls.
@@ -353,17 +353,18 @@ Implemented slice: all-family name/ID search, category filter, name/year sorting
 - [x] Persist export-time settlement faction selections and dated conflict filters in atlas routes without inventing borders.
 - [ ] Add dated political reconstruction only when supported ownership events can establish it.
 - [x] Link selected map sites to their record history and centre the atlas from site/event/organisation pages.
-- [ ] Link region map selections to region histories when region overlays are implemented.
+- [x] Link named region/construction footprints and selected tiles to source records and supported event-reference histories, with atlas-return state.
 - [ ] Provide a coordinate/site-list map fallback when CSV is absent; do not fabricate terrain.
 - [x] Draw recorded figure journeys, labelling inferred straight-line connections rather than actual travelled paths.
-- [ ] Add a year slider for dated events, founding/destruction, and supported ownership transitions.
+- [x] Add through-year/single-year controls for explicit historical events, including recorded settlement changes; keep snapshots separate and avoid inferred continuous ownership.
 - [x] Label implemented terrain/settlement affiliations as export-time snapshots; year filters affect recorded conflict events, not reconstructed terrain or ownership.
 - [ ] Add population snapshot dates and historical-reconstruction limitations when population layers are implemented.
-- [ ] Add heatmaps of recorded events with explicit counting rules.
-- [ ] Add battle markers and selected-war overlays with dates, participants, outcomes, and separate named/squad casualty details where available.
+- [x] Add distinct-event-per-tile heatmaps with visible intensity range, unknown-location totals, source lists and bounded partial-coverage disclosure.
+- [x] Add battle markers and paged unlocated lists, retain selected-war scope, and load source-qualified participants/outcomes/named deaths/squad reports on demand.
 - [x] Scope the existing conflict-event atlas by explicit nested collection membership, retain selected-conflict URLs, and link the atlas back to its conflict history; collection-level marker/pop-up enrichment remains above.
 - [x] Link conflict event markers/lists to event records and conflict collections to scoped atlases with return-to-history links.
-- [ ] Add collection-level battle/war marker popups with direct collection links.
+- [x] Add collection-level battle tile dossiers with complete-history links and source-qualified counting.
+- [ ] Add any future war-level aggregate popup only when a meaningful multi-location representation can avoid inventing one war position.
 - [x] Filter conflict-event overlays by recorded date, explicit organisation and selected collection, retaining atlas route state.
 - [ ] Unify map and timeline controls where the event/collection scopes are demonstrably equivalent.
 - [x] Show location-unknown conflicts in a linked list rather than inventing coordinates; provide a chooser for multiple records on the same tile.
@@ -379,25 +380,27 @@ Implemented slice: all-family name/ID search, category filter, name/year sorting
 This setting is part of v1 implementation but opt-in for users; the flat atlas remains the default. It depicts regional elevation as stepped voxel-style columns, not individual fortress blocks or reconstructed underground geometry.
 
 - [x] Provide Flat Atlas/Raised Relief controls and persist the chosen view in atlas URLs.
-- [ ] Lazy-load any future WebGL renderer and its geometry when full 3D relief is requested.
-- [ ] Choose native WebGL or a small, justified rendering library; vendor any browser-ready dependency and licence without adding a build step or remote runtime request.
-- [ ] Generate column-top and exposed-side surfaces from map CSV elevation using batched meshes or instancing, avoiding one object per voxel and hidden stacks of cubes.
+- [x] Lazy-load the optional native WebGL terrain renderer and geometry only when selected.
+- [x] Implement native WebGL without a rendering dependency, remote runtime request or production build step.
+- [x] Generate bounded batched top/exposed-side terrain meshes with translucent ocean surfaces and no hidden cube stacks.
 - [ ] Verify elevation scale, baseline, water classification, and sea-level interpretation against the export format before displaying height labels; do not imply raw values are metres.
 - [x] Apply shared biome colours, translucent ocean surfaces and river overlays to the Canvas relief projection.
 - [ ] Add source-verified peak and volcano markers to both atlas projections.
 - [x] Provide relief zoom, pan, fit and vertical-exaggeration controls with keyboard alternatives in the fixed isometric projection.
-- [ ] Add rotate/tilt controls and qualify full touch interaction for any future 3D renderer.
+- [x] Add native orbit/tilt/pan/zoom, keyboard/sliders and URL camera state for WebGL terrain.
+- [ ] Qualify physical multi-touch and graphics-driver behaviour on reference devices.
 - [x] Preserve selected tile/site, layer, faction and conflict filters when switching between flat and Canvas relief views.
 - [ ] Preserve arbitrary camera centre/scale across flat/relief switching; current projection changes fit the map.
 - [x] Project site markers above Canvas relief terrain and retain site-selector/linked-list alternatives when markers overlap.
-- [ ] Qualify terrain/marker occlusion and picking in any future full 3D renderer.
+- [x] Implement depth-tested terrain/markers and GPU colour/depth tile picking; qualify the authored occluded-wall case in the focused browser runner. Broader device/driver qualification remains above.
 - [x] Project political settlement colours and scoped conflict-event overlays at Canvas relief terrain height using shared source labels.
 - [x] Add recorded journey lines with the same evidence limits in both projections.
-- [ ] Label terrain as an export-time regional snapshot; the year slider changes supported historical overlays, not past terrain.
+- [x] Label terrain/footprints/current affiliations as snapshots; year controls affect dated events and battle spans.
 - [ ] Disable relief with a useful explanation when elevation data or graphics support is unavailable; retain the accessible location list and flat atlas.
-- [ ] Handle graphics-context loss and excessive resource demands by offering a flat-map fallback without losing exploration state.
+- [x] Explain graphics setup/context-loss failures and return to the flat atlas with historical filters and selection retained.
 - [x] Bound Canvas relief to 257 × 257 tiles, cache scene rendering, redraw on interaction and release canvases/listeners when leaving the atlas.
-- [ ] Define adaptive geometry/detail budgets, hidden-tab suspension and GPU cleanup for a future WebGL implementation.
+- [x] Bound native WebGL terrain, overlay/marker and framebuffer work; suspend hidden-tab paints and dispose GPU resources on exit.
+- [ ] Qualify adaptive detail beyond the initial 129-square WebGL budget on reference hardware.
 - [x] Avoid automatic relief camera rotation and provide labelled controls plus a Flat Atlas escape action.
 - [x] Apply reduced-motion preferences globally; current relief has no animated camera transition.
 - [ ] Qualify OS reduced-motion behaviour on physical devices and any future camera animation.
@@ -479,8 +482,8 @@ Implemented slice: directed source-record networks with family/social/rivalry/af
 - [x] Add category-filtered random previews, an explicit named-record preference/fallback, unbiased bounded sampling and no immediate repeat when alternatives exist.
 - [x] Build the Grudge Ledger from recorded killings, thefts, abductions and direct faction conflict sources, with separate explicit grudge links, evidence cards, applied people/faction/place/year filters, reloadable pages and bounded worker caching. See docs/grudge-ledger.md.
 - [x] Link ledger participants and factions to their source records and Follow the Thread context, preserving directed snapshot labels and distinguishing war aggression from battle attack roles; later attacks are never labelled proven revenge.
-- [ ] Add comparative statistics by year, race, faction, site, and event category with transparent counting definitions.
-- [ ] Provide accessible tables alongside charts; avoid suggesting historical figures represent the whole world population.
+- [x] Compare recorded-event incidences by year, type, explicit settlement/organisation references and referenced figure race, disclosing overlapping groups and missing data. No population census is inferred.
+- [x] Supply equivalent semantic comparison tables and paged source-event lists; distinguish event/figure references from total population.
 - [x] Cache rankings, relationship neighbourhoods, conflicts, faction networks and ledger calculations per immutable archive; discard caches on world/worker changes.
 - [ ] Define invalidation for future in-place source enrichment before enabling mutable archives.
 - [x] Build a dedicated Book of Records with category links, ranked tables, highlight cards, source links, and preserved category/page route state. Additional metric and supernatural filters remain below.

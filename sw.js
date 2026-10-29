@@ -1,5 +1,5 @@
-/* Offline release: 0.34.1-6a2e5b53589cac88. Inventory and app files are committed together. */
-importScripts('./offline-assets.js','./js/offline/worker-runtime.js?v=0.34.0');
+/* Offline release: 0.35.0-186a4d14d60c9080. Inventory and app files are committed together. */
+importScripts('./offline-assets.js','./js/offline/worker-runtime.js?v=0.35.0');
 const offline=self.ArmoksOffline.create({scope:self.registration.scope,...self.ARMOK_OFFLINE});
 self.addEventListener('install',event=>event.waitUntil(offline.install()));
 self.addEventListener('activate',event=>event.waitUntil((async()=>{await offline.activateCache();await self.clients.claim();})()));

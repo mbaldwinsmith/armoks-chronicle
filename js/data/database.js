@@ -1,6 +1,6 @@
-import {trackTransaction} from '../offline/activity.js?v=0.34.0';
-import {clearTrail} from './trail.js?v=0.34.0';
-import { mergeData, displayName } from './records.js?v=0.34.0';
+import {trackTransaction} from '../offline/activity.js?v=0.35.0';
+import {clearTrail} from './trail.js?v=0.35.0';
+import { mergeData, displayName } from './records.js?v=0.35.0';
 const NAME = 'armoks-chronicle';
 export function openDatabase() {
   return new Promise((resolve, reject) => {
