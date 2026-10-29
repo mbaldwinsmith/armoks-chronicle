@@ -26,7 +26,7 @@ Selecting a battle tile offers a source-linked dossier loaded on demand through 
 
 ## Optional native WebGL renderer
 
-Choose **Rotatable Terrain (WebGL)**. It is lazy-loaded and supports maps up to 129 × 129 tiles. The flat atlas remains the default; Canvas Raised Relief retains its separate 257 × 257 limit. Geometry consists of batched top surfaces and exposed sides, not hidden stacks of cube objects. Per-face colours remain sharp without enlarging a low-resolution texture. Ocean surfaces are translucent over lower exported elevations; lakes are not silently reclassified as ocean.
+Choose **Rotatable Terrain (WebGL)**. It is lazy-loaded and supports maps up to 129 × 129 tiles. As of the map-first release, supported maps attempt WebGL by default with a flat fallback; explicit projection choices are retained. Canvas Raised Relief retains its separate 257 × 257 limit. Geometry consists of batched top surfaces and exposed sides, not hidden stacks of cube objects. Per-face colours remain sharp without enlarging a low-resolution texture. Ocean surfaces are translucent over lower exported elevations; lakes are not silently reclassified as ocean.
 
 Drag to orbit, Shift-drag to pan, pinch or use buttons to zoom. Arrow keys orbit, Shift-arrow keys pan. Labelled rotation/tilt sliders and the existing site/coordinate selectors provide alternatives. Rotation zero looks north; the source grid’s X increases east and Y south. Camera rotation, tilt, zoom and pan are retained in the URL. Changing projection still fits the Canvas map; arbitrary cross-projection camera equivalence is not claimed.
 

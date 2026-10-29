@@ -377,7 +377,7 @@ Implemented slice: all-family name/ID search, category filter, name/year sorting
 
 - [x] Implement an initial opt-in isometric Canvas relief preview using stepped exported elevation, with flat-view escape, site selection and a bounded 257 × 257 tile budget. Full 3D interaction remains in the tasks below.
 
-This setting is part of v1 implementation but opt-in for users; the flat atlas remains the default. It depicts regional elevation as stepped voxel-style columns, not individual fortress blocks or reconstructed underground geometry.
+Canvas Raised Relief remains an optional projection. As of the map-first release, supported maps attempt WebGL by default, with flat fallback. It depicts regional elevation as stepped voxel-style columns, not individual fortress blocks or reconstructed underground geometry.
 
 - [x] Provide Flat Atlas/Raised Relief controls and persist the chosen view in atlas URLs.
 - [x] Lazy-load the optional native WebGL terrain renderer and geometry only when selected.
@@ -688,4 +688,4 @@ These ideas must not delay the feature-complete static app above.
 - [x] Reuse population report ID/name/prefix/encoding verification, one-report selection and existing work limits; omit unknown/ambiguous counts.
 - [x] Preserve selected heat metric, report, group and visibility in atlas/source-return URLs.
 - [x] Keep population snapshots independent of historical event filters and disclose animal groups, missing counts and casualty exclusions.
-- [ ] Complete live map-first/population/death heatmap browser validation for this release.
+- [x] Complete live map-first/population/death heatmap browser validation, source return, fallback, archive isolation and 390px reflow; see `docs/map-first-heatmaps.md`. Actual GPU/device qualification remains open.
