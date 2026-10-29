@@ -1,6 +1,6 @@
-import {explore} from '../data/explorer-client.js?v=0.32.0';
-import {recordURL} from '../data/exploration.js?v=0.32.0';
-import {settlementCategories,settlementFilters,settlementParams} from '../data/settlements.js?v=0.32.0';
+import {explore} from '../data/explorer-client.js?v=0.33.0';
+import {recordURL} from '../data/exploration.js?v=0.33.0';
+import {settlementCategories,settlementFilters,settlementParams} from '../data/settlements.js?v=0.33.0';
 const el=(tag,text,cls)=>{const node=document.createElement(tag);if(text!==undefined)node.textContent=text;if(cls)node.className=cls;return node;};
 const linked=(r,world,query='')=>{if(!r||r.missing||r.state&&r.state!=='recorded')return el('span',r?.label||'Not Recorded','muted');const a=el('a',r.label);a.href=recordURL(world,r.kind||'entities',r.id,query);return a;};
 export function settlementSourceURL(world,site,row,query=''){const q=new URLSearchParams(query.replace(/^\?/,''));for(const key of ['source','settlementOrigin','settlementQuery'])q.delete(key);const origin=q.toString();q.set('source','1');q.set('settlementOrigin',site);q.set('settlementQuery',origin);return recordURL(world,row.kind,row.id,'?'+q);}

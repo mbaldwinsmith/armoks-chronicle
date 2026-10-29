@@ -1,23 +1,29 @@
-import {renderReports,cancelReports} from './views/reports.js?v=0.32.0';
-import {renderStructures,cancelStructures} from './views/structures.js?v=0.32.0';
-import {renderIntrigue,cancelIntrigue} from './views/intrigue.js?v=0.32.0';
-import {renderReligion,cancelReligion} from './views/religion.js?v=0.32.0';
-import {renderBestiary,cancelBestiary} from './views/bestiary.js?v=0.32.0';
-import {renderArtifacts,cancelArtifacts} from './views/artifacts.js?v=0.32.0';
-import {renderChronicles,renderChronicle,cancelChronicles} from './views/chronicles.js?v=0.32.0';
-import {renderGrudges,cancelGrudges} from './views/grudges.js?v=0.32.0';
-import {renderDesk,cancelDesk} from './views/desk.js?v=0.32.0';
-import {renderFactionWarfare,cancelFactionWarfare} from './views/faction-warfare.js?v=0.32.0';
-import {renderWarfare,cancelWarfare} from './views/warfare.js?v=0.32.0';
-import {renderRecordBook,cancelRecordBook} from './views/book-of-records.js?v=0.32.0';
-import {renderResearch,cancelResearchView,allowResearchNavigation} from './views/research.js?v=0.32.0';
-import {renderAtlas,stopAtlas} from './views/atlas.js?v=0.32.0';
-import {renderRecord,cancelExploration} from './views/explore.js?v=0.32.0';
-import {stopExplorer} from './data/explorer-client.js?v=0.32.0';
-import { startRouter } from './router.js?v=0.32.0';
-import { state, readTheme, setTheme } from './state.js?v=0.32.0';
-import { setupImportPreview } from './views/import-preview.js?v=0.32.0';
-import { renderBookshelf, renderWorld, renderRecovery, cancelWorldView } from './views/worlds.js?v=0.32.0';
+import {renderResearch,cancelResearchView,allowResearchNavigation} from './views/research.js?v=0.33.0';
+import {stopExplorer} from './data/explorer-client.js?v=0.33.0';
+import { startRouter } from './router.js?v=0.33.0';
+import { state, readTheme, setTheme } from './state.js?v=0.33.0';
+import { setupImportPreview } from './views/import-preview.js?v=0.33.0';
+import { renderBookshelf, renderWorld, renderRecovery, cancelWorldView } from './views/worlds.js?v=0.33.0';
+// Native imports keep specialist code off the bookshelf's initial dependency graph.
+const loadedViews=new Map();let routeGeneration=0;
+const views={
+ reports:[()=>import('./views/reports.js?v=0.33.0'),'renderReports','cancelReports'],
+ structures:[()=>import('./views/structures.js?v=0.33.0'),'renderStructures','cancelStructures'],
+ intrigue:[()=>import('./views/intrigue.js?v=0.33.0'),'renderIntrigue','cancelIntrigue'],
+ religion:[()=>import('./views/religion.js?v=0.33.0'),'renderReligion','cancelReligion'],
+ bestiary:[()=>import('./views/bestiary.js?v=0.33.0'),'renderBestiary','cancelBestiary'],
+ artifacts:[()=>import('./views/artifacts.js?v=0.33.0'),'renderArtifacts','cancelArtifacts'],
+ chronicles:[()=>import('./views/chronicles.js?v=0.33.0'),'renderChronicles','cancelChronicles'],
+ chronicle:[()=>import('./views/chronicles.js?v=0.33.0'),'renderChronicle','cancelChronicles'],
+ grudges:[()=>import('./views/grudges.js?v=0.33.0'),'renderGrudges','cancelGrudges'],
+ desk:[()=>import('./views/desk.js?v=0.33.0'),'renderDesk','cancelDesk'],
+ faction:[()=>import('./views/faction-warfare.js?v=0.33.0'),'renderFactionWarfare','cancelFactionWarfare'],
+ warfare:[()=>import('./views/warfare.js?v=0.33.0'),'renderWarfare','cancelWarfare'],
+ book:[()=>import('./views/book-of-records.js?v=0.33.0'),'renderRecordBook','cancelRecordBook'],
+ atlas:[()=>import('./views/atlas.js?v=0.33.0'),'renderAtlas','stopAtlas'],
+ record:[()=>import('./views/explore.js?v=0.33.0'),'renderRecord','cancelExploration'],
+ world:[()=>import('./views/explore.js?v=0.33.0'),null,'cancelExploration']
+};
 const toggle = document.querySelector('#theme-toggle');
 function applyTheme(theme) {
   setTheme(theme);
@@ -26,29 +32,32 @@ function applyTheme(theme) {
 applyTheme(readTheme());
 toggle.addEventListener('click', () => applyTheme(state.theme === 'dark' ? 'parchment' : 'dark'));
 startRouter((route, parts, params) => {
-  cancelReports();cancelStructures();cancelIntrigue();cancelReligion();cancelBestiary();cancelArtifacts();cancelChronicles();cancelGrudges();cancelDesk();cancelFactionWarfare();cancelWarfare();cancelRecordBook();cancelResearchView();cancelWorldView();cancelExploration();stopAtlas();
+  const ticket=++routeGeneration;
+  for(const [cancel,module] of loadedViews)module[cancel]();
+  cancelResearchView();cancelWorldView();
   if(!['world','record','book','warfare','faction','desk','grudges','artifacts','bestiary','religion','intrigue','structures','reports'].includes(route))stopExplorer();
-  const [id,kind,recordId]=parts;
-  state.route = route;
-  if(route === 'chronicles') void renderChronicles(params);
-  if(route === 'chronicle') void renderChronicle(id);
-  if(route === 'research') void renderResearch();
-  if(route === 'library') void renderBookshelf();
-  if(route === 'reports') void renderReports(id,params);
-  if(route === 'structures') void renderStructures(id,params);
-  if(route === 'intrigue') void renderIntrigue(id,params);
-  if(route === 'religion') void renderReligion(id,params);
-  if(route === 'bestiary') void renderBestiary(id,params);
-  if(route === 'artifacts') void renderArtifacts(id,params);
-  if(route === 'grudges') void renderGrudges(id,params);
-  if(route === 'desk') void renderDesk(id,params);
-  if(route === 'faction') void renderFactionWarfare(id,kind,params);
-  if(route === 'warfare') void renderWarfare(id,params);
-  if(route === 'book') void renderRecordBook(id,params);
-  if(route === 'world') void renderWorld(id,params);
-  if(route === 'atlas') renderAtlas(id,params);
-  if(route === 'record') void renderRecord(id,kind,recordId,params);
-  if(route === 'import') void renderRecovery();
+  const [id,kind,recordId]=parts;state.route=route;
+  if(route==='research')void renderResearch();
+  if(route==='library')void renderBookshelf();
+  if(route==='import')void renderRecovery();
+  if(views[route])void openView();
+  async function openView(){
+    const [load,render,cancel]=views[route],view=document.querySelector('#view-'+route);
+    view.querySelector('.view-load-error')?.remove();view.setAttribute('aria-busy','true');
+    try{
+      const module=await load();loadedViews.set(cancel,module);
+      if(ticket!==routeGeneration)return;
+      // Live progress messages remain available while the view reads local data.
+      view.removeAttribute('aria-busy');
+      if(route==='world')await renderWorld(id,params);
+      else if(route==='record')await module[render](id,kind,recordId,params);
+      else if(route==='faction')await module[render](id,kind,params);
+      else if(route==='chronicle')await module[render](id);
+      else if(route==='chronicles')await module[render](params);
+      else await module[render](id,params);
+    }catch(error){if(ticket===routeGeneration){let notice=view.querySelector('.view-load-error');if(!notice){notice=document.createElement('p');notice.className='notice view-load-error';notice.setAttribute('role','alert');view.append(notice);}notice.textContent='This view could not load. Check your connection and reload the page. '+error.message;}}
+    finally{if(ticket===routeGeneration)view.removeAttribute('aria-busy');}
+  }
 },allowResearchNavigation);
 setupImportPreview();
 const unavailable = [];

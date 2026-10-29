@@ -235,8 +235,9 @@ A feature-complete v1 includes every required phase below, including specialist 
 - [ ] Add multi-step exploration breadcrumbs beyond the current record/Desk/return links.
 - [x] Implement reusable record cards, metadata rows, linked references, empty states, loading states, and error boundaries.
 - [x] Use textContent/safe DOM construction for all imported names, descriptions, and user notes.
-- [ ] Provide touch-friendly controls, visible focus, skip links, and consistent dialog focus restoration.
-- [ ] Respect reduced-motion preferences; use subtle CSS transitions without delaying navigation.
+- [x] Provide 44px action/navigation targets, visible focus, named main landmarks, skip links and safe archive-dialog focus restoration; see `docs/mobile-accessibility-performance.md`.
+- [ ] Qualify touch interaction and dialog focus with physical devices and representative assistive technology.
+- [x] Respect reduced-motion preferences across elements and pseudo-elements; suppress transitions, animation and smooth scrolling. OS/device qualification remains in the accessibility section.
 - [x] Provide persisted parchment/dark reading themes with storage-failure fallback.
 - [ ] Add an adjustable reading text-size preference.
 - [x] Make long names, unnamed records, and unknown races display gracefully.
@@ -368,7 +369,8 @@ Implemented slice: all-family name/ID search, category filter, name/year sorting
 - [x] Show location-unknown conflicts in a linked list rather than inventing coordinates; provide a chooser for multiple records on the same tile.
 - [ ] Label connecting lines/arrows as associations between conflict locations, never as verified army routes or territorial fronts.
 - [x] Supply an accessible linked location list for Canvas-only information.
-- [ ] Test mobile gestures, reduced detail, redraw scheduling, and large marker counts.
+- [x] Coalesce/cancel atlas redraws, cache relief ordering, cull offscreen site markers and test pointer gesture state without accidental selections.
+- [ ] Qualify physical mobile gestures, weaker-device detail and large marker-count frame times.
 
 ### Optional atlas setting — Raised Relief
 
@@ -397,7 +399,8 @@ This setting is part of v1 implementation but opt-in for users; the flat atlas r
 - [x] Bound Canvas relief to 257 × 257 tiles, cache scene rendering, redraw on interaction and release canvases/listeners when leaving the atlas.
 - [ ] Define adaptive geometry/detail budgets, hidden-tab suspension and GPU cleanup for a future WebGL implementation.
 - [x] Avoid automatic relief camera rotation and provide labelled controls plus a Flat Atlas escape action.
-- [ ] Apply and qualify reduced-motion preferences across relief transitions and any future camera animation.
+- [x] Apply reduced-motion preferences globally; current relief has no animated camera transition.
+- [ ] Qualify OS reduced-motion behaviour on physical devices and any future camera animation.
 
 - [x] Add separate organisation actions to fit settlements by recorded owner or recorded civilisation; preserve the source distinction.
 
@@ -529,7 +532,8 @@ Implemented slice: directed source-record networks with family/social/rivalry/af
 ## 19 — Accessibility, privacy, and resilience
 
 - [ ] Target WCAG 2.2 AA for primary import, search, reading, navigation, annotation, and export flows.
-- [ ] Audit heading structure, labels, announcements, contrast, touch targets, and focus order.
+- [x] Complete an initial shared-shell and primary-route DOM/layout audit for labels, headings, landmark names, palette contrast and action targets at 320px/390px; see `docs/mobile-accessibility-performance.md`.
+- [ ] Complete assistive-technology announcement/focus-order and full rendered-contrast audits.
 - [ ] Test complete primary flows with keyboard only and representative screen readers.
 - [x] Provide linked lists for mapped sites/conflicts, source-evidence equivalents for SVG relationships and semantic timeline/ranking lists/tables.
 - [ ] Maintain equivalent accessible tables for future statistical charts and new map layers.
@@ -573,6 +577,7 @@ Tests may run locally using optional developer tooling. They must not compile pr
 - [x] Test the attached sample as a local integration dataset and reconcile counts against the baseline.
 - [x] Run documented generated 50,000-event/claim ledger, warfare and faction stress fixtures with bounded output assertions.
 - [ ] Qualify a substantially larger authorised real export on reference hardware without publishing its contents.
+- [x] Defer specialist view modules and verify the initial bookshelf dependency/resource graph, preserving route cancellation and unsaved drafts.
 - [ ] Establish a reproducible reference desktop/device and record import time, stored size, interaction latency, and memory observations.
 - [ ] Target visible feedback within 100 ms, indexed search within 200 ms, and common cached-page navigation within 200 ms on the reference desktop.
 - [ ] Require a responsive, cancellable import rather than promising an unmeasured fixed import duration.

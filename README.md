@@ -188,3 +188,7 @@ Open **Structures and Settlement Life** from the Chronicler’s Desk to browse e
 ### Population and World Reports
 
 Open **Population and World Reports** from the Desk to read saved population and world-history reports, search original lines, download the original files and browse conservative population snapshots. Verified settlement matches add source-linked panels to site and organisation pages. Unknown counts, wildlife, named historical figures and disputed affiliations remain distinct. Existing archives work when the report files were saved with them. See [format evidence, matching rules and limits](docs/population-and-world-reports.md).
+
+### Mobile Reading and Performance
+
+The app adapts to narrow screens with larger controls, wrapping text and tables, keyboard map alternatives and reduced-motion support. Atlas drawing is scheduled once per frame, and specialist explorers load when opened. See the [audit, reproducible checks and device limits](docs/mobile-accessibility-performance.md). Developers can use `tests/mobile.html` for a narrow-viewport preview and `tests/browser.html` for the regression suite.

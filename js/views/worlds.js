@@ -1,6 +1,5 @@
-import {titleCase} from '../data/language.js?v=0.32.0';
-import {renderDirectory} from './explore.js?v=0.32.0';
-import {openDatabase,listWorlds,getWorld,deleteWorld} from '../data/database.js?v=0.32.0';
+import {titleCase} from '../data/language.js?v=0.33.0';
+import {openDatabase,listWorlds,getWorld,deleteWorld} from '../data/database.js?v=0.33.0';
 let generation=0;
 export function cancelWorldView(){generation++;}
 export async function renderBookshelf() {
@@ -46,9 +45,10 @@ export async function renderWorld(id, params) {
     document.querySelector('#import-diagnostics').textContent=world.diagnostics.map(d=>`${d.file}: ${d.records.toLocaleString()} source records; ${d.removedControls} invalid XML control characters removed; ${d.encoding}.`).join('\n');
     const dialog=document.querySelector('#delete-dialog');
     document.querySelector('#delete-error').textContent='';
-    document.querySelector('#delete-world').onclick=()=>{document.querySelector('#delete-name').textContent=titleCase(world.name);dialog.showModal();};
+    document.querySelector('#delete-world').onclick=()=>{document.querySelector('#delete-name').textContent=titleCase(world.name);dialog.showModal();dialog.querySelector('button').focus();};
+    dialog.onclose=()=>{const trigger=document.querySelector('#delete-world');if(trigger.isConnected&&!trigger.closest('[hidden]'))trigger.focus();};
     document.querySelector('#confirm-delete').onclick=async()=>{let connection;const button=document.querySelector('#confirm-delete');button.disabled=true;try{connection=await openDatabase();await deleteWorld(connection,id);dialog.close();location.hash='#/library';}catch(error){document.querySelector('#delete-error').textContent=error.message;}finally{connection?.close();button.disabled=false;}};
-    await renderDirectory(id, params);
+    const {renderDirectory}=await import('./explore.js?v=0.33.0');if(ticket!==generation)return;await renderDirectory(id, params);
   }catch(error){status.textContent=error.message;}finally{db?.close();}
 }
 export async function renderRecovery() {

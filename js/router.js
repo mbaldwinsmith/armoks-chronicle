@@ -27,7 +27,9 @@ export function startRouter(onNavigate,beforeNavigate=()=>true) {
       if (link.dataset.route === view) link.setAttribute('aria-current', 'page');
       else link.removeAttribute('aria-current');
     });
-    const title = document.querySelector(`#view-${view} h1`).textContent;
+    const heading=document.querySelector(`#view-${view} h1`);
+    document.querySelector('#main').setAttribute('aria-labelledby',heading.id);
+    const title = heading.textContent;
     document.title = `${title} · Armok’s Chronicle`;
     if (focus) document.querySelector('#main').focus();
     let parts;try{parts=(chronicleMatch||reportsMatch||structuresMatch||intrigueMatch||religionMatch||bestiaryMatch||artifactsMatch||grudgeMatch||deskMatch||factionMatch||warfareMatch||bookMatch||atlasMatch||recordMatch||worldMatch)?.slice(1).map(decodeURIComponent)||[];}catch{parts=[];}

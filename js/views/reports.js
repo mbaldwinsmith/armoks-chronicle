@@ -1,7 +1,7 @@
-import {explore} from '../data/explorer-client.js?v=0.32.0';
-import {reportFilters,reportParams} from '../data/reports.js?v=0.32.0';
-import {recordURL} from '../data/exploration.js?v=0.32.0';
-import {titleCase} from '../data/language.js?v=0.32.0';
+import {explore} from '../data/explorer-client.js?v=0.33.0';
+import {reportFilters,reportParams} from '../data/reports.js?v=0.33.0';
+import {recordURL} from '../data/exploration.js?v=0.33.0';
+import {titleCase} from '../data/language.js?v=0.33.0';
 const el=(tag,text,cls)=>{const n=document.createElement(tag);if(text!==undefined)n.textContent=text;if(cls)n.className=cls;return n;};
 export const reportsURL=(world,q=new URLSearchParams())=>`#/world/${encodeURIComponent(world)}/reports${q.size?'?'+q:''}`;
 const dateLabel=date=>date?`Year ${date.year}, Month ${date.month}, Day ${date.day} (Filename Clue)`:'Report Date Not Established';
