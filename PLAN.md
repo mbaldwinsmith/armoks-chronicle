@@ -621,7 +621,7 @@ Tests may run locally using optional developer tooling. They must not compile pr
 - [x] A new visitor understands the app and imports standard XML without registering or uploading data.
 - [x] Import matching standard/Plus/map files as one archive, with tested provenance and available features; retain original report files for the in-app reader.
 - [ ] Accept optional-file enrichment into an existing archive and preserve research.
-- [x] Interpret supported saved population reports and read world-history text without mutating XML records or inventing dated rulership.
+- [x] Interpret supported saved population reports and read world-history text without mutating XML records or inventing dated rulership. Verified against runtime `209b7c9` / cache version `0.32.0`: 361 Node tests, the full live browser suite, manual literal-source search/highlight and byte-identical original download; see `docs/population-and-world-reports.md`.
 - [ ] The visitor follows a figure → event → settlement → faction → artifact through working links.
 - [ ] The visitor uses timeline and map controls to inspect dated history without confusing snapshot data with reconstructed data.
 - [x] Family, conflict, culture, discovery and ledger views link their supporting source records.

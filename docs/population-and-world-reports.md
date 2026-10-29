@@ -34,4 +34,6 @@ Worker reads are bounded to four reports, 16 MiB per file, 32 MiB combined, eigh
 
 `tests/reports.test.mjs` adds 22 pure tests for decoding, strict matching, scope separation, Unnumbered, duplicates, partial sources, source paging and query round trips. The full Node suite passes 361 tests. Browser integration checks exercise saved File import, worker caches and cancellation, source download equality, semantic safe DOM, snapshot/source/return navigation and settlement panels using only independently authored fixtures.
 
-Live browser verification will be recorded after the published runtime is checked.
+Verified on the published GitHub Pages runtime `209b7c99346f70b71ca056edf4e48c705d4530d7` (`?v=0.32.0`) on 29 October 2026. The full live browser integration suite ended **ALL TESTS PASSED**, including the new report checks and existing specialist views, import/storage rollback and archive isolation. Manual checks covered the matched Coppergate dossier, source line 8 highlight, literal world-history search with original line 13, and the native Download Original Report flow. The downloaded fictional population report matched the authored fixture byte for byte. Existing saved report blobs were used without reimporting after the runtime update.
+
+No supplied original world exports, names, findings or screenshots were used in these fixtures or proof.
