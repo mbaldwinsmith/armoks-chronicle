@@ -690,3 +690,13 @@ These ideas must not delay the feature-complete static app above.
 - [x] Default map factions, colours and visibility to recorded civilisation/entity groups, retaining local site ownership as an explicit alternate.
 - [x] Make faction/entity map shortcuts prefer civilisation settlements and cover multiple sites with different local owners in the authored fixture.
 - [x] Verify default civilisation grouping, shared visibility, explicit local ownership and source-return state in the live browser; 26 focused checks pass.
+
+### Atlas usability overhaul
+
+- [x] Put the selected-tile inspector immediately after the map, including terrain metrics, site links and history/battle evidence.
+- [x] Add an empty state and Clear Selection; retain URL-restored selections and source links.
+- [x] Move navigation shortcuts, display/camera settings, faction/site tools and legends into a clear map → selection → tools order.
+- [x] Default WebGL dragging to Pan with visible Pan/Rotate choices, directional pan buttons and keyboard/touch alternatives.
+- [x] Share gesture logic with focused checks for pan/orbit, modifiers, multi-touch, cancellation and accidental selection prevention.
+- [x] Stop the hidden Canvas resize path from resetting the WebGL camera.
+- [ ] Verify the live inspector, selection/clear, tool shortcuts, narrow-screen reflow and fallback. Physical WebGL pointer qualification remains open.

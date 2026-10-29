@@ -15,3 +15,11 @@ The default settlement grouping and colour key now use the exported `civ_id` civ
 The authored atlas fixture now has two sites sharing civilisation 5 but local owners 6 and 7. Regression checks verify one shared default group with two sites, two explicit owner groups, shared visibility and source-return state.
 
 Verified live on 29 October 2026 against runtime `c94dd31`, offline release `0.36.3-dbad21b96eca8ca4`. The 26 focused politics/atlas/mesh/offline checks pass. The browser runner confirms one default Copper League legend group with two differently owned sites, shared visibility hiding both sites, two explicit local-owner groups, source-return preservation and existing atlas/battle/fallback/narrow-screen checks. Manual inspection confirms Civilisation / Entity selected with The Copper League (2). The authored test archive was removed; the existing archives remain intact.
+
+## Atlas workspace and navigation
+
+The viewport is immediately followed by a selected-tile card. It keeps the biome, coordinates, four terrain metrics, site links, recorded appearances and battle/history evidence together. It starts with a selection prompt and has a Clear Selection action. There is no legend, settings section or journey list between the map and its inspector. Settlement and coordinate navigation follows the inspector; Display & Camera, Factions & Sites and historical statistics are separate optional tools. Biome legends start collapsed.
+
+WebGL now defaults to drag-to-pan. Visible Pan/Rotate buttons switch the primary drag action and retain it in the URL. Shift-drag or middle/right drag pans in either mode. Two fingers pan/pinch; arrow keys pan and Shift-arrow keys orbit. The on-map directional pad pans every projection, and Fit World recentres the view. Browser shortcut modifiers are respected. Pure navigation logic is shared with focused gesture checks; the hidden 2D canvas no longer refits the independent WebGL camera on resize. Camera pan is retained through the existing URL state.
+
+The changed WebGL gesture, keyboard and camera state paths are tested without graphics; actual WebGL rendering/pointer behaviour still needs a graphics-capable browser because the cloud browser exposes none. Live layout and selection verification is recorded after publication.

@@ -204,3 +204,5 @@ The atlas now has a historical year slider, source-linked comparative charts/tab
 The atlas opens above statistics, attempts WebGL by default within its supported size, and starts with rivers off. Heatmaps have been removed. Saved population reports remain available in Population and World Reports. See [map layout and current controls](docs/map-first-atlas.md).
 
 Map faction colours default to **Civilisation / Entity**, grouping sites with the same recorded civilisation into one legend entry. **Local Site Owner** remains available under Settlement and Conflict Filters.
+
+The atlas selection card sits directly below the map, with terrain facts, site links and recorded history. WebGL supports visible **Pan / Rotate** modes (Pan by default), directional pan buttons, keyboard panning and two-finger gestures. Display, faction and history tools are grouped below the selection and location controls.
