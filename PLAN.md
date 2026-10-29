@@ -532,7 +532,7 @@ Implemented slice: directed source-record networks with family/social/rivalry/af
 ## 19 — Accessibility, privacy, and resilience
 
 - [ ] Target WCAG 2.2 AA for primary import, search, reading, navigation, annotation, and export flows.
-- [x] Complete an initial shared-shell and primary-route DOM/layout audit for labels, headings, landmark names, palette contrast and action targets at 320px/390px; see `docs/mobile-accessibility-performance.md`.
+- [x] Complete an initial shared-shell and primary-route DOM/layout audit for labels, headings, landmark names, palette contrast and action targets at 320px/390px; see `docs/mobile-accessibility-performance.md`. Verified with 366 Node tests, the full live Chromium suite, 38 narrow-route checks, long-name and enlarged-root-text checks, plus manual keyboard/dialog checks.
 - [ ] Complete assistive-technology announcement/focus-order and full rendered-contrast audits.
 - [ ] Test complete primary flows with keyboard only and representative screen readers.
 - [x] Provide linked lists for mapped sites/conflicts, source-evidence equivalents for SVG relationships and semantic timeline/ranking lists/tables.
