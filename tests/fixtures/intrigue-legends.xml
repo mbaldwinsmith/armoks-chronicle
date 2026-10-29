@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<df_world><name>The Fictional Ledger of Borrowed Names</name><historical_figures>
+<historical_figure><id>1</id><name>urist velvetledger</name><current_identity_id>30</current_identity_id><used_identity_id>31</used_identity_id>
+<intrigue_actor><local_id>7</local_id><hfid>2</hfid><entity_id>10</entity_id><role>agent</role><strategy>bribe</strategy><promised_actor_immortality/></intrigue_actor>
+<intrigue_plot><local_id>0</local_id><type>steal artifact</type><artifact_id>50</artifact_id><actor_id>7</actor_id><plot_actor><actor_id>7</actor_id><plot_role>agent</plot_role><agreement_id>8</agreement_id><agreement_has_messenger/></plot_actor></intrigue_plot>
+<intrigue_plot><local_id>1</local_id><type>corrupt official</type><entity_id>10</entity_id><on_hold/><plot_actor><actor_id>999</actor_id><plot_role>handler</plot_role></plot_actor><parent_plot_id>0</parent_plot_id><parent_plot_hfid>1</parent_plot_hfid></intrigue_plot>
+</historical_figure><historical_figure><id>2</id><name>domas doorlistener</name></historical_figure>
+<historical_figure><id>3</id><name>mistem maskwright</name><intrigue_actor><local_id>7</local_id><hfid>4</hfid><role>handler</role><strategy>flatter</strategy></intrigue_actor><intrigue_plot><local_id>0</local_id><type>secure influence</type><plot_actor><actor_id>7</actor_id><plot_role>handler</plot_role></plot_actor><delegated_plot_id>0</delegated_plot_id><delegated_plot_hfid>1</delegated_plot_hfid></intrigue_plot></historical_figure>
+<historical_figure><id>4</id><name>kogan undeservedblame</name></historical_figure></historical_figures>
+<entities><entity><id>10</id><name>the brass council</name></entity></entities><sites><site><id>20</id><name>coppergate</name></site></sites><artifacts><artifact><id>50</id><name>the key of improbable discretion</name></artifact></artifacts><historical_events>
+<historical_event><id>1</id><type>failed intrigue corruption</type><year>10</year><corruptor_hfid>1</corruptor_hfid><target_hfid>2</target_hfid><site_id>20</site_id><action>bribe official</action><method>bribe</method></historical_event>
+<historical_event><id>2</id><type>hfs formed intrigue relationship</type><year>12</year><corruptor_hfid>1</corruptor_hfid><target_hfid>2</target_hfid><corruptor_identity>30</corruptor_identity><method>offer immortality</method><successful/></historical_event>
+<historical_event><id>3</id><type>hfs formed intrigue relationship</type><year>13</year><corruptor_hfid>3</corruptor_hfid><target_hfid>2</target_hfid><failed_judgment_test/></historical_event>
+<historical_event><id>4</id><type>assume identity</type><year>9</year><trickster_hfid>1</trickster_hfid><identity_id>30</identity_id><target_enid>10</target_enid><identity_histfig_id>3</identity_histfig_id></historical_event>
+<historical_event><id>5</id><type>hf interrogated</type><year>14</year><target_hfid>2</target_hfid><interrogator_hfid>3</interrogator_hfid><arresting_enid>10</arresting_enid><held_firm_in_interrogation/></historical_event>
+<historical_event><id>6</id><type>hf convicted</type><year>15</year><convicted_hfid>4</convicted_hfid><convicter_enid>10</convicter_enid><framer_hfid>1</framer_hfid><implicated_hfid>2</implicated_hfid><crime>theft</crime><wrongful_conviction/><death_penalty/></historical_event>
+<historical_event><id>7</id><type>hf convicted</type><year>-1</year><convicted_hfid>2</convicted_hfid><convicter_enid>10</convicter_enid><crime>embezzlement</crime><prison_months>3</prison_months></historical_event>
+</historical_events></df_world>

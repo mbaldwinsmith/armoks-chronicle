@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<df_world><identities><identity><id>30</id><name>the respectable copper merchant</name><histfig_id>3</histfig_id><race>dwarf</race><profession>merchant</profession><entity_id>10</entity_id></identity><identity><id>31</id><name>the itinerant clerk</name><nemesis_id>77</nemesis_id><race>human</race><profession>clerk</profession></identity></identities></df_world>

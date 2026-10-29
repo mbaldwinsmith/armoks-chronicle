@@ -1,7 +1,7 @@
-import {createSettlementIndex,contestedSettlements} from './settlements.js?v=0.29.1';
-import {createOfficeIndex,officeRankings} from './offices.js?v=0.29.1';
-import {eventType} from './narrative.js?v=0.29.1';
-import {recordKey} from './exploration.js?v=0.29.1';
+import {createSettlementIndex,contestedSettlements} from './settlements.js?v=0.30.0';
+import {createOfficeIndex,officeRankings} from './offices.js?v=0.30.0';
+import {eventType} from './narrative.js?v=0.30.0';
+import {recordKey} from './exploration.js?v=0.30.0';
 export const recordCategories=Object.freeze([
  {id:'kills',title:'Deadliest Figures',unit:'named victims',kind:'historical_figures',definition:'Distinct historical figures explicitly named as victims in death events naming this killer. Repeated deaths for the same victim count once per killer. Self-kills, old-age deaths, missing victims and unnamed squad casualties are excluded. Conflicting killer attributions remain source claims, not a resolved verdict.'},
  {id:'lifespans',title:'Longest Completed Lives',unit:'calendar years',kind:'historical_figures',definition:'Death year minus birth year in the merged figure record. These are differences between calendar years, not exact birthdays. Both years must be recorded, neither may be the -1 sentinel, and death must not precede birth. Negative years other than -1 are retained. Supernatural figures are included.'},

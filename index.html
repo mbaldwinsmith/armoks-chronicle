@@ -7,8 +7,8 @@
   <meta name="description" content="Armok’s Chronicle: a local-first explorer for the histories of Dwarf Fortress worlds.">
   <title>Armok’s Chronicle</title>
   <link rel="icon" href="./assets/mark.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="./css/app.css?v=0.29.1">
-  <script type="module" src="./js/app.js?v=0.29.1"></script>
+  <link rel="stylesheet" href="./css/app.css?v=0.30.0">
+  <script type="module" src="./js/app.js?v=0.30.0"></script>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -106,6 +106,10 @@
       <form id="war-filters" class="search-controls"><div><label for="war-search">Find a conflict</label><input id="war-search" type="search" maxlength="200" placeholder="Name or #ID"></div><div><label for="war-type">Conflict collection type</label><select id="war-type"></select></div><div><label for="war-from">From year</label><input id="war-from" type="number" step="1"></div><div><label for="war-to">To year</label><input id="war-to" type="number" step="1"></div><button type="submit" class="quiet">Apply years</button><button type="button" id="war-clear" class="quiet">Clear filters</button></form>
       <p class="muted">Year filters intersect recorded start/end dates. With only one recorded date, that date is used; an unknown end is not assumed to mean an ongoing war. Undated collections are excluded only when years are filtered.</p>
       <h2>Recorded Conflicts</h2><p id="war-status" role="status"></p><div id="war-directory" class="conflict-grid"></div><div id="war-pages"></div>
+    </section>
+    <section id="view-intrigue" hidden aria-labelledby="intrigue-title">
+      <a id="intrigue-back" class="text-link">← Chronicler’s Desk</a><p class="eyebrow">MASKS, METHODS AND MISDIRECTION</p><h1 id="intrigue-title">The Intrigue Explorer</h1><p id="intrigue-world" class="intro"></p><p>Open the ledger of recorded plots, assumed personae and actions taken behind the scenes. Follow each named role back to its source.</p><p class="intrigue-aside">The chronicler has checked beneath the desk. No conspirators were found; the paperwork remains suspicious.</p>
+      <form id="intrigue-filters" class="timeline-filters"><div><label for="intrigue-search">Name, Participant or #ID</label><input id="intrigue-search" type="search" maxlength="200" placeholder="Follow a thread…"></div><div><label for="intrigue-category">Browse</label><select id="intrigue-category"><option value="plots">Recorded Plots</option><option value="events">Intrigue and Justice</option><option value="identities">Identity Records</option></select></div><div><label for="intrigue-outcome">Recorded State</label><select id="intrigue-outcome"><option value="any">Any Recorded State</option><option value="unknown">Outcome Not Recorded</option><option value="failed">Failed Corruption Attempt</option><option value="relationship">Relationship Success Recorded</option><option value="conviction">Conviction Recorded</option><option value="wrongful">Wrongful Conviction Marked</option><option value="interrogation">Interrogation Recorded</option><option value="identity">Identity Assumed</option><option value="disputed">Source Disagreement</option></select></div><div><label for="intrigue-from">From Year (Events)</label><input id="intrigue-from" type="number" step="1"></div><div><label for="intrigue-to">To Year (Events)</label><input id="intrigue-to" type="number" step="1"></div><button class="quiet">Explore Intrigue</button><button id="intrigue-reset" type="button" class="quiet">Clear Intrigue Filters</button></form><p id="intrigue-status" role="status"></p><div id="intrigue-dossier"></div><div id="intrigue-cards" class="intrigue-grid"></div><div id="intrigue-pages" class="record-pagination"></div>
     </section>
     <section id="view-religion" hidden aria-labelledby="faith-title">
       <a id="faith-back" class="text-link">← Chronicler’s Desk</a><p class="eyebrow">SPHERES, SHRINES AND THE FAITHFUL</p><h1 id="faith-title">Deities and Religions</h1><p id="faith-world" class="intro"></p><p>Follow the names invoked in prayer, the organisations that honour them, and the temples recorded in their care.</p><p class="faith-aside">The annals record the faithful. Whether the gods were listening remains beyond the chronicler’s remit.</p>

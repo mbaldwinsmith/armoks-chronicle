@@ -2,9 +2,11 @@
 
 *Every world a history. Every downfall a story.*
 
-Status: atlas and isometric relief preview implemented; broader features in progress. Updated: 28 October 2026.
+Status: atlas and isometric relief preview implemented; broader features in progress. Updated: 29 October 2026.
 
 ## Current iteration
+
+Intrigue Explorer: plots, directed corruption/justice events and identity records now have separate searchable directories and source-linked dossiers. Plot/actor IDs remain local to their source figure; explicit participants, parent/delegated plots, current/used identities and named judicial roles retain their meanings. Outcome filters distinguish failed attempts, explicit relationship success, interrogations, convictions and wrongful-conviction markers without inferring plot success, guilt or executions. Figure/identity specialist panels, bounded worker indexing, safe native mask glyphs and source-return context are implemented. See `docs/intrigue-explorer.md`.
 
 Deities and Religions: the sacred annals now separate explicit deity markers, religious organisations, forces, other worshipping entities and unclassified worship targets. Spheres, named worship/membership links, direct versus group-associated temples, local structure identity, source disagreement and dated religious events have bounded worker dossiers and figure/entity/site panels. Source inspector links retain gallery return filters; membership and temple visits never imply personal worship. All 293 Node tests and the deployed 0.29.1 browser integration suite pass; existing archives need no migration or reimport. See `docs/deities-and-religions.md`.
 
@@ -175,7 +177,8 @@ A feature-complete v1 includes every required phase below, including specialist 
 - [x] Preserve unknown fields/types for inspection and future compatibility.
 - [x] Retain nested/repeated source structures and interpret supported written-work and cultural references.
 - [x] Add typed entity office definitions and snapshot assignment views with organisation-scoped IDs.
-- [ ] Add typed interpretation and dedicated views for site structures/properties and assumed identities.
+- [x] Add typed interpretation and dedicated views for assumed identities, with source-qualified figure/persona links.
+- [ ] Add general dedicated views for site structures/properties beyond the source-qualified temple panels.
 - [ ] Verify figure-level position-link and squad-leadership structures before deriving additional office terms from them.
 - [x] Parse event collections and nested child collections without recursion loops.
 - [x] Validate map CSV v3 columns, dimensions, coordinate bounds/uniqueness, field ranges and complete tile coverage in a worker.
@@ -273,7 +276,7 @@ Implemented slice: all-family name/ID search, category filter, name/year sorting
 - [x] Summarise major recorded events using deterministic templates.
 - [x] Show death cause, killer when identified, and location; retain unnamed killer race/caste details.
 - [x] Link artifacts held/created, authored works, relevant sites, and event collections.
-- [ ] Show identities and aliases with a clear distinction between assumed identities and historical figures.
+- [x] Show identities and aliases with a clear distinction between assumed identities and historical figures. Intrigue identity dossiers separate current/used persona links, explicitly named identity figures, tricksters and unmapped nemesis IDs.
 - [x] Add recorded journeys and a link to the map; mark gaps and avoid implying continuous travel. Initial verified subject schemas cover state changes, deaths and abductions; other source families remain in the general event timeline.
 - [x] Provide raw/source details behind an expandable inspector.
 - [x] Display unknown birth/death dates and explicitly avoid inferring survival from a missing death record.
@@ -427,7 +430,7 @@ This setting is part of v1 implementation but opt-in for users; the flat atlas r
 - [x] Separate deities from religious organisations and unexplained supernatural forces. Explicit marker/type rules, separate military/other worshipping entities and unclassified targets avoid ontology inference from names, spheres or affiliation.
 - [x] Build a bestiary using creature definitions and linked historical figures. See `docs/bestiary.md`: searchable individual/definition views, exact or unique-alias species matching, unclassified fallback, source-linked dossiers and bounded worker indexing.
 - [x] Show known attacks, victims, transformations, secrets, and deaths without treating species traits as individual deeds. Bestiary dossiers retain directed roles, unnamed prey, source disagreement and unknown survival; full figure records link existing whereabouts and supernatural evidence.
-- [ ] Build intrigue views for plots, participants, relationships, assumed identities, and recorded outcomes.
+- [x] Build intrigue views for plots, participants, relationships, assumed identities, and recorded outcomes. The bounded Intrigue Explorer keeps local actor/plot identity, relationship-versus-plot outcomes, justice roles and persona metadata distinct; see `docs/intrigue-explorer.md`.
 - [x] Implement conservative supernatural evidence derivation from inspected fields and documented example mappings, with versioned rules and compatibility limits. Broader/localised/modded mappings remain explicitly unverified.
 - [x] Keep species, deity status, learned secrets, transformations, and supernatural abilities distinct; absence of a known marker does not prove a figure is ordinary.
 - [x] Explain source limits and avoid inferring hidden motives or guilt from membership alone.
@@ -619,7 +622,7 @@ Tests may run locally using optional developer tooling. They must not compile pr
 - [x] Family, conflict, culture, discovery and ledger views link their supporting source records.
 - [x] Complete and verify the initial bestiary specialist views within documented compatibility limits.
 - [x] Complete and verify the initial deity/religion specialist views within documented compatibility limits.
-- [ ] Complete and verify intrigue specialist views.
+- [x] Complete and verify initial intrigue specialist views within the documented schema, index and sampling limits.
 - [x] Discovery cards, relationship paths, and grudges provide interesting, accurately labelled connections.
 - [x] The visitor browses the Book of Records and follows a ranked entry to evidence explaining its metric and limitations.
 - [x] Verify the complete live supernatural filter → biography → evidence → linked participant journey, retaining filter context and role-specific classifications.

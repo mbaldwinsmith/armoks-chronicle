@@ -1,6 +1,6 @@
-import {eventType,narrateEvent} from './narrative.js?v=0.29.1';
-import {recordKey,normalise} from './exploration.js?v=0.29.1';
-import {titleCase,readableValue,clippedLabel} from './language.js?v=0.29.1';
+import {eventType,narrateEvent} from './narrative.js?v=0.30.0';
+import {recordKey,normalise} from './exploration.js?v=0.30.0';
+import {titleCase,readableValue,clippedLabel} from './language.js?v=0.30.0';
 export const bestiaryLimits={records:500000,definitions:20000,figures:100000,evidence:8,page:12};
 const text=v=>typeof v==='string'?v:'';
 const norm=v=>normalise(text(v).replaceAll('_',' '));

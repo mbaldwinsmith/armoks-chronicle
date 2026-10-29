@@ -1,6 +1,6 @@
-import {eventType,narrateEvent} from './narrative.js?v=0.29.1';
-import {recordKey} from './exploration.js?v=0.29.1';
-import {clippedLabel} from './language.js?v=0.29.1';
+import {eventType,narrateEvent} from './narrative.js?v=0.30.0';
+import {recordKey} from './exploration.js?v=0.30.0';
+import {clippedLabel} from './language.js?v=0.30.0';
 export const supernaturalRuleVersion=1;
 export const supernaturalTraits={vampire:'Vampire',werebeast:'Werebeast',necromancer:'Necromancer',deity:'Deity'};
 export const supernaturalLimits={figures:100000,records:500000,fields:256,evidence:6,context:24,page:6};

@@ -176,3 +176,7 @@ Open **Bestiary** from the Chronicler’s Desk to browse creature definitions an
 ### Deities and Religions
 
 Open **Deities and Religions** from the Chronicler’s Desk to browse recorded gods, religious organisations, forces and unclassified worship targets. Search spheres, follow named worshippers and separate membership links, explore direct versus group-associated temples, and inspect religious history. Relevant figure, organisation and settlement pages include a Faith and Worship panel. See [evidence rules and limits](docs/deities-and-religions.md).
+
+### The Intrigue Explorer
+
+Open **Intrigue Explorer** from the Chronicler’s Desk to browse source-recorded plots, corruption/justice events and identity records. Follow explicitly named participants and local plot references, inspect current/used personae, and filter dated events by recorded state. Figure and identity pages have specialist panels. Plot outcomes, guilt, executions and identity users are never inferred from unrelated fields. See [evidence rules and limits](docs/intrigue-explorer.md).
