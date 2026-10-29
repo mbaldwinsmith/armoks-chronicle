@@ -6,7 +6,7 @@ export async function runUsabilityChecks({ids,log,assert}){
  let caseId=0;
  const visible=e=>e.getClientRects().length&&frame.contentWindow.getComputedStyle(e).visibility!=='hidden';
  try{
- for(const width of [320,390]){frame.style.width=width+'px';for(const [route,ready] of routes){const marker=String(++caseId);frame.src='../index.html?usability='+width+'&case='+marker+'#'+route;await wait(()=>new URLSearchParams(frame.contentWindow.location.search).get('case')===marker&&frame.contentDocument?.querySelector('#main[aria-labelledby]')&&frame.contentDocument.querySelector(ready)&&!frame.contentDocument.querySelector('main>section:not([hidden])[aria-busy=true]'));const d=frame.contentDocument,w=frame.contentWindow;await new Promise(resolve=>w.requestAnimationFrame(()=>w.requestAnimationFrame(resolve)));
+ for(const width of [320,390]){frame.style.width=width+'px';for(const [route,ready] of routes){const marker=String(++caseId);frame.src='../index.html?usability='+width+'&case='+marker+'#'+route;await wait(()=>new URLSearchParams(frame.contentWindow.location.search).get('case')===marker&&frame.contentDocument?.querySelector('#main[aria-labelledby]')&&frame.contentDocument.querySelector(ready)&&!frame.contentDocument.querySelector('main>section:not([hidden])[aria-busy=true]'));const d=frame.contentDocument,w=frame.contentWindow;
   assert(d.documentElement.scrollWidth<=d.documentElement.clientWidth+1,'Page overflow at '+width+'px: '+route+' ('+d.documentElement.scrollWidth+')');
   assert([...d.querySelectorAll('h1')].filter(visible).length===1,'One visible page heading: '+route);assert(d.querySelector('#main').getAttribute('aria-labelledby')===d.querySelector('main>section:not([hidden]) h1').id,'Named main landmark: '+route);
   for(const input of [...d.querySelectorAll('input,select,textarea')].filter(visible)){assert(input.labels?.length||input.getAttribute('aria-label')||input.getAttribute('aria-labelledby'),'Unnamed input '+input.id+' at '+route);if(!['checkbox','radio','range','file'].includes(input.type))assert(parseFloat(w.getComputedStyle(input).fontSize)>=16,'Small input text '+input.id);}
@@ -16,7 +16,7 @@ export async function runUsabilityChecks({ids,log,assert}){
  }
  log('PASS: '+width+'px import, search, figure/research, desk, rankings, reports/source, structures, intrigue, religion, bestiary, artifacts, grudges, wars, atlas, research and chronicles: page reflow, named controls/main landmark, 44px action targets, 16px input text and lazy bookshelf.');}
  // Text-size enlargement is separate from browser zoom and device qualification.
- frame.src='../index.html?usability=text#/world/'+ids[15]+'/reports?popSection=8';await wait(()=>frame.contentDocument?.querySelector('.population-dossier table'));frame.contentDocument.documentElement.style.fontSize='200%';await new Promise(resolve=>frame.contentWindow.requestAnimationFrame(resolve));assert(frame.contentDocument.documentElement.scrollWidth<=frame.contentDocument.documentElement.clientWidth+1,'Report overflows at 200% root text size');
+ frame.src='../index.html?usability=text#/world/'+ids[15]+'/reports?popSection=8';await wait(()=>frame.contentDocument?.querySelector('.population-dossier table'));frame.contentDocument.documentElement.style.fontSize='200%';assert(frame.contentDocument.documentElement.scrollWidth<=frame.contentDocument.documentElement.clientWidth+1,'Report overflows at 200% root text size');
  log('PASS: report table and long report filenames reflow at 200% root text size (not full browser zoom).');
  }finally{frame.remove();}
 }

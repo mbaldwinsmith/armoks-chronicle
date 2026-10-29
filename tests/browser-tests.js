@@ -15,7 +15,15 @@ document.querySelector('#run').onclick=async()=>{
  const prefix='test-'+crypto.randomUUID(),ids=[prefix+'-ok',prefix+'-bad',prefix+'-pages',prefix+'-warfare',prefix+'-grudges',prefix+'-supernatural',prefix+'-journeys',prefix+'-journeys-nomap',prefix+'-offices',prefix+'-settlements',prefix+'-artifacts',prefix+'-bestiary',prefix+'-religion',prefix+'-intrigue',prefix+'-structures',prefix+'-reports'];let db;const storyIds=[prefix+'-story',prefix+'-story-copy'];
  const log=text=>{output.textContent+=text+'\n';};
  try {
-  db=await openDatabase();const before=(await listWorlds(db)).map(w=>w.id).sort();
+  db=await openDatabase();
+  // Optional exact-run recovery after a browser reload interrupts a test, never a broad test-* purge.
+  const abandoned=new URLSearchParams(location.search).get('cleanupTest');
+  if(/^test-[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/.test(abandoned||'')){
+   for(const suffix of ['ok','bad','pages','warfare','grudges','supernatural','journeys','journeys-nomap','offices','settlements','artifacts','bestiary','religion','intrigue','structures','reports']){await removeResearchEntry(db,abandoned+'-'+suffix,'historical_figures','1');await deleteWorld(db,abandoned+'-'+suffix);}
+   for(const suffix of ['story','story-copy'])await removeChronicle(db,abandoned+'-'+suffix);
+   log('PASS: cleaned only the explicitly identified interrupted test run.');
+  }
+  const before=(await listWorlds(db)).map(w=>w.id).sort();
   const files=await Promise.all(['example-legends.xml','example-legends_plus.xml'].map(async name=>new File([await (await fetch('./fixtures/'+name,{cache:'no-store'})).text()],name)));
   const world=await runImport(ids[0],files);
   assert(world.counts.historical_figures===6,'Figure count');assert(world.counts.historical_events===2,'Plus events duplicated');assert(world.name==='The Example World','World name');
@@ -199,7 +207,7 @@ document.querySelector('#run').onclick=async()=>{
   let staleStory=false;try{await saveChronicle(db,{...savedStory,title:'Stale draft'},0);}catch{staleStory=true;}assert(staleStory&&(await getChronicle(db,savedStory.id)).title==='The Authored Chronicle','Stale chronicle overwrote saved data');let movedWorld=false;try{await saveChronicle(db,{...savedStory,worldId:ids[2]},savedStory.updatedAt);}catch{movedWorld=true;}assert(movedWorld,'Chronicle changed source identity silently');
   const storyBackup=parseChronicleBackup(makeChronicleBackup(savedStory)),copy=await saveChronicle(db,{...storyBackup.chronicle,id:storyIds[1],worldId:ids[2],worldName:'Explicit fixture target'},0);assert(copy.id!==savedStory.id&&copy.entries.length===2&&(await getChronicle(db,savedStory.id)).worldId===world.id,'Chronicle new-copy transfer overwrote source');const archivedStory=await saveChronicle(db,{...savedStory,archived:true},savedStory.updatedAt);assert(archivedStory.archived);const reopenedStory=await saveChronicle(db,{...archivedStory,archived:false},archivedStory.updatedAt);assert(!reopenedStory.archived&&reopenedStory.entries.length===2,'Reversible archive lost entries');
   const {chronicleReading}=await import('../js/views/chronicles.js?v=0.33.0');const safeStoryDOM=chronicleReading({...savedStory,entries:[{...savedStory.entries[0],label:'<img src=x>',caption:'<script>comment</script>'}]},new Set([JSON.stringify(['historical_figures','1'])]));assert(!safeStoryDOM.querySelector('img,script')&&safeStoryDOM.textContent.includes('<script>comment</script>')&&safeStoryDOM.querySelector('a'),'Chronicle reading unsafe text/link');const orphanStoryDOM=chronicleReading(savedStory,new Set());assert(!orphanStoryDOM.querySelector('a')&&orphanStoryDOM.textContent.includes('Source unavailable'),'Chronicle invented missing source links');log('PASS: IndexedDB v3 chronicle persistence, world isolation, stale-save protection, explicit new-copy restore, reversible archive and safe reading with missing records.');
-  const {runUsabilityChecks}=await import('./usability.js?v=0.33.0.1');await runUsabilityChecks({ids,log,assert});
+  const {runUsabilityChecks}=await import('./usability.js?v=0.33.0.2');await runUsabilityChecks({ids,log,assert});
   await deleteWorld(db,world.id);assert((await getChronicle(db,savedStory.id)).entries.length===2,'Source deletion destroyed personal chronicle');assert(readTrail(world.id).entries.length===0,'Deleting archive retained disposable trail');assert((await getResearch(db,world.id,annotation.kind,annotation.id)).note===annotation.note,'Deleting source world destroyed research');log('PASS: research persistence, stale-tab protection, backup round trip, explicit transfer, additive restore and source-deletion preservation.');
   for(const id of [world.id,ids[2]])await removeResearchEntry(db,id,annotation.kind,annotation.id);
   for(const id of storyIds)await removeChronicle(db,id);
