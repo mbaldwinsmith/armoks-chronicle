@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<df_world><name>The Fictional Census of Copper and Rain</name><historical_figures>
+<historical_figure><id>1</id><name>urist marginreader</name></historical_figure><historical_figure><id>2</id><name>domas tallykeeper</name></historical_figure><historical_figure><id>3</id><name>mistem raincounter</name></historical_figure></historical_figures><entities>
+<entity><id>10</id><name>the copper council</name></entity><entity><id>11</id><name>the rainward league</name></entity><entity><id>12</id><name>the shared council</name></entity><entity><id>13</id><name>the shared council</name></entity></entities><sites>
+<site><id>20</id><name>coppergate</name><cur_owner_id>10</cur_owner_id></site><site><id>21</id><name>rainward</name><cur_owner_id>11</cur_owner_id></site><site><id>22</id><name>shared hall</name></site><site><id>23</id><name>shared hall</name></site><site><id>24</id><name>salt hall</name><cur_owner_id>11</cur_owner_id></site>
+</sites></df_world>

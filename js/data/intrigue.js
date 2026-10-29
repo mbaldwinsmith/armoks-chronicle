@@ -1,5 +1,5 @@
-import {recordKey,normalise,eventDate} from './exploration.js?v=0.31.0';
-import {clippedLabel,readableValue,titleCase} from './language.js?v=0.31.0';
+import {recordKey,normalise,eventDate} from './exploration.js?v=0.32.0';
+import {clippedLabel,readableValue,titleCase} from './language.js?v=0.32.0';
 export const intrigueLimits={records:500000,plots:30000,identities:50000,events:100000,fields:128,sample:12,page:12,links:200000};
 const array=v=>v===undefined?[]:Array.isArray(v)?v:[v];
 const text=v=>typeof v==='string'?v:'';

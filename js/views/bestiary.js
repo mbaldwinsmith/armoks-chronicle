@@ -1,8 +1,8 @@
-import {explore} from '../data/explorer-client.js?v=0.31.0';
-import {bestiaryFilters,bestiaryParams} from '../data/bestiary.js?v=0.31.0';
-import {recordURL} from '../data/exploration.js?v=0.31.0';
-import {openDatabase,getWorld} from '../data/database.js?v=0.31.0';
-import {titleCase} from '../data/language.js?v=0.31.0';
+import {explore} from '../data/explorer-client.js?v=0.32.0';
+import {bestiaryFilters,bestiaryParams} from '../data/bestiary.js?v=0.32.0';
+import {recordURL} from '../data/exploration.js?v=0.32.0';
+import {openDatabase,getWorld} from '../data/database.js?v=0.32.0';
+import {titleCase} from '../data/language.js?v=0.32.0';
 const el=(tag,text,cls)=>{const n=document.createElement(tag);if(text!==undefined)n.textContent=text;if(cls)n.className=cls;return n;};
 const url=(world,q)=>`#/world/${encodeURIComponent(world)}/bestiary${q.size?'?'+q:''}`;
 let generation=0,controller;

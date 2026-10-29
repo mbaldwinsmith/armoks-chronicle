@@ -14,7 +14,7 @@ Search any saved world by name, event type, or `#ID`; select a category and sort
 
 Choose **Try a tiny fictional example** on the import page to test without your own files. It is explicitly synthetic, not a game export.
 
-Version 3 world_map.csv exports now power a Canvas atlas with elevation, evilness and savagery layers, selectable sites, pan/zoom, and an optional isometric Raised Relief preview. Existing archives with a saved CSV work without reimport. Text reports remain stored for future interpretation. Search and linked source-record pages are available. Figure pages now show recorded life dates and labelled relationships. Event lists and pages have deterministic prose templates, linked participants, and an explicit fallback for other types. Timelines support type/year filters and a documented major-events preset. Broader biographies, event coverage, specialist networks and offline caching remain in development. Personal bookmarks, notes, tags and annotation backups are available. Reimporting creates a separate archive; enrichment of existing worlds is planned.
+Version 3 world_map.csv exports now power a Canvas atlas with elevation, evilness and savagery layers, selectable sites, pan/zoom, and an optional isometric Raised Relief preview. Existing archives with a saved CSV work without reimport. Saved text reports have a searchable reader and conservative population snapshots. Search and linked source-record pages are available. Figure pages now show recorded life dates and labelled relationships. Event lists and pages have deterministic prose templates, linked participants, and an explicit fallback for other types. Timelines support type/year filters and a documented major-events preset. Broader biographies, event coverage, specialist networks and offline caching remain in development. Personal bookmarks, notes, tags and annotation backups are available. Reimporting creates a separate archive; enrichment of existing worlds is planned.
 
 See [PLAN.md](PLAN.md) for the development checklist and [architecture](docs/architecture.md) for module boundaries and the worker protocol.
 
@@ -184,3 +184,7 @@ Open **Intrigue Explorer** from the Chronicler’s Desk to browse source-recorde
 ### Structures and Settlement Life
 
 Open **Structures and Settlement Life** from the Chronicler’s Desk to browse exported libraries, taverns, keeps, guildhalls, temples and other buildings. Follow separate inhabitants, property owners, organisations, dedications and building histories. Settlement, figure, organisation and artifact records link their recorded building associations. Missing snapshots and destruction records never imply a building’s present condition. See [source rules and limits](docs/structures-and-settlement-life.md).
+
+### Population and World Reports
+
+Open **Population and World Reports** from the Desk to read saved population and world-history reports, search original lines, download the original files and browse conservative population snapshots. Verified settlement matches add source-linked panels to site and organisation pages. Unknown counts, wildlife, named historical figures and disputed affiliations remain distinct. Existing archives work when the report files were saved with them. See [format evidence, matching rules and limits](docs/population-and-world-reports.md).

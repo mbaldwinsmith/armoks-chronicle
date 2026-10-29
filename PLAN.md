@@ -100,7 +100,7 @@ A feature-complete v1 includes every required phase below, including specialist 
 - [ ] Catalogue sections, IDs, nested fields, repeated elements, event types, and cross-references in standard Legends XML.
 - [ ] Catalogue supplementary fields in Legends Plus XML and define how each supplements standard records.
 - [x] Catalogue the world map CSV header/version, dimensions, column types, and coordinate ranges.
-- [ ] Inspect text report encodings, site-number semantics, headings, population rows, and naming conventions.
+- [x] Inspect the pinned DFHack text-report format and LegendsViewer-Next consumer: encodings, site IDs, headings, counts, Unnumbered and names. See `docs/population-and-world-reports.md`; other exporter versions remain unverified.
 - [ ] Create a compatibility matrix recording tested DF/DFHack export versions; mark unknown versions as unverified.
 - [x] Document the 51 biome code mappings and primary-source provenance in docs/biomes.md; unknown codes remain explicit.
 - [ ] Complete version-specific provenance verification for map flag bits, river directions and elevation units; retain raw-unit labels until verified.
@@ -186,9 +186,9 @@ A feature-complete v1 includes every required phase below, including specialist 
 - [x] Parse event collections and nested child collections without recursion loops.
 - [x] Validate map CSV v3 columns, dimensions, coordinate bounds/uniqueness, field ranges and complete tile coverage in a worker.
 - [ ] Stream map CSV incrementally; the current bounded-size parser reads one complete map text.
-- [ ] Parse text population reports conservatively; validate site matches and flag ambiguous matches.
+- [x] Parse supported population reports conservatively; require settlement ID and exact native/translated name agreement, flag missing/conflicting/duplicate matches, and retain source lines.
 - [x] Keep original text-report File blobs with each imported archive.
-- [ ] Provide an in-app readable report fallback while structured population/history extraction remains unsupported.
+- [x] Provide a searchable, paged, literal-text reader and original download for saved population and world-history reports, with encoding choices and original line numbers. World-history office/date extraction remains unsupported.
 - [ ] Implement DF calendar conversion from verified units; distinguish unknown dates, negative years, and year-only dates.
 - [x] Record import/parser versions and original filenames on the world metadata record.
 
@@ -198,7 +198,8 @@ A feature-complete v1 includes every required phase below, including specialist 
 
 - [x] Define world-scoped keys for figures, sites, entities, artifacts, events, collections, regions, constructions, identities, works, and art forms.
 - [x] Define schemas/adapters for terrain, source relationships, import metadata, annotations and personal chronicles.
-- [ ] Define typed creature-definition and population-snapshot schemas with compatibility evidence.
+- [x] Define bounded population-section, group, source-line and validated-association schemas with pinned exporter evidence.
+- [ ] Complete typed creature-definition schemas and compatibility evidence beyond the existing Bestiary adapters.
 - [x] Store source provenance and unknown values explicitly.
 - [x] Build indexes by name, record type, event year, participant, site, entity, artifact, and collection.
 - [x] Build reverse references so biographies and site histories do not repeatedly scan all events.
@@ -296,8 +297,8 @@ Implemented slice: all-family name/ID search, category filter, name/year sorting
 - [x] Show explicit dated previous/new local-government transitions from supported takeover/leader events, separately from export-time owners and parent civilisations.
 - [x] Add curated settlement founding, reclamation, attack, destruction, diplomacy and construction/rebuilding histories with source links, filters and paging.
 - [ ] Reconstruct continuous ownership periods only where additional verified evidence can establish continuity; do not fill historical gaps or draw inferred borders.
-- [ ] Display population reports as export-date snapshots, including untracked inhabitants.
-- [ ] Keep named historical figures separate from total population estimates.
+- [x] Display population reports as source snapshots, including untracked inhabitants and animals; label parsed filename dates as clues rather than independently verified census dates.
+- [x] Keep named historical figure counts separate from population rows; never aggregate world, settlement and wildlife scopes or organisation associations into an invented census.
 - [ ] Create entity pages distinguishing civilisations, governments, religions, military groups, and criminal organisations.
 - [x] Show recorded office definitions, assignments and dated appointments on organisation pages.
 - [ ] Add dedicated parent/child organisation and membership panels beyond raw references.
@@ -601,7 +602,7 @@ Tests may run locally using optional developer tooling. They must not compile pr
 - [x] Document supported encodings, malformed/mismatched imports, source uncertainty and absent/unsupported terrain limitations.
 - [ ] Create a consolidated troubleshooting page with quota/recovery and future stale-offline-cache guidance.
 - [x] Document uncertainty, incomplete event/relationship histories and the distinction between recorded summaries and personal commentary.
-- [ ] Document population snapshot/reconstruction semantics when report interpretation is implemented.
+- [x] Document supported report snapshots, strict matches, encoding uncertainty, source limits and lack of historical population reconstruction in `docs/population-and-world-reports.md`.
 - [x] Document implemented ranking metrics, political/conflict map semantics, event-noise presets and independent archive identity.
 - [x] Document supernatural evidence rules, primary-source references, conservative compatibility scope and uncertainty.
 - [ ] Document snapshot grouping when that feature is implemented.
@@ -618,8 +619,9 @@ Tests may run locally using optional developer tooling. They must not compile pr
 ### Release acceptance journey
 
 - [x] A new visitor understands the app and imports standard XML without registering or uploading data.
-- [x] Import matching standard/Plus/map files as one archive, with tested provenance and available features; retain text files for future readers.
-- [ ] Accept optional-file enrichment into an existing archive and preserve research, and interpret supported text reports.
+- [x] Import matching standard/Plus/map files as one archive, with tested provenance and available features; retain original report files for the in-app reader.
+- [ ] Accept optional-file enrichment into an existing archive and preserve research.
+- [x] Interpret supported saved population reports and read world-history text without mutating XML records or inventing dated rulership.
 - [ ] The visitor follows a figure → event → settlement → faction → artifact through working links.
 - [ ] The visitor uses timeline and map controls to inspect dated history without confusing snapshot data with reconstructed data.
 - [x] Family, conflict, culture, discovery and ledger views link their supporting source records.

@@ -1,0 +1,43 @@
+Civilized World Population
+
+	100 dwarves
+	200 humans
+
+Sites
+
+20: Rimcopper, Coppergate
+Owner: The Copper Council, dwarves
+Parent Civ: The Rainward League, humans
+	80 dwarves
+	20 humans
+	4 dogs
+
+21: Mismatchnative, A Different Settlement
+Owner: The Rainward League, humans
+	30 humans
+
+22: Zalimshared, Shared Hall
+Owner: The Shared Council, dwarves
+	5 dwarves
+	Unnumbered bats
+
+23: Zalimshared, Shared Hall
+	2 dwarves
+23: Zalimshared, Shared Hall
+	3 dwarves
+
+999: Nilharbour, The Lost Harbour
+	10 elves
+
+24: Saltnative, Salt Hall
+Owner: The Copper Council, dwarves
+	2 dwarves
+	3 DWARVES
+
+Outdoor Animal Populations (Including Undead)
+
+	Unnumbered ants
+	10 undead wolves
+
+Underground Animal Populations (Including Undead)
+	7 cave dragons

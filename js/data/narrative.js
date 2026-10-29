@@ -1,6 +1,6 @@
-import {structureTokens} from './structures.js?v=0.31.0';
-import {intrigueTokens} from './intrigue.js?v=0.31.0';
-import {titleCase,readableValue,eventLabel} from './language.js?v=0.31.0';
+import {structureTokens} from './structures.js?v=0.32.0';
+import {intrigueTokens} from './intrigue.js?v=0.32.0';
+import {titleCase,readableValue,eventLabel} from './language.js?v=0.32.0';
 // Deterministic export renderings, not inferred motives or generated fiction.
 export const words=value=>String(value??'').replaceAll('_',' ');
 const aliases={'hist figure died':'hf died','hist figure wounded':'hf wounded','created building':'created structure','change creature type':'changed creature type','hist figure new pet':'hf new pet','war peace accepted':'peace accepted','war peace rejected':'peace rejected'};
