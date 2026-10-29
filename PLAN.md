@@ -689,3 +689,6 @@ These ideas must not delay the feature-complete static app above.
 - [x] Preserve selected heat metric, report, group and visibility in atlas/source-return URLs.
 - [x] Keep population snapshots independent of historical event filters and disclose animal groups, missing counts and casualty exclusions.
 - [x] Complete live map-first/population/death heatmap browser validation, source return, fallback, archive isolation and 390px reflow; see `docs/map-first-heatmaps.md`. Actual GPU/device qualification remains open.
+
+- [x] Fix WebGL site-marker occlusion of heat tiles using hollow markers while heat is drawn, retaining solid picking and heat-off markers.
+- [x] Reproduce the hidden heat and verify visible/on-off pixels at four camera rotations with the shipped shaders and mesh in native Mesa/EGL; add a browser WebGL pixel regression for capable browsers.
