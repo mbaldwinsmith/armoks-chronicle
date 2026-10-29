@@ -26,7 +26,7 @@ platform = C.CFUNCTYPE(P, U, P, C.POINTER(I))(E.eglGetProcAddress(b'eglGetPlatfo
 display = platform(0x31DD, None, None)  # EGL_PLATFORM_SURFACELESS_MESA
 assert egl('eglInitialize', U, [P, C.POINTER(I), C.POINTER(I)])(display, C.byref(I()), C.byref(I()))
 assert egl('eglBindAPI', U, [U])(0x30A0)  # EGL_OPENGL_ES_API
-attrs = (I * 17)(0x3033, 1, 0x3040, 4, 0x3024, 8, 0x3023, 8, 0x3022, 8, 0x3021, 8, 0x3025, 16, 0x3038, 0x3038, 0x3038)
+attrs = (I * 15)(0x3033, 1, 0x3040, 4, 0x3024, 8, 0x3023, 8, 0x3022, 8, 0x3021, 8, 0x3025, 16, 0x3038)
 config, count = P(), I()
 assert egl('eglChooseConfig', U, [P, C.POINTER(I), C.POINTER(P), I, C.POINTER(I)])(display, attrs, C.byref(config), 1, C.byref(count)) and count.value
 context = egl('eglCreateContext', P, [P, P, P, C.POINTER(I)])(display, config, None, (I * 3)(0x3098, 2, 0x3038))
@@ -41,6 +41,7 @@ with tempfile.TemporaryDirectory(prefix='armok-heat-') as folder:
     w, h = scene['width'], scene['height']
     surface = create_surface(display, config, (I * 5)(0x3057, w, 0x3056, h, 0x3038))
     assert surface and make_current(display, surface, surface, context)
+    print('Renderer:', gl('glGetString', C.c_char_p, [U])(0x1F01).decode())
     shader_new = gl('glCreateShader', U, [U]); shader_source = gl('glShaderSource', None, [U, I, C.POINTER(C.c_char_p), C.POINTER(I)])
     compile_shader = gl('glCompileShader', None, [U]); shader_status = gl('glGetShaderiv', None, [U, U, C.POINTER(I)])
     shader_log = gl('glGetShaderInfoLog', None, [U, I, C.POINTER(I), P])
@@ -95,7 +96,9 @@ with tempfile.TemporaryDirectory(prefix='armok-heat-') as folder:
     for frame in scene['frames']:
         solid = render(frame, True, 0)
         hollow = render(frame, True, scene['innerRadius'])
-        off = render(frame, False, 0)
+        off = render(frame, False, scene['offInnerRadius'])
+        picked = render(frame, False, scene['innerRadius'], picking=True)
+        assert picked[:3] == [0, 0, 0], ('Picking must keep the marker centre solid', picked)
         assert solid[2] > solid[0] + 100, ('Expected reproduction: marker covers heat', frame['yaw'], solid)
         assert hollow[0] > hollow[2] + 100, ('Heat hidden beneath marker', frame['yaw'], hollow)
         assert off[2] > off[0] + 100, ('Heat toggle did not restore marker', off)

@@ -8,4 +8,4 @@ const marker=new Float32Array([64.5,z,64.5,0,0,1,1,0,0,0]);
 for(const [name,data] of [['land',mesh.land],['heat',heat],['marker',marker]])writeFileSync(dir+'/'+name+'.bin',new Uint8Array(data.buffer,data.byteOffset,data.byteLength));
 const source=readFileSync(new URL('../js/views/terrain-webgl.js',import.meta.url),'utf8'),shaders={};for(const m of source.matchAll(/shader\(gl\.(VERTEX_SHADER|FRAGMENT_SHADER),'([^']+)'\)/g))shaders[m[1]]=m[2];
 const frames=[0,45,90,145].map(yaw=>{const matrix=cameraMatrix({yaw,pitch:55},t,width/height),p=projectMesh(matrix,64.5,terrainHeight(120,t),64.5,width,height);return {matrix:[...matrix],x:Math.floor(p.x),y:height-1-Math.floor(p.y),yaw};});
-writeFileSync(dir+'/scene.json',JSON.stringify({shaders,width,height,frames,innerRadius:heatMarkerInnerRadius([{category:'heat'}])}));
+writeFileSync(dir+'/scene.json',JSON.stringify({shaders,width,height,frames,innerRadius:heatMarkerInnerRadius([{category:'heat'}]),offInnerRadius:heatMarkerInnerRadius([])}));
