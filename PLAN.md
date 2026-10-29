@@ -686,3 +686,7 @@ These ideas must not delay the feature-complete static app above.
 - [x] Remove all heatmap controls, computations, demographic-map loading, styling and renderer-specific handling at the user’s request. Heatmaps are no longer in scope.
 - [x] Remove heatmap-only fixtures, tests and verification scripts; retain historical statistics, source reports, footprint overlays and battle dossiers.
 - [x] Verify the simplified live atlas, absent heat controls, discarded legacy URL settings, source-return routes, year filters, comparisons, battle details, 390px reflow and fallback after removal; 61 focused Node checks pass.
+
+- [x] Default map factions, colours and visibility to recorded civilisation/entity groups, retaining local site ownership as an explicit alternate.
+- [x] Make faction/entity map shortcuts prefer civilisation settlements and cover multiple sites with different local owners in the authored fixture.
+- [ ] Verify civilisation grouping, shared visibility and source-return state in the live browser.

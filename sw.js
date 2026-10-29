@@ -1,4 +1,4 @@
-/* Offline release: 0.36.2-7e3cafe8f20272ac. Inventory and app files are committed together. */
+/* Offline release: 0.36.3-dbad21b96eca8ca4. Inventory and app files are committed together. */
 importScripts('./offline-assets.js','./js/offline/worker-runtime.js?v=0.36.0');
 const offline=self.ArmoksOffline.create({scope:self.registration.scope,...self.ARMOK_OFFLINE});
 self.addEventListener('install',event=>event.waitUntil(offline.install()));

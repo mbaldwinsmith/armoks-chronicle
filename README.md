@@ -202,3 +202,5 @@ Open **On This Device · Installation and Storage** and wait for **Offline Copy 
 The atlas now has a historical year slider, source-linked comparative charts/tables, explicit region/construction tile overlays and battle map dossiers. Choose **Rotatable Terrain (WebGL)** for optional native 3D rotation/tilt on maps up to 129 × 129 tiles, with translucent oceans, depth-aware picking and flat-map fallback. Statistics remain available without terrain. Dates filter recorded history; terrain, footprints and current affiliations remain snapshots. See [counting rules, source evidence, controls and bounds](docs/maps-statistics-webgl.md).
 
 The atlas opens above statistics, attempts WebGL by default within its supported size, and starts with rivers off. Heatmaps have been removed. Saved population reports remain available in Population and World Reports. See [map layout and current controls](docs/map-first-atlas.md).
+
+Map faction colours default to **Civilisation / Entity**, grouping sites with the same recorded civilisation into one legend entry. **Local Site Owner** remains available under Settlement and Conflict Filters.
