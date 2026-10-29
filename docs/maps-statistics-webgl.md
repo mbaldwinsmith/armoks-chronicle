@@ -42,4 +42,12 @@ Combined map overlays draw up to 30,000 tile cells, prioritising heat; source li
 
 Run the focused checks with `node --test tests/atlas-analysis.test.mjs tests/terrain-mesh.test.mjs tests/terrain.test.mjs tests/warfare.test.mjs tests/offline.test.mjs`. The 39 checks cover source coordinates, ambiguous places, date filters, overlapping comparisons, event heat counts, source snapshots, exposed geometry, ocean/lake distinction, camera maths, a 129-square geometry stress case, existing casualty rules and the new offline inventory. The authored `atlas-*` fixtures contain no supplied world data. `tests/maps.html` adds real worker, source-return, battle dossier, GPU picking/orbit and context-loss fallback checks using one removable fictional archive.
 
-Live verification will be recorded after publication.
+## Live verification — 29 October 2026
+
+Published runtime `44e7b86` uses app cohort `0.35.0` and offline inventory `0.35.0-1de358438b218f4d` (92 pinned files). The focused browser runner was refreshed independently in `e170baf`.
+
+The live authored-fixture run passed real XML/CSV import and atlas workers, 12-event totals, exact-year filtering (three events in year 10), heat controls, explicit/unsupported footprint handling, overlapping organisation comparisons and drill-down, source-record return state, 390px reflow, lazy battle participants and separate named/squad casualties, unavailable-WebGL fallback, and isolation of existing archives. The current 39 focused Node checks pass. Runtime source files also pass syntax checks. The broader suite was not rerun for this bounded pass.
+
+The cloud browser returns no WebGL context. The runner explicitly skips real GPU upload, occluded-wall picking, orbit and context-loss cases in that environment; those remain unverified on a graphics-capable browser. The app’s unsupported-graphics path was exercised and returned to the flat atlas with its year and heat settings retained. Geometry/camera mathematics and the 129-square mesh budget are covered by Node checks; they do not establish graphics-driver correctness or device frame rates.
+
+Manual checks also confirmed statistics without a terrain export (nine events, all explicitly unmapped), readable comparison labels, and the flat and Canvas-relief atlas with recorded overlays. Existing archives were retained. Only the runner’s generated fictional atlas was removed after inspection. No supplied export data was used or published.

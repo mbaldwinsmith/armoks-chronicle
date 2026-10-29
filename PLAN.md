@@ -357,7 +357,7 @@ Implemented slice: all-family name/ID search, category filter, name/year sorting
 - [ ] Provide a coordinate/site-list map fallback when CSV is absent; do not fabricate terrain.
 - [x] Draw recorded figure journeys, labelling inferred straight-line connections rather than actual travelled paths.
 - [x] Add through-year/single-year controls for explicit historical events, including recorded settlement changes; keep snapshots separate and avoid inferred continuous ownership.
-- [x] Label implemented terrain/settlement affiliations as export-time snapshots; year filters affect recorded conflict events, not reconstructed terrain or ownership.
+- [x] Label implemented terrain/settlement affiliations as export-time snapshots; year filters affect recorded events, not reconstructed terrain or ownership.
 - [ ] Add population snapshot dates and historical-reconstruction limitations when population layers are implemented.
 - [x] Add distinct-event-per-tile heatmaps with visible intensity range, unknown-location totals, source lists and bounded partial-coverage disclosure.
 - [x] Add battle markers and paged unlocated lists, retain selected-war scope, and load source-qualified participants/outcomes/named deaths/squad reports on demand.
@@ -392,12 +392,14 @@ This setting is part of v1 implementation but opt-in for users; the flat atlas r
 - [x] Preserve selected tile/site, layer, faction and conflict filters when switching between flat and Canvas relief views.
 - [ ] Preserve arbitrary camera centre/scale across flat/relief switching; current projection changes fit the map.
 - [x] Project site markers above Canvas relief terrain and retain site-selector/linked-list alternatives when markers overlap.
-- [x] Implement depth-tested terrain/markers and GPU colour/depth tile picking; qualify the authored occluded-wall case in the focused browser runner. Broader device/driver qualification remains above.
+- [x] Implement depth-tested terrain/markers and GPU colour/depth tile picking, with an authored occluded-wall case in the focused browser runner.
+- [ ] Run the real GPU occlusion, orbit and context-loss cases on a WebGL-capable browser; the cloud browser reports WebGL unavailable. Broader device/driver qualification remains above.
 - [x] Project political settlement colours and scoped conflict-event overlays at Canvas relief terrain height using shared source labels.
 - [x] Add recorded journey lines with the same evidence limits in both projections.
 - [x] Label terrain/footprints/current affiliations as snapshots; year controls affect dated events and battle spans.
 - [ ] Disable relief with a useful explanation when elevation data or graphics support is unavailable; retain the accessible location list and flat atlas.
 - [x] Explain graphics setup/context-loss failures and return to the flat atlas with historical filters and selection retained.
+- [x] Verify unavailable-WebGL fallback, year/heat state, source-return links, 390px reflow, battle dossiers and archive isolation in the live fictional-fixture runner; see `docs/maps-statistics-webgl.md`. Actual GPU/context-loss execution remains open above.
 - [x] Bound Canvas relief to 257 × 257 tiles, cache scene rendering, redraw on interaction and release canvases/listeners when leaving the atlas.
 - [x] Bound native WebGL terrain, overlay/marker and framebuffer work; suspend hidden-tab paints and dispose GPU resources on exit.
 - [ ] Qualify adaptive detail beyond the initial 129-square WebGL budget on reference hardware.
