@@ -1,1 +1,1 @@
-const width=document.querySelector('#width'),frame=document.querySelector('iframe');width.onchange=()=>{frame.style.width=width.value+'px';};
+const width=document.querySelector('#width'),frame=document.querySelector('iframe'),text=document.querySelector('#text-size');width.onchange=()=>{frame.style.width=width.value+'px';};const resizeText=()=>{frame.contentDocument.documentElement.style.fontSize=text.value+'%';};text.onchange=resizeText;frame.addEventListener('load',resizeText);

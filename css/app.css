@@ -227,3 +227,5 @@ button,input,select,textarea{font:inherit}button,.button,summary{min-height:44px
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 @media(forced-colors:active){:focus-visible{outline:3px solid Highlight}.button,.quiet,summary{border:1px solid ButtonText}.artifact-glyph,.faith-glyph,.intrigue-glyph,.structure-glyph{stroke:CanvasText}.faction-swatch,.biome-swatch{forced-color-adjust:none}.report-highlight{outline:2px solid Highlight}}
 input:not([type=range]),select,textarea,.quiet{border-color:var(--muted)}.beast-aside{opacity:1}label:has(>input[type=checkbox]),label:has(>input[type=radio]){display:inline-flex;align-items:center;gap:.5rem}
+/* Long action labels must also reflow when the root text size is enlarged. */
+button{overflow-wrap:anywhere;min-width:44px}
