@@ -1,3 +1,4 @@
+import {trackTransaction} from '../offline/activity.js?v=0.34.0';
 export const BACKUP_LIMIT=5*1024*1024;
 export function parseTags(text){return [...new Set(String(text).split(',').map(tag=>tag.trim()).filter(Boolean))].slice(0,20).map(tag=>tag.slice(0,40));}
 export function validateEntry(value){
@@ -10,7 +11,7 @@ export function parseBackup(text){if(new TextEncoder().encode(text).length>BACKU
 }
 export function makeBackup(world,entries){return JSON.stringify({format:'armoks-chronicle-research',version:1,exportedAt:new Date().toISOString(),world:{id:world.id,name:world.name},entries:entries.map(validateEntry)},null,2);}
 const result=request=>new Promise((resolve,reject)=>{request.onsuccess=()=>resolve(request.result);request.onerror=()=>reject(request.error);});
-const done=tx=>new Promise((resolve,reject)=>{tx.oncomplete=resolve;tx.onabort=()=>reject(tx.error||Error('Research save cancelled.'));tx.onerror=()=>{};});
+const done=tx=>(trackTransaction(tx),new Promise((resolve,reject)=>{tx.oncomplete=resolve;tx.onabort=()=>reject(tx.error||Error('Research save cancelled.'));tx.onerror=()=>{};}));
 export const getResearch=(db,world,kind,id)=>result(db.transaction('annotations').objectStore('annotations').get([world,kind,id]));
 export const listResearch=db=>result(db.transaction('annotations').objectStore('annotations').getAll());
 export async function saveResearch(db,world,entry,expectedRevision){const clean=validateEntry(entry),tx=db.transaction('annotations','readwrite'),finished=done(tx),store=tx.objectStore('annotations');let saved,conflict=false;

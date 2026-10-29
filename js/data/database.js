@@ -1,5 +1,6 @@
-import {clearTrail} from './trail.js?v=0.33.0';
-import { mergeData, displayName } from './records.js?v=0.33.0';
+import {trackTransaction} from '../offline/activity.js?v=0.34.0';
+import {clearTrail} from './trail.js?v=0.34.0';
+import { mergeData, displayName } from './records.js?v=0.34.0';
 const NAME = 'armoks-chronicle';
 export function openDatabase() {
   return new Promise((resolve, reject) => {
@@ -24,7 +25,7 @@ export function openDatabase() {
     request.onsuccess = () => { const db=request.result;if(blocked){db.close();return;} db.onversionchange=()=>db.close(); resolve(db); };
   });
 }
-function finished(tx) { return new Promise((resolve,reject)=>{tx.oncomplete=resolve;tx.onabort=()=>reject(tx.error || Error('Storage transaction cancelled.'));tx.onerror=()=>{};}); }
+function finished(tx) { trackTransaction(tx);return new Promise((resolve,reject)=>{tx.oncomplete=resolve;tx.onabort=()=>reject(tx.error || Error('Storage transaction cancelled.'));tx.onerror=()=>{};}); }
 export async function saveWorld(db, world) { const tx=db.transaction('worlds','readwrite');tx.objectStore('worlds').put(world);await finished(tx); }
 export async function saveFile(db, worldId, file) { const tx=db.transaction('files','readwrite');tx.objectStore('files').put({worldId,name:file.name,file});await finished(tx); }
 export function getWorld(db,id) { return new Promise((resolve,reject)=>{const req=db.transaction('worlds').objectStore('worlds').get(id);req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error);}); }

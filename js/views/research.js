@@ -1,20 +1,21 @@
-import {titleCase,eventLabel} from '../data/language.js?v=0.33.0';
-import {openDatabase,listWorlds,getRecord} from '../data/database.js?v=0.33.0';
-import {getResearch,listResearch,saveResearch,restoreResearch,makeBackup,parseBackup,parseTags,BACKUP_LIMIT} from '../data/research.js?v=0.33.0';
-import {recordURL} from '../data/exploration.js?v=0.33.0';
+import {setActivity} from '../offline/activity.js?v=0.34.0';
+import {titleCase,eventLabel} from '../data/language.js?v=0.34.0';
+import {openDatabase,listWorlds,getRecord} from '../data/database.js?v=0.34.0';
+import {getResearch,listResearch,saveResearch,restoreResearch,makeBackup,parseBackup,parseTags,BACKUP_LIMIT} from '../data/research.js?v=0.34.0';
+import {recordURL} from '../data/exploration.js?v=0.34.0';
 const worldLabel=world=>`${titleCase(world.name)} · ${world.id.slice(0,8)}${world.importedAt?' · imported '+new Date(world.importedAt).toLocaleDateString():''}`;
 const el=(tag,text,cls)=>{const node=document.createElement(tag);if(text!==undefined)node.textContent=text;if(cls)node.className=cls;return node;};
 let dirty=false,returnHash='',generation=0;
-export function setResearchDirty(value,hash=location.hash){dirty=value;if(value)returnHash=hash;}
-export function allowResearchNavigation(){if(!dirty)return true;if(confirm('Leave without saving your research or chronicle changes?')){dirty=false;return true;}history.replaceState(null,'',returnHash);return false;}
+export function setResearchDirty(value,hash=location.hash){dirty=value;setActivity('Unsaved Research or Chronicle',value);if(value)returnHash=hash;}
+export function allowResearchNavigation(){if(!dirty)return true;if(confirm('Leave without saving your research or chronicle changes?')){setResearchDirty(false);return true;}history.replaceState(null,'',returnHash);return false;}
 window.addEventListener('beforeunload',event=>{if(dirty){event.preventDefault();event.returnValue='';}});
 export function cancelResearchView(){generation++;}
 async function withDB(fn){const db=await openDatabase();try{return await fn(db);}finally{db.close();}}
 export async function researchEditor(world,record){
  const editorTicket=generation;let saved=await withDB(db=>getResearch(db,world.id,record.kind,record.id));const details=el('details',undefined,'guide-card research-editor');details.append(el('summary','Your research'+(saved?.bookmarked?' · Bookmarked':'')));details.open=!!saved?.note;
  details.append(el('p','Personal notes and tags are saved in this browser. Export a research backup to keep a separate copy.','muted'));const form=el('form'),bookmark=el('input'),label=el('label','Bookmark this record '),noteLabel=el('label','Your note'),note=el('textarea'),tagLabel=el('label','Tags (comma separated)'),tags=el('input'),button=el('button','Save research','button primary'),status=el('p');bookmark.type='checkbox';bookmark.checked=!!saved?.bookmarked;label.prepend(bookmark);note.id='research-note';noteLabel.htmlFor=note.id;note.maxLength=20000;note.rows=5;note.value=saved?.note||'';tags.id='research-tags';tagLabel.htmlFor=tags.id;tags.value=saved?.tags.join(', ')||'';tags.maxLength=820;button.type='submit';status.setAttribute('role','status');form.append(label,noteLabel,note,tagLabel,tags,button,status);details.append(form);
- const changed=()=>{if(editorTicket!==generation)return;dirty=true;returnHash=location.hash;status.textContent='Unsaved research changes.';};note.oninput=tags.oninput=bookmark.onchange=changed;
- form.onsubmit=async event=>{event.preventDefault();button.disabled=true;try{saved=await withDB(db=>saveResearch(db,world,{kind:record.kind,id:record.id,label:record.label,note:note.value,bookmarked:bookmark.checked,tags:parseTags(tags.value)},saved?.updatedAt||0));if(editorTicket===generation)dirty=false;tags.value=saved.tags.join(', ');details.querySelector('summary').textContent='Your research'+(saved.bookmarked?' · Bookmarked':'');status.textContent='Research saved on this device.';}catch(error){status.textContent=error.message;}finally{button.disabled=false;}};
+ const changed=()=>{if(editorTicket!==generation)return;setResearchDirty(true);status.textContent='Unsaved research changes.';};note.oninput=tags.oninput=bookmark.onchange=changed;
+ form.onsubmit=async event=>{event.preventDefault();button.disabled=true;try{saved=await withDB(db=>saveResearch(db,world,{kind:record.kind,id:record.id,label:record.label,note:note.value,bookmarked:bookmark.checked,tags:parseTags(tags.value)},saved?.updatedAt||0));if(editorTicket===generation)setResearchDirty(false);tags.value=saved.tags.join(', ');details.querySelector('summary').textContent='Your research'+(saved.bookmarked?' · Bookmarked':'');status.textContent='Research saved on this device.';}catch(error){status.textContent=error.message;}finally{button.disabled=false;}};
  return details;
 }
 function download(text,name){const url=URL.createObjectURL(new Blob([text],{type:'application/json'})),a=el('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}

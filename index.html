@@ -6,9 +6,11 @@
   <meta name="theme-color" content="#171c1d">
   <meta name="description" content="Armok’s Chronicle: a local-first explorer for the histories of Dwarf Fortress worlds.">
   <title>Armok’s Chronicle</title>
+  <link rel="manifest" href="./app.webmanifest">
+  <link rel="apple-touch-icon" href="./assets/icon-192.png">
   <link rel="icon" href="./assets/mark.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="./css/app.css?v=0.33.1">
-  <script type="module" src="./js/app.js?v=0.33.0"></script>
+  <link rel="stylesheet" href="./css/app.css?v=0.34.0">
+  <script type="module" src="./js/app.js?v=0.34.0"></script>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -32,6 +34,8 @@
   </aside>
   <main id="main" tabindex="-1">
     <noscript><p class="notice">JavaScript is needed to read local exports and explore worlds. Enable it, then reload this page.</p></noscript>
+    <aside id="app-update" class="app-update" aria-labelledby="app-update-title" hidden><h2 id="app-update-title">Update Available</h2><p id="app-update-note" role="status"></p><button id="app-update-now" class="quiet" type="button">Update and Reload</button></aside>
+    <details id="device-tools" class="device-tools"><summary><span id="connection-status">On This Device</span> <span class="muted">· Installation and Storage</span></summary><p id="offline-status" role="status">Checking offline support…</p><div class="device-actions"><button id="offline-prepare" class="quiet" type="button">Prepare Offline Copy</button><button id="app-check-update" class="quiet" type="button">Check for App Updates</button><button id="app-install" class="quiet" type="button" hidden>Install Armok’s Chronicle</button></div><p id="install-help">Where supported, use your browser’s Install or Add to Home Screen command. Installation is optional; offline preparation needs an initial connection.</p><p id="device-storage-status" role="status"></p><div class="device-actions"><button id="storage-persist" class="quiet" type="button">Request Persistent Storage</button><button id="storage-refresh" class="quiet" type="button">Refresh Storage Information</button><a class="button quiet" href="#/research">Research Backups</a><a class="button quiet" href="#/chronicles">Chronicle Backups</a></div><p class="muted">Worlds and notes belong to this device and browser. Clearing site data removes them. Offline preparation saves app files; it does not back up your archives or upload your exports.</p></details>
     <p id="capabilities" class="notice" hidden></p>
     <section id="view-library" aria-labelledby="library-title">
       <div class="eyebrow">HISTORIES WAITING TO BE UNEARTHED</div>

@@ -518,16 +518,18 @@ Implemented slice: directed source-record networks with family/social/rivalry/af
 
 ## 18 — Offline use and application updates
 
-- [ ] Add a web manifest with name, icons, theme, start URL, and scope appropriate to the project subpath.
-- [ ] Add a service worker scoped to this app, caching local shell assets and vendor files.
-- [ ] Keep imported worlds in IndexedDB rather than the service-worker asset cache.
+- [x] Add a project-relative manifest, standalone display and 192/512-pixel icons, plus progressive installation UI.
+- [x] Add a project-scoped worker and committed integrity-checked inventory for the shell, lazy views, workers, vendor parser, icons and tiny authored example.
+- [x] Keep archives, maps, reports and personal research in IndexedDB v3; cache only explicit shipped assets.
 - [ ] Confirm offline reload, navigation, search, maps, and saved research after initial installation/import.
-- [ ] Implement explicit asset-cache versioning and old-cache cleanup within this app’s scope only.
-- [ ] Provide an update-available prompt and avoid reloading during imports or unsaved edits.
-- [ ] Handle missing cache assets and first-visit-offline errors usefully.
-- [ ] Verify installation where supported and normal browser use where installation is unavailable.
-- [ ] Document that offline data is device/browser-specific and may be evicted; offer backups and storage status.
-- [ ] Test coexistence with other Pages apps on the same origin without broad cache deletion or worker scope interference.
+- [x] Version the offline inventory and clean only this project’s cache namespace; retain a previous complete release for older module requests.
+- [x] Provide explicit update/reload UI with import, draft and pending-write guards, sole-window activation checks and no unsolicited reload.
+- [x] Provide verified cache repair, a missing-shell recovery page and useful missing-module errors; explain that a never-prepared first visit needs a connection.
+- [x] Supply manifest/icons and progressive install controls while retaining normal browser use.
+- [ ] Qualify native installation prompts and home-screen launching on reference desktop/iOS/Android devices.
+- [x] Explain browser/device-local data and eviction, report approximate origin storage and persistence outcomes, and link research/chronicle backups; see `docs/offline-and-updates.md`.
+- [x] Test GET/path/origin boundaries and foreign-cache preservation with a project-specific registration/cache namespace.
+- [ ] Qualify live coexistence with separately installed sibling Pages apps across reference browsers.
 
 ## 19 — Accessibility, privacy, and resilience
 

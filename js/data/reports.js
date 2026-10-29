@@ -1,6 +1,6 @@
-import {decodeCP437} from '../import/encoding.js?v=0.33.0';
-import {recordKey} from './exploration.js?v=0.33.0';
-import {titleCase,clippedLabel} from './language.js?v=0.33.0';
+import {decodeCP437} from '../import/encoding.js?v=0.34.0';
+import {recordKey} from './exploration.js?v=0.34.0';
+import {titleCase,clippedLabel} from './language.js?v=0.34.0';
 export const reportLimits={files:4,bytes:16*1024*1024,totalBytes:32*1024*1024,chars:8000000,lines:200000,lineLength:8192,sections:5000,rows:50000,sectionRows:256,records:100000,page:12,linePage:100,context:12};
 const exact=v=>typeof v==='string'?v.normalize('NFC').trim().replace(/\s+/g,' ').toLocaleLowerCase('en'):'';
 const id=v=>typeof v==='string'&&/^\d{1,128}$/.test(v)?v:null;

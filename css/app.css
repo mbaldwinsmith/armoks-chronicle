@@ -229,3 +229,6 @@ button,input,select,textarea{font:inherit}button,.button,summary{min-height:44px
 input:not([type=range]),select,textarea,.quiet{border-color:var(--muted)}.beast-aside{opacity:1}label:has(>input[type=checkbox]),label:has(>input[type=radio]){display:inline-flex;align-items:center;gap:.5rem}
 /* Long action labels must also reflow when the root text size is enlarged. */
 button{overflow-wrap:anywhere;min-width:44px}
+
+/* Device tools stay compact until requested; update notices never steal focus. */
+.device-tools{border-bottom:1px solid var(--line);padding-bottom:.7rem;margin-bottom:1.5rem;font-size:.9rem}.device-tools>summary{color:var(--accent);cursor:pointer}.device-tools .muted{display:inline;font-size:.8rem}.device-tools>p{max-width:70ch}.device-actions{display:flex;flex-wrap:wrap;gap:.6rem;margin:1rem 0}.device-actions .button{padding:8px 14px;font-size:inherit;gap:0}.app-update{padding:1rem 1.2rem;margin-bottom:1rem;border:1px solid var(--accent);background:var(--panel)}.app-update h2{font-size:1.4rem;margin-bottom:.5rem}@media(max-width:420px){.device-actions>*{flex:1 1 100%}.device-tools summary .muted{display:block}}

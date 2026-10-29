@@ -1,4 +1,5 @@
-import {recordKey,recordURL} from './exploration.js?v=0.33.0';
+import {trackTransaction} from '../offline/activity.js?v=0.34.0';
+import {recordKey,recordURL} from './exploration.js?v=0.34.0';
 export const chronicleLimits={entries:100,perWorld:100,backup:5*1024*1024};
 const text=(v,n)=>typeof v==='string'&&v.length<=n;
 const worldId=v=>text(v,150)&&v.trim()!=='';
@@ -14,7 +15,7 @@ export function validateChronicle(v){
 export function appendEntries(draft,entries){const clean=validateChronicle(draft),seen=new Set(clean.entries.map(r=>recordKey(r.kind,r.id)));let added=0;for(const value of entries){const entry=chronicleEntry(value),key=recordKey(entry.kind,entry.id);if(seen.has(key))continue;if(clean.entries.length>=chronicleLimits.entries)throw Error('A chronicle can hold at most 100 records. Your existing draft is unchanged.');seen.add(key);clean.entries.push(entry);added++;}return {draft:clean,added};}
 export function moveEntry(entries,index,direction){const next=index+direction;if(!Number.isInteger(index)||![-1,1].includes(direction)||index<0||index>=entries.length||next<0||next>=entries.length)return entries.map(r=>({...r}));const result=entries.map(r=>({...r}));[result[index],result[next]]=[result[next],result[index]];return result;}
 const request=req=>new Promise((resolve,reject)=>{req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error);});
-const finished=tx=>new Promise((resolve,reject)=>{tx.oncomplete=resolve;tx.onabort=()=>reject(tx.error||Error('Chronicle save cancelled.'));tx.onerror=()=>{};});
+const finished=tx=>(trackTransaction(tx),new Promise((resolve,reject)=>{tx.oncomplete=resolve;tx.onabort=()=>reject(tx.error||Error('Chronicle save cancelled.'));tx.onerror=()=>{};}));
 export const getChronicle=(db,id)=>request(db.transaction('chronicles').objectStore('chronicles').get(id));
 export const listChronicles=(db,world)=>{const store=db.transaction('chronicles').objectStore('chronicles');return request(world?store.index('world').getAll(world):store.getAll());};
 export async function saveChronicle(db,draft,expectedRevision=0){const clean=validateChronicle(draft),tx=db.transaction('chronicles','readwrite'),done=finished(tx),store=tx.objectStore('chronicles');let saved,problem;

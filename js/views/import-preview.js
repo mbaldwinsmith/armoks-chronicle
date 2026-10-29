@@ -1,5 +1,6 @@
-import { validateFiles } from '../import/manifest.js?v=0.33.0';
-import { openDatabase, deleteWorld } from '../data/database.js?v=0.33.0';
+import {setActivity} from '../offline/activity.js?v=0.34.0';
+import { validateFiles } from '../import/manifest.js?v=0.34.0';
+import { openDatabase, deleteWorld } from '../data/database.js?v=0.34.0';
 export function setupImportPreview() {
   const input = document.querySelector('#export-files');
   const zone = document.querySelector('#drop-zone');
@@ -13,14 +14,14 @@ export function setupImportPreview() {
     start.disabled=busy || !!error;
     manifestStatus.textContent=error || 'Matching filenames found. Import will validate the XML and save the companion files with this archive.';
   }
-  function setBusy(value){busy=value;document.querySelector('#load-example').disabled=value;input.disabled=value;clear.disabled=value || !selectedFiles.length;cancel.hidden=!value;progress.hidden=!value;manifest();}
+  function setBusy(value){busy=value;setActivity('Import in Progress',value);document.querySelector('#load-example').disabled=value;input.disabled=value;clear.disabled=value || !selectedFiles.length;cancel.hidden=!value;progress.hidden=!value;manifest();}
   start.addEventListener('click',()=>{
     if(busy || validateFiles(selectedFiles))return;
     stop();
     status.textContent='Selected files ready for import.';
     const worldId=crypto.randomUUID();
     try {
-      importWorker=new Worker(new URL('../import/import-worker.js?v=0.33.0',import.meta.url),{type:'module'});
+      importWorker=new Worker(new URL('../import/import-worker.js?v=0.34.0',import.meta.url),{type:'module'});
       setBusy(true);progress.removeAttribute('value');importStatus.textContent='Starting local import…';
       const cleanup=async message=>{importWorker?.terminate();importWorker=null;let db;try{db=await openDatabase();await deleteWorld(db,worldId);importStatus.textContent=message;}catch(error){importStatus.textContent=message+' Cleanup failed: '+error.message+' Use unfinished-import recovery on your next visit.';}finally{db?.close();setBusy(false);}};
       cancel.onclick=()=>void cleanup('Import cancelled. Existing worlds were not changed.');
@@ -44,7 +45,7 @@ export function setupImportPreview() {
     clear.disabled = false;
     status.textContent = `Checking ${files.length} file headers…`;
     try {
-      worker = new Worker(new URL('../import/preview-worker.js?v=0.33.0', import.meta.url), { type: 'module' });
+      worker = new Worker(new URL('../import/preview-worker.js?v=0.34.0', import.meta.url), { type: 'module' });
       worker.addEventListener('message', ({ data }) => {
         if (data.requestId !== requestId) return;
         if (data.type === 'complete') {

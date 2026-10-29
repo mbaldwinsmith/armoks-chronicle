@@ -192,3 +192,7 @@ Open **Population and World Reports** from the Desk to read saved population and
 ### Mobile Reading and Performance
 
 The app adapts to narrow screens with larger controls, wrapping text and tables, keyboard map alternatives and reduced-motion support. Atlas drawing is scheduled once per frame, and specialist explorers load when opened. See the [audit, reproducible checks and device limits](docs/mobile-accessibility-performance.md). Developers can use `tests/mobile.html` for a narrow-viewport preview and `tests/browser.html` for the regression suite.
+
+### Offline Use and Installation
+
+Open **On This Device · Installation and Storage** and wait for **Offline Copy Ready**. Imported worlds, maps, saved reports, research and chronicles can then be read locally without a connection. Install through the browser where supported. Updates wait for saved edits, completed imports and closed extra Chronicle tabs. The same panel shows storage information, an optional persistent-storage request and backup links. Keep original exports and separate research/chronicle backups; offline preparation is not a data backup. See [setup, safe updates, recovery and maintenance](docs/offline-and-updates.md).
