@@ -41,3 +41,5 @@ For a normal Cabinet import with terrain, reuse `example-world_map.csv` as `arti
 The three `reports-00042-03-07-*` files are independently authored fictional census fixtures under the same MIT licence. They cover matching IDs/names, conflicting names, duplicate site sections and group labels, missing IDs, ambiguous organisation names, owner disagreement, Unnumbered groups, separate world/wildlife scopes, filename date clues, literal markup and world-history placeholder dates. They contain no supplied-world content.
 
 `atlas-legends.xml` and `atlas-world_map.csv` are independently authored fixtures derived from this repository’s fictional warfare example. They add explicit valid/invalid region and construction footprints, negative and unknown dates, founding/destruction/government events, recorded figure races and two construction endpoints. They contain no supplied-world data.
+
+`atlas-world_sites_and_pops.txt` is an authored fictional population report matching the atlas fixture: 100 at Copperhall and 70 at Ash Ford, including ten dogs. It is used only for demographic map checks.

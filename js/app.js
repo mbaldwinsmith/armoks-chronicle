@@ -1,29 +1,29 @@
-import {setupOffline} from './offline/client.js?v=0.35.0';
-import {renderResearch,cancelResearchView,allowResearchNavigation} from './views/research.js?v=0.35.0';
-import {stopExplorer} from './data/explorer-client.js?v=0.35.0';
-import { startRouter } from './router.js?v=0.35.0';
-import { state, readTheme, setTheme } from './state.js?v=0.35.0';
-import { setupImportPreview } from './views/import-preview.js?v=0.35.0';
-import { renderBookshelf, renderWorld, renderRecovery, cancelWorldView } from './views/worlds.js?v=0.35.0';
+import {setupOffline} from './offline/client.js?v=0.36.0';
+import {renderResearch,cancelResearchView,allowResearchNavigation} from './views/research.js?v=0.36.0';
+import {stopExplorer} from './data/explorer-client.js?v=0.36.0';
+import { startRouter } from './router.js?v=0.36.0';
+import { state, readTheme, setTheme } from './state.js?v=0.36.0';
+import { setupImportPreview } from './views/import-preview.js?v=0.36.0';
+import { renderBookshelf, renderWorld, renderRecovery, cancelWorldView } from './views/worlds.js?v=0.36.0';
 // Native imports keep specialist code off the bookshelf's initial dependency graph.
 const loadedViews=new Map();let routeGeneration=0;
 const views={
- reports:[()=>import('./views/reports.js?v=0.35.0'),'renderReports','cancelReports'],
- structures:[()=>import('./views/structures.js?v=0.35.0'),'renderStructures','cancelStructures'],
- intrigue:[()=>import('./views/intrigue.js?v=0.35.0'),'renderIntrigue','cancelIntrigue'],
- religion:[()=>import('./views/religion.js?v=0.35.0'),'renderReligion','cancelReligion'],
- bestiary:[()=>import('./views/bestiary.js?v=0.35.0'),'renderBestiary','cancelBestiary'],
- artifacts:[()=>import('./views/artifacts.js?v=0.35.0'),'renderArtifacts','cancelArtifacts'],
- chronicles:[()=>import('./views/chronicles.js?v=0.35.0'),'renderChronicles','cancelChronicles'],
- chronicle:[()=>import('./views/chronicles.js?v=0.35.0'),'renderChronicle','cancelChronicles'],
- grudges:[()=>import('./views/grudges.js?v=0.35.0'),'renderGrudges','cancelGrudges'],
- desk:[()=>import('./views/desk.js?v=0.35.0'),'renderDesk','cancelDesk'],
- faction:[()=>import('./views/faction-warfare.js?v=0.35.0'),'renderFactionWarfare','cancelFactionWarfare'],
- warfare:[()=>import('./views/warfare.js?v=0.35.0'),'renderWarfare','cancelWarfare'],
- book:[()=>import('./views/book-of-records.js?v=0.35.0'),'renderRecordBook','cancelRecordBook'],
- atlas:[()=>import('./views/atlas.js?v=0.35.0'),'renderAtlas','stopAtlas'],
- record:[()=>import('./views/explore.js?v=0.35.0'),'renderRecord','cancelExploration'],
- world:[()=>import('./views/explore.js?v=0.35.0'),null,'cancelExploration']
+ reports:[()=>import('./views/reports.js?v=0.36.0'),'renderReports','cancelReports'],
+ structures:[()=>import('./views/structures.js?v=0.36.0'),'renderStructures','cancelStructures'],
+ intrigue:[()=>import('./views/intrigue.js?v=0.36.0'),'renderIntrigue','cancelIntrigue'],
+ religion:[()=>import('./views/religion.js?v=0.36.0'),'renderReligion','cancelReligion'],
+ bestiary:[()=>import('./views/bestiary.js?v=0.36.0'),'renderBestiary','cancelBestiary'],
+ artifacts:[()=>import('./views/artifacts.js?v=0.36.0'),'renderArtifacts','cancelArtifacts'],
+ chronicles:[()=>import('./views/chronicles.js?v=0.36.0'),'renderChronicles','cancelChronicles'],
+ chronicle:[()=>import('./views/chronicles.js?v=0.36.0'),'renderChronicle','cancelChronicles'],
+ grudges:[()=>import('./views/grudges.js?v=0.36.0'),'renderGrudges','cancelGrudges'],
+ desk:[()=>import('./views/desk.js?v=0.36.0'),'renderDesk','cancelDesk'],
+ faction:[()=>import('./views/faction-warfare.js?v=0.36.0'),'renderFactionWarfare','cancelFactionWarfare'],
+ warfare:[()=>import('./views/warfare.js?v=0.36.0'),'renderWarfare','cancelWarfare'],
+ book:[()=>import('./views/book-of-records.js?v=0.36.0'),'renderRecordBook','cancelRecordBook'],
+ atlas:[()=>import('./views/atlas.js?v=0.36.0'),'renderAtlas','stopAtlas'],
+ record:[()=>import('./views/explore.js?v=0.36.0'),'renderRecord','cancelExploration'],
+ world:[()=>import('./views/explore.js?v=0.36.0'),null,'cancelExploration']
 };
 const toggle = document.querySelector('#theme-toggle');
 function applyTheme(theme) {

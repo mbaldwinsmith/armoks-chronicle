@@ -679,3 +679,13 @@ These ideas must not delay the feature-complete static app above.
 - Full-resolution fortress/block-level 3D reconstruction, unbounded volumetric worlds, or unbounded global relationship graphs; the bounded optional regional Raised Relief atlas is included in v1.
 - A build pipeline, framework migration, or server solely for convenience.
 
+
+### Map-first layout and demographic heatmaps
+
+- [x] Put the map and heat controls above statistics; keep secondary map controls and counting rules in disclosures.
+- [x] Default supported maps to WebGL with an explained flat-map fallback; disable river overlays by default.
+- [x] Share total site population, report species/group, distinct named death victim, attack, wound and recorded-event heatmaps across all three renderers.
+- [x] Reuse population report ID/name/prefix/encoding verification, one-report selection and existing work limits; omit unknown/ambiguous counts.
+- [x] Preserve selected heat metric, report, group and visibility in atlas/source-return URLs.
+- [x] Keep population snapshots independent of historical event filters and disclose animal groups, missing counts and casualty exclusions.
+- [ ] Complete live map-first/population/death heatmap browser validation for this release.

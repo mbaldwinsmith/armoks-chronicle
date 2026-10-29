@@ -1,8 +1,8 @@
-import {mapConnections} from '../data/conflicts.js?v=0.35.0';
-import {buildTerrainMesh,overlayMesh,cameraMatrix,projectMesh,terrainHeight,colourRGB} from '../data/terrain-mesh.js?v=0.35.0';
-import {oceanSurface} from '../data/terrain.js?v=0.35.0';
-import {frameTask} from '../ui/schedule.js?v=0.35.0';
-import {mapPointers} from '../ui/map-pointers.js?v=0.35.0';
+import {mapConnections} from '../data/conflicts.js?v=0.36.0';
+import {buildTerrainMesh,overlayMesh,cameraMatrix,projectMesh,terrainHeight,colourRGB} from '../data/terrain-mesh.js?v=0.36.0';
+import {oceanSurface} from '../data/terrain.js?v=0.36.0';
+import {frameTask} from '../ui/schedule.js?v=0.36.0';
+import {mapPointers} from '../ui/map-pointers.js?v=0.36.0';
 export function createTerrainRenderer(canvas,terrain,{camera={},onCamera=()=>{},onSelect=()=>{},onFailure=()=>{}}={}){
  const gl=canvas.getContext('webgl',{alpha:false,antialias:true,powerPreference:'low-power',preserveDrawingBuffer:false});if(!gl)throw Error('WebGL is unavailable. The flat atlas remains available.');let disposed=false,state={},land,water,overlay,markers,networks,version=-1,overlayVersion=-1,overlayTerrainVersion=-1,cw=1,ch=1,inputMode='orbit';const contacts=new Set();const view={yaw:Number.isFinite(camera.yaw)?camera.yaw:45,pitch:Number.isFinite(camera.pitch)?camera.pitch:55,zoom:camera.zoom||1,panX:camera.panX||0,panY:camera.panY||0};
  const shaders=[];function shader(type,text){const s=gl.createShader(type);gl.shaderSource(s,text);gl.compileShader(s);if(!gl.getShaderParameter(s,gl.COMPILE_STATUS))throw Error('The graphics driver could not compile the terrain shaders.');shaders.push(s);return s;}

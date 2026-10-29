@@ -1,8 +1,8 @@
-import {explore} from '../data/explorer-client.js?v=0.35.0';
-import {religionFilters,religionParams,religionCategories} from '../data/religion.js?v=0.35.0';
-import {recordURL} from '../data/exploration.js?v=0.35.0';
-import {openDatabase,getWorld} from '../data/database.js?v=0.35.0';
-import {titleCase} from '../data/language.js?v=0.35.0';
+import {explore} from '../data/explorer-client.js?v=0.36.0';
+import {religionFilters,religionParams,religionCategories} from '../data/religion.js?v=0.36.0';
+import {recordURL} from '../data/exploration.js?v=0.36.0';
+import {openDatabase,getWorld} from '../data/database.js?v=0.36.0';
+import {titleCase} from '../data/language.js?v=0.36.0';
 const el=(tag,text,cls)=>{const n=document.createElement(tag);if(text!==undefined)n.textContent=text;if(cls)n.className=cls;return n;};
 const libraryURL=(world,q=new URLSearchParams())=>`#/world/${encodeURIComponent(world)}/religion${q.size?'?'+q:''}`;
 function linked(r,world,query=''){if(r.missing)return el('span',r.label,'muted');const a=el('a',r.label);a.href=recordURL(world,r.kind,r.id,query);return a;}

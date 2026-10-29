@@ -1,0 +1,14 @@
+Civilized World Population
+	80 dwarves
+	80 humans
+
+Sites
+1: Koganur, Copperhall
+	80 dwarves
+	20 humans
+2: Ash Ford, Ashford
+	60 humans
+	10 dogs
+
+Outdoor Animal Populations (Including Undead)
+	Unnumbered ants

@@ -1,4 +1,4 @@
-import {oceanSurface} from './terrain.js?v=0.35.0';
+import {oceanSurface} from './terrain.js?v=0.36.0';
 export const meshLimits={side:129,vertices:700000};
 export function colourRGB(value){if(Array.isArray(value))return value.slice(0,3).map(v=>v/255);let m=String(value).match(/^#([\da-f]{6})$/i);if(m)return [0,2,4].map(i=>parseInt(m[1].slice(i,i+2),16)/255);m=String(value).match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);if(m)return m.slice(1).map(Number).map(n=>n/255);m=String(value).match(/^hsl\(([\d.]+) ([\d.]+)% ([\d.]+)%\)$/);if(m){const h=Number(m[1])/360,s=Number(m[2])/100,l=Number(m[3])/100,a=s*Math.min(l,1-l),f=n=>{const k=(n+h*12)%12;return l-a*Math.max(-1,Math.min(k-3,9-k,1));};return [f(0),f(8),f(4)];}return [.6,.6,.6];}
 export const terrainHeight=(elevation,terrain,exaggeration=1)=>elevation/255*Math.max(terrain.width,terrain.height)*.32*exaggeration;

@@ -1,7 +1,7 @@
-import {recordKey,normalise,eventDate} from './exploration.js?v=0.35.0';
-import {eventType,narrateEvent} from './narrative.js?v=0.35.0';
-import {figureSupernaturalFacts} from './supernatural.js?v=0.35.0';
-import {clippedLabel,readableValue} from './language.js?v=0.35.0';
+import {recordKey,normalise,eventDate} from './exploration.js?v=0.36.0';
+import {eventType,narrateEvent} from './narrative.js?v=0.36.0';
+import {figureSupernaturalFacts} from './supernatural.js?v=0.36.0';
+import {clippedLabel,readableValue} from './language.js?v=0.36.0';
 export const religionLimits={records:500000,nodes:100000,facts:150000,fields:256,sample:12,page:12};
 export const religionCategories={deities:'Recorded Deities',religions:'Religious Organisations',forces:'Unexplained Forces',other:'Other Worshipping Organisations',targets:'Unclassified Worship Targets'};
 const array=v=>v===undefined?[]:Array.isArray(v)?v:[v];
