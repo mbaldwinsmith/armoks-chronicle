@@ -699,4 +699,4 @@ These ideas must not delay the feature-complete static app above.
 - [x] Default WebGL dragging to Pan with visible Pan/Rotate choices, directional pan buttons and keyboard/touch alternatives.
 - [x] Share gesture logic with focused checks for pan/orbit, modifiers, multi-touch, cancellation and accidental selection prevention.
 - [x] Stop the hidden Canvas resize path from resetting the WebGL camera.
-- [ ] Verify the live inspector, selection/clear, tool shortcuts, narrow-screen reflow and fallback. Physical WebGL pointer qualification remains open.
+- [x] Verify the live inspector immediately below the map, terrain facts, selection/clear, tool shortcuts, narrow-screen reflow, source return, faction grouping and fallback; 35 focused checks pass. Physical WebGL pointer qualification remains open.
