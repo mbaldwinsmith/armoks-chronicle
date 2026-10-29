@@ -6,6 +6,8 @@ Status: atlas and isometric relief preview implemented; broader features in prog
 
 ## Current iteration
 
+Structures and Settlement Life: a searchable type/context/association-filtered register and source-linked building dossiers now preserve settlement-local IDs, snapshot inhabitants, explicit property owners, associated organisations, temple dedications, copied-artifact references and historical roles. Construction, replacement, destruction, modification, visits and property acquisition retain their source meanings; history-only entries, conflicting owners and snapshot-mapped acquisition uncertainty remain explicit. Settlement, figure, organisation and artifact panels link the new register. See `docs/structures-and-settlement-life.md`.
+
 Intrigue Explorer: plots, directed corruption/justice events and identity records now have separate searchable directories and source-linked dossiers. Plot/actor IDs remain local to their source figure; explicit participants, parent/delegated plots, current/used identities and named judicial roles retain their meanings. Outcome filters distinguish failed attempts, explicit relationship success, interrogations, convictions and wrongful-conviction markers without inferring plot success, guilt or executions. Figure/identity specialist panels, bounded worker indexing, safe native mask glyphs and source-return context are implemented. All 316 Node tests and the deployed 0.30.0 browser suite pass; existing archives need no migration or reimport. See `docs/intrigue-explorer.md`.
 
 Deities and Religions: the sacred annals now separate explicit deity markers, religious organisations, forces, other worshipping entities and unclassified worship targets. Spheres, named worship/membership links, direct versus group-associated temples, local structure identity, source disagreement and dated religious events have bounded worker dossiers and figure/entity/site panels. Source inspector links retain gallery return filters; membership and temple visits never imply personal worship. All 293 Node tests and the deployed 0.29.1 browser integration suite pass; existing archives need no migration or reimport. See `docs/deities-and-religions.md`.
@@ -113,7 +115,8 @@ A feature-complete v1 includes every required phase below, including specialist 
 - [ ] Define expected optional-data capabilities separately from required standard-XML capabilities.
 - [x] Add authored supernatural fixtures covering supported/unknown/possible states, overlapping evidence, role direction, merged/Plus conflicts and false positives.
 - [x] Add competing-government/source-conflict fixtures with conservative ownership-change exclusions.
-- [ ] Add dedicated-structure fixtures; verify any future recorded-absence mapping before treating it as a negative state.
+- [x] Add independently authored structure/property fixtures, including local-ID collisions, missing snapshots, disputed owners and explicit temple dedications.
+- [ ] Verify any future recorded-absence mapping before treating it as a negative state.
 - [x] Test tied ranks, copied works versus physical artifacts and nested/overlapping casualty totals with authored fixtures.
 - [x] Add completed/open/unknown/overlapping office-term fixtures and fair-comparison exclusions.
 - [x] Add authored competing-government fixtures for contested-settlement comparisons, including duplicate takeover/leader sources, same-year timing uncertainty, missing targets and conflicting supplementary fields.
@@ -178,7 +181,7 @@ A feature-complete v1 includes every required phase below, including specialist 
 - [x] Retain nested/repeated source structures and interpret supported written-work and cultural references.
 - [x] Add typed entity office definitions and snapshot assignment views with organisation-scoped IDs.
 - [x] Add typed interpretation and dedicated views for assumed identities, with source-qualified figure/persona links.
-- [ ] Add general dedicated views for site structures/properties beyond the source-qualified temple panels.
+- [x] Add general dedicated views for site structures/properties beyond the source-qualified temple panels. The Structures register, dossiers and settlement property list retain explicit owner/building mapping and source limits; see `docs/structures-and-settlement-life.md`.
 - [ ] Verify figure-level position-link and squad-leadership structures before deriving additional office terms from them.
 - [x] Parse event collections and nested child collections without recursion loops.
 - [x] Validate map CSV v3 columns, dimensions, coordinate bounds/uniqueness, field ranges and complete tile coverage in a worker.
@@ -287,7 +290,7 @@ Implemented slice: all-family name/ID search, category filter, name/year sorting
 ## 10 — Settlements, organisations, and geography records
 
 - [x] Create named site record pages with recorded type/coordinates, atlas links, source references and event histories.
-- [ ] Add dedicated site structure/property panels instead of source-inspector-only nested fields.
+- [x] Add dedicated site structure/property panels instead of source-inspector-only nested fields. Settlement pages list structures and properties, with filtered-register links and qualified snapshot roles.
 - [x] Show founding, attacks, destruction, reclamation, disputes, and other recorded site events.
 - [x] Separate recorded civilisation and current owner in atlas filters, legends and organisation actions.
 - [x] Show explicit dated previous/new local-government transitions from supported takeover/leader events, separately from export-time owners and parent civilisations.

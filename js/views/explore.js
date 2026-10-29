@@ -1,31 +1,33 @@
-import {intriguePanel,intrigueDossier} from './intrigue.js?v=0.30.0';
-import {intrigueReferences} from '../data/intrigue.js?v=0.30.0';
-import {religionPanel} from './religion.js?v=0.30.0';
-import {religionReferences} from '../data/religion.js?v=0.30.0';
-import {artifactPanel} from './artifacts.js?v=0.30.0';
-import {settlementPanel} from './settlements.js?v=0.30.0';
-import {settlementReferences} from '../data/settlements.js?v=0.30.0';
-import {officesPanel} from './offices.js?v=0.30.0';
-import {journeyPanel} from './journeys.js?v=0.30.0';
-import {supernaturalPanel,supernaturalControls,supernaturalBadges} from './supernatural.js?v=0.30.0';
-import {supernaturalFilters,hasSupernaturalFilters} from '../data/supernatural.js?v=0.30.0';
-import {chronicleCollector} from './chronicles.js?v=0.30.0';
-import {threadPanel} from './threads.js?v=0.30.0';
-import {recordVisit} from '../data/trail.js?v=0.30.0';
-import {timelineParams,timelineKeys} from '../data/timeline.js?v=0.30.0';
-import {timelineFilters,renderTimeline,timelineCount} from './timeline.js?v=0.30.0';
-import {titleCase,eventLabel,readableValue,referenceLabel} from '../data/language.js?v=0.30.0';
-import {researchEditor} from './research.js?v=0.30.0';
-import {culturePanel,associations} from './culture.js?v=0.30.0';
-import {cultureReferences,culturalKinds,cultureLabel} from '../data/culture.js?v=0.30.0';
-import {conflictRecord} from '../data/conflicts.js?v=0.30.0';
-import {sitePosition} from '../data/terrain.js?v=0.30.0';
-import {narratives,biography} from './narrative.js?v=0.30.0';
-import {openDatabase,getWorld,getRecord} from '../data/database.js?v=0.30.0';
-import {explore} from '../data/explorer-client.js?v=0.30.0';
-import {kindNames,recordURL,collectReferences,eventDate} from '../data/exploration.js?v=0.30.0';
-let generation=0,timer,disposeIntrigue,disposeReligion,disposeConnections,disposeRelationships,disposeConflict,disposeThreads,disposeSupernatural,disposeJourney,disposeOffices,disposeSettlement,disposeArtifact;
-export function cancelExploration(){generation++;disposeIntrigue?.();disposeIntrigue=null;disposeReligion?.();disposeReligion=null;disposeArtifact?.();disposeArtifact=null;disposeSettlement?.();disposeSettlement=null;disposeOffices?.();disposeOffices=null;disposeJourney?.();disposeJourney=null;disposeSupernatural?.();disposeSupernatural=null;disposeThreads?.();disposeThreads=null;clearTimeout(timer);disposeConnections?.();disposeConnections=null;disposeRelationships?.();disposeRelationships=null;disposeConflict?.();disposeConflict=null;}
+import {structuresPanel} from './structures.js?v=0.31.0';
+import {structureReferences} from '../data/structures.js?v=0.31.0';
+import {intriguePanel,intrigueDossier} from './intrigue.js?v=0.31.0';
+import {intrigueReferences} from '../data/intrigue.js?v=0.31.0';
+import {religionPanel} from './religion.js?v=0.31.0';
+import {religionReferences} from '../data/religion.js?v=0.31.0';
+import {artifactPanel} from './artifacts.js?v=0.31.0';
+import {settlementPanel} from './settlements.js?v=0.31.0';
+import {settlementReferences} from '../data/settlements.js?v=0.31.0';
+import {officesPanel} from './offices.js?v=0.31.0';
+import {journeyPanel} from './journeys.js?v=0.31.0';
+import {supernaturalPanel,supernaturalControls,supernaturalBadges} from './supernatural.js?v=0.31.0';
+import {supernaturalFilters,hasSupernaturalFilters} from '../data/supernatural.js?v=0.31.0';
+import {chronicleCollector} from './chronicles.js?v=0.31.0';
+import {threadPanel} from './threads.js?v=0.31.0';
+import {recordVisit} from '../data/trail.js?v=0.31.0';
+import {timelineParams,timelineKeys} from '../data/timeline.js?v=0.31.0';
+import {timelineFilters,renderTimeline,timelineCount} from './timeline.js?v=0.31.0';
+import {titleCase,eventLabel,readableValue,referenceLabel} from '../data/language.js?v=0.31.0';
+import {researchEditor} from './research.js?v=0.31.0';
+import {culturePanel,associations} from './culture.js?v=0.31.0';
+import {cultureReferences,culturalKinds,cultureLabel} from '../data/culture.js?v=0.31.0';
+import {conflictRecord} from '../data/conflicts.js?v=0.31.0';
+import {sitePosition} from '../data/terrain.js?v=0.31.0';
+import {narratives,biography} from './narrative.js?v=0.31.0';
+import {openDatabase,getWorld,getRecord} from '../data/database.js?v=0.31.0';
+import {explore} from '../data/explorer-client.js?v=0.31.0';
+import {kindNames,recordURL,collectReferences,eventDate} from '../data/exploration.js?v=0.31.0';
+let generation=0,timer,disposeStructures,disposeIntrigue,disposeReligion,disposeConnections,disposeRelationships,disposeConflict,disposeThreads,disposeSupernatural,disposeJourney,disposeOffices,disposeSettlement,disposeArtifact;
+export function cancelExploration(){generation++;disposeStructures?.();disposeStructures=null;disposeIntrigue?.();disposeIntrigue=null;disposeReligion?.();disposeReligion=null;disposeArtifact?.();disposeArtifact=null;disposeSettlement?.();disposeSettlement=null;disposeOffices?.();disposeOffices=null;disposeJourney?.();disposeJourney=null;disposeSupernatural?.();disposeSupernatural=null;disposeThreads?.();disposeThreads=null;clearTimeout(timer);disposeConnections?.();disposeConnections=null;disposeRelationships?.();disposeRelationships=null;disposeConflict?.();disposeConflict=null;}
 const element=(tag,text,className)=>{const el=document.createElement(tag);if(text!==undefined)el.textContent=text;if(className)el.className=className;return el;};
 function rowLink(row,world,query){const li=element('li'),a=element('a',row.label);a.href=recordURL(world,row.kind,row.id,query);li.append(a,element('span',`${kindNames[row.kind]||titleCase(row.kind.replaceAll('_',' '))} · #${row.id}${row.year!==null&&row.year!==undefined?` · Year ${row.year}`:''}`,'muted'));if(row.supernatural)li.append(supernaturalBadges(row.supernatural));return li;}
 export async function renderDirectory(id,params) {
@@ -85,13 +87,14 @@ export async function renderRecord(worldId,kind,id,params) {
   if(params.has('ledgerOrigin')){const ledgerBack=element('a','← Return to this Grudge Ledger','button quiet');const ledgerQuery=new URLSearchParams(params.get('ledgerOrigin'));ledgerBack.href=`#/world/${encodeURIComponent(worldId)}/grudges${ledgerQuery.size?'?'+ledgerQuery:''}`;body.append(ledgerBack);}
   const collector=await chronicleCollector(world,record);if(ticket!==generation)return;body.append(collector);
   const data=record.data;let specialisedConflict=false;
+  if(params.has('buildingReturn')){const incoming=new URLSearchParams(params.get('buildingReturn')),q=new URLSearchParams();for(const key of ['stQ','stType','stSite','stState','stCategory','stOffset','buildingSite','buildingId'])if(incoming.has(key))q.set(key,incoming.get(key).slice(0,240));const back=element('a','← Return to This Structure Dossier','button quiet');back.href=`#/world/${encodeURIComponent(worldId)}/structures${q.size?'?'+q:''}`;body.append(back);}
   if(params.has('intrigueReturn')){const incoming=new URLSearchParams(params.get('intrigueReturn')),q=new URLSearchParams();for(const key of ['inQ','inCategory','inOutcome','inFrom','inTo','inOffset','inKind','inId','inOwner'])if(incoming.has(key))q.set(key,incoming.get(key).slice(0,240));const back=element('a','← Return to This Intrigue Dossier','button quiet');back.href=`#/world/${encodeURIComponent(worldId)}/intrigue${q.size?'?'+q:''}`;body.append(back);}
   if(params.has('faithReturn')){const incoming=new URLSearchParams(params.get('faithReturn')),q=new URLSearchParams();for(const key of ['faithQ','faithSphere','faithCategory','faithOffset','faithKind','faithId'])if(incoming.has(key))q.set(key,incoming.get(key).slice(0,240));const back=element('a','← Return to These Sacred Annals','button quiet');back.href=`#/world/${encodeURIComponent(worldId)}/religion${q.size?'?'+q:''}`;body.append(back);}
   if(kind==='historical_events'&&/^\d{1,128}$/.test(params.get('artifactOrigin')||'')){const q=new URLSearchParams(params.get('artifactQuery')||'');q.delete('source');q.delete('artifactOrigin');q.delete('artifactQuery');const back=element('a','← Return to This Artifact Dossier','button quiet');back.href=recordURL(worldId,'artifacts',params.get('artifactOrigin'),q.size?'?'+q:'');body.append(back);}
   if(kind==='historical_events'&&/^\d{1,128}$/.test(params.get('settlementOrigin')||'')){const back=element('a','← Return to This Settlement Chronicle','button quiet'),q=new URLSearchParams(params.get('settlementQuery')||'');q.delete('source');q.delete('settlementOrigin');q.delete('settlementQuery');back.href=recordURL(worldId,'sites',params.get('settlementOrigin'),q.size?'?'+q:'');body.append(back);}
   if(kind==='historical_event_collections'){
-   const {collectionType,warfareTypes}=await import('../data/warfare.js?v=0.30.0');if(ticket!==generation)return;
-   if(warfareTypes.has(collectionType(data))){const {warfarePanel}=await import('./warfare.js?v=0.30.0');if(ticket!==generation)return;const panel=warfarePanel(record,world,params,()=>ticket===generation);disposeConflict=panel.dispose;body.append(panel.element);specialisedConflict=true;}
+   const {collectionType,warfareTypes}=await import('../data/warfare.js?v=0.31.0');if(ticket!==generation)return;
+   if(warfareTypes.has(collectionType(data))){const {warfarePanel}=await import('./warfare.js?v=0.31.0');if(ticket!==generation)return;const panel=warfarePanel(record,world,params,()=>ticket===generation);disposeConflict=panel.dispose;body.append(panel.element);specialisedConflict=true;}
   }
   if(kind==='historical_events'&&/^\d+$/.test(params.get('conflictOrigin')||'')){const origin=new URLSearchParams(params);origin.delete('conflictOrigin');origin.set('warTab','chronicle');body.append(element('p','This event belongs to the conflict history you were reading.'));const backConflict=element('a','← Return to this conflict','button quiet');backConflict.href=recordURL(worldId,'historical_event_collections',params.get('conflictOrigin'),'?'+origin);body.append(backConflict);}
 
@@ -109,7 +112,7 @@ export async function renderRecord(worldId,kind,id,params) {
   const fieldDetails=element('details',undefined,'guide-card');fieldDetails.append(element('summary','Recorded Fields'),fields);
   if(kind==='entities'||kind==='sites'||kind==='historical_figures'||kind==='historical_events'||kind==='historical_event_collections'||culturalKinds.has(kind))body.append(fieldDetails);else body.append(fields);
   if(kind==='historical_events'){const [story]=await narratives([record],worldId,suffix);if(ticket!==generation)return;const date=eventDate(data);story.prepend(element('p',date.year===null?'Year not recorded':`Year ${date.year}`,'small-label'));body.insertBefore(story,fieldDetails);}
-  const extraRefs=[...intrigueReferences(record),...religionReferences(record),...cultureReferences(record),...settlementReferences(record)];const refs=[...collectReferences({merged:data,plus:record.supplement}),...extraRefs];
+  const extraRefs=[...structureReferences(record),...intrigueReferences(record),...religionReferences(record),...cultureReferences(record),...settlementReferences(record)];const refs=[...collectReferences({merged:data,plus:record.supplement}),...extraRefs];
   const section=element('details',undefined,'guide-card'),heading=element('summary',`Linked references (${refs.length})`),links=element('ul',undefined,'reference-list');section.open=refs.length<=10;section.append(heading,element('p','Roles follow the export. The source inspector retains the original fields and IDs.','muted'),links);body.append(section);
   const raw=element('details',undefined,'guide-card'),pre=element('pre');const fillSource=()=>{if(!pre.textContent)pre.textContent=JSON.stringify({fields:data,sources:record.sources,supplementaryFields:record.supplement},null,2);};raw.append(element('summary','Source fields and provenance'),pre);raw.open=params.get('source')==='1';if(kind!=='historical_event_collections'||raw.open)fillSource();raw.ontoggle=()=>{if(raw.open)fillSource();};body.append(raw);
   const resolved=await explore(worldId,{type:'resolve',refs});if(ticket!==generation)return;
@@ -121,15 +124,16 @@ export async function renderRecord(worldId,kind,id,params) {
    body.insertBefore(biography(data,resolved,worldId,suffix),fieldDetails);
    const supernatural=supernaturalPanel(record,worldId,()=>ticket===generation,params);disposeSupernatural=supernatural.dispose;body.insertBefore(supernatural.element,fieldDetails);
    const find=element('button','Find a connection','quiet record-tool');find.type='button';body.insertBefore(find,fieldDetails);
-   find.onclick=async()=>{find.disabled=true;try{const {connectionFinder}=await import('./connections.js?v=0.30.0');if(ticket!==generation)return;const finder=connectionFinder({...record,label:cultureLabel(record)},worldId,()=>{const query=location.hash.split('?')[1]||'';return query?'?'+query:'';},()=>ticket===generation);disposeConnections=finder.dispose;find.replaceWith(finder.element);const heading=finder.element.querySelector('h2');heading.tabIndex=-1;heading.focus();}catch(error){if(ticket===generation){find.disabled=false;status.textContent=error.message;}}};
+   find.onclick=async()=>{find.disabled=true;try{const {connectionFinder}=await import('./connections.js?v=0.31.0');if(ticket!==generation)return;const finder=connectionFinder({...record,label:cultureLabel(record)},worldId,()=>{const query=location.hash.split('?')[1]||'';return query?'?'+query:'';},()=>ticket===generation);disposeConnections=finder.dispose;find.replaceWith(finder.element);const heading=finder.element.querySelector('h2');heading.tabIndex=-1;heading.focus();}catch(error){if(ticket===generation){find.disabled=false;status.textContent=error.message;}}};
    const launchers=element('div',undefined,'relationship-toolbar'),family=element('button','Open family tree','quiet record-tool'),launch=element('button','Explore family and relationships','quiet record-tool');family.type=launch.type='button';launchers.append(family,launch);body.insertBefore(launchers,fieldDetails);
-   const openRelationships=async layout=>{family.disabled=launch.disabled=true;try{const {relationshipPanel}=await import('./relationships.js?v=0.30.0');if(ticket!==generation)return;
+   const openRelationships=async layout=>{family.disabled=launch.disabled=true;try{const {relationshipPanel}=await import('./relationships.js?v=0.31.0');if(ticket!==generation)return;
     const onLayout=value=>{const query=new URLSearchParams(location.hash.split('?')[1]||'');query.set('relationships',value);history.replaceState(null,'',recordURL(worldId,kind,id,'?'+query));};
     const panel=relationshipPanel({...record,label:cultureLabel(record)},worldId,()=>{const query=location.hash.split('?')[1]||'';return query?'?'+query:'';},()=>ticket===generation,{layout,onLayout});disposeRelationships=panel.dispose;onLayout(layout);launchers.replaceWith(panel);panel.querySelector('h2').tabIndex=-1;panel.querySelector('h2').focus();
    }catch(error){if(ticket===generation){family.disabled=launch.disabled=false;status.textContent=error.message;}}};
    launch.onclick=()=>void openRelationships('network');family.onclick=()=>void openRelationships('family');
    if(['family','network'].includes(params.get('relationships')))void openRelationships(params.get('relationships'));
   }
+  if(['sites','historical_figures','entities','artifacts'].includes(kind)){const buildings=structuresPanel(record,worldId,()=>ticket===generation);disposeStructures=buildings.dispose;body.insertBefore(buildings.element,fieldDetails.isConnected?fieldDetails:section);}
   if(kind==='historical_figures'){const intrigue=intriguePanel(record,worldId,()=>ticket===generation);disposeIntrigue=intrigue.dispose;body.insertBefore(intrigue.element,fieldDetails.isConnected?fieldDetails:section);}
   if(kind==='identities'){const persona=await explore(worldId,{type:'intrigue-detail',kind,recordId:id});if(ticket!==generation)return;if(persona)body.insertBefore(intrigueDossier(persona,worldId,new URLSearchParams('inCategory=identities')),fields);}
   if(['historical_figures','entities','sites'].includes(kind)){const faith=religionPanel(record,worldId,()=>ticket===generation);disposeReligion=faith.dispose;body.insertBefore(faith.element,fieldDetails.isConnected?fieldDetails:section);}

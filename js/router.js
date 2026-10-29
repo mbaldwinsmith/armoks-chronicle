@@ -5,6 +5,7 @@ export function startRouter(onNavigate,beforeNavigate=()=>true) {
     const raw = location.hash === '#main' ? 'library' : location.hash.replace(/^#\/?/, '') || 'library';
     const [route, query = ''] = raw.split('?');
     const chronicleMatch=route.match(/^chronicle\/([^/]+)$/);
+    const structuresMatch=route.match(/^world\/([^/]+)\/structures$/);
     const intrigueMatch=route.match(/^world\/([^/]+)\/intrigue$/);
     const religionMatch=route.match(/^world\/([^/]+)\/religion$/);
     const bestiaryMatch=route.match(/^world\/([^/]+)\/bestiary$/);
@@ -17,7 +18,7 @@ export function startRouter(onNavigate,beforeNavigate=()=>true) {
     const atlasMatch=route.match(/^world\/([^/]+)\/atlas$/);
     const recordMatch = route.match(/^world\/([^/]+)\/record\/([^/]+)\/([^/]+)$/);
     const worldMatch = route.match(/^world\/([^/]+)$/);
-    const view = chronicleMatch ? 'chronicle' : intrigueMatch ? 'intrigue' : religionMatch ? 'religion' : bestiaryMatch ? 'bestiary' : artifactsMatch ? 'artifacts' : grudgeMatch ? 'grudges' : deskMatch ? 'desk' : factionMatch ? 'faction' : warfareMatch ? 'warfare' : bookMatch ? 'book' : atlasMatch ? 'atlas' : recordMatch ? 'record' : worldMatch ? 'world' : routes.has(route) ? route : 'not-found';
+    const view = chronicleMatch ? 'chronicle' : structuresMatch ? 'structures' : intrigueMatch ? 'intrigue' : religionMatch ? 'religion' : bestiaryMatch ? 'bestiary' : artifactsMatch ? 'artifacts' : grudgeMatch ? 'grudges' : deskMatch ? 'desk' : factionMatch ? 'faction' : warfareMatch ? 'warfare' : bookMatch ? 'book' : atlasMatch ? 'atlas' : recordMatch ? 'record' : worldMatch ? 'world' : routes.has(route) ? route : 'not-found';
     document.querySelectorAll('main > section').forEach(section => {
       section.hidden = section.id !== `view-${view}`;
     });
@@ -28,7 +29,7 @@ export function startRouter(onNavigate,beforeNavigate=()=>true) {
     const title = document.querySelector(`#view-${view} h1`).textContent;
     document.title = `${title} · Armok’s Chronicle`;
     if (focus) document.querySelector('#main').focus();
-    let parts;try{parts=(chronicleMatch||intrigueMatch||religionMatch||bestiaryMatch||artifactsMatch||grudgeMatch||deskMatch||factionMatch||warfareMatch||bookMatch||atlasMatch||recordMatch||worldMatch)?.slice(1).map(decodeURIComponent)||[];}catch{parts=[];}
+    let parts;try{parts=(chronicleMatch||structuresMatch||intrigueMatch||religionMatch||bestiaryMatch||artifactsMatch||grudgeMatch||deskMatch||factionMatch||warfareMatch||bookMatch||atlasMatch||recordMatch||worldMatch)?.slice(1).map(decodeURIComponent)||[];}catch{parts=[];}
     onNavigate(view, parts, new URLSearchParams(query));
   }
   window.addEventListener('hashchange', () => navigate(true));

@@ -1,8 +1,8 @@
-import {explore} from '../data/explorer-client.js?v=0.30.0';
-import {openDatabase,getWorld} from '../data/database.js?v=0.30.0';
-import {recordURL} from '../data/exploration.js?v=0.30.0';
-import {artifactFilters,artifactParams,artifactFlavour} from '../data/artifacts.js?v=0.30.0';
-import {titleCase,readableValue} from '../data/language.js?v=0.30.0';
+import {explore} from '../data/explorer-client.js?v=0.31.0';
+import {openDatabase,getWorld} from '../data/database.js?v=0.31.0';
+import {recordURL} from '../data/exploration.js?v=0.31.0';
+import {artifactFilters,artifactParams,artifactFlavour} from '../data/artifacts.js?v=0.31.0';
+import {titleCase,readableValue} from '../data/language.js?v=0.31.0';
 const el=(tag,text,cls)=>{const n=document.createElement(tag);if(text!==undefined)n.textContent=text;if(cls)n.className=cls;return n;};
 const secretLabels={present:'Recorded Secret Source',possible:'Possible Secret Connection',unknown:'Secret Status Unknown'};
 const linked=(r,world,q='')=>{if(!r||r.missing)return el('span',r?.label||'Not Recorded','muted');const a=el('a',r.label);a.href=recordURL(world,r.kind,r.id,q);return a;};

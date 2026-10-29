@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<df_world><entities><entity><id>10</id><type>guild</type></entity><entity><id>11</id><type>religion</type><worship_id>4</worship_id></entity></entities><sites>
+<site><id>20</id><structures>
+<structure><id>0</id><type>library</type><name>the copper index</name><name2>the index of copper</name2><inhabitant>1</inhabitant><copied_artifact_id>50</copied_artifact_id><entity_id>10</entity_id></structure>
+<structure><id>1</id><type>inn_tavern</type><name>the borrowed lantern</name><inhabitant>1</inhabitant><inhabitant>2</inhabitant></structure>
+<structure><id>2</id><type>keep</type><name>the old copper keep</name></structure>
+<structure><id>3</id><type>temple</type><name>the quiet hearth</name><deity>4</deity></structure>
+<structure><id>4</id><type>guildhall</type><name>the measured hammer</name><entity_id>10</entity_id></structure>
+<structure><id>5</id><type>tomb</type><name>the unclaimed silence</name></structure>
+<structure><id>6</id><type>keep</type><name>the new copper keep</name></structure>
+</structures><site_properties><site_property><id>9</id><type>house</type><structure_id>2</structure_id><owner_hfid>5</owner_hfid></site_property></site_properties></site>
+<site><id>21</id><structures><structure><id>0</id><type>library</type><name>the rainward reading room</name><inhabitant>999</inhabitant></structure></structures></site>
+</sites></df_world>

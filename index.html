@@ -7,8 +7,8 @@
   <meta name="description" content="Armok’s Chronicle: a local-first explorer for the histories of Dwarf Fortress worlds.">
   <title>Armok’s Chronicle</title>
   <link rel="icon" href="./assets/mark.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="./css/app.css?v=0.30.0">
-  <script type="module" src="./js/app.js?v=0.30.0"></script>
+  <link rel="stylesheet" href="./css/app.css?v=0.31.0">
+  <script type="module" src="./js/app.js?v=0.31.0"></script>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -106,6 +106,10 @@
       <form id="war-filters" class="search-controls"><div><label for="war-search">Find a conflict</label><input id="war-search" type="search" maxlength="200" placeholder="Name or #ID"></div><div><label for="war-type">Conflict collection type</label><select id="war-type"></select></div><div><label for="war-from">From year</label><input id="war-from" type="number" step="1"></div><div><label for="war-to">To year</label><input id="war-to" type="number" step="1"></div><button type="submit" class="quiet">Apply years</button><button type="button" id="war-clear" class="quiet">Clear filters</button></form>
       <p class="muted">Year filters intersect recorded start/end dates. With only one recorded date, that date is used; an unknown end is not assumed to mean an ongoing war. Undated collections are excluded only when years are filtered.</p>
       <h2>Recorded Conflicts</h2><p id="war-status" role="status"></p><div id="war-directory" class="conflict-grid"></div><div id="war-pages"></div>
+    </section>
+    <section id="view-structures" hidden aria-labelledby="structure-title">
+      <a id="structure-back" class="text-link">← Chronicler’s Desk</a><p class="eyebrow">DOORS, DWELLINGS AND DEEDS</p><h1 id="structure-title">Structures and Settlement Life</h1><p id="structure-world" class="intro"></p><p>Step inside the recorded places: libraries, taverns, keeps, guildhalls, temples and more. Meet their named inhabitants and follow the events that shaped them.</p><p class="structure-aside">Every settlement has a story. Some keep it in a library; others discuss it at considerable volume in the tavern.</p>
+      <form id="structure-filters" class="timeline-filters"><div><label for="structure-search">Building, Settlement, Name or #ID</label><input id="structure-search" type="search" maxlength="200" placeholder="Find a place within the place…"></div><div><label for="structure-type">Structure Type</label><select id="structure-type"></select></div><div><label for="structure-state">Source Context</label><select id="structure-state"><option value="any">All Examined Structures</option><option value="snapshot">With Export-Time Snapshot</option><option value="history">History Without Snapshot</option><option value="destruction">With Recorded Destruction</option><option value="disputed">With Source Disagreement</option></select></div><div><label for="structure-category">Recorded Associations</label><select id="structure-category"><option value="any">Any Recorded Context</option><option value="inhabitants">Named Inhabitants</option><option value="owners">Property Owners Named</option><option value="dedications">Direct Deity Dedication</option><option value="organisations">Named Organisations</option></select></div><button class="quiet">Explore the Register</button><button id="structure-reset" type="button" class="quiet">Clear Structure Filters</button></form><p id="structure-status" role="status"></p><div id="structure-dossier"></div><div id="structure-cards" class="structure-grid"></div><div id="structure-pages" class="record-pagination"></div>
     </section>
     <section id="view-intrigue" hidden aria-labelledby="intrigue-title">
       <a id="intrigue-back" class="text-link">← Chronicler’s Desk</a><p class="eyebrow">MASKS, METHODS AND MISDIRECTION</p><h1 id="intrigue-title">The Intrigue Explorer</h1><p id="intrigue-world" class="intro"></p><p>Open the ledger of recorded plots, assumed personae and actions taken behind the scenes. Follow each named role back to its source.</p><p class="intrigue-aside">The chronicler has checked beneath the desk. No conspirators were found; the paperwork remains suspicious.</p>

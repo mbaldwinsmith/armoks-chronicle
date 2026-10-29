@@ -1,5 +1,6 @@
-import {intrigueTokens} from './intrigue.js?v=0.30.0';
-import {titleCase,readableValue,eventLabel} from './language.js?v=0.30.0';
+import {structureTokens} from './structures.js?v=0.31.0';
+import {intrigueTokens} from './intrigue.js?v=0.31.0';
+import {titleCase,readableValue,eventLabel} from './language.js?v=0.31.0';
 // Deterministic export renderings, not inferred motives or generated fiction.
 export const words=value=>String(value??'').replaceAll('_',' ');
 const aliases={'hist figure died':'hf died','hist figure wounded':'hf wounded','created building':'created structure','change creature type':'changed creature type','hist figure new pet':'hf new pet','war peace accepted':'peace accepted','war peace rejected':'peace rejected'};
@@ -82,7 +83,7 @@ export const formatters={
  'hf gains secret goal':d=>[subject(d),' gained the secret goal “',text(d,'secret_goal'),'”']
 };
 export function narrateEvent(data){
- const type=eventType(data),intrigue=intrigueTokens({kind:'historical_events',id:'0',data}),formatter=intrigue?()=>intrigue:formatters[type];
+ const type=eventType(data),intrigue=intrigueTokens({kind:'historical_events',id:'0',data})||structureTokens({kind:'historical_events',id:'0',data}),formatter=intrigue?()=>intrigue:formatters[type];
  const tokens=formatter?formatter(data):['Recorded event: ',eventLabel(type),...where(data),'. No prose template is available; inspect the source fields and linked roles'];
  if(typeof tokens[0]==='string')tokens[0]=tokens[0].replace(/^\p{Ll}/u,letter=>letter.toLocaleUpperCase('en'));
  return {type,fallback:!formatter,tokens:[...tokens,'.']};

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<df_world><name>The Fictional Register of Coppergate</name><historical_figures>
+<historical_figure><id>1</id><name>urist pagekeeper</name></historical_figure><historical_figure><id>2</id><name>domas deedholder</name></historical_figure><historical_figure><id>3</id><name>mistem wallwright</name></historical_figure><historical_figure><id>4</id><name>eshra the patient flame</name><deity/><sphere>CRAFTS</sphere></historical_figure><historical_figure><id>5</id><name>kogan annexmaker</name></historical_figure><historical_figure><id>6</id><name>nil passingguest</name></historical_figure></historical_figures>
+<entities><entity><id>10</id><name>the copper guild</name></entity><entity><id>11</id><name>the quiet vigil</name></entity></entities>
+<artifacts><artifact><id>50</id><name>the ledger of patient margins</name></artifact></artifacts><sites>
+<site><id>20</id><name>coppergate</name><site_properties><site_property><id>7</id><type>house</type><structure_id>0</structure_id><owner_hfid>2</owner_hfid></site_property><site_property><id>8</id><type>house</type><owner_hfid>1</owner_hfid></site_property><site_property><id>9</id><type>house</type><structure_id>2</structure_id><owner_hfid>-1</owner_hfid></site_property></site_properties></site>
+<site><id>21</id><name>rainward</name><site_properties><site_property><id>7</id><type>house</type><structure_id>0</structure_id><owner_hfid>5</owner_hfid></site_property></site_properties></site>
+</sites><historical_events>
+<historical_event><id>1</id><type>created structure</type><year>2</year><site_id>20</site_id><structure_id>0</structure_id><builder_hfid>3</builder_hfid></historical_event>
+<historical_event><id>2</id><type>razed structure</type><year>5</year><site_id>20</site_id><structure_id>0</structure_id><civ_id>10</civ_id></historical_event>
+<historical_event><id>3</id><type>created structure</type><year>9</year><site_id>20</site_id><structure_id>0</structure_id><site_civ_id>10</site_civ_id><rebuilt/></historical_event>
+<historical_event><id>4</id><type>replaced structure</type><year>10</year><site_id>20</site_id><old_ab_id>2</old_ab_id><new_ab_id>6</new_ab_id><site_civ_id>10</site_civ_id></historical_event>
+<historical_event><id>5</id><type>building profile acquired</type><year>11</year><site_id>20</site_id><building_profile_id>7</building_profile_id><acquirer_hfid>5</acquirer_hfid><last_owner_hfid>6</last_owner_hfid><inherited/></historical_event>
+<historical_event><id>6</id><type>modified building</type><year>12</year><site_id>20</site_id><structure_id>0</structure_id><modifier_hfid>5</modifier_hfid><modification>reading annex</modification></historical_event>
+<historical_event><id>7</id><type>hf prayed inside structure</type><year>13</year><site_id>20</site_id><structure_id>3</structure_id><histfig>6</histfig></historical_event>
+<historical_event><id>8</id><type>hf disturbed structure</type><year>14</year><site_id>20</site_id><structure_id>5</structure_id><histfig>1</histfig></historical_event>
+<historical_event><id>9</id><type>hf razed structure</type><year>-1</year><site_id>20</site_id><structure_id>999</structure_id><histfig>6</histfig></historical_event>
+</historical_events></df_world>

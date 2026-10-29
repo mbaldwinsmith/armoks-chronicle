@@ -1,8 +1,8 @@
-import {explore} from '../data/explorer-client.js?v=0.30.0';
-import {openDatabase,getWorld} from '../data/database.js?v=0.30.0';
-import {recordURL} from '../data/exploration.js?v=0.30.0';
-import {titleCase} from '../data/language.js?v=0.30.0';
-import {grudgeCategories,grudgeFilters} from '../data/grudges.js?v=0.30.0';
+import {explore} from '../data/explorer-client.js?v=0.31.0';
+import {openDatabase,getWorld} from '../data/database.js?v=0.31.0';
+import {recordURL} from '../data/exploration.js?v=0.31.0';
+import {titleCase} from '../data/language.js?v=0.31.0';
+import {grudgeCategories,grudgeFilters} from '../data/grudges.js?v=0.31.0';
 const el=(tag,text,cls)=>{const n=document.createElement(tag);if(text!==undefined)n.textContent=text;if(cls)n.className=cls;return n;};
 const link=(label,href,cls)=>{const a=el('a',label,cls);a.href=href;return a;};
 const node=(ref,world,query='')=>ref.missing?el('span',ref.label,'muted'):link(ref.label,recordURL(world,ref.kind,ref.id,query));

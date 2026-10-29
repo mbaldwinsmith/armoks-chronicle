@@ -180,3 +180,7 @@ Open **Deities and Religions** from the Chronicler’s Desk to browse recorded g
 ### The Intrigue Explorer
 
 Open **Intrigue Explorer** from the Chronicler’s Desk to browse source-recorded plots, corruption/justice events and identity records. Follow explicitly named participants and local plot references, inspect current/used personae, and filter dated events by recorded state. Figure and identity pages have specialist panels. Plot outcomes, guilt, executions and identity users are never inferred from unrelated fields. See [evidence rules and limits](docs/intrigue-explorer.md).
+
+### Structures and Settlement Life
+
+Open **Structures and Settlement Life** from the Chronicler’s Desk to browse exported libraries, taverns, keeps, guildhalls, temples and other buildings. Follow separate inhabitants, property owners, organisations, dedications and building histories. Settlement, figure, organisation and artifact records link their recorded building associations. Missing snapshots and destruction records never imply a building’s present condition. See [source rules and limits](docs/structures-and-settlement-life.md).

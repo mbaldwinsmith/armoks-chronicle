@@ -1,5 +1,5 @@
-import {recordURL} from '../data/exploration.js?v=0.30.0';
-import {relationshipWording} from '../data/relationships.js?v=0.30.0';
+import {recordURL} from '../data/exploration.js?v=0.31.0';
+import {relationshipWording} from '../data/relationships.js?v=0.31.0';
 const svgEl=(tag,attrs={},text)=>{const node=document.createElementNS('http://www.w3.org/2000/svg',tag);for(const [key,value] of Object.entries(attrs))node.setAttribute(key,value);if(text!==undefined)node.textContent=text;return node;};
 export function drawFamilyTree(svg,layout,root,worldId,query){
  const pairs=new Map();for(const link of layout.links){const key=[link.a,link.b].sort().join('|');pairs.set(key,(pairs.get(key)||0)+1);}const lanes=Math.max(1,...pairs.values());
