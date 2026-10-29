@@ -42,4 +42,3 @@ The three `reports-00042-03-07-*` files are independently authored fictional cen
 
 `atlas-legends.xml` and `atlas-world_map.csv` are independently authored fixtures derived from this repository’s fictional warfare example. They add explicit valid/invalid region and construction footprints, negative and unknown dates, founding/destruction/government events, recorded figure races and two construction endpoints. They contain no supplied-world data.
 
-`atlas-world_sites_and_pops.txt` is an authored fictional population report matching the atlas fixture: 100 at Copperhall and 70 at Ash Ford, including ten dogs. It is used only for demographic map checks.

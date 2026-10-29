@@ -359,7 +359,6 @@ Implemented slice: all-family name/ID search, category filter, name/year sorting
 - [x] Add through-year/single-year controls for explicit historical events, including recorded settlement changes; keep snapshots separate and avoid inferred continuous ownership.
 - [x] Label implemented terrain/settlement affiliations as export-time snapshots; year filters affect recorded events, not reconstructed terrain or ownership.
 - [ ] Add population snapshot dates and historical-reconstruction limitations when population layers are implemented.
-- [x] Add distinct-event-per-tile heatmaps with visible intensity range, unknown-location totals, source lists and bounded partial-coverage disclosure.
 - [x] Add battle markers and paged unlocated lists, retain selected-war scope, and load source-qualified participants/outcomes/named deaths/squad reports on demand.
 - [x] Scope the existing conflict-event atlas by explicit nested collection membership, retain selected-conflict URLs, and link the atlas back to its conflict history; collection-level marker/pop-up enrichment remains above.
 - [x] Link conflict event markers/lists to event records and conflict collections to scoped atlases with return-to-history links.
@@ -399,7 +398,7 @@ Canvas Raised Relief remains an optional projection. As of the map-first release
 - [x] Label terrain/footprints/current affiliations as snapshots; year controls affect dated events and battle spans.
 - [ ] Disable relief with a useful explanation when elevation data or graphics support is unavailable; retain the accessible location list and flat atlas.
 - [x] Explain graphics setup/context-loss failures and return to the flat atlas with historical filters and selection retained.
-- [x] Verify unavailable-WebGL fallback, year/heat state, source-return links, 390px reflow, battle dossiers and archive isolation in the live fictional-fixture runner; see `docs/maps-statistics-webgl.md`. Actual GPU/context-loss execution remains open above.
+- [x] Verify unavailable-WebGL fallback, year state, source-return links, 390px reflow, battle dossiers and archive isolation in the live fictional-fixture runner; see `docs/maps-statistics-webgl.md`. Actual GPU/context-loss execution remains open above.
 - [x] Bound Canvas relief to 257 × 257 tiles, cache scene rendering, redraw on interaction and release canvases/listeners when leaving the atlas.
 - [x] Bound native WebGL terrain, overlay/marker and framebuffer work; suspend hidden-tab paints and dispose GPU resources on exit.
 - [ ] Qualify adaptive detail beyond the initial 129-square WebGL budget on reference hardware.
@@ -680,15 +679,10 @@ These ideas must not delay the feature-complete static app above.
 - A build pipeline, framework migration, or server solely for convenience.
 
 
-### Map-first layout and demographic heatmaps
+### Map-first layout
 
-- [x] Put the map and heat controls above statistics; keep secondary map controls and counting rules in disclosures.
+- [x] Put the map above statistics; keep secondary map controls in disclosures.
 - [x] Default supported maps to WebGL with an explained flat-map fallback; disable river overlays by default.
-- [x] Share total site population, report species/group, distinct named death victim, attack, wound and recorded-event heatmaps across all three renderers.
-- [x] Reuse population report ID/name/prefix/encoding verification, one-report selection and existing work limits; omit unknown/ambiguous counts.
-- [x] Preserve selected heat metric, report, group and visibility in atlas/source-return URLs.
-- [x] Keep population snapshots independent of historical event filters and disclose animal groups, missing counts and casualty exclusions.
-- [x] Complete live map-first/population/death heatmap browser validation, source return, fallback, archive isolation and 390px reflow; see `docs/map-first-heatmaps.md`. Actual GPU/device qualification remains open.
-
-- [x] Fix WebGL site-marker occlusion of heat tiles using hollow markers while heat is drawn, retaining solid picking and heat-off markers.
-- [x] Reproduce the hidden heat and verify visible/on-off pixels at four camera rotations with the shipped shaders and mesh in native Mesa/EGL; add a browser WebGL pixel regression for capable browsers.
+- [x] Remove all heatmap controls, computations, demographic-map loading, styling and renderer-specific handling at the user’s request. Heatmaps are no longer in scope.
+- [x] Remove heatmap-only fixtures, tests and verification scripts; retain historical statistics, source reports, footprint overlays and battle dossiers.
+- [ ] Verify the simplified live atlas, source-return routes and fallback after removal.
