@@ -689,4 +689,4 @@ These ideas must not delay the feature-complete static app above.
 
 - [x] Default map factions, colours and visibility to recorded civilisation/entity groups, retaining local site ownership as an explicit alternate.
 - [x] Make faction/entity map shortcuts prefer civilisation settlements and cover multiple sites with different local owners in the authored fixture.
-- [ ] Verify civilisation grouping, shared visibility and source-return state in the live browser.
+- [x] Verify default civilisation grouping, shared visibility, explicit local ownership and source-return state in the live browser; 26 focused checks pass.
