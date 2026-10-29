@@ -521,7 +521,8 @@ Implemented slice: directed source-record networks with family/social/rivalry/af
 - [x] Add a project-relative manifest, standalone display and 192/512-pixel icons, plus progressive installation UI.
 - [x] Add a project-scoped worker and committed integrity-checked inventory for the shell, lazy views, workers, vendor parser, icons and tiny authored example.
 - [x] Keep archives, maps, reports and personal research in IndexedDB v3; cache only explicit shipped assets.
-- [ ] Confirm offline reload, navigation, search, maps, and saved research after initial installation/import.
+- [x] Verify cache-served reloads/navigation, search and map workers, population reports and saved research/chronicles, with network-rejection runtime tests; see `docs/offline-and-updates.md`.
+- [ ] Qualify hardware airplane-mode use, browser eviction and offline launch on reference desktop/iOS/Android devices.
 - [x] Version the offline inventory and clean only this project’s cache namespace; retain a previous complete release for older module requests.
 - [x] Provide explicit update/reload UI with import, draft and pending-write guards, sole-window activation checks and no unsolicited reload.
 - [x] Provide verified cache repair, a missing-shell recovery page and useful missing-module errors; explain that a never-prepared first visit needs a connection.
@@ -589,7 +590,7 @@ Tests may run locally using optional developer tooling. They must not compile pr
 - [x] Verify every runtime asset is present in the repository and no bare package specifiers or build-only imports remain.
 - [x] Test an HTTP server mounted at the repository subpath, not only a site served at origin root.
 - [x] Test the actual Pages project-subpath deployment, hash-route reloads and module workers.
-- [ ] Test future manifest/service-worker scope, offline mode and update lifecycle.
+- [x] Test project manifest/cache scope, simulated network loss, repair, retained versioned modules and live guarded waiting-worker activation/reload while preserving saved research.
 - [x] Test relief projection orientation, bounded site coordinates and ocean-surface classification with authored fixtures.
 - [ ] Automate visual terrain picking, vertical-exaggeration controls and overlay alignment across flat/relief modes.
 - [x] Record live checks of flat/relief switching, URL state and shared biome/site/conflict overlays.
@@ -643,7 +644,7 @@ Tests may run locally using optional developer tooling. They must not compile pr
 - [ ] Verify matching charts once shared timeline charts are implemented.
 - [ ] The visitor chooses a dated snapshot from a world bookshelf card without merging its history or notes into another snapshot.
 - [x] The visitor saves and exports a chronicle, restores notes from backup, and resumes after reload.
-- [ ] The imported world works offline after setup; app updates preserve user data.
+- [x] Verify the imported fictional archive through cache-served views and a real safe-update/reload, retaining saved data; physical-device offline qualification remains above.
 - [x] A second world can be imported and removed without contaminating the first world.
 - [ ] Core flows remain usable with a keyboard, on a narrow screen, and with optional exports absent.
 - [ ] The visitor enables Raised Relief, adjusts terrain exaggeration, selects a settlement and war overlay, then returns to the flat atlas with filters and selection intact.
