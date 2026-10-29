@@ -685,4 +685,4 @@ These ideas must not delay the feature-complete static app above.
 - [x] Default supported maps to WebGL with an explained flat-map fallback; disable river overlays by default.
 - [x] Remove all heatmap controls, computations, demographic-map loading, styling and renderer-specific handling at the user’s request. Heatmaps are no longer in scope.
 - [x] Remove heatmap-only fixtures, tests and verification scripts; retain historical statistics, source reports, footprint overlays and battle dossiers.
-- [ ] Verify the simplified live atlas, source-return routes and fallback after removal.
+- [x] Verify the simplified live atlas, absent heat controls, discarded legacy URL settings, source-return routes, year filters, comparisons, battle details, 390px reflow and fallback after removal; 61 focused Node checks pass.
